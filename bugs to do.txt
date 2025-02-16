@@ -1,0 +1,31 @@
+Side menu gamepad error DONE
+Coursebot menu gamepad error DONE
+Save course menu gamepad error DONE
+when u load more than 1 level they bugs (I DON'T UNDERSTAND WHAT I WROTE XD)
+Saving and loading DONE
+Spike collider DONE
+Twomp doesn't quit solid when chars dies DONE
+Twomp kills character when has star powerup DONE
+hide touch button when gamepad is connected DONE
+shells doesn't collect coins when moving DONE
+invisible blocks in underground theme (FIXED I GUESS)
+mushroom stop moving when collides with a invisible luckyblock (FIXED I GUESS)
+twomp impact sound plays when collides with clouds or donuts (IT DOESN'T HAPPENS)
+when a enemy is in 1x1 and u try to kill him u will die and fall DONE
+when ur side of a wall and shoot a fireball this will destroy instantly DONE
+Sometimes the shells doesn't collide with semi-solid blocks when moving (FIXED I GUESS)
+floating munchers DONE
+muncher doesn't die when are up of a block and this is hitted (THIS HAS TO BE THIS WAY)
+fireball movement (DONE)
+powerup animation issues DONE
+mario gets powerup (small) down of a insideable and bugs (DONE)
+mario down of a insideable (with mush or fireflower) and jump, bugs and die (DONE)
+10, 30, or 50 coin converts into a brick when p state is on DONE
+fix semisolids (when in a donut falling and cloud at the same time, the donut makes you fall) SEMI-DONE
+fix inside blocks dead (NOT FIXED YET)
+enemies has to go to the right when exiting from a luckyblock or a brick DONE
+mario friction adjustment
+camera movement adjustment (NOPE)
+
+enemies has to change move direction when collides DONE
+character jump higher when jumping in shells, enemies or p switchs DONE

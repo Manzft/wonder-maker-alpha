@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/erase sounds.mp3-486bb404af31b4f0103a87cd1735a3eb.mp3str"
+
+[deps]
+
+source_file="res://sounds/erase sounds.mp3"
+dest_files=[ "res://.import/erase sounds.mp3-486bb404af31b4f0103a87cd1735a3eb.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

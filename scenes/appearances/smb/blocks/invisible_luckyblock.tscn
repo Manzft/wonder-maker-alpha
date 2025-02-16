@@ -1,0 +1,126 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://scripts/appeareances/smb/invisible_luckyblock.gd" type="Script" id=1]
+[ext_resource path="res://sprites/appeareances/smb/blocks/ground/invisible_luckyblock_ground.png" type="Texture" id=2]
+[ext_resource path="res://sprites/ui/editor/objectSymbol.png" type="Texture" id=3]
+[ext_resource path="res://sounds/appeareances/smb/powerup_appears.wav" type="AudioStream" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 26, 26 )
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:z_index")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpriteGround:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3.25, 3.25 ) ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "hit"
+length = 0.05
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:z_index")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 2, 1 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "start"
+length = 0.1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpriteGround:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2, 2 ), Vector2( 3.25, 3.25 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 26, 26 )
+
+[node name="InvisibleLuckyblock" type="StaticBody2D" groups=["Insideable", "InvisibleLuckyblock", "Luckyblock", "Obj", "Solid"]]
+z_index = 1
+collision_layer = 11
+collision_mask = 11
+script = ExtResource( 1 )
+
+[node name="SpriteGround" type="Sprite" parent="."]
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 2 )
+
+[node name="Shadow" type="Sprite" parent="SpriteGround"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 2 )
+
+[node name="HasObjectInside" type="Sprite" parent="."]
+visible = false
+position = Vector2( 13, 13 )
+texture = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 2 )
+anims/hit = SubResource( 4 )
+anims/start = SubResource( 3 )
+
+[node name="CoinInsideTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="SubCollider" type="Area2D" parent="." groups=["Insideable", "Luckyblock", "Solid"]]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SubCollider"]
+shape = SubResource( 5 )
+
+[node name="PowerUpAppears" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+position = Vector2( -9.53674e-07, 0 )
+scale = Vector2( 2.6, 2.6 )
+process_parent = true
+physics_process_parent = true
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="CoinInsideTimer" to="." method="_on_CoinInsideTimer_timeout"]

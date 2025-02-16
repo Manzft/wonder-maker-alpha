@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/snow.mp3-0d8db2e911933e786699173d5a50b72a.mp3str"
+
+[deps]
+
+source_file="res://music/appeareances/smb/snow.mp3"
+dest_files=[ "res://.import/snow.mp3-0d8db2e911933e786699173d5a50b72a.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/editor_snow.mp3-36a46d4cdfcc0a26024d296e6b369783.mp3str"
+
+[deps]
+
+source_file="res://music/editor/smb/editor_snow.mp3"
+dest_files=[ "res://.import/editor_snow.mp3-36a46d4cdfcc0a26024d296e6b369783.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

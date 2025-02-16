@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/editor_desert.mp3-76970c7ac80cae92c1c956ab17518ffb.mp3str"
+
+[deps]
+
+source_file="res://music/editor/smb3/editor_desert.mp3"
+dest_files=[ "res://.import/editor_desert.mp3-76970c7ac80cae92c1c956ab17518ffb.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

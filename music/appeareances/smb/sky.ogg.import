@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/sky.ogg-0ac02fdbe9b7a627c269fb5c14e96210.oggstr"
+
+[deps]
+
+source_file="res://music/appeareances/smb/sky.ogg"
+dest_files=[ "res://.import/sky.ogg-0ac02fdbe9b7a627c269fb5c14e96210.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

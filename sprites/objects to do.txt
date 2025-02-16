@@ -1,0 +1,33 @@
+Brick Infinite Coins (3 Seconds) DONE
+Lucky Block (3 Seconds) DONE
+Hidden Lucky Block DONE
+Cloud Block DONE
+Donut Block DONE
+Spike DONE
+
+10, 30, 50 Coins DONE
+1UP DONE
+Star Powerup DONE
+Mushroom Powerup DONE
+FireFlower Powerup DONE
+
+Goomba DONE
+Koopa Troopa DONE
+Spiny DONE
+Piranha Plant DONE
+Muncher (Black Invincible Piranha Plant) DONE
+Twomp DONE
+
+Burner (3 seconds and 3 seconds) DONE
+P Switch (12 seconds) DONE
+P Block DONE
+ON/OFF Switch Block DONE
+ON (Red) Block
+OFF (Blue) Block
+
+APLAZADO // Dry Bones (4 Seconds)
+
+APLAZADO // Checkpoint
+APLAZADO // Directional Arrow
+APLAZADO // Grinder
+APLAZADO // Jumping Cloud

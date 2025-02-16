@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/savebot sounds.mp3-94074949a90a846043a6c924c02bc040.mp3str"
+
+[deps]
+
+source_file="res://Guides/savebot sounds.mp3"
+dest_files=[ "res://.import/savebot sounds.mp3-94074949a90a846043a6c924c02bc040.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

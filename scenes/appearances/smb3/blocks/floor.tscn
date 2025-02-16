@@ -1,0 +1,1578 @@
+[gd_scene load_steps=120 format=2]
+
+[ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor/down_alone.png" type="Texture" id=1]
+[ext_resource path="res://scripts/appeareances/smb3/floor.gd" type="Script" id=2]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/sky/floor/upright.png" type="Texture" id=3]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor/upright.png" type="Texture" id=4]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/upleft.png" type="Texture" id=5]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/ground/grass_tall.png" type="Texture" id=6]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/sky/grass_short.png" type="Texture" id=7]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/sky/grass_wide.png" type="Texture" id=8]
+[ext_resource path="res://sounds/ui/spawnDecoration.wav" type="AudioStream" id=9]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/underground/grass_wide.png" type="Texture" id=10]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/underground/grass_tall.png" type="Texture" id=11]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/sky/grass_tall.png" type="Texture" id=12]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/forest/grass_wide.png" type="Texture" id=13]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/forest/grass_short.png" type="Texture" id=14]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/forest/grass_tall.png" type="Texture" id=15]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/underground/grass_short.png" type="Texture" id=16]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/desert/floor/center.png" type="Texture" id=17]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/down.png" type="Texture" id=18]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/desert/floor/upright.png" type="Texture" id=19]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/snow/grass_wide.png" type="Texture" id=20]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/desert/grass_tall.png" type="Texture" id=21]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/snow/grass_tall.png" type="Texture" id=22]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/desert/grass_short.png" type="Texture" id=23]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/desert/grass_wide.png" type="Texture" id=24]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/snow/grass_short.png" type="Texture" id=25]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/center.png" type="Texture" id=26]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ground/floor/floor_ground.png" type="Texture" id=27]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ground/floor/center.png" type="Texture" id=28]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ground/floor/upright.png" type="Texture" id=29]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ground/floor/upleft.png" type="Texture" id=30]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ground/floor/left.png" type="Texture" id=31]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ground/floor/right.png" type="Texture" id=32]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ground/floor/down.png" type="Texture" id=33]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ground/floor/downright.png" type="Texture" id=34]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ground/floor/up.png" type="Texture" id=35]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ground/floor/downleft.png" type="Texture" id=36]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/ground/grass_wide.png" type="Texture" id=37]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/ground/grass_short.png" type="Texture" id=38]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ground/floor/alone_horizontal.png" type="Texture" id=39]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ground/floor/alone_vertical.png" type="Texture" id=40]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ground/floor/up_alone.png" type="Texture" id=41]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ground/floor/left_alone.png" type="Texture" id=42]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ground/floor/down_alone.png" type="Texture" id=43]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ground/floor/right_alone.png" type="Texture" id=44]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/forest/floor/down.png" type="Texture" id=45]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/forest/floor/downleft.png" type="Texture" id=46]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/forest/floor/center_alone.png" type="Texture" id=47]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/forest/floor/up.png" type="Texture" id=48]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/forest/floor/upleft.png" type="Texture" id=49]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/forest/floor/upright.png" type="Texture" id=50]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/forest/floor/left.png" type="Texture" id=51]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/forest/floor/downright.png" type="Texture" id=52]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/forest/floor/right.png" type="Texture" id=53]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/forest/floor/left_alone.png" type="Texture" id=54]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/forest/floor/center.png" type="Texture" id=55]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/forest/floor/down_alone.png" type="Texture" id=56]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/forest/floor/up_alone.png" type="Texture" id=57]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/forest/floor/alone_horizontal.png" type="Texture" id=58]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/forest/floor/alone_vertical.png" type="Texture" id=59]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/forest/floor/right_alone.png" type="Texture" id=60]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor/left_alone.png" type="Texture" id=61]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor/right.png" type="Texture" id=62]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor/right_alone.png" type="Texture" id=63]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor/center.png" type="Texture" id=64]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor/upleft.png" type="Texture" id=65]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor/center_alone.png" type="Texture" id=66]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor/up.png" type="Texture" id=67]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor/left.png" type="Texture" id=68]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor/down.png" type="Texture" id=69]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor/downleft.png" type="Texture" id=70]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor/downright.png" type="Texture" id=71]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor/up_alone.png" type="Texture" id=72]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor/alone_horizontal.png" type="Texture" id=73]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor/alone_vertical.png" type="Texture" id=74]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/desert/floor/left.png" type="Texture" id=75]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/desert/floor/downleft.png" type="Texture" id=76]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/desert/floor/right.png" type="Texture" id=77]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/desert/floor/downright.png" type="Texture" id=78]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/desert/floor/left_alone.png" type="Texture" id=79]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/desert/floor/right_alone.png" type="Texture" id=80]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/desert/floor/alone_vertical.png" type="Texture" id=81]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/desert/floor/up_alone.png" type="Texture" id=82]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/desert/floor/down.png" type="Texture" id=83]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/desert/floor/alone_horizontal.png" type="Texture" id=84]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/desert/floor/upleft.png" type="Texture" id=85]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/desert/floor/center_alone.png" type="Texture" id=86]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/desert/floor/down_alone.png" type="Texture" id=87]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/desert/floor/up.png" type="Texture" id=88]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/sky/floor/alone_vertical.png" type="Texture" id=89]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/sky/floor/down.png" type="Texture" id=90]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/sky/floor/downleft.png" type="Texture" id=91]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/sky/floor/left.png" type="Texture" id=92]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/sky/floor/right.png" type="Texture" id=93]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/sky/floor/alone_horizontal.png" type="Texture" id=94]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/sky/floor/downright.png" type="Texture" id=95]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/sky/floor/upleft.png" type="Texture" id=96]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/sky/floor/left_alone.png" type="Texture" id=97]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/sky/floor/center_alone.png" type="Texture" id=98]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/sky/floor/up.png" type="Texture" id=99]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/sky/floor/up_alone.png" type="Texture" id=100]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/sky/floor/right_alone.png" type="Texture" id=101]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/sky/floor/center.png" type="Texture" id=102]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/sky/floor/down_alone.png" type="Texture" id=103]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/right.png" type="Texture" id=104]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/left_alone.png" type="Texture" id=105]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/down_alone.png" type="Texture" id=106]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/alone_vertical.png" type="Texture" id=107]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/right_alone.png" type="Texture" id=108]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/downleft.png" type="Texture" id=109]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/downright.png" type="Texture" id=110]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/center_alone.png" type="Texture" id=111]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/up_alone.png" type="Texture" id=112]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/alone_horizontal.png" type="Texture" id=113]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/upright.png" type="Texture" id=114]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/up.png" type="Texture" id=115]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/left.png" type="Texture" id=116]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 26, 26 )
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpriteGround:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3.25, 3.25 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpriteUnderground:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3.25, 3.25 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpriteSky:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3.25, 3.25 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "start"
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpriteGround:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2, 2 ), Vector2( 3.25, 3.25 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("SpriteUnderground:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2, 2 ), Vector2( 3.25, 3.25 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpriteSky:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2, 2 ), Vector2( 3.25, 3.25 ) ]
+}
+
+[node name="Floor" type="StaticBody2D" groups=["Floor", "Obj", "Solid"]]
+collision_layer = 11
+collision_mask = 11
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 4 )
+
+[node name="SpriteGround" type="Node2D" parent="."]
+scale = Vector2( 3.25, 3.25 )
+
+[node name="Shadow" type="Sprite" parent="SpriteGround"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 27 )
+
+[node name="ShadowFull" type="Sprite" parent="SpriteGround"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 28 )
+
+[node name="ShadowDownLeft" type="Sprite" parent="SpriteGround"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 36 )
+
+[node name="ShadowDownRight" type="Sprite" parent="SpriteGround"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 34 )
+
+[node name="ShadowUpRight" type="Sprite" parent="SpriteGround"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 29 )
+
+[node name="ShadowRightAlone" type="Sprite" parent="SpriteGround"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 44 )
+
+[node name="ShadowDownAlone" type="Sprite" parent="SpriteGround"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 43 )
+
+[node name="CenterAlone" type="Sprite" parent="SpriteGround"]
+texture = ExtResource( 27 )
+
+[node name="Center" type="Sprite" parent="SpriteGround"]
+visible = false
+texture = ExtResource( 28 )
+
+[node name="Up" type="Sprite" parent="SpriteGround"]
+visible = false
+texture = ExtResource( 35 )
+
+[node name="UpLeft" type="Sprite" parent="SpriteGround"]
+visible = false
+texture = ExtResource( 30 )
+
+[node name="UpRight" type="Sprite" parent="SpriteGround"]
+visible = false
+texture = ExtResource( 29 )
+
+[node name="Left" type="Sprite" parent="SpriteGround"]
+visible = false
+texture = ExtResource( 31 )
+
+[node name="Right" type="Sprite" parent="SpriteGround"]
+visible = false
+texture = ExtResource( 32 )
+
+[node name="Down" type="Sprite" parent="SpriteGround"]
+visible = false
+texture = ExtResource( 33 )
+
+[node name="DownLeft" type="Sprite" parent="SpriteGround"]
+visible = false
+texture = ExtResource( 36 )
+
+[node name="DownRight" type="Sprite" parent="SpriteGround"]
+visible = false
+texture = ExtResource( 34 )
+
+[node name="LeftAlone" type="Sprite" parent="SpriteGround"]
+visible = false
+texture = ExtResource( 42 )
+
+[node name="RightAlone" type="Sprite" parent="SpriteGround"]
+visible = false
+texture = ExtResource( 44 )
+
+[node name="DownAlone" type="Sprite" parent="SpriteGround"]
+visible = false
+texture = ExtResource( 43 )
+
+[node name="UpAlone" type="Sprite" parent="SpriteGround"]
+visible = false
+texture = ExtResource( 41 )
+
+[node name="HorizontalAlone" type="Sprite" parent="SpriteGround"]
+visible = false
+texture = ExtResource( 39 )
+
+[node name="VerticalAlone" type="Sprite" parent="SpriteGround"]
+visible = false
+texture = ExtResource( 40 )
+
+[node name="FalseUp" type="Sprite" parent="SpriteGround"]
+visible = false
+position = Vector2( -16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 35 )
+
+[node name="FalseCenter" type="Sprite" parent="SpriteGround"]
+visible = false
+position = Vector2( -16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 28 )
+
+[node name="FalseUp2" type="Sprite" parent="SpriteGround"]
+visible = false
+position = Vector2( 16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 35 )
+
+[node name="FalseCenter2" type="Sprite" parent="SpriteGround"]
+visible = false
+position = Vector2( 16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 28 )
+
+[node name="SpriteUnderground" type="Node2D" parent="."]
+visible = false
+scale = Vector2( 3.25, 3.25 )
+
+[node name="Shadow" type="Sprite" parent="SpriteUnderground"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 27 )
+
+[node name="ShadowFull" type="Sprite" parent="SpriteUnderground"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 28 )
+
+[node name="ShadowDownLeft" type="Sprite" parent="SpriteUnderground"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 36 )
+
+[node name="ShadowDownRight" type="Sprite" parent="SpriteUnderground"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 34 )
+
+[node name="ShadowUpRight" type="Sprite" parent="SpriteUnderground"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 29 )
+
+[node name="ShadowRightAlone" type="Sprite" parent="SpriteUnderground"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 44 )
+
+[node name="ShadowDownAlone" type="Sprite" parent="SpriteUnderground"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 43 )
+
+[node name="CenterAlone" type="Sprite" parent="SpriteUnderground"]
+visible = false
+texture = ExtResource( 66 )
+
+[node name="Center" type="Sprite" parent="SpriteUnderground"]
+visible = false
+texture = ExtResource( 64 )
+
+[node name="Up" type="Sprite" parent="SpriteUnderground"]
+visible = false
+texture = ExtResource( 67 )
+
+[node name="UpLeft" type="Sprite" parent="SpriteUnderground"]
+visible = false
+texture = ExtResource( 65 )
+
+[node name="UpRight" type="Sprite" parent="SpriteUnderground"]
+visible = false
+texture = ExtResource( 4 )
+
+[node name="Left" type="Sprite" parent="SpriteUnderground"]
+visible = false
+texture = ExtResource( 68 )
+
+[node name="Right" type="Sprite" parent="SpriteUnderground"]
+visible = false
+texture = ExtResource( 62 )
+
+[node name="Down" type="Sprite" parent="SpriteUnderground"]
+visible = false
+texture = ExtResource( 69 )
+
+[node name="DownLeft" type="Sprite" parent="SpriteUnderground"]
+visible = false
+texture = ExtResource( 70 )
+
+[node name="DownRight" type="Sprite" parent="SpriteUnderground"]
+visible = false
+texture = ExtResource( 71 )
+
+[node name="LeftAlone" type="Sprite" parent="SpriteUnderground"]
+visible = false
+texture = ExtResource( 61 )
+
+[node name="RightAlone" type="Sprite" parent="SpriteUnderground"]
+visible = false
+texture = ExtResource( 63 )
+
+[node name="DownAlone" type="Sprite" parent="SpriteUnderground"]
+visible = false
+texture = ExtResource( 1 )
+
+[node name="UpAlone" type="Sprite" parent="SpriteUnderground"]
+visible = false
+texture = ExtResource( 72 )
+
+[node name="HorizontalAlone" type="Sprite" parent="SpriteUnderground"]
+visible = false
+texture = ExtResource( 73 )
+
+[node name="VerticalAlone" type="Sprite" parent="SpriteUnderground"]
+visible = false
+texture = ExtResource( 74 )
+
+[node name="FalseUp" type="Sprite" parent="SpriteUnderground"]
+visible = false
+position = Vector2( -16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 67 )
+
+[node name="FalseCenter" type="Sprite" parent="SpriteUnderground"]
+visible = false
+position = Vector2( -16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 64 )
+
+[node name="FalseUp2" type="Sprite" parent="SpriteUnderground"]
+visible = false
+position = Vector2( 16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 67 )
+
+[node name="FalseCenter2" type="Sprite" parent="SpriteUnderground"]
+visible = false
+position = Vector2( 16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 64 )
+
+[node name="SpriteSky" type="Node2D" parent="."]
+visible = false
+scale = Vector2( 3.25, 3.25 )
+
+[node name="Shadow" type="Sprite" parent="SpriteSky"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 98 )
+
+[node name="ShadowFull" type="Sprite" parent="SpriteSky"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 102 )
+
+[node name="ShadowDownLeft" type="Sprite" parent="SpriteSky"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 91 )
+
+[node name="ShadowDownRight" type="Sprite" parent="SpriteSky"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 95 )
+
+[node name="ShadowUpRight" type="Sprite" parent="SpriteSky"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 3 )
+
+[node name="ShadowRightAlone" type="Sprite" parent="SpriteSky"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 101 )
+
+[node name="ShadowDownAlone" type="Sprite" parent="SpriteSky"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 103 )
+
+[node name="CenterAlone" type="Sprite" parent="SpriteSky"]
+visible = false
+texture = ExtResource( 98 )
+
+[node name="Center" type="Sprite" parent="SpriteSky"]
+visible = false
+texture = ExtResource( 102 )
+
+[node name="Up" type="Sprite" parent="SpriteSky"]
+visible = false
+texture = ExtResource( 99 )
+
+[node name="UpLeft" type="Sprite" parent="SpriteSky"]
+visible = false
+texture = ExtResource( 96 )
+
+[node name="UpRight" type="Sprite" parent="SpriteSky"]
+visible = false
+texture = ExtResource( 3 )
+
+[node name="Left" type="Sprite" parent="SpriteSky"]
+visible = false
+texture = ExtResource( 92 )
+
+[node name="Right" type="Sprite" parent="SpriteSky"]
+visible = false
+texture = ExtResource( 93 )
+
+[node name="Down" type="Sprite" parent="SpriteSky"]
+visible = false
+texture = ExtResource( 90 )
+
+[node name="DownLeft" type="Sprite" parent="SpriteSky"]
+visible = false
+texture = ExtResource( 91 )
+
+[node name="DownRight" type="Sprite" parent="SpriteSky"]
+visible = false
+texture = ExtResource( 95 )
+
+[node name="LeftAlone" type="Sprite" parent="SpriteSky"]
+visible = false
+texture = ExtResource( 97 )
+
+[node name="RightAlone" type="Sprite" parent="SpriteSky"]
+visible = false
+texture = ExtResource( 101 )
+
+[node name="DownAlone" type="Sprite" parent="SpriteSky"]
+visible = false
+texture = ExtResource( 103 )
+
+[node name="UpAlone" type="Sprite" parent="SpriteSky"]
+visible = false
+texture = ExtResource( 100 )
+
+[node name="HorizontalAlone" type="Sprite" parent="SpriteSky"]
+visible = false
+texture = ExtResource( 94 )
+
+[node name="VerticalAlone" type="Sprite" parent="SpriteSky"]
+visible = false
+texture = ExtResource( 89 )
+
+[node name="FalseUp" type="Sprite" parent="SpriteSky"]
+visible = false
+position = Vector2( -16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 99 )
+
+[node name="FalseCenter" type="Sprite" parent="SpriteSky"]
+visible = false
+position = Vector2( -16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 102 )
+
+[node name="FalseUp2" type="Sprite" parent="SpriteSky"]
+visible = false
+position = Vector2( 16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 99 )
+
+[node name="FalseCenter2" type="Sprite" parent="SpriteSky"]
+visible = false
+position = Vector2( 16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 102 )
+
+[node name="SpriteForest" type="Node2D" parent="."]
+visible = false
+scale = Vector2( 3.25, 3.25 )
+
+[node name="Shadow" type="Sprite" parent="SpriteForest"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 27 )
+
+[node name="ShadowFull" type="Sprite" parent="SpriteForest"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 28 )
+
+[node name="ShadowDownLeft" type="Sprite" parent="SpriteForest"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 36 )
+
+[node name="ShadowDownRight" type="Sprite" parent="SpriteForest"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 34 )
+
+[node name="ShadowUpRight" type="Sprite" parent="SpriteForest"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 29 )
+
+[node name="ShadowRightAlone" type="Sprite" parent="SpriteForest"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 44 )
+
+[node name="ShadowDownAlone" type="Sprite" parent="SpriteForest"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 43 )
+
+[node name="CenterAlone" type="Sprite" parent="SpriteForest"]
+visible = false
+texture = ExtResource( 47 )
+
+[node name="Center" type="Sprite" parent="SpriteForest"]
+visible = false
+texture = ExtResource( 55 )
+
+[node name="Up" type="Sprite" parent="SpriteForest"]
+visible = false
+texture = ExtResource( 48 )
+
+[node name="UpLeft" type="Sprite" parent="SpriteForest"]
+visible = false
+texture = ExtResource( 49 )
+
+[node name="UpRight" type="Sprite" parent="SpriteForest"]
+visible = false
+texture = ExtResource( 50 )
+
+[node name="Left" type="Sprite" parent="SpriteForest"]
+visible = false
+texture = ExtResource( 51 )
+
+[node name="Right" type="Sprite" parent="SpriteForest"]
+visible = false
+texture = ExtResource( 53 )
+
+[node name="Down" type="Sprite" parent="SpriteForest"]
+visible = false
+texture = ExtResource( 45 )
+
+[node name="DownLeft" type="Sprite" parent="SpriteForest"]
+visible = false
+texture = ExtResource( 46 )
+
+[node name="DownRight" type="Sprite" parent="SpriteForest"]
+visible = false
+texture = ExtResource( 52 )
+
+[node name="LeftAlone" type="Sprite" parent="SpriteForest"]
+visible = false
+texture = ExtResource( 54 )
+
+[node name="RightAlone" type="Sprite" parent="SpriteForest"]
+visible = false
+texture = ExtResource( 60 )
+
+[node name="DownAlone" type="Sprite" parent="SpriteForest"]
+visible = false
+texture = ExtResource( 56 )
+
+[node name="UpAlone" type="Sprite" parent="SpriteForest"]
+visible = false
+texture = ExtResource( 57 )
+
+[node name="HorizontalAlone" type="Sprite" parent="SpriteForest"]
+visible = false
+texture = ExtResource( 58 )
+
+[node name="VerticalAlone" type="Sprite" parent="SpriteForest"]
+visible = false
+texture = ExtResource( 59 )
+
+[node name="FalseUp" type="Sprite" parent="SpriteForest"]
+visible = false
+position = Vector2( -16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 48 )
+
+[node name="FalseCenter" type="Sprite" parent="SpriteForest"]
+visible = false
+position = Vector2( -16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 55 )
+
+[node name="FalseUp2" type="Sprite" parent="SpriteForest"]
+visible = false
+position = Vector2( 16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 48 )
+
+[node name="FalseCenter2" type="Sprite" parent="SpriteForest"]
+visible = false
+position = Vector2( 16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 55 )
+
+[node name="SpriteDesert" type="Node2D" parent="."]
+visible = false
+scale = Vector2( 3.25, 3.25 )
+
+[node name="Shadow" type="Sprite" parent="SpriteDesert"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 86 )
+
+[node name="ShadowFull" type="Sprite" parent="SpriteDesert"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 28 )
+
+[node name="ShadowDownLeft" type="Sprite" parent="SpriteDesert"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 36 )
+
+[node name="ShadowDownRight" type="Sprite" parent="SpriteDesert"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 34 )
+
+[node name="ShadowUpRight" type="Sprite" parent="SpriteDesert"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 29 )
+
+[node name="ShadowRightAlone" type="Sprite" parent="SpriteDesert"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 44 )
+
+[node name="ShadowDownAlone" type="Sprite" parent="SpriteDesert"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 43 )
+
+[node name="CenterAlone" type="Sprite" parent="SpriteDesert"]
+visible = false
+texture = ExtResource( 86 )
+
+[node name="Center" type="Sprite" parent="SpriteDesert"]
+visible = false
+texture = ExtResource( 17 )
+
+[node name="Up" type="Sprite" parent="SpriteDesert"]
+visible = false
+texture = ExtResource( 88 )
+
+[node name="UpLeft" type="Sprite" parent="SpriteDesert"]
+visible = false
+texture = ExtResource( 85 )
+
+[node name="UpRight" type="Sprite" parent="SpriteDesert"]
+visible = false
+texture = ExtResource( 19 )
+
+[node name="Left" type="Sprite" parent="SpriteDesert"]
+visible = false
+texture = ExtResource( 75 )
+
+[node name="Right" type="Sprite" parent="SpriteDesert"]
+visible = false
+texture = ExtResource( 77 )
+
+[node name="Down" type="Sprite" parent="SpriteDesert"]
+visible = false
+texture = ExtResource( 83 )
+
+[node name="DownLeft" type="Sprite" parent="SpriteDesert"]
+visible = false
+texture = ExtResource( 76 )
+
+[node name="DownRight" type="Sprite" parent="SpriteDesert"]
+visible = false
+texture = ExtResource( 78 )
+
+[node name="LeftAlone" type="Sprite" parent="SpriteDesert"]
+visible = false
+texture = ExtResource( 79 )
+
+[node name="RightAlone" type="Sprite" parent="SpriteDesert"]
+visible = false
+texture = ExtResource( 80 )
+
+[node name="DownAlone" type="Sprite" parent="SpriteDesert"]
+visible = false
+texture = ExtResource( 87 )
+
+[node name="UpAlone" type="Sprite" parent="SpriteDesert"]
+visible = false
+texture = ExtResource( 82 )
+
+[node name="HorizontalAlone" type="Sprite" parent="SpriteDesert"]
+visible = false
+texture = ExtResource( 84 )
+
+[node name="VerticalAlone" type="Sprite" parent="SpriteDesert"]
+visible = false
+texture = ExtResource( 81 )
+
+[node name="FalseUp" type="Sprite" parent="SpriteDesert"]
+visible = false
+position = Vector2( -16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 88 )
+
+[node name="FalseCenter" type="Sprite" parent="SpriteDesert"]
+visible = false
+position = Vector2( -16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 17 )
+
+[node name="FalseUp2" type="Sprite" parent="SpriteDesert"]
+visible = false
+position = Vector2( 16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 88 )
+
+[node name="FalseCenter2" type="Sprite" parent="SpriteDesert"]
+visible = false
+position = Vector2( 16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 17 )
+
+[node name="SpriteSnow" type="Node2D" parent="."]
+visible = false
+scale = Vector2( 3.25, 3.25 )
+
+[node name="Shadow" type="Sprite" parent="SpriteSnow"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 27 )
+
+[node name="ShadowFull" type="Sprite" parent="SpriteSnow"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 28 )
+
+[node name="ShadowDownLeft" type="Sprite" parent="SpriteSnow"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 36 )
+
+[node name="ShadowDownRight" type="Sprite" parent="SpriteSnow"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 34 )
+
+[node name="ShadowUpRight" type="Sprite" parent="SpriteSnow"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 29 )
+
+[node name="ShadowRightAlone" type="Sprite" parent="SpriteSnow"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 44 )
+
+[node name="ShadowDownAlone" type="Sprite" parent="SpriteSnow"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 43 )
+
+[node name="CenterAlone" type="Sprite" parent="SpriteSnow"]
+visible = false
+texture = ExtResource( 111 )
+
+[node name="Center" type="Sprite" parent="SpriteSnow"]
+visible = false
+texture = ExtResource( 26 )
+
+[node name="Up" type="Sprite" parent="SpriteSnow"]
+visible = false
+texture = ExtResource( 115 )
+
+[node name="UpLeft" type="Sprite" parent="SpriteSnow"]
+visible = false
+texture = ExtResource( 5 )
+
+[node name="UpRight" type="Sprite" parent="SpriteSnow"]
+visible = false
+texture = ExtResource( 114 )
+
+[node name="Left" type="Sprite" parent="SpriteSnow"]
+visible = false
+texture = ExtResource( 116 )
+
+[node name="Right" type="Sprite" parent="SpriteSnow"]
+visible = false
+texture = ExtResource( 104 )
+
+[node name="Down" type="Sprite" parent="SpriteSnow"]
+visible = false
+texture = ExtResource( 18 )
+
+[node name="DownLeft" type="Sprite" parent="SpriteSnow"]
+visible = false
+texture = ExtResource( 109 )
+
+[node name="DownRight" type="Sprite" parent="SpriteSnow"]
+visible = false
+texture = ExtResource( 110 )
+
+[node name="LeftAlone" type="Sprite" parent="SpriteSnow"]
+visible = false
+texture = ExtResource( 105 )
+
+[node name="RightAlone" type="Sprite" parent="SpriteSnow"]
+visible = false
+texture = ExtResource( 108 )
+
+[node name="DownAlone" type="Sprite" parent="SpriteSnow"]
+visible = false
+texture = ExtResource( 106 )
+
+[node name="UpAlone" type="Sprite" parent="SpriteSnow"]
+visible = false
+texture = ExtResource( 112 )
+
+[node name="HorizontalAlone" type="Sprite" parent="SpriteSnow"]
+visible = false
+texture = ExtResource( 113 )
+
+[node name="VerticalAlone" type="Sprite" parent="SpriteSnow"]
+visible = false
+texture = ExtResource( 107 )
+
+[node name="FalseUp" type="Sprite" parent="SpriteSnow"]
+visible = false
+position = Vector2( -16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 115 )
+
+[node name="FalseCenter" type="Sprite" parent="SpriteSnow"]
+visible = false
+position = Vector2( -16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 26 )
+
+[node name="FalseUp2" type="Sprite" parent="SpriteSnow"]
+visible = false
+position = Vector2( 16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 115 )
+
+[node name="FalseCenter2" type="Sprite" parent="SpriteSnow"]
+visible = false
+position = Vector2( 16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 26 )
+
+[node name="SpriteGhostforest" type="Node2D" parent="."]
+visible = false
+scale = Vector2( 3.25, 3.25 )
+
+[node name="Shadow" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 27 )
+
+[node name="ShadowFull" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 28 )
+
+[node name="ShadowDownLeft" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 36 )
+
+[node name="ShadowDownRight" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 34 )
+
+[node name="ShadowUpRight" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 29 )
+
+[node name="ShadowRightAlone" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 44 )
+
+[node name="ShadowDownAlone" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 43 )
+
+[node name="CenterAlone" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+texture = ExtResource( 27 )
+
+[node name="Center" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+texture = ExtResource( 28 )
+
+[node name="Up" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+texture = ExtResource( 35 )
+
+[node name="UpLeft" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+texture = ExtResource( 30 )
+
+[node name="UpRight" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+texture = ExtResource( 29 )
+
+[node name="Left" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+texture = ExtResource( 31 )
+
+[node name="Right" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+texture = ExtResource( 32 )
+
+[node name="Down" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+texture = ExtResource( 33 )
+
+[node name="DownLeft" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+texture = ExtResource( 36 )
+
+[node name="DownRight" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+texture = ExtResource( 34 )
+
+[node name="LeftAlone" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+texture = ExtResource( 42 )
+
+[node name="RightAlone" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+texture = ExtResource( 44 )
+
+[node name="DownAlone" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+texture = ExtResource( 43 )
+
+[node name="UpAlone" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+texture = ExtResource( 41 )
+
+[node name="HorizontalAlone" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+texture = ExtResource( 39 )
+
+[node name="VerticalAlone" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+texture = ExtResource( 40 )
+
+[node name="FalseUp" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+position = Vector2( -16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 35 )
+
+[node name="FalseCenter" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+position = Vector2( -16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 28 )
+
+[node name="FalseUp2" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+position = Vector2( 16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 35 )
+
+[node name="FalseCenter2" type="Sprite" parent="SpriteGhostforest"]
+visible = false
+position = Vector2( 16, 0 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 28 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("")
+playback_speed = 10.0
+anims/RESET = SubResource( 2 )
+anims/start = SubResource( 3 )
+
+[node name="Ground" type="Node2D" parent="."]
+z_index = -1
+
+[node name="DecorationTall" type="Sprite" parent="Ground"]
+visible = false
+position = Vector2( 0, -104 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 6 )
+
+[node name="Shadow" type="Sprite" parent="Ground/DecorationTall"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 6 )
+
+[node name="DecorationShort" type="Sprite" parent="Ground"]
+visible = false
+position = Vector2( 0, -78 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 38 )
+
+[node name="Shadow" type="Sprite" parent="Ground/DecorationShort"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 38 )
+
+[node name="DecorationWide" type="Sprite" parent="Ground"]
+visible = false
+position = Vector2( -52, -52 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 37 )
+
+[node name="Shadow" type="Sprite" parent="Ground/DecorationWide"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 37 )
+
+[node name="Underground" type="Node2D" parent="."]
+z_index = -1
+
+[node name="DecorationTall" type="Sprite" parent="Underground"]
+visible = false
+position = Vector2( 0, -101 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 11 )
+
+[node name="Shadow" type="Sprite" parent="Underground/DecorationTall"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 11 )
+
+[node name="DecorationShort" type="Sprite" parent="Underground"]
+visible = false
+position = Vector2( 0, -78 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 16 )
+
+[node name="Shadow" type="Sprite" parent="Underground/DecorationShort"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 16 )
+
+[node name="DecorationWide" type="Sprite" parent="Underground"]
+visible = false
+position = Vector2( -52, -49 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 10 )
+
+[node name="Shadow" type="Sprite" parent="Underground/DecorationWide"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 10 )
+
+[node name="Sky" type="Node2D" parent="."]
+z_index = -1
+
+[node name="DecorationTall" type="Sprite" parent="Sky"]
+visible = false
+position = Vector2( 0, -104 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 12 )
+
+[node name="Shadow" type="Sprite" parent="Sky/DecorationTall"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 12 )
+
+[node name="DecorationShort" type="Sprite" parent="Sky"]
+visible = false
+position = Vector2( 0, -78 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 7 )
+
+[node name="Shadow" type="Sprite" parent="Sky/DecorationShort"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 7 )
+
+[node name="DecorationWide" type="Sprite" parent="Sky"]
+visible = false
+position = Vector2( -52, -52 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 8 )
+
+[node name="Shadow" type="Sprite" parent="Sky/DecorationWide"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 8 )
+
+[node name="Forest" type="Node2D" parent="."]
+z_index = -1
+
+[node name="DecorationTall" type="Sprite" parent="Forest"]
+visible = false
+position = Vector2( 0, -101 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 15 )
+
+[node name="Shadow" type="Sprite" parent="Forest/DecorationTall"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 15 )
+
+[node name="DecorationShort" type="Sprite" parent="Forest"]
+visible = false
+position = Vector2( 0, -75 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 14 )
+
+[node name="Shadow" type="Sprite" parent="Forest/DecorationShort"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 14 )
+
+[node name="DecorationWide" type="Sprite" parent="Forest"]
+visible = false
+position = Vector2( -52, -49 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 13 )
+
+[node name="Shadow" type="Sprite" parent="Forest/DecorationWide"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 13 )
+
+[node name="Desert" type="Node2D" parent="."]
+z_index = -1
+
+[node name="DecorationTall" type="Sprite" parent="Desert"]
+visible = false
+position = Vector2( 0, -104 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 21 )
+
+[node name="Shadow" type="Sprite" parent="Desert/DecorationTall"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 21 )
+
+[node name="DecorationShort" type="Sprite" parent="Desert"]
+visible = false
+position = Vector2( 0, -78 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 23 )
+
+[node name="Shadow" type="Sprite" parent="Desert/DecorationShort"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 23 )
+
+[node name="DecorationWide" type="Sprite" parent="Desert"]
+visible = false
+position = Vector2( -52, -52 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 24 )
+
+[node name="Shadow" type="Sprite" parent="Desert/DecorationWide"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 24 )
+
+[node name="Snow" type="Node2D" parent="."]
+z_index = -1
+
+[node name="DecorationTall" type="Sprite" parent="Snow"]
+visible = false
+position = Vector2( 0, -104 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 22 )
+
+[node name="Shadow" type="Sprite" parent="Snow/DecorationTall"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 22 )
+
+[node name="DecorationShort" type="Sprite" parent="Snow"]
+visible = false
+position = Vector2( 0, -78 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 25 )
+
+[node name="Shadow" type="Sprite" parent="Snow/DecorationShort"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 25 )
+
+[node name="DecorationWide" type="Sprite" parent="Snow"]
+visible = false
+position = Vector2( -52, -52 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 20 )
+
+[node name="Shadow" type="Sprite" parent="Snow/DecorationWide"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 20 )
+
+[node name="Ghostforest" type="Node2D" parent="."]
+z_index = -1
+
+[node name="DecorationTall" type="Sprite" parent="Ghostforest"]
+visible = false
+position = Vector2( 0, -104 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 6 )
+
+[node name="Shadow" type="Sprite" parent="Ghostforest/DecorationTall"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 6 )
+
+[node name="DecorationShort" type="Sprite" parent="Ghostforest"]
+visible = false
+position = Vector2( 0, -78 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 38 )
+
+[node name="Shadow" type="Sprite" parent="Ghostforest/DecorationShort"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 38 )
+
+[node name="DecorationWide" type="Sprite" parent="Ghostforest"]
+visible = false
+position = Vector2( -52, -52 )
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 37 )
+
+[node name="Shadow" type="Sprite" parent="Ghostforest/DecorationWide"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 37 )
+
+[node name="SoundSpawnDecoration" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 9 )
+volume_db = -10.0
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+position = Vector2( -9.53674e-07, 0 )
+scale = Vector2( 2.6, 2.6 )
+process_parent = true
+physics_process_parent = true

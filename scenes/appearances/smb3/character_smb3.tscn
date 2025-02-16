@@ -1,0 +1,687 @@
+[gd_scene load_steps=104 format=2]
+
+[ext_resource path="res://sprites/appeareances/smb3/mario/small/crouch.png" type="Texture" id=1]
+[ext_resource path="res://sprites/appeareances/smb3/mario/small/dead.png" type="Texture" id=2]
+[ext_resource path="res://sprites/appeareances/smb3/mario/small/run_walk.png" type="Texture" id=3]
+[ext_resource path="res://sprites/appeareances/smb3/mario/small/idle.png" type="Texture" id=4]
+[ext_resource path="res://sprites/appeareances/smb3/mario/small/drift.png" type="Texture" id=5]
+[ext_resource path="res://sprites/appeareances/smb3/mario/small/jump.png" type="Texture" id=6]
+[ext_resource path="res://sprites/appeareances/smb3/mario/small/climb.png" type="Texture" id=7]
+[ext_resource path="res://sprites/appeareances/smb3/mario/mush/run_walk.png" type="Texture" id=8]
+[ext_resource path="res://sprites/appeareances/smb3/mario/mush/jump.png" type="Texture" id=9]
+[ext_resource path="res://sounds/appeareances/smb3/dead.wav" type="AudioStream" id=10]
+[ext_resource path="res://sounds/appeareances/smb3/jump.wav" type="AudioStream" id=11]
+[ext_resource path="res://sprites/appeareances/smb3/mario/mush/idle.png" type="Texture" id=12]
+[ext_resource path="res://sprites/appeareances/smb3/mario/mush/crouch.png" type="Texture" id=13]
+[ext_resource path="res://sprites/appeareances/smb3/mario/mush/drift.png" type="Texture" id=14]
+[ext_resource path="res://sprites/appeareances/smb3/mario/mush/climb.png" type="Texture" id=15]
+[ext_resource path="res://scripts/appeareances/smb3/character_smb.gd" type="Script" id=16]
+[ext_resource path="res://sprites/appeareances/smb3/mario/mush/fall.png" type="Texture" id=17]
+[ext_resource path="res://sprites/appeareances/smb3/mario/fireflower/crouch.png" type="Texture" id=18]
+[ext_resource path="res://sprites/appeareances/smb3/mario/fireflower/climb.png" type="Texture" id=19]
+[ext_resource path="res://sprites/appeareances/smb3/mario/fireflower/jump.png" type="Texture" id=20]
+[ext_resource path="res://sprites/appeareances/smb3/mario/fireflower/attack.png" type="Texture" id=21]
+[ext_resource path="res://sprites/appeareances/smb3/mario/fireflower/fall.png" type="Texture" id=22]
+[ext_resource path="res://sounds/appeareances/smb/brick_break.wav" type="AudioStream" id=23]
+[ext_resource path="res://sounds/appeareances/smb/block.wav" type="AudioStream" id=24]
+[ext_resource path="res://sounds/appeareances/smb/coin.wav" type="AudioStream" id=25]
+[ext_resource path="res://sounds/appeareances/smb/coin10.wav" type="AudioStream" id=26]
+[ext_resource path="res://sounds/appeareances/smb/1up.wav" type="AudioStream" id=27]
+[ext_resource path="res://sounds/appeareances/smb/powerup_got.wav" type="AudioStream" id=28]
+[ext_resource path="res://music/appeareances/smb/star.wav" type="AudioStream" id=29]
+[ext_resource path="res://sprites/64x64.png" type="Texture" id=30]
+[ext_resource path="res://sprites/appeareances/smb3/mario/fireflower/drift.png" type="Texture" id=31]
+[ext_resource path="res://sprites/appeareances/smb3/mario/fireflower/idle.png" type="Texture" id=32]
+[ext_resource path="res://sprites/appeareances/smb3/mario/fireflower/run_walk.png" type="Texture" id=33]
+[ext_resource path="res://sounds/appeareances/smb3/readytofly.wav" type="AudioStream" id=34]
+[ext_resource path="res://sounds/appeareances/smb3/drift.wav" type="AudioStream" id=35]
+[ext_resource path="res://sprites/appeareances/smb3/mario/fireflower/run.png" type="Texture" id=36]
+[ext_resource path="res://sounds/appeareances/smb/powerup_out.wav" type="AudioStream" id=37]
+[ext_resource path="res://sprites/appeareances/smb3/mario/small/run_jump.png" type="Texture" id=38]
+[ext_resource path="res://sprites/appeareances/smb3/mario/small/run.png" type="Texture" id=39]
+[ext_resource path="res://sprites/appeareances/smb3/mario/mush/run.png" type="Texture" id=40]
+[ext_resource path="res://sprites/appeareances/smb3/mario/mush/run_jump.png" type="Texture" id=41]
+[ext_resource path="res://sprites/appeareances/smb3/mario/fireflower/run_jump.png" type="Texture" id=42]
+[ext_resource path="res://sprites/appeareances/smb3/mario/fireflower/carry_item_run_walk.png" type="Texture" id=43]
+[ext_resource path="res://sprites/appeareances/smb3/mario/fireflower/carry_item_idle.png" type="Texture" id=44]
+[ext_resource path="res://sounds/appeareances/smb/fireball.wav" type="AudioStream" id=45]
+[ext_resource path="res://sounds/appeareances/smb/hit_enemy.wav" type="AudioStream" id=46]
+[ext_resource path="res://sounds/appeareances/smb/shell_hit.wav" type="AudioStream" id=47]
+[ext_resource path="res://sounds/appeareances/smb/twomp_hit.wav" type="AudioStream" id=48]
+[ext_resource path="res://sounds/appeareances/smb/burner_flame.wav" type="AudioStream" id=49]
+[ext_resource path="res://sounds/appeareances/smb/p_sound.wav" type="AudioStream" id=50]
+[ext_resource path="res://sounds/appeareances/smb/onoffblock.wav" type="AudioStream" id=51]
+[ext_resource path="res://sprites/appeareances/smb3/mario/small/carry_item_jump.png" type="Texture" id=52]
+[ext_resource path="res://sprites/appeareances/smb3/mario/small/carry_item_idle.png" type="Texture" id=53]
+[ext_resource path="res://sprites/appeareances/smb3/mario/small/kick.png" type="Texture" id=54]
+[ext_resource path="res://sprites/appeareances/smb3/mario/small/carry_item_run_walk.png" type="Texture" id=55]
+[ext_resource path="res://sprites/appeareances/smb3/mario/mush/carry_item_idle.png" type="Texture" id=56]
+[ext_resource path="res://sprites/appeareances/smb3/mario/mush/carry_item_jump.png" type="Texture" id=57]
+[ext_resource path="res://sprites/appeareances/smb3/mario/mush/carry_item_run_walk.png" type="Texture" id=58]
+[ext_resource path="res://sprites/appeareances/smb3/mario/fireflower/kick.png" type="Texture" id=59]
+[ext_resource path="res://sprites/appeareances/smb3/mario/mush/kick.png" type="Texture" id=60]
+[ext_resource path="res://sprites/appeareances/smb3/mario/fireflower/carry_item_jump.png" type="Texture" id=61]
+
+[sub_resource type="RectangleShape2D" id=26]
+extents = Vector2( 20, 46.5 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 20, 22.5 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 20, 17.5 )
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 21 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 21 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=60]
+atlas = ExtResource( 43 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=61]
+atlas = ExtResource( 43 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=62]
+atlas = ExtResource( 43 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 19 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 19 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 32 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=47]
+atlas = ExtResource( 20 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=51]
+atlas = ExtResource( 36 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=52]
+atlas = ExtResource( 36 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=53]
+atlas = ExtResource( 36 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=48]
+atlas = ExtResource( 33 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=49]
+atlas = ExtResource( 33 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=50]
+atlas = ExtResource( 33 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=63]
+atlas = ExtResource( 58 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=64]
+atlas = ExtResource( 58 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=65]
+atlas = ExtResource( 58 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 15 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 15 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=54]
+atlas = ExtResource( 40 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=55]
+atlas = ExtResource( 40 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=56]
+atlas = ExtResource( 40 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 8 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 8 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=66]
+atlas = ExtResource( 55 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=67]
+atlas = ExtResource( 55 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 7 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 39 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 39 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 38 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 3 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=5]
+animations = [ {
+"frames": [ SubResource( 42 ), SubResource( 43 ) ],
+"loop": false,
+"name": "fireflower_attack",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 44 ) ],
+"loop": true,
+"name": "fireflower_carry_item_idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 61 ) ],
+"loop": true,
+"name": "fireflower_carry_item_jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 60 ), SubResource( 61 ), SubResource( 62 ) ],
+"loop": true,
+"name": "fireflower_carry_item_walk",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 44 ), SubResource( 45 ) ],
+"loop": true,
+"name": "fireflower_climb",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 18 ) ],
+"loop": true,
+"name": "fireflower_crouch",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 31 ) ],
+"loop": true,
+"name": "fireflower_drift",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 22 ) ],
+"loop": true,
+"name": "fireflower_fall",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 46 ) ],
+"loop": true,
+"name": "fireflower_idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 47 ) ],
+"loop": true,
+"name": "fireflower_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 59 ) ],
+"loop": true,
+"name": "fireflower_kick",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 51 ), SubResource( 52 ), SubResource( 53 ) ],
+"loop": true,
+"name": "fireflower_run",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 42 ) ],
+"loop": true,
+"name": "fireflower_run_jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 48 ), SubResource( 49 ), SubResource( 50 ) ],
+"loop": true,
+"name": "fireflower_walk",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 56 ) ],
+"loop": true,
+"name": "mush_carry_item_idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 57 ) ],
+"loop": true,
+"name": "mush_carry_item_jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 63 ), SubResource( 64 ), SubResource( 65 ) ],
+"loop": true,
+"name": "mush_carry_item_walk",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 40 ), SubResource( 41 ) ],
+"loop": true,
+"name": "mush_climb",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "mush_crouch",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "mush_drift",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 17 ) ],
+"loop": true,
+"name": "mush_fall",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 12 ) ],
+"loop": true,
+"name": "mush_idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "mush_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 60 ) ],
+"loop": true,
+"name": "mush_kick",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 54 ), SubResource( 55 ), SubResource( 56 ) ],
+"loop": true,
+"name": "mush_run",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 41 ) ],
+"loop": true,
+"name": "mush_run_jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 37 ), SubResource( 38 ), SubResource( 39 ) ],
+"loop": true,
+"name": "mush_walk",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 53 ) ],
+"loop": true,
+"name": "small_carry_item_idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 52 ) ],
+"loop": true,
+"name": "small_carry_item_jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 66 ), SubResource( 67 ) ],
+"loop": true,
+"name": "small_carry_item_walk",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 35 ), SubResource( 36 ) ],
+"loop": true,
+"name": "small_climb",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "small_crouch",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "small_dead",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "small_drift",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "small_idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "small_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 54 ) ],
+"loop": true,
+"name": "small_kick",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 57 ), SubResource( 58 ) ],
+"loop": true,
+"name": "small_run",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 59 ) ],
+"loop": true,
+"name": "small_run_jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 33 ), SubResource( 34 ) ],
+"loop": true,
+"name": "small_walk",
+"speed": 10.0
+} ]
+
+[sub_resource type="Animation" id=19]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Light2D:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "invincible"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0.74902 ), Color( 1, 1, 1, 0.286275 ), Color( 1, 1, 1, 0.74902 ) ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "star"
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Light2D:color")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0.120117, 0.120117, 1 ), Color( 0.976471, 1, 0.192157, 1 ), Color( 0.180392, 0.192157, 1, 1 ), Color( 1, 0.0862745, 0.0862745, 1 ) ]
+}
+
+[node name="Character" type="KinematicBody2D" groups=["Character"]]
+z_index = 2
+collision_mask = 5
+collision/safe_margin = 0.01
+script = ExtResource( 16 )
+
+[node name="MushCollision" type="CollisionShape2D" parent="."]
+position = Vector2( 0, -23.5 )
+shape = SubResource( 26 )
+disabled = true
+
+[node name="SmallCollision" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 0.5 )
+shape = SubResource( 6 )
+
+[node name="SneakCollision" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 5.5 )
+shape = SubResource( 7 )
+disabled = true
+
+[node name="ObligatorySneakRaycast" type="RayCast2D" parent="."]
+position = Vector2( 17, -53 )
+enabled = true
+cast_to = Vector2( -35, 0 )
+
+[node name="UpArea" type="Node2D" parent="."]
+
+[node name="RayCast2D" type="RayCast2D" parent="UpArea"]
+position = Vector2( 9.25, -30 )
+enabled = true
+cast_to = Vector2( 0, -3 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast2D2" type="RayCast2D" parent="UpArea"]
+position = Vector2( -9.375, -30 )
+enabled = true
+cast_to = Vector2( 0, -3 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast2D3" type="RayCast2D" parent="UpArea"]
+position = Vector2( 0, -30 )
+enabled = true
+cast_to = Vector2( 0, -3 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast2D4" type="RayCast2D" parent="UpArea"]
+position = Vector2( 18.75, -30 )
+enabled = true
+cast_to = Vector2( 0, -3 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast2D5" type="RayCast2D" parent="UpArea"]
+position = Vector2( -18.75, -30 )
+enabled = true
+cast_to = Vector2( 0, -3 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="Mario" type="AnimatedSprite" parent="."]
+show_behind_parent = true
+light_mask = 3
+scale = Vector2( 3.25, 3.25 )
+frames = SubResource( 5 )
+animation = "small_idle"
+playing = true
+
+[node name="Shadow" type="AnimatedSprite" parent="Mario"]
+modulate = Color( 0, 0, 0, 0.294118 )
+show_behind_parent = true
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+frames = SubResource( 5 )
+animation = "small_idle"
+playing = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 19 )
+anims/invincible = SubResource( 27 )
+anims/star = SubResource( 20 )
+
+[node name="KoyoteTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="DeadTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="InvincibleTimer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[node name="ChangingPowerupTimer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[node name="ChangingPowerupTransitionTimer" type="Timer" parent="."]
+wait_time = 0.125
+one_shot = true
+
+[node name="BigAttackingTimer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[node name="AttackingTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="RTFDecreaseTimer" type="Timer" parent="."]
+wait_time = 0.25
+
+[node name="KickingTimer" type="Timer" parent="."]
+wait_time = 0.25
+
+[node name="SoundJump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 11 )
+volume_db = 10.0
+
+[node name="SoundDead" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 10 )
+volume_db = 5.0
+
+[node name="SoundBrick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 24 )
+
+[node name="SoundDrift" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 35 )
+volume_db = -5.0
+
+[node name="SoundReadytofly" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 34 )
+
+[node name="SoundBrickBreak" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 23 )
+
+[node name="SoundCoin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 25 )
+volume_db = 5.0
+
+[node name="Sound10Coin" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 26 )
+volume_db = -2.5
+
+[node name="1up" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 27 )
+volume_db = -5.0
+
+[node name="Fireball" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 45 )
+volume_db = -10.0
+
+[node name="PowerupGot" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 28 )
+volume_db = -2.5
+
+[node name="PowerupOut" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 37 )
+volume_db = -2.5
+
+[node name="SoundStar" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 29 )
+volume_db = -17.0
+
+[node name="SoundEnemyHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 46 )
+
+[node name="SoundShellHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 47 )
+
+[node name="SoundTwompHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 48 )
+volume_db = 5.0
+
+[node name="SoundBurnerFlame" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 49 )
+volume_db = 5.0
+
+[node name="SoundPButton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 50 )
+volume_db = 5.0
+
+[node name="SoundOnOffSwitch" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 51 )
+
+[node name="Light2D" type="Light2D" parent="."]
+enabled = false
+texture = ExtResource( 30 )
+energy = 13.15
+mode = 2
+range_item_cull_mask = 2
+__meta__ = {
+"_edit_lock_": true
+}
+
+[connection signal="timeout" from="KoyoteTimer" to="." method="_on_KoyoteTimer_timeout"]
+[connection signal="timeout" from="DeadTimer" to="." method="_on_DeadTimer_timeout"]
+[connection signal="timeout" from="InvincibleTimer" to="." method="_on_InvincibleTimer_timeout"]
+[connection signal="timeout" from="ChangingPowerupTimer" to="." method="_on_ChangingPowerup_timeout"]
+[connection signal="timeout" from="ChangingPowerupTransitionTimer" to="." method="_on_ChangingPowerupTransitionTimer_timeout"]
+[connection signal="timeout" from="BigAttackingTimer" to="." method="_on_BigAttackingTimer_timeout"]
+[connection signal="timeout" from="AttackingTimer" to="." method="_on_AttackingTimer_timeout"]
+[connection signal="timeout" from="RTFDecreaseTimer" to="." method="_on_RTFDecreaseTimer_timeout"]
+[connection signal="timeout" from="KickingTimer" to="." method="_on_KickingTimer_timeout"]
+[connection signal="finished" from="SoundStar" to="." method="_on_SoundStar_finished"]
+[connection signal="finished" from="SoundPButton" to="." method="_on_SoundPButton_finished"]

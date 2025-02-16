@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/onoffblock.wav-f903fd25b067c0ecd656ce5082f8445a.sample"
+
+[deps]
+
+source_file="res://sounds/appeareances/smb/onoffblock.wav"
+dest_files=[ "res://.import/onoffblock.wav-f903fd25b067c0ecd656ce5082f8445a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

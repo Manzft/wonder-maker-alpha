@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/desert.mp3-c1c6fbe70228f62956f5c03ac3b4fd08.mp3str"
+
+[deps]
+
+source_file="res://music/appeareances/smb/desert.mp3"
+dest_files=[ "res://.import/desert.mp3-c1c6fbe70228f62956f5c03ac3b4fd08.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/editor_forest.mp3-95dd625efbbc026f6a585526e1341c40.mp3str"
+
+[deps]
+
+source_file="res://music/editor/smb/editor_forest.mp3"
+dest_files=[ "res://.import/editor_forest.mp3-95dd625efbbc026f6a585526e1341c40.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/sky.mp3-af48a6968cc7b145e8a974f4d1e53366.mp3str"
+
+[deps]
+
+source_file="res://music/appeareances/smb3/sky.mp3"
+dest_files=[ "res://.import/sky.mp3-af48a6968cc7b145e8a974f4d1e53366.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

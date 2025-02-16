@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://sprites/appeareances/smb3/startsign_snow.png" type="Texture" id=1]
+[ext_resource path="res://scripts/appeareances/smb/startsign.gd" type="Script" id=2]
+[ext_resource path="res://sprites/appeareances/smb3/startsign.png" type="Texture" id=3]
+
+[node name="StartSign" type="Node2D" groups=["StartSign"]]
+scale = Vector2( 3.25, 3.25 )
+script = ExtResource( 2 )
+
+[node name="SpriteGround" type="Sprite" parent="."]
+texture = ExtResource( 3 )
+offset = Vector2( 0, -21.5 )
+
+[node name="Shadow" type="Sprite" parent="SpriteGround"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 3 )
+offset = Vector2( 0, -21.5 )
+
+[node name="SpriteSnow" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 1 )
+offset = Vector2( 0, -22 )
+
+[node name="Shadow" type="Sprite" parent="SpriteSnow"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 1 )
+offset = Vector2( 0, -22 )

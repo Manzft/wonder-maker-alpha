@@ -1,0 +1,259 @@
+[gd_scene load_steps=19 format=2]
+
+[ext_resource path="res://scripts/appeareances/smb3/burner.gd" type="Script" id=1]
+[ext_resource path="res://sprites/appeareances/smb/gizmos/burner/base.png" type="Texture" id=2]
+[ext_resource path="res://sprites/appeareances/smb3/gizmos/burner/base.png" type="Texture" id=3]
+[ext_resource path="res://sprites/ui/editor/sea_level_main_button.png" type="Texture" id=4]
+[ext_resource path="res://sprites/ui/editor/arrow_direction_change.png" type="Texture" id=5]
+[ext_resource path="res://sounds/ui/grab_move.wav" type="AudioStream" id=6]
+[ext_resource path="res://sprites/appeareances/smb3/gizmos/burner/flame.png" type="Texture" id=7]
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 16, 48 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 7 )
+region = Rect2( 16, 0, 16, 48 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 7 )
+region = Rect2( 64, 0, 16, 48 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 7 )
+region = Rect2( 80, 0, 16, 48 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 7 )
+region = Rect2( 32, 0, 16, 48 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 7 )
+region = Rect2( 48, 0, 16, 48 )
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ SubResource( 8 ), SubResource( 9 ) ],
+"loop": true,
+"name": "idle",
+"speed": 10.0
+}, {
+"frames": [  ],
+"loop": true,
+"name": "off",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ) ],
+"loop": false,
+"name": "onturning",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 13 ), SubResource( 12 ), SubResource( 11 ), SubResource( 10 ) ],
+"loop": false,
+"name": "turning",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 26, 26 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 26, 78 )
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpriteGround:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3.25, 3.25 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "start"
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpriteGround:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2, 2 ), Vector2( 3.25, 3.25 ) ]
+}
+
+[node name="Burner" type="StaticBody2D" groups=["Burner", "Obj", "Solid"]]
+z_index = -1
+collision_layer = 11
+collision_mask = 11
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [ -591.0 ]
+}
+
+[node name="SpriteGround" type="Sprite" parent="."]
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 3 )
+
+[node name="Shadow" type="Sprite" parent="SpriteGround"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 2 )
+
+[node name="Flame" type="AnimatedSprite" parent="."]
+position = Vector2( 0, -104 )
+scale = Vector2( 3.25, 3.25 )
+z_index = 3
+z_as_relative = false
+frames = SubResource( 6 )
+animation = "idle"
+playing = true
+
+[node name="Shadow" type="AnimatedSprite" parent="Flame"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+frames = SubResource( 6 )
+animation = "idle"
+frame = 1
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="Up" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, -104 )
+shape = SubResource( 7 )
+
+[node name="Down" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 0, 104 )
+shape = SubResource( 7 )
+
+[node name="Left" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( -104, 0 )
+rotation = 1.5708
+shape = SubResource( 7 )
+
+[node name="Right" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 104, 0 )
+rotation = 1.5708
+shape = SubResource( 7 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 10.0
+anims/RESET = SubResource( 2 )
+anims/start = SubResource( 3 )
+
+[node name="SleepTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="ToSleepTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="WakeTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="ToWakeTimer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
+[node name="DirectionButton" type="TextureButton" parent="."]
+margin_left = -12.0
+margin_top = -12.0
+margin_right = 26.0
+margin_bottom = 26.0
+texture_normal = ExtResource( 4 )
+
+[node name="ArrowUp" type="TextureRect" parent="DirectionButton"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -9.0
+margin_top = -11.5
+margin_right = 9.0
+margin_bottom = 9.5
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="ArrowDown" type="TextureRect" parent="DirectionButton"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 9.0
+margin_top = 12.0
+margin_right = 27.0
+margin_bottom = 33.0
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="ArrowLeft" type="TextureRect" parent="DirectionButton"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -11.0
+margin_top = 9.0
+margin_right = 7.0
+margin_bottom = 30.0
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="ArrowRight" type="TextureRect" parent="DirectionButton"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 12.0
+margin_top = -9.0
+margin_right = 30.0
+margin_bottom = 12.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="AudioGrabMove" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = 5.0
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+position = Vector2( -1.5, 2 )
+scale = Vector2( 18.45, 18.3 )
+pause_animations = false
+pause_animated_sprites = false
+process_parent = true
+physics_process_parent = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
+[connection signal="timeout" from="SleepTimer" to="." method="_on_SleepTimer_timeout"]
+[connection signal="timeout" from="ToSleepTimer" to="." method="_on_ToSleepTimer_timeout"]
+[connection signal="timeout" from="WakeTimer" to="." method="_on_WakeTimer_timeout"]
+[connection signal="timeout" from="ToWakeTimer" to="." method="_on_ToWakeTimer_timeout"]
+[connection signal="mouse_entered" from="DirectionButton" to="." method="_on_DirectionButton_mouse_entered"]
+[connection signal="mouse_exited" from="DirectionButton" to="." method="_on_DirectionButton_mouse_exited"]
+[connection signal="pressed" from="DirectionButton" to="." method="_on_DirectionButton_pressed"]

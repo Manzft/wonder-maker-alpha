@@ -1,0 +1,719 @@
+[gd_scene load_steps=31 format=2]
+
+[ext_resource path="res://fonts/smm2_font.otf" type="DynamicFontData" id=1]
+[ext_resource path="res://sprites/appeareances/smb/manzft/small/idle.png" type="Texture" id=2]
+[ext_resource path="res://sprites/appeareances/smb/manzft/small/run_walk.png" type="Texture" id=3]
+[ext_resource path="res://sprites/appeareances/smb/manzft/small/jump.png" type="Texture" id=4]
+[ext_resource path="res://sounds/appeareances/smb/block.wav" type="AudioStream" id=5]
+[ext_resource path="res://sounds/appeareances/smb/jump.wav" type="AudioStream" id=6]
+[ext_resource path="res://sounds/appeareances/smb/twomp_hit.wav" type="AudioStream" id=7]
+[ext_resource path="res://sprites/ui/intro/mario.png" type="Texture" id=8]
+[ext_resource path="res://sprites/ui/intro/land_right.png" type="Texture" id=9]
+[ext_resource path="res://sprites/ui/intro/land_left.png" type="Texture" id=10]
+[ext_resource path="res://sprites/ui/intro/luigi.png" type="Texture" id=11]
+[ext_resource path="res://sprites/ui/intro/coin.png" type="Texture" id=12]
+[ext_resource path="res://sprites/ui/intro/luckyblock.png" type="Texture" id=13]
+[ext_resource path="res://sprites/ui/intro/furry_toadette.png" type="Texture" id=14]
+[ext_resource path="res://sprites/ui/intro/piranhaplant.png" type="Texture" id=15]
+[ext_resource path="res://sprites/ui/intro/koopatroopa_car.png" type="Texture" id=16]
+[ext_resource path="res://sprites/ui/intro/toad.png" type="Texture" id=17]
+[ext_resource path="res://sprites/ui/intro/bell.png" type="Texture" id=18]
+[ext_resource path="res://sprites/ui/intro/spiny.png" type="Texture" id=19]
+[ext_resource path="res://sprites/ui/intro/furry_luigi.png" type="Texture" id=20]
+[ext_resource path="res://sprites/ui/intro/bee.png" type="Texture" id=21]
+[ext_resource path="res://sounds/ui/big_button.wav" type="AudioStream" id=22]
+[ext_resource path="res://scripts/ui/intro.gd" type="Script" id=24]
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/WonderTitle:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 464.5, 83 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Manzft/Manzft:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Manzft/Manzft:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "idle" ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Control/MakerTitle:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 500, 173 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("SoundJump:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("SoundTwompHit:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("SoundBrick:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Manzft/Manzft:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Sprites:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("AudioBigButton:playing")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Control:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "start"
+length = 12.0
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/WonderTitle:rect_position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 5, 5.2, 5.4, 5.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 464.5, -119 ), Vector2( 464.5, -119 ), Vector2( 464.5, 83 ), Vector2( 464.5, 115 ), Vector2( 464.5, 83 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Manzft/Manzft:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 3.5, 3.7, 3.9, 5.2, 5.3, 5.4, 5.5, 5.6, 5.7, 5.8, 6.3, 6.6, 8.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -175 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, -32 ), Vector2( 0, 0 ), Vector2( 0, -16 ), Vector2( 0, 0 ), Vector2( 0, -8 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( -128, 0 ), Vector2( 2560, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Manzft/Manzft:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 2, 3.5, 3.9, 6.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ "walk", "idle", "jump", "idle", "walk" ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Control/MakerTitle:rect_position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 2, 3.6, 3.7, 3.8, 5.2, 5.4, 5.6 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1321, 173 ), Vector2( 500, 173 ), Vector2( 500, 173 ), Vector2( 500, 123 ), Vector2( 500, 173 ), Vector2( 500, 173 ), Vector2( 500, 205 ), Vector2( 500, 173 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("SoundJump:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 3.5, 4.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("SoundTwompHit:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 5.2, 5.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("SoundBrick:playing")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 3.8, 4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Manzft/Manzft:visible")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 8.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Sprites:modulate")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 8.7, 9 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("AudioBigButton:playing")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 8.7, 9.8 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Control:visible")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="DynamicFont" id=5]
+size = 90
+outline_size = 5
+outline_color = Color( 0.12549, 0.12549, 0.12549, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 3 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 3 )
+region = Rect2( 32, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=9]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "walk",
+"speed": 10.0
+} ]
+
+[node name="Intro" type="CanvasLayer" groups=["CurrentTree"]]
+script = ExtResource( 24 )
+
+[node name="Bg" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 1, 0.74902, 0, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 3 )
+anims/start = SubResource( 4 )
+
+[node name="Control" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -640.0
+margin_top = -360.0
+margin_right = 640.0
+margin_bottom = 360.0
+
+[node name="WonderTitle" type="Label" parent="Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -175.5
+margin_top = 83.0
+margin_right = 175.5
+margin_bottom = 185.0
+custom_colors/font_color = Color( 1, 0.407843, 0.862745, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "WONDER"
+align = 1
+
+[node name="TitleBottom2" type="Label" parent="Control/WonderTitle"]
+modulate = Color( 1, 1, 1, 0.392157 )
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -175.5
+margin_top = -46.0
+margin_right = 175.5
+margin_bottom = 56.0
+custom_colors/font_color = Color( 1, 0.380392, 0.913725, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "WONDER"
+align = 1
+
+[node name="MakerTitle" type="Label" parent="Control"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -140.0
+margin_top = -547.0
+margin_right = 140.002
+margin_bottom = -445.0
+custom_colors/font_color = Color( 0.952941, 1, 0.168627, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "MAKER"
+align = 1
+
+[node name="TitleBottom2" type="Label" parent="Control/MakerTitle"]
+modulate = Color( 1, 1, 1, 0.392157 )
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -140.0
+margin_top = -46.0
+margin_right = 140.0
+margin_bottom = 56.0
+custom_colors/font_color = Color( 1, 0.380392, 0.913725, 1 )
+custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 5 )
+text = "MAKER"
+align = 1
+
+[node name="Manzft" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_top = 136.0
+margin_bottom = 136.0
+
+[node name="Manzft" type="AnimatedSprite" parent="Manzft"]
+scale = Vector2( 7.5, 7.5 )
+frames = SubResource( 9 )
+animation = "idle"
+playing = true
+
+[node name="Sprites" type="Control" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -640.0
+margin_top = -360.0
+margin_right = 640.0
+margin_bottom = 360.0
+
+[node name="Mario" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -342.0
+margin_top = -346.0
+margin_right = 318.0
+margin_bottom = 354.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 8 )
+
+[node name="Luigi" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -40.0
+margin_top = -411.0
+margin_right = 775.0
+margin_bottom = 425.0
+rect_scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 11 )
+
+[node name="LandRight" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -79.0
+margin_top = -315.0
+margin_right = 1037.0
+margin_bottom = 180.0
+rect_scale = Vector2( 0.667, 0.667 )
+texture = ExtResource( 9 )
+
+[node name="LandLeft" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -644.0
+margin_top = -315.0
+margin_right = 49.0
+margin_bottom = 180.0
+rect_scale = Vector2( 0.667, 0.667 )
+texture = ExtResource( 10 )
+
+[node name="PiranhaPlant" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -474.0
+margin_top = -145.0
+margin_right = -218.0
+margin_bottom = 142.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 15 )
+
+[node name="Coin" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -616.0
+margin_top = -350.0
+margin_right = -552.0
+margin_bottom = -266.0
+rect_scale = Vector2( 0.667, 0.667 )
+texture = ExtResource( 12 )
+
+[node name="Coin2" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -569.0
+margin_top = -297.0
+margin_right = -505.0
+margin_bottom = -213.0
+rect_scale = Vector2( 0.667, 0.667 )
+texture = ExtResource( 12 )
+
+[node name="Coin3" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -517.0
+margin_top = -254.0
+margin_right = -453.0
+margin_bottom = -170.0
+rect_scale = Vector2( 0.667, 0.667 )
+texture = ExtResource( 12 )
+
+[node name="Luckyblock" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -434.0
+margin_top = -391.0
+margin_right = -302.0
+margin_bottom = -263.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 13 )
+
+[node name="Luckyblock2" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -390.0
+margin_top = -391.0
+margin_right = -258.0
+margin_bottom = -263.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 13 )
+
+[node name="Toadette" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -555.0
+margin_top = -599.0
+margin_right = -252.0
+margin_bottom = -324.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 14 )
+
+[node name="Spiny" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -238.0
+margin_top = -485.0
+margin_right = -99.0
+margin_bottom = -281.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 19 )
+
+[node name="Bell" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 190.0
+margin_top = -685.0
+margin_right = 352.0
+margin_bottom = -447.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 18 )
+
+[node name="Toad" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 350.0
+margin_top = -584.0
+margin_right = 568.0
+margin_bottom = -346.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 17 )
+
+[node name="Koopatroopa" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 452.0
+margin_top = -301.0
+margin_right = 964.0
+margin_bottom = -45.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 16 )
+
+[node name="FurryLuigi" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -119.0
+margin_top = -112.0
+margin_right = 55.0001
+margin_bottom = 124.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 20 )
+
+[node name="Bee" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 278.0
+margin_top = -107.0
+margin_right = 490.0
+margin_bottom = 89.0001
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 21 )
+
+[node name="Bee2" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 391.0
+margin_top = -130.0
+margin_right = 603.0
+margin_bottom = 66.0001
+rect_scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 21 )
+
+[node name="Bee3" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 429.0
+margin_top = -66.0001
+margin_right = 641.0
+margin_bottom = 130.0
+rect_scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 21 )
+
+[node name="Bee4" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 482.0
+margin_top = -129.0
+margin_right = 694.0
+margin_bottom = 67.0001
+rect_scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 21 )
+
+[node name="Bee5" type="TextureRect" parent="Sprites"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = 513.0
+margin_top = -62.0001
+margin_right = 725.0
+margin_bottom = 134.0
+rect_scale = Vector2( 0.25, 0.25 )
+texture = ExtResource( 21 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 7.0
+
+[node name="SoundJump" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -5.0
+
+[node name="SoundBrick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+
+[node name="SoundTwompHit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 7 )
+volume_db = 5.0
+
+[node name="AudioBigButton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 22 )
+volume_db = 15.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -1,0 +1,44 @@
+Wonder Maker To Do:
+
+Alpha v1.1
+- Terminar la animación de abrir el guardabot - DONE
+- Hacer el menú de velocidad de cámara - DONE
+- Implementar la velocidad de cámara - DONE
+- Implementar el navegador de nivel - DONE
+- Hacer la intro - DONE
+- Hacer el koopa troopa rojo - DONE
+- Hacer el menú desplegable - DONE
+- Hacer que la piranha plant pueda soltar fireballs - DONE
+- Hacer el primo del goomba - DONE
+- Poder dejar solo el caparazón del spiny - DONE
+- Hacer que se pueda cambiar la dirección del twomp - DONE
+- Hacer que se pueda cambiar la dirección del burner - DONE
+- Hacer que se pueda cambiar el powerup por defecto de mario en el editor - DONE
+- Decoraciones encima del piso - DONE
+- Dry Bones - DONE
+- Checkpoint - DONE
+- Directional Arrow - DONE
+- Gameplay Interface and Score System - DONE
+- Time Limit - DONE
+- Music Mute - DONE
+
+Alpha v1.1 Fix
+- 
+
+- Nuevo Icono de exclamación
+- Globo de texto al lado de los botones
+- Animación de agrandar al agarrar a mario
+- Fondo del type menú más transparente
+- Parpadeo de la borra doble y animación al estar ativada
+- Nuevo sprite del cohete y animación al ser utilizado y al haber terminado
+- Nuevo sprite del botón de "Jugar"
+- Animación de salto al objeto seleccionado
+- Nuevo menú de cronómetro
+- Nuevo menú de auto avance
+- Nuevos sonidos de menú
+- Nuevos sonido al colocar objetos
+
+
+- Implementar el nivel del agua y la posibilidad de mario de nadar - POSPUESTO
+- Hacer el primo del spiny - POSPUESTO
+- Jumping Cloud - POSPUESTO

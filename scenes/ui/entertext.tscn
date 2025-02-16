@@ -1,0 +1,368 @@
+[gd_scene load_steps=14 format=2]
+
+[ext_resource path="res://fonts/NINTENDOSWITCHUI.TTF" type="DynamicFontData" id=1]
+[ext_resource path="res://sprites/ui/general/button_little.png" type="Texture" id=2]
+[ext_resource path="res://sprites/ui/keyboard/type_base.png" type="Texture" id=3]
+[ext_resource path="res://sounds/ui/button.wav" type="AudioStream" id=5]
+[ext_resource path="res://sounds/ui/select_button.wav" type="AudioStream" id=6]
+[ext_resource path="res://scripts/ui/entertext.gd" type="Script" id=7]
+[ext_resource path="res://sprites/64x64.png" type="Texture" id=8]
+[ext_resource path="res://sprites/ui/startmenu/selection_corner.png" type="Texture" id=9]
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 201, 78 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 201, 78 ), Vector2( 211, 88 ), Vector2( 201, 78 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 201, 78 ) ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 201, 78 ), Vector2( 211, 88 ), Vector2( 201, 78 ) ]
+}
+
+[node name="EnterText" type="TextureRect" groups=["CurrentTree"]]
+self_modulate = Color( 0, 0, 0, 0.764706 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 8 )
+expand = true
+script = ExtResource( 7 )
+
+[node name="GuideText" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -571.0
+margin_top = -332.0
+margin_right = 78.0
+margin_bottom = -293.0
+focus_mode = 2
+mouse_filter = 0
+custom_fonts/font = SubResource( 1 )
+text = "GUIDE"
+valign = 1
+clip_text = true
+
+[node name="OkButton" type="TextureButton" parent="." groups=["Button"]]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -498.0
+margin_top = 77.0
+margin_right = -297.0
+margin_bottom = 155.0
+focus_neighbour_left = NodePath("../Base/Text")
+texture_normal = ExtResource( 2 )
+stretch_mode = 3
+
+[node name="Text" type="Label" parent="OkButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -60.0
+margin_top = -15.5
+margin_right = 60.0
+margin_bottom = 15.5
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Aceptar"
+align = 1
+
+[node name="Selection" type="Control" parent="OkButton" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="OkButton/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="UpRight" type="TextureRect" parent="OkButton/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownRight" type="TextureRect" parent="OkButton/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownLeft" type="TextureRect" parent="OkButton/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="OkButton/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 4 )
+anims/idle = SubResource( 5 )
+
+[node name="CancelButton" type="TextureButton" parent="." groups=["Button"]]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -273.0
+margin_top = 77.0
+margin_right = -72.0
+margin_bottom = 155.0
+focus_neighbour_left = NodePath("../Base/Text")
+texture_normal = ExtResource( 2 )
+stretch_mode = 3
+
+[node name="Text" type="Label" parent="CancelButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -67.0
+margin_top = -15.5
+margin_right = 67.0
+margin_bottom = 15.5
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Cancelar"
+align = 1
+
+[node name="Selection" type="Control" parent="CancelButton" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="CancelButton/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="UpRight" type="TextureRect" parent="CancelButton/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownRight" type="TextureRect" parent="CancelButton/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownLeft" type="TextureRect" parent="CancelButton/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CancelButton/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 6 )
+anims/idle = SubResource( 7 )
+
+[node name="AudioSelectButton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = 15.0
+
+[node name="AudioButton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = 15.0
+
+[node name="Base" type="TextureRect" parent="."]
+anchor_right = 1.0
+margin_left = 64.0
+margin_top = 142.0
+margin_right = -558.0
+margin_bottom = 159.0
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 1
+
+[node name="Text" type="TextEdit" parent="Base"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 8.0
+margin_top = -41.0
+margin_right = -6.0
+margin_bottom = -19.0
+focus_neighbour_right = NodePath("../../OkButton")
+custom_fonts/font = SubResource( 1 )
+text = "TEXT"
+override_selected_font_color = true
+
+[connection signal="mouse_entered" from="OkButton" to="." method="_on_OkButton_mouse_entered"]
+[connection signal="mouse_exited" from="OkButton" to="." method="_on_OkButton_mouse_exited"]
+[connection signal="pressed" from="OkButton" to="." method="_on_OkButton_pressed"]
+[connection signal="mouse_entered" from="CancelButton" to="." method="_on_CancelButton_mouse_entered"]
+[connection signal="mouse_exited" from="CancelButton" to="." method="_on_CancelButton_mouse_exited"]
+[connection signal="pressed" from="CancelButton" to="." method="_on_CancelButton_pressed"]

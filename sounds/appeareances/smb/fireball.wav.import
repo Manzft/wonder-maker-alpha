@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/fireball.wav-c047535fe6bde4b87e3d413003badf73.sample"
+
+[deps]
+
+source_file="res://sounds/appeareances/smb/fireball.wav"
+dest_files=[ "res://.import/fireball.wav-c047535fe6bde4b87e3d413003badf73.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

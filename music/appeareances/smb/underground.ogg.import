@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/underground.ogg-0e38c38310142d2ebaad0c3a37655caa.oggstr"
+
+[deps]
+
+source_file="res://music/appeareances/smb/underground.ogg"
+dest_files=[ "res://.import/underground.ogg-0e38c38310142d2ebaad0c3a37655caa.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

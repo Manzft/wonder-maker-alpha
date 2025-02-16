@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/ground_desert_forest.mp3-1861866b7d7a1cdd76663b4ff86fe525.mp3str"
+
+[deps]
+
+source_file="res://music/appeareances/smb3/ground_desert_forest.mp3"
+dest_files=[ "res://.import/ground_desert_forest.mp3-1861866b7d7a1cdd76663b4ff86fe525.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

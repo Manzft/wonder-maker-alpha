@@ -1,0 +1,400 @@
+[gd_scene load_steps=21 format=2]
+
+[ext_resource path="res://scripts/appeareances/smb/twomp.gd" type="Script" id=1]
+[ext_resource path="res://sprites/appeareances/smb/enemies/twomp/attack.png" type="Texture" id=2]
+[ext_resource path="res://sprites/appeareances/smb/enemies/twomp/ready.png" type="Texture" id=3]
+[ext_resource path="res://sprites/appeareances/smb/enemies/twomp/sleep.png" type="Texture" id=4]
+[ext_resource path="res://sprites/ui/editor/sea_level_main_button.png" type="Texture" id=5]
+[ext_resource path="res://sprites/ui/editor/sweat_particle.png" type="Texture" id=6]
+[ext_resource path="res://sprites/ui/editor/arrow_direction_change.png" type="Texture" id=7]
+[ext_resource path="res://sounds/ui/grab_move.wav" type="AudioStream" id=8]
+[ext_resource path="res://sprites/appeareances/smb/enemies/twomp/attack_side.png" type="Texture" id=9]
+[ext_resource path="res://sprites/appeareances/smb/enemies/twomp/ready_side.png" type="Texture" id=10]
+
+[sub_resource type="RectangleShape2D" id=9]
+extents = Vector2( 39, 49 )
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "attack",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "attack_side",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "ready",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "ready_side",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "sleep",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 41, 53.5 )
+
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 23.5, 14.5 )
+
+[sub_resource type="Animation" id=14]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpriteGround:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 3.25, 3.25 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "draging"
+length = 4.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 12.0, 0.0, -12.0 ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "start"
+tracks/0/type = "value"
+tracks/0/path = NodePath("SpriteGround:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 2, 2 ), Vector2( 3.25, 3.25 ) ]
+}
+
+[sub_resource type="Curve" id=11]
+max_value = 360.0
+_data = [ Vector2( 0, 360 ), 0.0, 0.0, 0, 0, Vector2( 0.505952, 0 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="Curve" id=12]
+max_value = 360.0
+_data = [ Vector2( 0.0138889, 122.577 ), 0.0, 0.0, 0, 0, Vector2( 0.505952, 360 ), 0.0, 0.0, 0, 0 ]
+
+[sub_resource type="RectangleShape2D" id=13]
+extents = Vector2( 39, 52 )
+
+[node name="Twomp" type="KinematicBody2D" groups=["Enemy", "Extensible", "Obj", "Twomp"]]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 26, 26 )
+shape = SubResource( 9 )
+
+[node name="SpriteGround" type="AnimatedSprite" parent="."]
+position = Vector2( 26, 26 )
+scale = Vector2( 3.25, 3.25 )
+frames = SubResource( 8 )
+animation = "sleep"
+playing = true
+
+[node name="Shadow" type="AnimatedSprite" parent="SpriteGround"]
+modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+frames = SubResource( 8 )
+animation = "sleep"
+playing = true
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2( 26, 25.5 )
+shape = SubResource( 1 )
+
+[node name="Area2D2" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2"]
+visible = false
+position = Vector2( 26, 9.5 )
+shape = SubResource( 10 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 10.0
+anims/RESET = SubResource( 14 )
+anims/draging = SubResource( 15 )
+anims/start = SubResource( 16 )
+
+[node name="RayCast" type="RayCast2D" parent="."]
+position = Vector2( -6, 83 )
+enabled = true
+cast_to = Vector2( 0, 5 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast2" type="RayCast2D" parent="."]
+position = Vector2( 58, 83 )
+enabled = true
+cast_to = Vector2( 0, 5 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast3" type="RayCast2D" parent="."]
+position = Vector2( 42, 83 )
+enabled = true
+cast_to = Vector2( 0, 5 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast4" type="RayCast2D" parent="."]
+position = Vector2( 10, 83 )
+enabled = true
+cast_to = Vector2( 0, 5 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast5" type="RayCast2D" parent="."]
+position = Vector2( 26, 83 )
+enabled = true
+cast_to = Vector2( 0, 5 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast6" type="RayCast2D" parent="."]
+position = Vector2( -20, -15 )
+enabled = true
+cast_to = Vector2( -5, 0 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast7" type="RayCast2D" parent="."]
+position = Vector2( -20, 5 )
+enabled = true
+cast_to = Vector2( -5, 0 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast8" type="RayCast2D" parent="."]
+position = Vector2( -20, 25 )
+enabled = true
+cast_to = Vector2( -5, 0 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast9" type="RayCast2D" parent="."]
+position = Vector2( -20, 45 )
+enabled = true
+cast_to = Vector2( -5, 0 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast10" type="RayCast2D" parent="."]
+position = Vector2( -20, 65 )
+enabled = true
+cast_to = Vector2( -5, 0 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast11" type="RayCast2D" parent="."]
+position = Vector2( 73, -15 )
+enabled = true
+cast_to = Vector2( 5, 0 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast12" type="RayCast2D" parent="."]
+position = Vector2( 73, 5 )
+enabled = true
+cast_to = Vector2( 5, 0 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast13" type="RayCast2D" parent="."]
+position = Vector2( 73, 25 )
+enabled = true
+cast_to = Vector2( 5, 0 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast14" type="RayCast2D" parent="."]
+position = Vector2( 73, 45 )
+enabled = true
+cast_to = Vector2( 5, 0 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast15" type="RayCast2D" parent="."]
+position = Vector2( 73, 65 )
+enabled = true
+cast_to = Vector2( 5, 0 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="DeadTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="ComeBackTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="CanSwitchOnOffTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[node name="SweatParticlesRight" type="CPUParticles2D" parent="."]
+modulate = Color( 1, 1, 1, 0.870588 )
+show_behind_parent = true
+position = Vector2( 26, 26 )
+emitting = false
+amount = 7
+lifetime = 2.0
+texture = ExtResource( 6 )
+direction = Vector2( 0.2, -1 )
+spread = 11.0
+gravity = Vector2( 0, 2000 )
+initial_velocity = 600.0
+angle_curve = SubResource( 11 )
+
+[node name="SweatParticlesLeft" type="CPUParticles2D" parent="."]
+modulate = Color( 1, 1, 1, 0.870588 )
+show_behind_parent = true
+position = Vector2( 26, 26 )
+emitting = false
+amount = 7
+lifetime = 2.2
+texture = ExtResource( 6 )
+direction = Vector2( -0.2, -1 )
+spread = 11.0
+gravity = Vector2( 0, 2000 )
+initial_velocity = 600.0
+angle_curve = SubResource( 12 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." groups=["Solid"]]
+collision_layer = 5
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+visible = false
+position = Vector2( 26, 26 )
+shape = SubResource( 13 )
+
+[node name="DirectionButton" type="TextureButton" parent="."]
+margin_left = 7.0
+margin_top = 41.0
+margin_right = 45.0
+margin_bottom = 79.0
+texture_normal = ExtResource( 5 )
+
+[node name="ArrowUp" type="TextureRect" parent="DirectionButton"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -9.0
+margin_top = -11.5
+margin_right = 9.0
+margin_bottom = 9.5
+mouse_filter = 2
+texture = ExtResource( 7 )
+
+[node name="ArrowDown" type="TextureRect" parent="DirectionButton"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 9.0
+margin_top = 12.0
+margin_right = 27.0
+margin_bottom = 33.0
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 7 )
+
+[node name="ArrowLeft" type="TextureRect" parent="DirectionButton"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -11.0
+margin_top = 9.0
+margin_right = 7.0
+margin_bottom = 30.0
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 7 )
+
+[node name="ArrowRight" type="TextureRect" parent="DirectionButton"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 12.0
+margin_top = -9.0
+margin_right = 30.0
+margin_bottom = 12.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 7 )
+
+[node name="AudioGrabMove" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 8 )
+volume_db = 5.0
+
+[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
+position = Vector2( 26.5, 26.5 )
+scale = Vector2( 5.25, 5.25 )
+process_parent = true
+physics_process_parent = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="Area2D2" to="." method="_on_Area2D2_body_entered"]
+[connection signal="timeout" from="DeadTimer" to="." method="_on_DeadTimer_timeout"]
+[connection signal="timeout" from="ComeBackTimer" to="." method="_on_ComeBackTimer_timeout"]
+[connection signal="timeout" from="CanSwitchOnOffTimer" to="." method="_on_CanSwitchOnOffTimer_timeout"]
+[connection signal="mouse_entered" from="DirectionButton" to="." method="_on_DirectionButton_mouse_entered"]
+[connection signal="mouse_exited" from="DirectionButton" to="." method="_on_DirectionButton_mouse_exited"]
+[connection signal="pressed" from="DirectionButton" to="." method="_on_DirectionButton_pressed"]

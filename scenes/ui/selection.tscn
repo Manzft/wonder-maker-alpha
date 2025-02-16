@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://sprites/ui/editor/grid_select.png" type="Texture" id=1]
+[ext_resource path="res://scripts/ui/editor/selection.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 0.74902, 0, 0.431373 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "error"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 0.223529, 0.223529, 0.431373 ), Color( 0.815686, 0, 0, 0.431373 ), Color( 1, 0.223529, 0.223529, 0.431373 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "so"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.0901961, 0.211765, 0.866667, 0.431373 ), Color( 0.713726, 0.631373, 1, 0.431373 ), Color( 0.0901961, 0.211765, 0.866667, 0.431373 ) ]
+}
+
+[node name="Selection" type="Sprite" groups=["Selection"]]
+modulate = Color( 1, 0.74902, 0, 0.431373 )
+z_index = 8
+texture = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 2.0
+anims/RESET = SubResource( 1 )
+anims/error = SubResource( 2 )
+anims/so = SubResource( 3 )
