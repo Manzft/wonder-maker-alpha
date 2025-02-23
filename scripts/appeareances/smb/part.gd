@@ -1,8 +1,7 @@
-extends AnimatedSprite
+extends Sprite
 
 func _ready():
 	yield(get_tree(), "idle_frame");
-	play("default");
 
 func _process(_delta):
 	if (is_in_group("SMB_P_HIT")):

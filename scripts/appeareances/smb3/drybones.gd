@@ -239,16 +239,8 @@ func hit(dir, inshell = false, byblock = false, move = false):
 		match (dir):
 			"left":
 				currentSprite.flip_h = true;
-				var inst = load("res://scenes/appearances/smb3/particles/parthit.tscn").instance();
-				get_parent().add_child(inst);
-				inst.position.x = position.x-12.5;
-				inst.position.y = position.y-18;
 			"right":
 				currentSprite.flip_h = false;
-				var inst = load("res://scenes/appearances/smb3/particles/parthit.tscn").instance();
-				get_parent().add_child(inst);
-				inst.position.x = position.x+12.5;
-				inst.position.y = position.y-18;
 		if (get_node("../Character").running):
 			hittedRunning = true;
 		moving = true;

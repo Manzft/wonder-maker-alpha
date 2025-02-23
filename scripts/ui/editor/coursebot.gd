@@ -59,7 +59,7 @@ func updateFocusSprite():
 			node.get_node("Selection/AnimationPlayer").play("RESET");
 
 func _ready():
-	#RichPresence.update_activity("Coursebot");
+	RichPresence.update_activity("Coursebot");
 	
 	#Restart Checkpoint
 	Global.CheckpointGrid = Vector2(0, 0);

@@ -14,27 +14,27 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/discord_game_sdk/example/lobby/chat_message.gd"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivity",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivityAssets",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_assets.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivityManager",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_manager.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivityParty",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_party.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordActivitySecrets",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_secrets.gdns"
@@ -44,7 +44,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_activity_timestamps.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordCore",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_core.gdns"
@@ -59,7 +59,7 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_manager.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordLobbyTransaction",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_lobby_transaction.gdns"
@@ -74,12 +74,12 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_party_size.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordResult",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_result.gdns"
 }, {
-"base": "Reference",
+"base": "",
 "class": "DiscordUser",
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_user.gdns"
@@ -128,7 +128,8 @@ config/windows_native_icon="res://deficon_icon.ico"
 [autoload]
 
 Global="*res://scripts/global.gd"
-RichPresence="res://addons/discord_game_sdk/example/rich_presence/rich_presence.gd"
+Discord="*res://addons/discord_game_sdk/discord.gd"
+RichPresence="*res://addons/discord_game_sdk/example/rich_presence/rich_presence.gd"
 
 [display]
 
@@ -144,7 +145,7 @@ window/stretch/aspect="keep_height"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/nv.file_system/plugin.cfg", "res://addons/nv.script_editor/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addons/nv.file_system/plugin.cfg", "res://addons/nv.script_editor/plugin.cfg" )
 
 [global]
 

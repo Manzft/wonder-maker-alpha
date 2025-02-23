@@ -1339,7 +1339,7 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -162.0
+margin_left = -202.0
 margin_top = -59.0
 margin_right = -10.0
 margin_bottom = -10.0
@@ -1359,7 +1359,7 @@ margin_top = -12.5
 margin_right = 150.5
 margin_bottom = 12.5
 custom_fonts/font = SubResource( 2 )
-text = "Alpha v1.2"
+text = "Alpha v1.2 Fix"
 align = 1
 
 [node name="StartButton" type="TextureButton" parent="." groups=["Button"]]

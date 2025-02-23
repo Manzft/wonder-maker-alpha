@@ -515,12 +515,11 @@ func _ready():
 	yield(get_tree().create_timer(0.1), "timeout");
 	
 	if (Global.coursePlaying):
-		pass
-		#RichPresence.update_activity("PlayingCoursebot")
+		RichPresence.update_activity("PlayingCoursebot")
 	
 	if (!get_parent().startmenu && !Global.coursePlaying):
 		editorMusic(true);
-		#RichPresence.update_activity("Editing");
+		RichPresence.update_activity("Editing");
 	
 	for i in range(12): 
 		selected_objects.append([]);
