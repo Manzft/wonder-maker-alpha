@@ -41,9 +41,17 @@ var moving = false;
 
 var canAttack = true;
 
+var canActiveTimerStarted = false;
+
 var rendered = true;
 
 var canActive = false;
+
+var carrying = false;
+
+var invincible = false;
+
+var alreadydead = false;
 
 func _ready():
 	styleChanged();
@@ -66,6 +74,62 @@ func _process(_delta):
 		currentSprite.scale = Vector2(3.25, 3.25);
 		$SweatParticlesLeft.emitting = false;
 		$SweatParticlesRight.emitting = false;
+		
+		if (!canActiveTimerStarted):
+			$CanActiveTimer.start();
+			canActiveTimerStarted = true;
+		
+		#Carried by Player
+		var chara = get_node("../Character");
+		if (carrying && chara.carrying):
+			var charpos = chara.position;
+			var dif = 0;
+			if (chara.current_sprite.flip_h):
+				dif = -32;
+			else:
+				dif = 32;
+			
+			position.x = charpos.x+dif;
+			position.y = charpos.y-5;
+			
+			if (!chara.running):
+				carrying = false;
+				chara.carrying = false;
+				
+				motion.y = 0;
+				
+				if (!dead && !chara.died && !chara.changingPowerup):
+					if (Input.is_action_pressed("down") || Input.is_action_pressed("ddown")):
+						canAttack = false;
+						invincible = true;
+						$InvincibleTimer.start();
+						$AttackTimer.start();
+						if (chara.position.x >= position.x):
+							position.x -= 10;
+							motion.x = -70;
+						else:
+							position.x += 10;
+							motion.x = 70;
+					else:
+						chara.get_node("KickingTimer").start();
+						chara.kicking = true;
+						if (chara.position.x >= position.x):
+							hit("left", false, false, true);
+							var inst = load("res://scenes/appearances/smb3/particles/parthit.tscn").instance();
+							get_parent().add_child(inst);
+							inst.position.x = position.x-12.5;
+							inst.position.y = position.y;
+						else:
+							hit("right", false, false, true);
+							var inst = load("res://scenes/appearances/smb3/particles/parthit.tscn").instance();
+							get_parent().add_child(inst);
+							inst.position.x = position.x+12.5;
+							inst.position.y = position.y;
+						canAttack = false;
+						invincible = true;
+						$InvincibleTimer.start();
+						$AttackTimer.start();
+						chara.get_node("SoundShellHit").play();
 		
 		#Fall Dead
 		if (position.y > 1600):
@@ -99,6 +163,9 @@ func _process(_delta):
 			currentSprite.get_node("Shadow").show();
 			$AnimationPlayer.play("RESET");
 		
+		canActiveTimerStarted = false;
+		invincible = false;
+		carrying = false;
 		startPos = position;
 		inShell = false;
 		arrived = false;
@@ -186,6 +253,9 @@ func _physics_process(delta):
 							if (!downRightRayCast.is_colliding()):
 								currentSprite.flip_h = true;
 						currentSprite.play("walk");
+			elif (inShell && !moving):
+				if (is_on_floor()):
+					motion.x = lerp(motion.x, 0.0, 0.125);
 			elif (inShell && moving):
 				if (currentSprite.flip_h):
 					motion.x = -max_walk_speed*4.25-speed_increase;
@@ -227,6 +297,8 @@ func hit(dir, inshell = false, byblock = false, move = false):
 		speed_increase = abs(get_node("../Character").motion.x/2);
 		moving = true;
 	elif (!inshell):
+		if (invincible):
+			return
 		dead = true;
 		hitDead = true;
 		hitSide = dir;
@@ -374,23 +446,29 @@ func _on_Area2D2_body_entered(body):
 					get_parent().enemyScore(position);
 			elif (inShell && !moving):
 				if (!dead && !body.died && !body.changingPowerup):
-					if (get_node("../Character").position.x >= position.x):
-						hit("left", false, false, true);
-						var inst = load("res://scenes/appearances/smb3/particles/parthit.tscn").instance();
-						get_parent().add_child(inst);
-						inst.position.x = position.x-12.5;
-						inst.position.y = position.y-18;
+					if (get_node("../Character").running && !get_node("../Character").carrying && !get_node("../Character").sneaking):
+						get_node("../Character").carrying = true;
+						carrying = true;
+						$BigWakeTimer.stop();
+						$BigWakeTimer.start();
 					else:
-						hit("right", false, false, true);
-						var inst = load("res://scenes/appearances/smb3/particles/parthit.tscn").instance();
-						get_parent().add_child(inst);
-						inst.position.x = position.x+12.5;
-						inst.position.y = position.y-18;
-					
-					canAttack = false;
-					$AttackTimer.start();
-					
-					body.get_node("SoundShellHit").play();
+						if (get_node("../Character").position.x >= position.x):
+							hit("left", false, false, true);
+							var inst = load("res://scenes/appearances/smb3/particles/parthit.tscn").instance();
+							get_parent().add_child(inst);
+							inst.position.x = position.x-12.5;
+							inst.position.y = position.y-18;
+						else:
+							hit("right", false, false, true);
+							var inst = load("res://scenes/appearances/smb3/particles/parthit.tscn").instance();
+							get_parent().add_child(inst);
+							inst.position.x = position.x+12.5;
+							inst.position.y = position.y-18;
+						
+						canAttack = false;
+						$AttackTimer.start();
+						
+						body.get_node("SoundShellHit").play();
 			elif (inShell && moving):
 				if (!dead && !body.died && !body.is_on_floor() && !body.changingPowerup):
 					currentSprite.play("down");
@@ -441,7 +519,9 @@ func _on_WakeTimer_timeout():
 			currentSprite.flip_h = false;
 		else:
 			currentSprite.flip_h = true;
-		hittedRunning = false;
+		if (carrying):
+			carrying = false;
+			get_node("../Character").carrying = false;
 
 func _on_BigWakeTimer_timeout():
 	if (!moving && !dead):
@@ -453,3 +533,6 @@ func _on_BigWakeTimer_timeout():
 
 func _on_CanActiveTimer_timeout():
 	canActive = true;
+
+func _on_InvincibleTimer_timeout():
+	invincible = false;
