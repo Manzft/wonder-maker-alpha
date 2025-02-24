@@ -215,6 +215,19 @@ func _physics_process(delta):
 				if (current_sprite.animation != currentPowerup+"_run_jump"):
 					if (!sneaking):
 						current_sprite.play(currentPowerup+"_run_jump");
+			elif (star):
+				if (currentPowerup == "small"):
+					if (falling || jumping):
+						if (!sneaking):
+							current_sprite.play(currentPowerup+"_jump");
+						else:
+							pass
+				else:
+					if (falling || jumping):
+						if (!sneaking):
+							current_sprite.play(currentPowerup+"_star_jump");
+						else:
+							pass
 			else:
 				if (currentPowerup == "small" || motion.y <= 0):
 					if (current_sprite.animation != currentPowerup+"_jump"):
@@ -285,7 +298,10 @@ func _physics_process(delta):
 			else:
 				if (current_sprite.flip_h):
 					current_sprite.flip_h = false;
-			motion.x = min(motion.x + acc, max_speed);
+			if (motion.x < max_speed):
+				motion.x += acc;
+			else:
+				motion.x -= acc/2;
 		elif (inpchckl && sneakchck && !course_clear && startmenucheck):
 			var acc = acceleration * 2.5;
 			if (is_on_floor() && !attacking):
@@ -317,7 +333,10 @@ func _physics_process(delta):
 			else:
 				if (!current_sprite.flip_h):
 					current_sprite.flip_h = true;
-			motion.x = max(motion.x - acc, -max_speed);
+			if (motion.x > -max_speed):
+				motion.x -= acc;
+			else:
+				motion.x += acc/2;
 		else:
 			friction = true;
 			if (is_on_floor() && !attacking):
@@ -448,6 +467,7 @@ func _physics_process(delta):
 
 func sneak():
 	if (!carrying):
+		kicking = false;
 		sneaking = true;
 		drifting = false;
 		current_sprite.play(currentPowerup+"_crouch");

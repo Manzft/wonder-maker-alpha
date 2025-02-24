@@ -37,6 +37,7 @@ tracks/0/keys = {
 }
 
 [node name="Arrow" type="Node2D" groups=["Arrow", "Extensible", "Obj"]]
+z_index = -1
 script = ExtResource( 1 )
 
 [node name="SpriteGround" type="Sprite" parent="."]

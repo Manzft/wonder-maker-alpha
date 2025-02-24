@@ -241,8 +241,10 @@ func _physics_process(_delta):
 					acc = acceleration;
 				else:
 					acc = acceleration * 2;
-			
-			motion.x = min(motion.x + acc, max_speed);
+			if (motion.x < max_speed):
+				motion.x += acc;
+			else:
+				motion.x -= acc/2;
 		elif (inpchckl && sneakchck && !course_clear && startmenucheck):
 			var acc = acceleration * 2.5;
 			if (is_on_floor() && !attacking):
@@ -265,7 +267,10 @@ func _physics_process(_delta):
 				
 				if (!drifting):
 					current_sprite.play(currentPowerup+"_walk");
-			motion.x = max(motion.x - acc, -max_speed);
+			if (motion.x > -max_speed):
+				motion.x -= acc;
+			else:
+				motion.x += acc/2;
 		else:
 			friction = true;
 			if (is_on_floor() && !attacking):
@@ -414,7 +419,7 @@ func _process(_delta):
 	current_sprite.get_node("Shadow").offset = current_sprite.offset;
 	
 	#Fall Dead
-	if (position.y >= 1600):
+	if (position.y >= 1600 && !course_clear):
 		position.y = 1600;
 		
 		if (donuts > 0):

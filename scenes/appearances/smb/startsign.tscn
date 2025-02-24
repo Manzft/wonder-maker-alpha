@@ -6,6 +6,7 @@
 
 [node name="StartSign" type="Node2D" groups=["StartSign"]]
 scale = Vector2( 3.25, 3.25 )
+z_index = -1
 script = ExtResource( 2 )
 
 [node name="SpriteGround" type="Sprite" parent="."]

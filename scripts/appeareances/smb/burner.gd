@@ -84,7 +84,7 @@ func _process(_delta):
 		$DirectionButton.hide();
 		
 		if (sleep):
-			if (abs(position.x-get_node("../Character").position.x) <= 1280*0.75):
+			if ($VisibilityEnabler2D.is_on_screen()):
 				get_node("../Character/SoundBurnerFlame").play();
 			sleep = false;
 		

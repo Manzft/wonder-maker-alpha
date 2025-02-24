@@ -338,6 +338,7 @@ collide_with_areas = true
 [node name="Mario" type="AnimatedSprite" parent="."]
 show_behind_parent = true
 light_mask = 3
+position = Vector2( 0, -1 )
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 5 )
 animation = "small_idle"
@@ -367,7 +368,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="InvincibleTimer" type="Timer" parent="."]
-wait_time = 2.5
+wait_time = 1.75
 one_shot = true
 
 [node name="ChangingPowerupTimer" type="Timer" parent="."]

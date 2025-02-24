@@ -174,7 +174,6 @@ position = Vector2( 0, -17 )
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 8 )
 animation = "walk"
-frame = 1
 playing = true
 flip_h = true
 
@@ -185,7 +184,6 @@ z_index = -3
 z_as_relative = false
 frames = SubResource( 8 )
 animation = "walk"
-frame = 1
 playing = true
 flip_h = true
 
@@ -227,6 +225,10 @@ anims/RESET = SubResource( 33 )
 anims/draging = SubResource( 34 )
 anims/start = SubResource( 35 )
 anims/waking = SubResource( 36 )
+
+[node name="InvincibleTimer" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
 
 [node name="DeadTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -288,6 +290,7 @@ physics_process_parent = true
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="body_entered" from="Area2D2" to="." method="_on_Area2D2_body_entered"]
+[connection signal="timeout" from="InvincibleTimer" to="." method="_on_InvincibleTimer_timeout"]
 [connection signal="timeout" from="DeadTimer" to="." method="_on_DeadTimer_timeout"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]
 [connection signal="timeout" from="WakeTimer" to="." method="_on_WakeTimer_timeout"]

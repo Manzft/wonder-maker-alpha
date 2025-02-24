@@ -10,9 +10,6 @@ onready var currentSprite = get_node("SpriteGround");
 onready var rcd1 = get_node("LeftRayCast");
 onready var rcd2 = get_node("RightRayCast");
 
-var rcd1coll = false;
-var rcd2coll = false;
-
 var motion = Vector2();
 
 var startPos = Vector2();
@@ -126,16 +123,8 @@ func _physics_process(delta):
 		return
 	#Head Hit Raycasts
 	if (!dead):
-		if (rcd1.is_colliding() && !rcd1coll):
-			areaCollide(rcd1);
-			rcd1coll = true;
-		elif (!rcd1.is_colliding() && rcd1coll):
-			rcd1coll = false;
-		if (rcd2.is_colliding() && !rcd2coll):
-			areaCollide(rcd2);
-			rcd2coll = true;
-		elif (!rcd2.is_colliding() && rcd2coll):
-			rcd2coll = false;
+		if (rcd1.is_colliding()): areaCollide(rcd1);
+		if (rcd2.is_colliding()): areaCollide(rcd2);
 	
 	if (!active && !exiting):
 		active = true;

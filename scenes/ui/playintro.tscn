@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://sprites/ui/playintro/titlebar.png" type="Texture" id=1]
 [ext_resource path="res://sprites/64x64.png" type="Texture" id=2]
@@ -9,6 +9,9 @@
 [ext_resource path="res://fonts/NINTENDOSWITCHUI.TTF" type="DynamicFontData" id=7]
 [ext_resource path="res://scripts/ui/playintro.gd" type="Script" id=8]
 [ext_resource path="res://sprites/ui/coursebot/authoricon.png" type="Texture" id=9]
+[ext_resource path="res://sprites/appeareances/smb3/mario/small/idle.png" type="Texture" id=10]
+[ext_resource path="res://sprites/appeareances/smb3/mario/small/jump.png" type="Texture" id=11]
+[ext_resource path="res://sounds/appeareances/smb3/jump.wav" type="AudioStream" id=12]
 
 [sub_resource type="DynamicFont" id=4]
 size = 30
@@ -31,10 +34,23 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "smb_idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 11 ) ],
+"loop": true,
+"name": "smb_jump",
+"speed": 5.0
+} ]
+
 [sub_resource type="Animation" id=2]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:animation")
+tracks/0/path = NodePath("SpriteContainer:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -46,7 +62,7 @@ tracks/0/keys = {
 "values": [ "smb_idle" ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:position")
+tracks/1/path = NodePath("SpriteContainer:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -70,7 +86,7 @@ tracks/2/keys = {
 "values": [ false ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("../SoundJump:playing")
+tracks/3/path = NodePath("../SoundJumpSMB:playing")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -81,57 +97,81 @@ tracks/3/keys = {
 "update": 1,
 "values": [ false ]
 }
+tracks/4/type = "value"
+tracks/4/path = NodePath("SpriteContainer/SMB:animation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "smb_idle" ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("SpriteContainer/SMB3:animation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ "smb_idle" ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "jump"
 length = 1.6
 tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:animation")
-tracks/0/interp = 1
+tracks/0/path = NodePath("SpriteContainer:position")
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.4 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 1,
-"values": [ "smb_jump", "smb_idle" ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Sprite:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 379, 293 ), Vector2( 379, 192 ), Vector2( 379, 293 ) ]
 }
-tracks/2/type = "value"
-tracks/2/path = NodePath("../AudioMario:playing")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
+tracks/1/type = "value"
+tracks/1/path = NodePath("../AudioMario:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 0.8, 1.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
 "values": [ true, false ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpriteContainer/SMB:animation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ "smb_jump", "smb_idle" ]
+}
 tracks/3/type = "value"
-tracks/3/path = NodePath("../SoundJump:playing")
+tracks/3/path = NodePath("SpriteContainer/SMB3:animation")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 1.5 ),
+"times": PoolRealArray( 0, 0.4 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ true, false ]
+"values": [ "smb_jump", "smb_idle" ]
 }
 
 [node name="PlayIntro" type="CanvasLayer"]
@@ -205,10 +245,19 @@ margin_top = -204.0
 margin_right = 381.0
 margin_bottom = 278.0
 
-[node name="Sprite" type="AnimatedSprite" parent="Control"]
+[node name="SpriteContainer" type="Node2D" parent="Control"]
 position = Vector2( 379, 293 )
 scale = Vector2( 8, 8 )
+
+[node name="SMB" type="AnimatedSprite" parent="Control/SpriteContainer"]
+visible = false
 frames = SubResource( 1 )
+animation = "smb_idle"
+playing = true
+
+[node name="SMB3" type="AnimatedSprite" parent="Control/SpriteContainer"]
+visible = false
+frames = SubResource( 6 )
 animation = "smb_idle"
 playing = true
 
@@ -219,8 +268,12 @@ anims/jump = SubResource( 3 )
 [node name="AudioMario" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
 
-[node name="SoundJump" type="AudioStreamPlayer" parent="."]
+[node name="SoundJumpSMB" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
 volume_db = -5.0
+
+[node name="SoundJumpSMB3" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+volume_db = 10.0
 
 [connection signal="animation_finished" from="Control/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

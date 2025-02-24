@@ -10,9 +10,6 @@ onready var currentSprite = get_node("SpriteGround");
 onready var rcd1 = get_node("LeftRayCast");
 onready var rcd2 = get_node("RightRayCast");
 
-var rcd1coll = false;
-var rcd2coll = false;
-
 var motion = Vector2();
 
 var startPos = Vector2();
@@ -48,6 +45,8 @@ var canActive = false;
 var hittedRunning = false;
 
 var carrying = false;
+
+var invincible = false;
 
 func _ready():
 	styleChanged();
@@ -106,6 +105,8 @@ func _process(_delta):
 						get_parent().add_child(inst);
 						inst.position.x = position.x+12.5;
 						inst.position.y = position.y;
+					invincible = true;
+					$InvincibleTimer.start();
 					canAttack = false;
 					$AttackTimer.start();
 					chara.get_node("SoundShellHit").play();
@@ -147,6 +148,7 @@ func _process(_delta):
 			$AnimationPlayer.play("RESET");
 			hittedRunning = false;
 		
+		invincible = false;
 		carrying = false;
 		startPos = position;
 		canActiveTimerStarted = false;
@@ -199,16 +201,8 @@ func _physics_process(delta):
 		return
 	#Head Hit Raycasts
 	if (!dead):
-		if (rcd1.is_colliding() && !rcd1coll):
-			areaCollide(rcd1);
-			rcd1coll = true;
-		elif (!rcd1.is_colliding() && rcd1coll):
-			rcd1coll = false;
-		if (rcd2.is_colliding() && !rcd2coll):
-			areaCollide(rcd2);
-			rcd2coll = true;
-		elif (!rcd2.is_colliding() && rcd2coll):
-			rcd2coll = false;
+		if (rcd1.is_colliding()): areaCollide(rcd1);
+		if (rcd2.is_colliding()): areaCollide(rcd2);
 	
 	if (!active && !exiting):
 		active = true;
@@ -306,6 +300,8 @@ func hit(dir, inshell = false, byblock = false, move = false):
 			hittedRunning = true;
 		moving = true;
 	elif (!inshell):
+		if (invincible):
+			return
 		dead = true;
 		hitDead = true;
 		hitSide = dir;
@@ -344,7 +340,10 @@ func areaCollide(rc):
 	if (!exiting && active && !dead):
 		var body = rc.get_collider();
 		var chck = false;
-		if (body == self || !body.visible):
+		var invBlockCheck = false;
+		if (body.is_in_group("InvisibleLuckyblock") && !moving && !inShell):
+			invBlockCheck = true;
+		if (body == self || !body.visible || invBlockCheck):
 			return
 		if (body.is_in_group("Enemy") && !inShell && !moving):
 			if (!body.dead && body.rendered):
@@ -487,3 +486,6 @@ func _on_BigWakeTimer_timeout():
 
 func _on_CanActiveTimer_timeout():
 	canActive = true;
+
+func _on_InvincibleTimer_timeout():
+	invincible = false;

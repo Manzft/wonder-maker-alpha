@@ -438,6 +438,8 @@ func setNodes():
 				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][1] = "spiny";
 			if (node.piranhaplant):
 				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][1] = "piranhaplant";
+			if (node.withp):
+				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][1] = "withp";
 			if (node.piranhaplantfire):
 				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][1] = "piranhaplantfire";
 			if (node.goombrat):
@@ -461,14 +463,13 @@ func setNodes():
 		#Spike
 		if (node.is_in_group("Spike")):
 			gnode[OBJ_SPIKE][objects_count[OBJ_SPIKE]][0] = node.position; objects_count[OBJ_SPIKE] += 1;
-		
 		#10 Coin
 		if (node.is_in_group("10Coin")):
 			gnode[OBJ_10COIN][objects_count[OBJ_10COIN]][0] = node.position; 
 			gnode[OBJ_10COIN][objects_count[OBJ_10COIN]][10] = node.extension_grid_size;
 			for i in range(node.extension_grid_size):
 				gnode[OBJ_10COIN][objects_count[OBJ_10COIN]][11+i] = node.default_extension_grid[i];
-			objects_count[OBJ_10COIN]
+			objects_count[OBJ_10COIN] += 1;
 		#30 Coin
 		if (node.is_in_group("30Coin")):
 			gnode[OBJ_30COIN][objects_count[OBJ_30COIN]][0] = node.position; 
@@ -512,9 +513,10 @@ func setNodes():
 			gnode[OBJ_KOOPATROOPA_RED][objects_count[OBJ_KOOPATROOPA_RED]][0] = node.position; objects_count[OBJ_KOOPATROOPA_RED] += 1;
 		#Spiny
 		if (node.is_in_group("Spiny")):
-			gnode[OBJ_SPINY][objects_count[OBJ_SPINY]][0] = node.position; objects_count[OBJ_SPINY] += 1;
+			gnode[OBJ_SPINY][objects_count[OBJ_SPINY]][0] = node.position;
 			if (node.alreadydead):
 				gnode[OBJ_SPINY][objects_count[OBJ_SPINY]][1] = "alreadydead";
+			objects_count[OBJ_SPINY] += 1;
 		#Piranha Plant
 		if (node.is_in_group("PiranhaPlant")):
 			gnode[OBJ_PIRANHAPLANT][objects_count[OBJ_PIRANHAPLANT]][0] = node.position; objects_count[OBJ_PIRANHAPLANT] += 1;

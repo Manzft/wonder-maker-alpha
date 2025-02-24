@@ -121,6 +121,17 @@ texture = ExtResource( 6 )
 expand = true
 stretch_mode = 1
 
+[node name="Icon" type="TextureRect" parent="Pause"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.0
+margin_top = -27.0
+margin_right = 27.0
+margin_bottom = 27.0
+texture = ExtResource( 4 )
+
 [node name="Selection" type="Control" parent="Pause" groups=["Selection"]]
 visible = false
 anchor_right = 1.0
@@ -174,17 +185,6 @@ texture = ExtResource( 5 )
 playback_speed = 1.25
 anims/RESET = SubResource( 1 )
 anims/idle = SubResource( 2 )
-
-[node name="Icon" type="TextureRect" parent="Pause"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -27.0
-margin_top = -27.0
-margin_right = 27.0
-margin_bottom = 27.0
-texture = ExtResource( 4 )
 
 [connection signal="mouse_entered" from="Pause" to="." method="_on_Pause_mouse_entered"]
 [connection signal="mouse_exited" from="Pause" to="." method="_on_Pause_mouse_exited"]

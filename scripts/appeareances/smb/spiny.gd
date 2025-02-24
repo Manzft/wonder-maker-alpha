@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 const max_walk_speed = 100;
+var speed_increase = 0.0;
 const jump_h  = -250;
 const gravity = 30;
 const max_fall = jump_h*-3;
@@ -9,9 +10,6 @@ onready var currentSprite = get_node("SpriteGround");
 
 onready var rcd1 = get_node("LeftRayCast");
 onready var rcd2 = get_node("RightRayCast");
-
-var rcd1coll = false;
-var rcd2coll = false;
 
 var motion = Vector2();
 
@@ -44,8 +42,6 @@ var rendered = true;
 
 var canActiveTimerStarted = false;
 var canActive = false;
-
-var hittedRunning = false;
 
 func _ready():
 	styleChanged();
@@ -105,7 +101,6 @@ func _process(_delta):
 			position = startPos;
 			currentSprite.get_node("Shadow").show();
 			$AnimationPlayer.play("RESET");
-			hittedRunning = false;
 		
 		startPos = position;
 		canActiveTimerStarted = false;
@@ -158,16 +153,8 @@ func _physics_process(delta):
 		return
 	#Head Hit Raycasts
 	if (!dead):
-		if (rcd1.is_colliding() && !rcd1coll):
-			areaCollide(rcd1);
-			rcd1coll = true;
-		elif (!rcd1.is_colliding() && rcd1coll):
-			rcd1coll = false;
-		if (rcd2.is_colliding() && !rcd2coll):
-			areaCollide(rcd2);
-			rcd2coll = true;
-		elif (!rcd2.is_colliding() && rcd2coll):
-			rcd2coll = false;
+		if (rcd1.is_colliding()): areaCollide(rcd1);
+		if (rcd2.is_colliding()): areaCollide(rcd2);
 	
 	if (!active && !exiting):
 		active = true;
@@ -217,13 +204,9 @@ func _physics_process(delta):
 							currentSprite.play("fall");
 			elif (inShell && moving):
 				if (currentSprite.flip_h):
-					motion.x = -max_walk_speed*5.25;
-					if (hittedRunning):
-						motion.x = -max_walk_speed*7;
+					motion.x = -max_walk_speed*4.25-speed_increase;
 				else:
-					motion.x = max_walk_speed*5.25;
-					if (hittedRunning):
-						motion.x = max_walk_speed*7;
+					motion.x = max_walk_speed*4.25+speed_increase;
 				if (alreadydead):
 					currentSprite.play("empty_moving");
 				else:
@@ -261,8 +244,7 @@ func hit(dir, inshell = false, byblock = false, move = false):
 				currentSprite.flip_h = true;
 			"right":
 				currentSprite.flip_h = false;
-		if (get_node("../Character").running):
-			hittedRunning = true;
+		speed_increase = abs(get_node("../Character").motion.x/2);
 		moving = true;
 	elif (!inshell):
 		dead = true;
@@ -303,7 +285,10 @@ func areaCollide(rc):
 	if (!exiting && active && !dead):
 		var body = rc.get_collider();
 		var chck = false;
-		if (body == self || !body.visible):
+		var invBlockCheck = false;
+		if (body.is_in_group("InvisibleLuckyblock") && !moving && !inShell):
+			invBlockCheck = true;
+		if (body == self || !body.visible || invBlockCheck):
 			return
 		if (body.is_in_group("Enemy") && !inShell && !moving):
 			if (!body.dead && body.rendered):
@@ -428,7 +413,6 @@ func _on_WakeTimer_timeout():
 		inShell = false;
 		currentSprite.flip_v = false;
 		currentSprite.position.y = 0;
-		hittedRunning = false;
 
 func _on_BigWakeTimer_timeout():
 	if (!moving && inShell && !dead && !alreadydead):

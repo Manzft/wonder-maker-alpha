@@ -249,9 +249,9 @@ volume_db = 5.0
 position = Vector2( 0.499993, 2.86102e-06 )
 scale = Vector2( 18.15, 18.2 )
 pause_animations = false
+freeze_bodies = false
+pause_particles = false
 pause_animated_sprites = false
-process_parent = true
-physics_process_parent = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

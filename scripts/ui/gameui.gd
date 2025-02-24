@@ -54,6 +54,7 @@ func updateFocusSprite():
 			node.get_node("Selection/AnimationPlayer").play("RESET");
 
 func _ready():
+	yield(get_tree().create_timer(1.0), "timeout");
 	if (Global.coursePlaying):
 		$Pause.show();
 	else:

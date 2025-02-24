@@ -568,6 +568,7 @@ func prepareLoad():
 		styleChange(Global.CurrentStyle, true);
 
 func gameLoaded():
+	yield(get_tree().create_timer(0.125), "timeout");
 	if (Global.coursePlaying || get_parent().startmenu):
 		_on_Play_pressed();
 		get_parent().editing = false;
@@ -589,6 +590,7 @@ func toggle_gamepadCursor(closeMenus = true):
 		toggle_buttons();
 
 func toggle_buttons():
+	closeMenus();
 	if (!buttonsClosed):
 		$AnimationPlayer.play("out");
 		buttonsClosed = true;
@@ -1334,6 +1336,7 @@ func button_mouse_exited():
 func _on_StartButton_pressed():
 	#savedFocus = getFocusNode();
 	#Global.showMessage("¡Aún estamos trabajando en esto!.", self);
+	closeMenus();
 	sidemenu();
 	$AudioStart.play();
 func _on_StartButton_mouse_entered():
@@ -2028,6 +2031,8 @@ func enterTextFinished(text, type):
 		editingText = false;
 
 func _on_SaveNewCourse_pressed():
+	get_parent().objSelected = -50;
+	updateObjectButtons();
 	$AudioCoursebotSelect.play();
 	savedFocus = getFocusNode();
 	var inst = Global.enterText("Ingresa el nombre del nivel:", "CourseName", self);
@@ -2038,6 +2043,8 @@ func _on_SaveNewCourse_mouse_exited():
 	button_mouse_exited(); mouseFocus = ""; changeFocus();
 
 func _on_SaveChanges_pressed():
+	get_parent().objSelected = -50;
+	updateObjectButtons();
 	$AudioCoursebotSelect.play();
 	if (Global.currentlevel == ""):
 		savedFocus = getFocusNode();
@@ -2053,6 +2060,8 @@ func _on_SaveChanges_mouse_exited():
 	button_mouse_exited(); mouseFocus = ""; changeFocus();
 
 func _on_Load_pressed():
+	get_parent().objSelected = -50;
+	updateObjectButtons();
 	$AudioCoursebotSelect.play();
 	Global.loadingCourse = true;
 	Global.changeScene("res://scenes/ui/coursebot.tscn");
@@ -2224,6 +2233,7 @@ func _on_TimeMenuCloseButton_mouse_exited():
 #Play/Edit Button
 func _on_Play_pressed():
 	if (!playing):
+		$UIBlocker.show();
 		if (Global.CurrentInput == "Gamepad"):
 			if (gamepadCursor):
 				gamepadCursor = false;
@@ -2507,3 +2517,8 @@ func _exit_tree():
 #	if (!thread.is_alive()):
 #		thread.wait_to_finish();
 #		print("thread disposed")
+
+
+func _on_Play_AnimationPlayer_animation_finished(anim_name):
+	if (anim_name == "out"):
+		$UIBlocker.hide();

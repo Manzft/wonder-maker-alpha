@@ -8108,10 +8108,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 1742.0
-margin_top = 1742.0
-margin_right = 1778.0
-margin_bottom = 1778.0
+margin_left = 1764.0
+margin_top = 1764.0
+margin_right = 1800.0
+margin_bottom = 1800.0
 texture = ExtResource( 36 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GamepadCursor/SprintGuide"]
@@ -10848,7 +10848,7 @@ rect_pivot_offset = Vector2( -10, 15 )
 focus_neighbour_left = NodePath(".")
 focus_neighbour_top = NodePath("../UnderwaterButton")
 focus_neighbour_right = NodePath("../AirshipButton")
-focus_neighbour_bottom = NodePath("../SnowButton")
+focus_neighbour_bottom = NodePath("../GhostforestButton")
 texture_normal = ExtResource( 27 )
 stretch_mode = 3
 
@@ -11527,10 +11527,10 @@ margin_bottom = 382.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
-focus_neighbour_left = NodePath("../UnderwaterButton")
-focus_neighbour_top = NodePath("../ForestButton")
-focus_neighbour_right = NodePath("../../CloseButton")
-focus_neighbour_bottom = NodePath("../AirshipButton")
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath("../DesertButton")
+focus_neighbour_right = NodePath("../SnowButton")
+focus_neighbour_bottom = NodePath(".")
 texture_normal = ExtResource( 27 )
 stretch_mode = 3
 
@@ -12939,7 +12939,6 @@ anims/idle = SubResource( 276 )
 [node name="ClockMan" type="AnimatedSprite" parent="TimeMenu/Buttons"]
 position = Vector2( 143, 174 )
 frames = SubResource( 253 )
-frame = 1
 speed_scale = 0.33
 playing = true
 
@@ -15370,6 +15369,11 @@ one_shot = true
 wait_time = 0.5
 one_shot = true
 
+[node name="UIBlocker" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
 [connection signal="button_down" from="SeaLevelButton" to="." method="_on_SeaLevel_button_down"]
 [connection signal="button_up" from="SeaLevelButton" to="." method="_on_SeaLevel_button_up"]
 [connection signal="button_down" from="SeaLevelTopButton" to="." method="_on_SeaTopLevel_button_down"]
@@ -15565,6 +15569,7 @@ one_shot = true
 [connection signal="mouse_entered" from="Play" to="." method="_on_Play_mouse_entered"]
 [connection signal="mouse_exited" from="Play" to="." method="_on_Play_mouse_exited"]
 [connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]
+[connection signal="animation_finished" from="Play/AnimationPlayer" to="." method="_on_Play_AnimationPlayer_animation_finished"]
 [connection signal="mouse_entered" from="Edit" to="." method="_on_Edit_mouse_entered"]
 [connection signal="mouse_exited" from="Edit" to="." method="_on_Edit_mouse_exited"]
 [connection signal="pressed" from="Edit" to="." method="_on_Edit_pressed"]

@@ -25,12 +25,6 @@ onready var rcd13 = get_node("RayCast13");
 onready var rcd14 = get_node("RayCast14");
 onready var rcd15 = get_node("RayCast15");
 
-var rcd1coll = false;
-var rcd2coll = false;
-var rcd3coll = false;
-var rcd4coll = false;
-var rcd5coll = false;
-
 var motion = Vector2();
 
 var startPos = Vector2();
@@ -215,83 +209,23 @@ func _physics_process(delta):
 	#Head Hit Raycasts
 	if (!dead):
 		if (seldirection == "down"):
-			if (rcd1.is_colliding() && !rcd1coll):
-				areaCollide(rcd1);
-				rcd1coll = true;
-			elif (!rcd1.is_colliding() && rcd1coll):
-				rcd1coll = false;
-			if (rcd2.is_colliding() && !rcd2coll):
-				areaCollide(rcd2);
-				rcd2coll = true;
-			elif (!rcd2.is_colliding() && rcd2coll):
-				rcd2coll = false;
-			if (rcd3.is_colliding() && !rcd3coll):
-				areaCollide(rcd3);
-				rcd3coll = true;
-			elif (!rcd3.is_colliding() && rcd3coll):
-				rcd3coll = false;
-			if (rcd4.is_colliding() && !rcd4coll):
-				areaCollide(rcd4);
-				rcd4coll = true;
-			elif (!rcd4.is_colliding() && rcd4coll):
-				rcd4coll = false;
-			if (rcd5.is_colliding() && !rcd5coll):
-				areaCollide(rcd5);
-				rcd5coll = true;
-			elif (!rcd5.is_colliding() && rcd5coll):
-				rcd5coll = false;
+			if (rcd1.is_colliding()): areaCollide(rcd1);
+			if (rcd2.is_colliding()): areaCollide(rcd2);
+			if (rcd3.is_colliding()): areaCollide(rcd3);
+			if (rcd4.is_colliding()): areaCollide(rcd4);
+			if (rcd5.is_colliding()): areaCollide(rcd5);
 		if (seldirection == "left"):
-			if (rcd6.is_colliding() && !rcd1coll):
-				areaCollide(rcd6);
-				rcd1coll = true;
-			elif (!rcd6.is_colliding() && rcd1coll):
-				rcd1coll = false;
-			if (rcd7.is_colliding() && !rcd2coll):
-				areaCollide(rcd7);
-				rcd2coll = true;
-			elif (!rcd7.is_colliding() && rcd2coll):
-				rcd2coll = false;
-			if (rcd8.is_colliding() && !rcd3coll):
-				areaCollide(rcd8);
-				rcd3coll = true;
-			elif (!rcd8.is_colliding() && rcd3coll):
-				rcd3coll = false;
-			if (rcd9.is_colliding() && !rcd4coll):
-				areaCollide(rcd9);
-				rcd4coll = true;
-			elif (!rcd9.is_colliding() && rcd4coll):
-				rcd4coll = false;
-			if (rcd10.is_colliding() && !rcd5coll):
-				areaCollide(rcd10);
-				rcd5coll = true;
-			elif (!rcd10.is_colliding() && rcd5coll):
-				rcd5coll = false;
+			if (rcd6.is_colliding()): areaCollide(rcd6);
+			if (rcd7.is_colliding()): areaCollide(rcd7);
+			if (rcd8.is_colliding()): areaCollide(rcd8);
+			if (rcd9.is_colliding()): areaCollide(rcd9);
+			if (rcd10.is_colliding()): areaCollide(rcd10);
 		if (seldirection == "right"):
-			if (rcd11.is_colliding() && !rcd1coll):
-				areaCollide(rcd11);
-				rcd1coll = true;
-			elif (!rcd11.is_colliding() && rcd1coll):
-				rcd1coll = false;
-			if (rcd12.is_colliding() && !rcd2coll):
-				areaCollide(rcd12);
-				rcd2coll = true;
-			elif (!rcd12.is_colliding() && rcd2coll):
-				rcd2coll = false;
-			if (rcd13.is_colliding() && !rcd3coll):
-				areaCollide(rcd13);
-				rcd3coll = true;
-			elif (!rcd13.is_colliding() && rcd3coll):
-				rcd3coll = false;
-			if (rcd14.is_colliding() && !rcd4coll):
-				areaCollide(rcd14);
-				rcd4coll = true;
-			elif (!rcd14.is_colliding() && rcd4coll):
-				rcd4coll = false;
-			if (rcd15.is_colliding() && !rcd5coll):
-				areaCollide(rcd15);
-				rcd5coll = true;
-			elif (!rcd15.is_colliding() && rcd5coll):
-				rcd5coll = false;
+			if (rcd11.is_colliding()): areaCollide(rcd11);
+			if (rcd12.is_colliding()): areaCollide(rcd12);
+			if (rcd13.is_colliding()): areaCollide(rcd13);
+			if (rcd14.is_colliding()): areaCollide(rcd14);
+			if (rcd15.is_colliding()): areaCollide(rcd15);
 	
 	if (!active && !exiting):
 		active = true;

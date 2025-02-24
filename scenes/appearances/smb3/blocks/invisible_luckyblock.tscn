@@ -106,7 +106,7 @@ anims/start = SubResource( 3 )
 wait_time = 3.0
 one_shot = true
 
-[node name="SubCollider" type="Area2D" parent="." groups=["Insideable", "Luckyblock", "Solid"]]
+[node name="SubCollider" type="Area2D" parent="." groups=["Insideable", "InvisibleLuckyblock", "Luckyblock", "Solid"]]
 collision_layer = 2
 collision_mask = 2
 
