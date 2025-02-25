@@ -104,12 +104,14 @@ func _process(_delta):
 						invincible = true;
 						$InvincibleTimer.start();
 						$AttackTimer.start();
+						speed_increase = abs(get_node("../Character").motion.x);
 						if (chara.position.x >= position.x):
 							position.x -= 10;
-							motion.x = -70;
+							motion.x = -70-speed_increase;
 						else:
 							position.x += 10;
-							motion.x = 70;
+							motion.x = 70+speed_increase;
+						
 					else:
 						chara.get_node("KickingTimer").start();
 						chara.kicking = true;
@@ -183,14 +185,20 @@ func _process(_delta):
 		$CollisionShape2D.disabled = false;
 		
 		if (get_parent().grab && get_parent().grab_node == self):
-			currentSprite.play("walk");
-			currentSprite.speed_scale = 2;
-			currentSprite.scale = Vector2(4, 4);
-			$SweatParticlesLeft.emitting = true;
-			$SweatParticlesRight.emitting = true;
-			$AnimationPlayer.play("draging");
+			if (alreadydead):
+				currentSprite.play("dead");
+			else:
+				currentSprite.play("walk");
+				currentSprite.speed_scale = 2;
+				currentSprite.scale = Vector2(4, 4);
+				$SweatParticlesLeft.emitting = true;
+				$SweatParticlesRight.emitting = true;
+				$AnimationPlayer.play("draging");
 		else:
-			currentSprite.play("walk");
+			if (alreadydead):
+				currentSprite.play("dead");
+			else:
+				currentSprite.play("walk");
 			currentSprite.speed_scale = 0;
 			currentSprite.frame = 0;
 			if (currentSprite.scale.x > 3.25):
@@ -198,6 +206,10 @@ func _process(_delta):
 			$SweatParticlesLeft.emitting = false;
 			$SweatParticlesRight.emitting = false;
 			$AnimationPlayer.play("RESET");
+		
+		if (alreadydead):
+			currentSprite.play("down");
+			inShell = true;
 	Global.rendering(self);
 
 func _physics_process(delta):
@@ -282,7 +294,7 @@ func _physics_process(delta):
 		motion = move_and_slide(motion, Vector2(0, -1));
 
 func hit(dir, inshell = false, byblock = false, move = false):
-	if (inbones):
+	if (inbones || carrying):
 		return;
 	$AnimationPlayer.play("RESET");
 	$BigWakeTimer.stop();
@@ -314,6 +326,9 @@ func hit(dir, inshell = false, byblock = false, move = false):
 		currentSprite.get_node("Shadow").hide();
 		get_parent().enemyScore(position);
 	else:
+		inShell = true;
+		$BigWakeTimer.start();
+		motion.x = 0;
 		currentSprite.play("bones_out");
 		currentSprite.position.y = -20;
 		motion.x = 0;
@@ -323,8 +338,6 @@ func hit(dir, inshell = false, byblock = false, move = false):
 func jump(var down = false):
 	if (down):
 		motion.y = jump_h*3;
-		#currentSprite.flip_v = true;
-		#currentSprite.position.y = 16;
 	else:
 		motion.y = jump_h;
 
@@ -506,7 +519,7 @@ func _on_AttackTimer_timeout():
 	canAttack = true;
 
 func _on_WakeTimer_timeout():
-	if (waking):
+	if (waking && !alreadydead):
 		$AnimationPlayer.play("RESET");
 		currentSprite.play("bones_in");
 		yield(get_tree().create_timer(0.6), "timeout");
@@ -524,7 +537,7 @@ func _on_WakeTimer_timeout():
 			get_node("../Character").carrying = false;
 
 func _on_BigWakeTimer_timeout():
-	if (!moving && !dead):
+	if (!moving && !dead && !alreadydead):
 		if (inShell || inbones):
 			waking = true;
 			$WakeTimer.start();

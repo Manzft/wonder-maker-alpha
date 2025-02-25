@@ -61,6 +61,16 @@ func setup():
 			$Arrow.show();
 			$X.hide();
 			$Icon.texture = load("res://sprites/appeareances/"+app+"/icons/enemies/koopatroopa.png");
+		"drybonesdead":
+			$Outline.modulate = $Arrow.self_modulate;
+			$Arrow.show();
+			$X.hide();
+			$Icon.texture = load("res://sprites/appeareances/"+app+"/icons/enemies/drybonesdead.png");
+		"drybonesalive":
+			$Outline.modulate = $Arrow.self_modulate;
+			$Arrow.show();
+			$X.hide();
+			$Icon.texture = load("res://sprites/appeareances/"+app+"/icons/enemies/drybones.png");
 			
 		#Character Editor
 		"charmushroom":
@@ -137,6 +147,10 @@ func _on_TypeButton_pressed():
 			var pos = get_node("../../../..").grab_node.position;
 			get_node("../../../..").eraseObject(pos, false);
 			get_node("../../../..").placeObject(pos, false, Global.OBJ_KOOPATROOPA);
+		"drybonesdead":
+			get_node("../../../..").grab_node.alreadydead = true;
+		"drybonesalive":
+			get_node("../../../..").grab_node.alreadydead = false;
 			
 		#Character
 		"charmushroom":

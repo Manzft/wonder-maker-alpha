@@ -96,12 +96,13 @@ func _process(_delta):
 						invincible = true;
 						$InvincibleTimer.start();
 						$AttackTimer.start();
+						speed_increase = abs(get_node("../Character").motion.x);
 						if (chara.position.x >= position.x):
 							position.x -= 10;
-							motion.x = -70;
+							motion.x = -70-speed_increase;
 						else:
 							position.x += 10;
-							motion.x = 70;
+							motion.x = 70+speed_increase;
 					else:
 						chara.get_node("KickingTimer").start();
 						chara.kicking = true;

@@ -283,6 +283,8 @@ func _physics_process(delta):
 		motion = move_and_slide(motion, Vector2(0, -1));
 
 func hit(dir, inshell = false, byblock = false, move = false):
+	if (carrying):
+		return
 	$AnimationPlayer.play("RESET");
 	$BigWakeTimer.stop();
 	waking = false;

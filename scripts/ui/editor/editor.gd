@@ -2440,6 +2440,14 @@ func _on_TypeMenuTimer_timeout():
 					var button = addTypeMenuButton();
 					button.type = "koopatroopa";
 					button.setup();
+				Global.OBJ_DRYBONES:
+					cont = true;
+					var button = addTypeMenuButton();
+					if (!get_parent().grab_node.alreadydead):
+						button.type = "drybonesdead";
+					else:
+						button.type = "drybonesalive";
+					button.setup();
 			
 			if (!cont): return;
 		

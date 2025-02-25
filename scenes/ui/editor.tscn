@@ -12939,6 +12939,7 @@ anims/idle = SubResource( 276 )
 [node name="ClockMan" type="AnimatedSprite" parent="TimeMenu/Buttons"]
 position = Vector2( 143, 174 )
 frames = SubResource( 253 )
+frame = 1
 speed_scale = 0.33
 playing = true
 

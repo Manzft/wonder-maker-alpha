@@ -989,5 +989,6 @@ func hasVariants(var objCode):
 		OBJ_SPINY: variants = true;
 		OBJ_KOOPATROOPA: variants = true;
 		OBJ_KOOPATROOPA_RED: variants = true;
+		OBJ_DRYBONES: variants = true;
 	
 	return variants;

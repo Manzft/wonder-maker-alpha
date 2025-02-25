@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/idle.png-f2f34c0cfd037c28e30a5c8901e4d21a.stex"
+path="res://.import/drybonesdead.png-8ad137db13be3c11a39c52628d2d0095.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/appeareances/nsmb2/mario/small/idle/idle.png"
-dest_files=[ "res://.import/idle.png-f2f34c0cfd037c28e30a5c8901e4d21a.stex" ]
+source_file="res://sprites/appeareances/smb3/icons/enemies/drybonesdead.png"
+dest_files=[ "res://.import/drybonesdead.png-8ad137db13be3c11a39c52628d2d0095.stex" ]
 
 [params]
 
@@ -20,7 +20,7 @@ compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
 flags/repeat=0
-flags/filter=false
+flags/filter=true
 flags/mipmaps=false
 flags/anisotropic=false
 flags/srgb=2
