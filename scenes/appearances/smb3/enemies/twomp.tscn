@@ -138,7 +138,7 @@ _data = [ Vector2( 0.0138889, 122.577 ), 0.0, 0.0, 0, 0, Vector2( 0.505952, 360 
 [sub_resource type="RectangleShape2D" id=13]
 extents = Vector2( 39, 52 )
 
-[node name="Twomp" type="KinematicBody2D" groups=["Enemy", "Extensible", "Obj", "Twomp"]]
+[node name="Twomp" type="KinematicBody2D" groups=["Enemy", "Extensible", "NotKilleableWithShell", "Obj", "Twomp"]]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource( 1 )

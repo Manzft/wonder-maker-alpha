@@ -393,7 +393,7 @@ func _on_Area2D_body_entered(body):
 				hit("right");
 			currentSprite.get_node("Shadow").hide();
 			get_node("../Character/SoundShellHit").play();
-	if (body.is_in_group("Enemy")):
+	if (body.is_in_group("Enemy") && !body.is_in_group("NotKilleableWithShell")):
 		if (!dead && visible && !exiting && active && carrying):
 			hitDead = true;
 			body.hitDead = true;

@@ -805,7 +805,7 @@ visible = false
 position = Vector2( 16, 150 )
 scale = Vector2( 0.666, 0.666 )
 frames = SubResource( 1 )
-frame = 27
+frame = 1
 speed_scale = 1.25
 playing = true
 
@@ -814,7 +814,7 @@ visible = false
 position = Vector2( 16, 150 )
 scale = Vector2( 0.666, 0.666 )
 frames = SubResource( 6 )
-frame = 49
+frame = 114
 playing = true
 
 [node name="MarioRunNSMBU" type="AnimatedSprite" parent="Sprite"]
@@ -822,7 +822,7 @@ visible = false
 position = Vector2( 16, 150 )
 scale = Vector2( 0.666, 0.666 )
 frames = SubResource( 9 )
-frame = 37
+frame = 30
 speed_scale = 1.7
 playing = true
 
@@ -831,7 +831,7 @@ visible = false
 position = Vector2( 16, 150 )
 scale = Vector2( 0.8, 0.8 )
 frames = SubResource( 7 )
-frame = 45
+frame = 27
 playing = true
 
 [node name="MarioIdleNSMB2" type="AnimatedSprite" parent="Sprite"]
@@ -839,7 +839,7 @@ visible = false
 position = Vector2( 17, 154 )
 scale = Vector2( 2.65, 2.65 )
 frames = SubResource( 102 )
-frame = 11
+frame = 70
 playing = true
 
 [node name="Control" type="Control" parent="."]

@@ -60,7 +60,6 @@ func _process(_delta):
 		candeactivate = false;
 		$CoinInsideTimer.stop();
 		if (deactivated):
-			myEmptyBlock.queue_free();
 			styleChanged();
 			deactivated = false;
 

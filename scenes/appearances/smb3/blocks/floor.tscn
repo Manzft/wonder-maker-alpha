@@ -1,4 +1,4 @@
-[gd_scene load_steps=120 format=2]
+[gd_scene load_steps=139 format=2]
 
 [ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor/down_alone.png" type="Texture" id=1]
 [ext_resource path="res://scripts/appeareances/smb3/floor.gd" type="Script" id=2]
@@ -116,6 +116,25 @@
 [ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/upright.png" type="Texture" id=114]
 [ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/up.png" type="Texture" id=115]
 [ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/left.png" type="Texture" id=116]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/left.png" type="Texture" id=117]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/alone_vertical.png" type="Texture" id=118]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/right_alone.png" type="Texture" id=119]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/downleft.png" type="Texture" id=120]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/ghostforest/grass_tall.png" type="Texture" id=121]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/upright.png" type="Texture" id=122]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/down.png" type="Texture" id=123]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/ghostforest/grass_short.png" type="Texture" id=124]
+[ext_resource path="res://sprites/appeareances/smb3/decoration/ghostforest/grass_wide.png" type="Texture" id=125]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/center.png" type="Texture" id=126]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/downright.png" type="Texture" id=127]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/right.png" type="Texture" id=128]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/up_alone.png" type="Texture" id=129]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/center_alone.png" type="Texture" id=130]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/up.png" type="Texture" id=131]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/left_alone.png" type="Texture" id=132]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/down_alone.png" type="Texture" id=133]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/upleft.png" type="Texture" id=134]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/alone_horizontal.png" type="Texture" id=135]
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 26, 26 )
@@ -1125,7 +1144,7 @@ modulate = Color( 0, 0, 0, 0.294118 )
 position = Vector2( 3, 3 )
 z_index = -3
 z_as_relative = false
-texture = ExtResource( 27 )
+texture = ExtResource( 130 )
 
 [node name="ShadowFull" type="Sprite" parent="SpriteGhostforest"]
 visible = false
@@ -1133,7 +1152,7 @@ modulate = Color( 0, 0, 0, 0.294118 )
 position = Vector2( 3, 3 )
 z_index = -3
 z_as_relative = false
-texture = ExtResource( 28 )
+texture = ExtResource( 126 )
 
 [node name="ShadowDownLeft" type="Sprite" parent="SpriteGhostforest"]
 visible = false
@@ -1141,7 +1160,7 @@ modulate = Color( 0, 0, 0, 0.294118 )
 position = Vector2( 3, 3 )
 z_index = -3
 z_as_relative = false
-texture = ExtResource( 36 )
+texture = ExtResource( 120 )
 
 [node name="ShadowDownRight" type="Sprite" parent="SpriteGhostforest"]
 visible = false
@@ -1149,7 +1168,7 @@ modulate = Color( 0, 0, 0, 0.294118 )
 position = Vector2( 3, 3 )
 z_index = -3
 z_as_relative = false
-texture = ExtResource( 34 )
+texture = ExtResource( 127 )
 
 [node name="ShadowUpRight" type="Sprite" parent="SpriteGhostforest"]
 visible = false
@@ -1157,7 +1176,7 @@ modulate = Color( 0, 0, 0, 0.294118 )
 position = Vector2( 3, 3 )
 z_index = -3
 z_as_relative = false
-texture = ExtResource( 29 )
+texture = ExtResource( 122 )
 
 [node name="ShadowRightAlone" type="Sprite" parent="SpriteGhostforest"]
 visible = false
@@ -1165,7 +1184,7 @@ modulate = Color( 0, 0, 0, 0.294118 )
 position = Vector2( 3, 3 )
 z_index = -3
 z_as_relative = false
-texture = ExtResource( 44 )
+texture = ExtResource( 119 )
 
 [node name="ShadowDownAlone" type="Sprite" parent="SpriteGhostforest"]
 visible = false
@@ -1173,99 +1192,99 @@ modulate = Color( 0, 0, 0, 0.294118 )
 position = Vector2( 3, 3 )
 z_index = -3
 z_as_relative = false
-texture = ExtResource( 43 )
+texture = ExtResource( 133 )
 
 [node name="CenterAlone" type="Sprite" parent="SpriteGhostforest"]
 visible = false
-texture = ExtResource( 27 )
+texture = ExtResource( 130 )
 
 [node name="Center" type="Sprite" parent="SpriteGhostforest"]
 visible = false
-texture = ExtResource( 28 )
+texture = ExtResource( 126 )
 
 [node name="Up" type="Sprite" parent="SpriteGhostforest"]
 visible = false
-texture = ExtResource( 35 )
+texture = ExtResource( 131 )
 
 [node name="UpLeft" type="Sprite" parent="SpriteGhostforest"]
 visible = false
-texture = ExtResource( 30 )
+texture = ExtResource( 134 )
 
 [node name="UpRight" type="Sprite" parent="SpriteGhostforest"]
 visible = false
-texture = ExtResource( 29 )
+texture = ExtResource( 122 )
 
 [node name="Left" type="Sprite" parent="SpriteGhostforest"]
 visible = false
-texture = ExtResource( 31 )
+texture = ExtResource( 117 )
 
 [node name="Right" type="Sprite" parent="SpriteGhostforest"]
 visible = false
-texture = ExtResource( 32 )
+texture = ExtResource( 128 )
 
 [node name="Down" type="Sprite" parent="SpriteGhostforest"]
 visible = false
-texture = ExtResource( 33 )
+texture = ExtResource( 123 )
 
 [node name="DownLeft" type="Sprite" parent="SpriteGhostforest"]
 visible = false
-texture = ExtResource( 36 )
+texture = ExtResource( 120 )
 
 [node name="DownRight" type="Sprite" parent="SpriteGhostforest"]
 visible = false
-texture = ExtResource( 34 )
+texture = ExtResource( 127 )
 
 [node name="LeftAlone" type="Sprite" parent="SpriteGhostforest"]
 visible = false
-texture = ExtResource( 42 )
+texture = ExtResource( 132 )
 
 [node name="RightAlone" type="Sprite" parent="SpriteGhostforest"]
 visible = false
-texture = ExtResource( 44 )
+texture = ExtResource( 119 )
 
 [node name="DownAlone" type="Sprite" parent="SpriteGhostforest"]
 visible = false
-texture = ExtResource( 43 )
+texture = ExtResource( 133 )
 
 [node name="UpAlone" type="Sprite" parent="SpriteGhostforest"]
 visible = false
-texture = ExtResource( 41 )
+texture = ExtResource( 129 )
 
 [node name="HorizontalAlone" type="Sprite" parent="SpriteGhostforest"]
 visible = false
-texture = ExtResource( 39 )
+texture = ExtResource( 135 )
 
 [node name="VerticalAlone" type="Sprite" parent="SpriteGhostforest"]
 visible = false
-texture = ExtResource( 40 )
+texture = ExtResource( 118 )
 
 [node name="FalseUp" type="Sprite" parent="SpriteGhostforest"]
 visible = false
 position = Vector2( -16, 0 )
 z_index = 1
 z_as_relative = false
-texture = ExtResource( 35 )
+texture = ExtResource( 131 )
 
 [node name="FalseCenter" type="Sprite" parent="SpriteGhostforest"]
 visible = false
 position = Vector2( -16, 0 )
 z_index = 1
 z_as_relative = false
-texture = ExtResource( 28 )
+texture = ExtResource( 126 )
 
 [node name="FalseUp2" type="Sprite" parent="SpriteGhostforest"]
 visible = false
 position = Vector2( 16, 0 )
 z_index = 1
 z_as_relative = false
-texture = ExtResource( 35 )
+texture = ExtResource( 131 )
 
 [node name="FalseCenter2" type="Sprite" parent="SpriteGhostforest"]
 visible = false
 position = Vector2( 16, 0 )
 z_index = 1
 z_as_relative = false
-texture = ExtResource( 28 )
+texture = ExtResource( 126 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("")
@@ -1532,40 +1551,40 @@ z_index = -1
 visible = false
 position = Vector2( 0, -104 )
 scale = Vector2( 3.25, 3.25 )
-texture = ExtResource( 6 )
+texture = ExtResource( 121 )
 
 [node name="Shadow" type="Sprite" parent="Ghostforest/DecorationTall"]
 modulate = Color( 0, 0, 0, 0.294118 )
 position = Vector2( 3, 3 )
 z_index = -3
 z_as_relative = false
-texture = ExtResource( 6 )
+texture = ExtResource( 121 )
 
 [node name="DecorationShort" type="Sprite" parent="Ghostforest"]
 visible = false
 position = Vector2( 0, -78 )
 scale = Vector2( 3.25, 3.25 )
-texture = ExtResource( 38 )
+texture = ExtResource( 124 )
 
 [node name="Shadow" type="Sprite" parent="Ghostforest/DecorationShort"]
 modulate = Color( 0, 0, 0, 0.294118 )
 position = Vector2( 3, 3 )
 z_index = -3
 z_as_relative = false
-texture = ExtResource( 38 )
+texture = ExtResource( 124 )
 
 [node name="DecorationWide" type="Sprite" parent="Ghostforest"]
 visible = false
 position = Vector2( -52, -52 )
 scale = Vector2( 3.25, 3.25 )
-texture = ExtResource( 37 )
+texture = ExtResource( 125 )
 
 [node name="Shadow" type="Sprite" parent="Ghostforest/DecorationWide"]
 modulate = Color( 0, 0, 0, 0.294118 )
 position = Vector2( 3, 3 )
 z_index = -3
 z_as_relative = false
-texture = ExtResource( 37 )
+texture = ExtResource( 125 )
 
 [node name="SoundSpawnDecoration" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )

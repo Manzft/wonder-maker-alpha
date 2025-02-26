@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=2]
+[gd_scene load_steps=58 format=2]
 
 [ext_resource path="res://scripts/level.gd" type="Script" id=1]
 [ext_resource path="res://sprites/ui/editor/grid.png" type="Texture" id=2]
@@ -38,6 +38,8 @@
 [ext_resource path="res://sprites/appeareances/smb3/water.png" type="Texture" id=36]
 [ext_resource path="res://sprites/appeareances/smb3/water_body.png" type="Texture" id=37]
 [ext_resource path="res://sprites/appeareances/smb/background/ghostforest.png" type="Texture" id=38]
+[ext_resource path="res://music/appeareances/smb/ghostforest.mp3" type="AudioStream" id=39]
+[ext_resource path="res://sprites/appeareances/smb3/background/ghostforest.png" type="Texture" id=40]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -1597,14 +1599,14 @@ motion_mirroring = Vector2( 1664, 0 )
 position = Vector2( 0, -104 )
 scale = Vector2( 3.25, 3.25 )
 z_index = -2
-texture = ExtResource( 29 )
+texture = ExtResource( 40 )
 centered = false
 
 [node name="Bg2" type="Sprite" parent="Camera2D/SMB3/Ghostforest/ParallaxLayer"]
 position = Vector2( 1664, -104 )
 scale = Vector2( 3.25, 3.25 )
 z_index = -2
-texture = ExtResource( 29 )
+texture = ExtResource( 40 )
 centered = false
 
 [node name="Water" type="ParallaxBackground" parent="Camera2D/SMB3" groups=["Background"]]
@@ -1855,8 +1857,8 @@ stream = ExtResource( 24 )
 volume_db = -15.0
 
 [node name="Ghostforest" type="AudioStreamPlayer" parent="GameMusic/SMB" groups=["Music"]]
-stream = ExtResource( 24 )
-volume_db = -15.0
+stream = ExtResource( 39 )
+volume_db = -17.0
 
 [node name="SMB3" type="Node" parent="GameMusic"]
 

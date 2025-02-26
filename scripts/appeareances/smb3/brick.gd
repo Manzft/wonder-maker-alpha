@@ -72,6 +72,10 @@ func checkObject(x, y):
 	return check;
 
 func _process(_delta):
+	$SpriteUnderground.scale = $SpriteGround.scale;
+	$SpriteUnderground.position = $SpriteGround.position;
+	$SpriteGhostforest.scale = $SpriteGround.scale;
+	$SpriteGhostforest.position = $SpriteGround.position;
 	if (insided):
 		if (get_node("../Editor").playing):
 			$HasObjectInside.hide();
@@ -86,7 +90,6 @@ func _process(_delta):
 		candeactivate = false;
 		$CoinInsideTimer.stop();
 		if (deactivated):
-			myEmptyBlock.queue_free();
 			styleChanged();
 			deactivated = false;
 		if (p):
@@ -147,6 +150,10 @@ func styleChanged():
 		"Ghosthouse":
 			currentSprite.hide();
 			currentSprite = get_node("SpriteUnderground");
+			currentSprite.show();
+		"Ghostforest":
+			currentSprite.hide();
+			currentSprite = get_node("SpriteGhostforest");
 			currentSprite.show();
 		_:
 			currentSprite.hide();

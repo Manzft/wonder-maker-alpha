@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scripts/appeareances/smb3/emptyblock.gd" type="Script" id=1]
 [ext_resource path="res://sprites/appeareances/smb3/blocks/underground/empty_block_underground.png" type="Texture" id=2]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/empty_block.png" type="Texture" id=3]
 [ext_resource path="res://sprites/appeareances/smb3/blocks/ground/empty_block_ground.png" type="Texture" id=5]
 
 [node name="EmptyBlock" type="Node2D" groups=["EmptyBlock"]]
@@ -29,3 +30,14 @@ position = Vector2( 3, 3 )
 z_index = -3
 z_as_relative = false
 texture = ExtResource( 2 )
+
+[node name="SpriteGhostforest" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 3 )
+
+[node name="Shadow" type="Sprite" parent="SpriteGhostforest"]
+self_modulate = Color( 0, 0, 0, 0.294118 )
+position = Vector2( 3, 3 )
+z_index = -3
+z_as_relative = false
+texture = ExtResource( 3 )

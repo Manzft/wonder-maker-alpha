@@ -147,7 +147,7 @@ func _physics_process(delta):
 		#Fireflower attack
 		if (Input.is_action_just_pressed("y") || Input.is_action_just_pressed("x")):
 			if (currentPowerup == "fireflower" && !attacking && canAttack && !sneaking):
-				if (attacks < 3):
+				if (attacks <= 3):
 					attacks += 1;
 					attacking = true;
 					drifting = false;
@@ -168,10 +168,11 @@ func _physics_process(delta):
 						inst.direction = "right";
 						inst.position.x += 26;
 					
+					if (attacks == 1):
+						$BigAttackingTimer.start();
 					if (attacks == 3):
 						attacks = 0;
 						canAttack = false;
-						$BigAttackingTimer.start();
 		
 		#Max Speed and Run Animation
 		if (star && running):
@@ -737,6 +738,7 @@ func _on_ChangingPowerupTransitionTimer_timeout():
 
 func _on_BigAttackingTimer_timeout():
 	canAttack = true;
+	attacks = 0;
 	
 func _on_AttackingTimer_timeout():
 	attacking = false;

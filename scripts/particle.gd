@@ -16,7 +16,7 @@ func _ready():
 			"Ghosthouse":
 				texture = load("res://sprites/appeareances/"+app+"/blocks/underground/particle_brick_break_underground.png");
 			"Ghostforest":
-				texture = load("res://sprites/appeareances/"+app+"/blocks/ghostforest/particle_brick_break_ghostforest.png");
+				texture = load("res://sprites/appeareances/"+app+"/blocks/ghostforest/particle_brick_break.png");
 			"Snow":
 				texture = load("res://sprites/appeareances/"+app+"/blocks/snow/particle_brick_break_snow.png");
 			_:

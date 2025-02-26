@@ -1,4 +1,4 @@
-[gd_scene load_steps=338 format=2]
+[gd_scene load_steps=339 format=2]
 
 [ext_resource path="res://scripts/ui/startmenu/FPS.gd" type="Script" id=1]
 [ext_resource path="res://sprites/ui/editor/square_little_button.png" type="Texture" id=2]
@@ -140,6 +140,7 @@
 [ext_resource path="res://sprites/ui/editor/styles/ghostforest.png" type="Texture" id=138]
 [ext_resource path="res://scenes/ui/Gameplay UI/SMB3.tscn" type="PackedScene" id=139]
 [ext_resource path="res://sprites/ui/editor/variantSymbol.png" type="Texture" id=140]
+[ext_resource path="res://music/editor/smb3/editor_ghostforest.mp3" type="AudioStream" id=141]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -12939,7 +12940,6 @@ anims/idle = SubResource( 276 )
 [node name="ClockMan" type="AnimatedSprite" parent="TimeMenu/Buttons"]
 position = Vector2( 143, 174 )
 frames = SubResource( 253 )
-frame = 1
 speed_scale = 0.33
 playing = true
 
@@ -15322,7 +15322,7 @@ stream = ExtResource( 127 )
 volume_db = -10.0
 
 [node name="Ghostforest" type="AudioStreamPlayer" parent="EditorMusic/SMB" groups=["Music"]]
-stream = ExtResource( 127 )
+stream = ExtResource( 141 )
 volume_db = -10.0
 
 [node name="SMB3" type="Node" parent="EditorMusic"]

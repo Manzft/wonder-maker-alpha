@@ -16,6 +16,10 @@ func _ready():
 	$VisibilityEnabler2D.emit_signal("screen_exited")
 
 func _process(delta):
+	$SpriteUnderground.scale = $SpriteGround.scale;
+	$SpriteUnderground.position = $SpriteGround.position;
+	$SpriteGhostforest.scale = $SpriteGround.scale;
+	$SpriteGhostforest.position = $SpriteGround.position;
 	if (get_node("../Editor").playing):
 		if (get_node("../Character").position.y <= position.y-49):
 			$CollisionShape2D.disabled = false;
@@ -53,6 +57,10 @@ func styleChanged():
 		"Ghosthouse":
 			currentSprite.hide();
 			currentSprite = get_node("SpriteUnderground");
+			currentSprite.show();
+		"Ghostforest":
+			currentSprite.hide();
+			currentSprite = get_node("SpriteGhostforest");
 			currentSprite.show();
 		_:
 			currentSprite.hide();
