@@ -493,6 +493,7 @@ func releaseSneak():
 func die():
 	if (died): return
 	
+	pause_mode = PAUSE_MODE_PROCESS; get_tree().paused = true;
 	$SoundPButton.stop();
 	carrying = false;
 	motion.x = 0;

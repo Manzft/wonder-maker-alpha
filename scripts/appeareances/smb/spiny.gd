@@ -60,6 +60,10 @@ func _process(_delta):
 	currentSprite.get_node("Shadow").flip_h = currentSprite.flip_h;
 	currentSprite.get_node("Shadow").flip_v = currentSprite.flip_v;
 	
+	if (alreadydead && !inShell):
+		currentSprite.play("empty_dead");
+		inShell = true;
+	
 	if (get_node("../Editor").playing):
 		currentSprite.speed_scale = 1;
 		currentSprite.scale = Vector2(3.25, 3.25);
@@ -143,10 +147,6 @@ func _process(_delta):
 			$SweatParticlesLeft.emitting = false;
 			$SweatParticlesRight.emitting = false;
 			$AnimationPlayer.play("RESET");
-		
-		if (alreadydead):
-			currentSprite.play("empty_dead");
-			inShell = true;
 
 func _physics_process(delta):
 	if (!get_node("../Editor").playing):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=139 format=2]
+[gd_scene load_steps=140 format=2]
 
 [ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor/down_alone.png" type="Texture" id=1]
 [ext_resource path="res://scripts/appeareances/smb3/floor.gd" type="Script" id=2]
@@ -135,6 +135,7 @@
 [ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/down_alone.png" type="Texture" id=133]
 [ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/upleft.png" type="Texture" id=134]
 [ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/alone_horizontal.png" type="Texture" id=135]
+[ext_resource path="res://sprites/appeareances/smb3/blocks/ground/floor/center_alone.png" type="Texture" id=136]
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 26, 26 )
@@ -284,7 +285,7 @@ z_as_relative = false
 texture = ExtResource( 43 )
 
 [node name="CenterAlone" type="Sprite" parent="SpriteGround"]
-texture = ExtResource( 27 )
+texture = ExtResource( 136 )
 
 [node name="Center" type="Sprite" parent="SpriteGround"]
 visible = false

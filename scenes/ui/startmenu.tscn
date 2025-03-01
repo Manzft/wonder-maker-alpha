@@ -438,7 +438,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 81, 8.5 ) ]
+"values": [ Vector2( 81.5, 9 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath(".:rect_position")
@@ -490,7 +490,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 81, 8.5 ), Vector2( 58.867, -37.9684 ), Vector2( 81, 8.5 ) ]
+"values": [ Vector2( 81.5, 9 ), Vector2( 58.0905, -40.8663 ), Vector2( 81.5, 9 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("../../AudioStartButton:playing")
@@ -620,7 +620,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 81, 8.5 ) ]
+"values": [ Vector2( 81.5, 9 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath(".:rect_position")
@@ -672,7 +672,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 81, 8.5 ), Vector2( 58.867, -37.9684 ), Vector2( 81, 8.5 ) ]
+"values": [ Vector2( 81.5, 9 ), Vector2( 58.2465, -41.489 ), Vector2( 81.5, 9 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("../../AudioStartButton:playing")
@@ -1684,7 +1684,7 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -181.0
 margin_top = -310.0
-margin_right = -19.0
+margin_right = -18.9991
 margin_bottom = -184.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -1699,16 +1699,16 @@ expand = true
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="ActionButtons/MakeButton"]
-modulate = Color( 0, 0, 0, 0.294118 )
+modulate = Color( 0, 0, 0, 0.490196 )
 show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -79.5
-margin_top = -58.0
-margin_right = 79.5
-margin_bottom = 67.0
+margin_left = -79.5005
+margin_top = -56.0
+margin_right = 79.4995
+margin_bottom = 69.0
 mouse_filter = 2
 texture = ExtResource( 9 )
 
@@ -1728,6 +1728,7 @@ text = "Crear"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = -0.000915527
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="ActionButtons/MakeButton/Selection"]
@@ -1780,7 +1781,7 @@ anims/idle = SubResource( 17 )
 
 [node name="Tap" type="Sprite" parent="ActionButtons/MakeButton"]
 show_behind_parent = true
-position = Vector2( 81, 8.5 )
+position = Vector2( 81.5, 9 )
 texture = ExtResource( 12 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ActionButtons/MakeButton"]
@@ -1808,16 +1809,16 @@ expand = true
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="ActionButtons/PlayButton"]
-modulate = Color( 0, 0, 0, 0.294118 )
+modulate = Color( 0, 0, 0, 0.490196 )
 show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -79.5
-margin_top = -58.0
+margin_top = -56.0
 margin_right = 79.5
-margin_bottom = 67.0
+margin_bottom = 69.0
 mouse_filter = 2
 texture = ExtResource( 9 )
 
@@ -1889,7 +1890,7 @@ anims/idle = SubResource( 19 )
 
 [node name="Tap" type="Sprite" parent="ActionButtons/PlayButton"]
 show_behind_parent = true
-position = Vector2( 81, 8.5 )
+position = Vector2( 81.5, 9 )
 texture = ExtResource( 12 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ActionButtons/PlayButton"]

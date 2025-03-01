@@ -19,9 +19,21 @@ func _ready():
 	
 	mygrid = get_parent().calculateGrid(position.x, position.y);
 	updateNearFloors();
-	spawnDecoration();
 	styleChanged();
+	spawnDecoration();
 	$VisibilityEnabler2D.emit_signal("screen_exited")
+
+func _process(delta):
+	var delete = false;
+	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
+		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../LevelFloor").current_grid.y):
+			delete = true;
+	if (get_parent().calculateGrid(position.x, position.y).x >= get_node("../EndFloor").current_grid.x-1):
+		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../EndFloor").current_grid.y):
+			delete = true;
+
+	if (delete):
+		get_parent().eraseObject(position, false);
 
 func updateNearFloors():
 	var mygrid = get_parent().calculateGrid(position.x, position.y);

@@ -73,6 +73,8 @@ var CurrentMusic = "true";
 var FPS = false;
 var VSYNC = false;
 var SCREEN_16_9 = false;
+var SHOW_PAUSE_BUTTON = true;
+var CONTROLS_TRANSPARENCY = 100;
 var CurrentInput = "Mouse";
 
 #Save and Load
@@ -680,6 +682,9 @@ func loadSettings():
 		if (section == "General"):
 			VSYNC = config.get_value(section, "VSync");
 			SCREEN_16_9 = config.get_value(section, "Force 16:9");
+			FPS = config.get_value(section, "Show FPS");
+			SHOW_PAUSE_BUTTON = config.get_value(section, "Show Pause Button (Only PC)");
+			CONTROLS_TRANSPARENCY = config.get_value(section, "Touch Buttons Transparency (%)");
 			
 	OS.vsync_enabled = VSYNC;
 	if (SCREEN_16_9):
@@ -692,6 +697,9 @@ func saveSettings():
 
 	config.set_value("General", "VSync", VSYNC);
 	config.set_value("General", "Force 16:9", SCREEN_16_9);
+	config.set_value("General", "Show FPS", FPS);
+	config.set_value("General", "Show Pause Button (Only PC)", SHOW_PAUSE_BUTTON);
+	config.set_value("General", "Touch Buttons Transparency (%)", CONTROLS_TRANSPARENCY);
 
 	config.save(get_game_dir()+"/config.ini");
 
@@ -851,6 +859,10 @@ func renderAll():
 		node.set_process(true);
 		node.set_physics_process(true);
 		node.rendered = true;
+	nodes = get_tree().get_nodes_in_group("P");
+	for node in nodes:
+		node.set_process(true);
+		node.set_physics_process(true);
 
 func unrenderAll():
 	var nodes = get_tree().get_nodes_in_group("Enemy");

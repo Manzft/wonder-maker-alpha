@@ -129,7 +129,7 @@ func checkFloor(x, y):
 		if (grid.y >= levelFloorGrid.y):
 			check = true;
 	
-	if (grid.x >= endFloorGrid.x && grid.x <= endFloorGrid.x+10):
+	if (grid.x >= endFloorGrid.x-1 && grid.x <= endFloorGrid.x+9):
 		if (grid.y >= endFloorGrid.y):
 			check = true;
 			
@@ -139,17 +139,16 @@ func checkFloor(x, y):
 	return check;
 
 func _process(_delta):
-	pass
-#	var delete = false;
-#	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
-#		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../LevelFloor").current_grid.y):
-#			delete = true;
-#	if (get_parent().calculateGrid(position.x, position.y).x >= get_node("../EndFloor").current_grid.x):
-#		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../EndFloor").current_grid.y):
-#			delete = true;
-#
-#	if (delete):
-#		get_parent().eraseObject(position);
+	var delete = false;
+	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
+		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../LevelFloor").current_grid.y):
+			delete = true;
+	if (get_parent().calculateGrid(position.x, position.y).x >= get_node("../EndFloor").current_grid.x-1):
+		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../EndFloor").current_grid.y):
+			delete = true;
+
+	if (delete):
+		get_parent().eraseObject(position, false);
 
 func styleChanged():
 	swapDecorationStyle(currentSprite.get_name().trim_prefix("Sprite").trim_suffix("Variant").trim_suffix("Top"));
@@ -372,7 +371,7 @@ func styleChanged():
 		if (mygrid.y > levelFloorGrid.y):
 			get_node(currentsprite+"/FalseCenter").show();
 	
-	if (mygrid.x == endFloorGrid.x-1):
+	if (mygrid.x == endFloorGrid.x-2):
 		if (mygrid.y == endFloorGrid.y):
 			get_node(currentsprite+"/FalseUp2").show();
 		if (mygrid.y > endFloorGrid.y):
@@ -383,5 +382,5 @@ func levelFloorChanged(levelFloorGrid):
 		styleChanged();
 		
 func endFloorChanged(endFloorGrid):
-	if (mygrid.x == endFloorGrid.x-1 || mygrid.x == endFloorGrid.x-2):
+	if (mygrid.x == endFloorGrid.x-2 || mygrid.x == endFloorGrid.x-3):
 		styleChanged();

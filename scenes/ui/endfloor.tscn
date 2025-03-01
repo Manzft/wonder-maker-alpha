@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scripts/ui/editor/endfloor.gd" type="Script" id=1]
 [ext_resource path="res://sprites/ui/editor/floor_level.png" type="Texture" id=2]
 [ext_resource path="res://sprites/ui/editor/floor_level_arrow.png" type="Texture" id=3]
 [ext_resource path="res://sprites/ui/editor/floor_level_arrow_body.png" type="Texture" id=4]
+[ext_resource path="res://sprites/ui/editor/move_plataform.png" type="Texture" id=5]
 
 [sub_resource type="Animation" id=3]
 length = 0.001
@@ -300,6 +301,61 @@ tracks/11/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1, 5 ), Vector2( 1, 1 ) ]
 }
 
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("MoveLeft:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MoveRight:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("MoveLeft:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.9, 0.9 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MoveRight:scale")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -1, 1 ), Vector2( -0.9, 0.9 ) ]
+}
+
 [node name="EndFloor" type="Sprite" groups=["EndfloorController"]]
 z_index = 9
 texture = ExtResource( 2 )
@@ -313,6 +369,26 @@ anchor_bottom = 0.5
 margin_left = -50.5
 margin_top = -50.5
 margin_right = -0.5
+margin_bottom = -0.5
+
+[node name="LeftClickArea" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -103.5
+margin_top = -50.5
+margin_right = -53.5
+margin_bottom = -0.5
+
+[node name="RightClickArea" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 0.5
+margin_top = -50.5
+margin_right = 50.5
 margin_bottom = -0.5
 
 [node name="ArrowUp" type="Sprite" parent="."]
@@ -368,10 +444,26 @@ position = Vector2( -30, 0.5 )
 rotation = -1.5708
 texture = ExtResource( 4 )
 
+[node name="MoveLeft" type="Sprite" parent="."]
+position = Vector2( -52, 0 )
+texture = ExtResource( 5 )
+
+[node name="MoveRight" type="Sprite" parent="."]
+position = Vector2( 52, 0 )
+scale = Vector2( -1, 1 )
+texture = ExtResource( 5 )
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 3 )
 anims/selected = SubResource( 2 )
 
+[node name="MovePlataformAnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+anims/RESET = SubResource( 4 )
+anims/idle = SubResource( 5 )
+
 [connection signal="gui_input" from="ClickArea" to="." method="_on_ClickArea_gui_input"]
 [connection signal="mouse_entered" from="ClickArea" to="." method="_on_ClickArea_mouse_entered"]
 [connection signal="mouse_exited" from="ClickArea" to="." method="_on_ClickArea_mouse_exited"]
+[connection signal="gui_input" from="LeftClickArea" to="." method="_on_LeftClickArea_gui_input"]
+[connection signal="gui_input" from="RightClickArea" to="." method="_on_RightClickArea_gui_input"]

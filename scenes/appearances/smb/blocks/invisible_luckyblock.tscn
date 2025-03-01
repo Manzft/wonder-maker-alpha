@@ -91,7 +91,8 @@ texture = ExtResource( 2 )
 
 [node name="HasObjectInside" type="Sprite" parent="."]
 visible = false
-position = Vector2( 13, 13 )
+position = Vector2( 11, 11 )
+scale = Vector2( 0.66, 0.66 )
 texture = ExtResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

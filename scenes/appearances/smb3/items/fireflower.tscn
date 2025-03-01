@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scripts/appeareances/smb3/fireflower.gd" type="Script" id=1]
 [ext_resource path="res://sprites/appeareances/smb3/items/ground/fireflower.png" type="Texture" id=2]
-[ext_resource path="res://sprites/ui/editor/mushroom_icon.png" type="Texture" id=3]
+[ext_resource path="res://sprites/ui/editor/mushroom_icon_smb3.png" type="Texture" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 23.25, 25 )

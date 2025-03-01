@@ -1,4 +1,4 @@
-[gd_scene load_steps=340 format=2]
+[gd_scene load_steps=341 format=2]
 
 [ext_resource path="res://scripts/ui/startmenu/FPS.gd" type="Script" id=1]
 [ext_resource path="res://sprites/ui/editor/square_little_button.png" type="Texture" id=2]
@@ -7599,8 +7599,8 @@ tracks/0/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( -610, 0 ) ]
 }
 
-[sub_resource type="DynamicFont" id=141]
-size = 27
+[sub_resource type="DynamicFont" id=283]
+size = 24
 font_data = ExtResource( 5 )
 
 [sub_resource type="Animation" id=142]
@@ -7706,7 +7706,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 81, 8.5 ) ]
+"values": [ Vector2( 81.5, 9 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath(".:rect_position")
@@ -7785,7 +7785,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 81, 8.5 ), Vector2( 58.867, -37.9684 ), Vector2( 81, 8.5 ) ]
+"values": [ Vector2( 81.5, 9 ), Vector2( 58.6381, -40.7542 ), Vector2( 81.5, 9 ) ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath(".:rect_position")
@@ -7811,6 +7811,10 @@ tracks/4/keys = {
 "update": 1,
 "values": [ true, false ]
 }
+
+[sub_resource type="DynamicFont" id=284]
+size = 24
+font_data = ExtResource( 5 )
 
 [sub_resource type="Animation" id=147]
 length = 0.001
@@ -7925,6 +7929,7 @@ tracks/0/keys = {
 }
 
 [node name="Editor" type="CanvasLayer" groups=["CurrentTree"]]
+pause_mode = 2
 script = ExtResource( 8 )
 
 [node name="Guide" type="Sprite" parent="."]
@@ -12941,6 +12946,7 @@ anims/idle = SubResource( 276 )
 [node name="ClockMan" type="AnimatedSprite" parent="TimeMenu/Buttons"]
 position = Vector2( 143, 174 )
 frames = SubResource( 253 )
+frame = 1
 speed_scale = 0.33
 playing = true
 
@@ -15052,11 +15058,12 @@ expand = true
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="Play"]
-modulate = Color( 0, 0, 0, 0.294118 )
+modulate = Color( 0, 0, 0, 0.490196 )
 show_behind_parent = true
-margin_top = 5.0
-margin_right = 159.0
-margin_bottom = 130.0
+margin_left = 1.25
+margin_top = 7.0
+margin_right = 160.25
+margin_bottom = 132.0
 texture = ExtResource( 63 )
 
 [node name="MakeText" type="Label" parent="Play"]
@@ -15069,7 +15076,7 @@ margin_top = 15.0
 margin_right = 30.75
 margin_bottom = 43.0
 rect_scale = Vector2( 1.2, 1.2 )
-custom_fonts/font = SubResource( 141 )
+custom_fonts/font = SubResource( 283 )
 text = "Jugar"
 align = 1
 
@@ -15155,7 +15162,7 @@ anims/idle = SubResource( 143 )
 
 [node name="Tap" type="Sprite" parent="Play"]
 show_behind_parent = true
-position = Vector2( 81, 8.5 )
+position = Vector2( 81.5, 9 )
 texture = ExtResource( 62 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Play"]
@@ -15181,11 +15188,12 @@ expand = true
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="Edit"]
-modulate = Color( 0, 0, 0, 0.294118 )
+modulate = Color( 0, 0, 0, 0.490196 )
 show_behind_parent = true
-margin_top = 5.0
-margin_right = 159.0
-margin_bottom = 130.0
+margin_left = 1.25
+margin_top = 7.0
+margin_right = 160.25
+margin_bottom = 132.0
 texture = ExtResource( 63 )
 
 [node name="MakeText" type="Label" parent="Edit"]
@@ -15198,7 +15206,7 @@ margin_top = 15.0
 margin_right = 31.25
 margin_bottom = 43.0
 rect_scale = Vector2( 1.2, 1.2 )
-custom_fonts/font = SubResource( 141 )
+custom_fonts/font = SubResource( 284 )
 text = "Editar"
 align = 1
 

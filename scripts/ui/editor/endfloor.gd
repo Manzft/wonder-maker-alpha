@@ -62,7 +62,7 @@ func createLevelFloorObjects(customAppearance):
 			inst = load("res://scenes/appearances/smb3/blocks/falsefloor.tscn").instance();
 	get_parent().add_child(inst);
 	myfloor = inst;
-	inst.position = Vector2(position.x-26, position.y-26);
+	inst.position = Vector2(position.x-26-52, position.y-26);
 	#Flag Pole
 	if (myflagpole != null):
 		myflagpole.queue_free();
@@ -96,7 +96,7 @@ func calculate(mpos, start = false, createLevelFloorObjectsAgain = false, custom
 		if (myfloor == null || createLevelFloorObjectsAgain):
 			createLevelFloorObjects(customAppearance);
 		
-		myfloor.position = Vector2(position.x-26, position.y-26);
+		myfloor.position = Vector2(position.x-26-52, position.y-26);
 		
 		if (!start):
 			get_node("../Editor/AudioGrabMove").play();
@@ -121,6 +121,9 @@ func select():
 			$ArrowDown.hide(); $BodyDown.hide();
 			$ArrowLeft.hide(); $BodyLeft.hide();
 			$ArrowRight.hide(); $BodyRight.hide();
+			
+			$MoveLeft.show();
+			$MoveRight.show();
 		false:
 			selected = true;
 			texture = load("res://sprites/ui/editor/floor_level_selected.png");
@@ -129,16 +132,32 @@ func select():
 			$ArrowLeft.show(); $BodyLeft.show();
 			$ArrowRight.show(); $BodyRight.show();
 			get_node("../Editor/AudioGrab").play();
+			
+			$MoveLeft.hide();
+			$MoveRight.hide();
 
 func _on_ClickArea_gui_input(event):
 	if (event is InputEventScreenTouch || event is InputEventScreenDrag):
 		if (event.pressed && !selected):
 			select();
 
-
 func _on_ClickArea_mouse_entered():
 	mouse_entered = true;
 
-
 func _on_ClickArea_mouse_exited():
 	mouse_entered = false;
+
+
+func _on_LeftClickArea_gui_input(event):
+	if (selected):
+		return
+	if (event is InputEventScreenTouch || event is InputEventScreenDrag || event is InputEventMouseButton):
+		if (!event.pressed):
+			calculate(Vector2(position.x-52, position.y));
+
+func _on_RightClickArea_gui_input(event):
+	if (selected):
+		return
+	if (event is InputEventScreenTouch || event is InputEventScreenDrag || event is InputEventMouseButton):
+		if (!event.pressed):
+			calculate(Vector2(position.x+52, position.y));

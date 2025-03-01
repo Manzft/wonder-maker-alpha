@@ -23,10 +23,12 @@ func _on_Timer_timeout():
 func _process(_delta):
 	$Manzft/Manzft/Shadow.animation = $Manzft/Manzft.animation;
 	$Manzft/Manzft/Shadow.frame = $Manzft/Manzft.frame;
-	if (Input.is_action_just_pressed("a") || Input.is_action_just_pressed("b") || Input.is_action_just_pressed("start")):
+ 
+func _input(event):
+	if (event is InputEventKey || event is InputEventScreenTouch):
 		if (ready):
 			_on_Timer_timeout();
- 
+
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if (anim_name == "start"):
 		_on_Timer_timeout();

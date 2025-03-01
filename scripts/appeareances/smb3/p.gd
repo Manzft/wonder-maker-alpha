@@ -97,6 +97,7 @@ func _process(_delta):
 			show();
 			position = startPos;
 			motion = Vector2(0, 0);
+			$CollisionShape2D.disabled = false;
 		
 		carrying = false;
 		startPos = position;
@@ -164,7 +165,7 @@ func _physics_process(delta):
 						inst.position = node.position;
 						inst.p = true;
 						get_parent().add_child(inst);
-				
+				$CollisionShape2D.disabled = true;
 				yield(get_tree().create_timer(0.25), "timeout");
 				hide();
 				
@@ -173,12 +174,15 @@ func _physics_process(delta):
 				carrying = true;
 				get_node("../Character").carrying = true;
 		
-		if (!exiting):
+		if (!exiting && !carrying && visible):
+			$CollisionShape2D.disabled = false;
 			if (abs(motion.x) <= 70):
 				motion.x = lerp(motion.x, 0.0, 0.125);
 			else:
 				motion.x = lerp(motion.x, 0.0, 0.03125);
 			motion = move_and_slide(motion, Vector2(0, -1));
+		else:
+			$CollisionShape2D.disabled = true;
 
 func styleChanged():
 	match (Global.CurrentStyle):

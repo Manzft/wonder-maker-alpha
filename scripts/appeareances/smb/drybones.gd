@@ -63,6 +63,10 @@ func _process(_delta):
 	currentSprite.get_node("Shadow").flip_h = currentSprite.flip_h;
 	currentSprite.get_node("Shadow").flip_v = currentSprite.flip_v;
 	
+	if (alreadydead && !inShell):
+		currentSprite.play("down");
+		inShell = true;
+	
 	if (get_node("../Editor").playing):
 		currentSprite.speed_scale = 1;
 		currentSprite.scale = Vector2(3.25, 3.25);
@@ -119,7 +123,7 @@ func _process(_delta):
 		
 		if (get_parent().grab && get_parent().grab_node == self):
 			if (alreadydead):
-				currentSprite.play("dead");
+				currentSprite.play("down");
 			else:
 				currentSprite.play("walk");
 				currentSprite.speed_scale = 2;
@@ -129,7 +133,7 @@ func _process(_delta):
 				$AnimationPlayer.play("draging");
 		else:
 			if (alreadydead):
-				currentSprite.play("dead");
+				currentSprite.play("down");
 			else:
 				currentSprite.play("walk");
 			currentSprite.speed_scale = 0;
@@ -139,10 +143,6 @@ func _process(_delta):
 			$SweatParticlesLeft.emitting = false;
 			$SweatParticlesRight.emitting = false;
 			$AnimationPlayer.play("RESET");
-		
-		if (alreadydead):
-			currentSprite.play("down")
-			inShell = true;
 	Global.rendering(self);
 
 func _physics_process(delta):
@@ -289,13 +289,13 @@ func areaCollide(rc):
 			if (!body.dead && body.rendered):
 				chck = true;
 		if (body.is_in_group("Solid") || chck):
-			hitDead = true;
+			if (alreadydead): hitDead = true;
 			if (rc == rcd1):
 				currentSprite.flip_h = false;
-				hit("right");
+				if (alreadydead): hit("right");
 			if (rc == rcd2):
 				currentSprite.flip_h = true;
-				hit("left");
+				if (alreadydead): hit("left");
 			if (moving && inShell && !body.is_in_group("OnOffSwitch") && !body.is_in_group("OnOffSwitch2")):
 				pass
 				#get_node("../Character/SoundBrick").play();

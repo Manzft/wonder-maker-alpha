@@ -2304,6 +2304,7 @@ func _on_Play_mouse_exited():
 	button_mouse_exited(); mouseFocus = ""; changeFocus();
 
 func _on_Edit_pressed():
+	get_tree().paused = false;
 	$Controls.hide();
 	match Global.CurrentAppeareance:
 		Global.APP_SMB:

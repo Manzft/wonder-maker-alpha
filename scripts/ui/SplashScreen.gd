@@ -31,7 +31,7 @@ func _on_Timer_timeout():
 	#Global.changeScene("res://scenes/ui/MainMenu.tscn");
 	Global.changeScene("res://scenes/ui/intro.tscn");
 
-func _process(_delta):
-	if (Input.is_action_just_pressed("a") || Input.is_action_just_pressed("b") || Input.is_action_just_pressed("start")):
+func _input(event):
+	if (event is InputEventKey || event is InputEventScreenTouch):
 		if (ready):
 			_on_Timer_timeout();

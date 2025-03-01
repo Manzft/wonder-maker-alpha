@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=61 format=2]
 
 [ext_resource path="res://scripts/level.gd" type="Script" id=1]
 [ext_resource path="res://sprites/ui/editor/grid.png" type="Texture" id=2]
@@ -41,6 +41,7 @@
 [ext_resource path="res://music/appeareances/smb/ghostforest.mp3" type="AudioStream" id=39]
 [ext_resource path="res://sprites/appeareances/smb3/background/ghostforest.png" type="Texture" id=40]
 [ext_resource path="res://music/appeareances/smb3/ghostforest.mp3" type="AudioStream" id=41]
+[ext_resource path="res://sprites/appeareances/smb3/snow_particle.png" type="Texture" id=42]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -689,6 +690,10 @@ tracks/2/keys = {
 "values": [ Vector2( 3328, -104 ), Vector2( 1664, -104 ) ]
 }
 
+[sub_resource type="Gradient" id=18]
+offsets = PoolRealArray( 0, 0.951807, 0.993976 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 0.848485, 1, 1, 1, 0 )
+
 [sub_resource type="Animation" id=14]
 length = 0.001
 tracks/0/type = "value"
@@ -1112,6 +1117,7 @@ texture = ExtResource( 13 )
 centered = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D/SMB/Sky/ParallaxLayer"]
+autoplay = "start"
 playback_speed = 0.13
 anims/RESET = SubResource( 2 )
 anims/start = SubResource( 3 )
@@ -1149,13 +1155,13 @@ anims/RESET = SubResource( 6 )
 anims/start = SubResource( 7 )
 
 [node name="SMBSnowParticles" type="CPUParticles2D" parent="Camera2D/SMB/Snow/ParallaxLayer"]
-position = Vector2( 1280, 0 )
-amount = 400
+position = Vector2( 960, 0 )
+amount = 200
 lifetime = 10.0
 preprocess = 10.0
 texture = ExtResource( 25 )
 emission_shape = 2
-emission_rect_extents = Vector2( 1280, 1 )
+emission_rect_extents = Vector2( 960, 1 )
 direction = Vector2( 0, 1 )
 spread = 0.0
 gravity = Vector2( 0, 0 )
@@ -1414,6 +1420,7 @@ hframes = 3
 vframes = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D/SMB/Water/ParallaxLayer"]
+autoplay = "idle"
 playback_speed = 2.0
 anims/RESET = SubResource( 4 )
 anims/idle = SubResource( 5 )
@@ -1488,6 +1495,7 @@ texture = ExtResource( 28 )
 centered = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D/SMB3/Sky/ParallaxLayer"]
+autoplay = "start"
 playback_speed = 0.13
 anims/RESET = SubResource( 10 )
 anims/start = SubResource( 11 )
@@ -1525,18 +1533,19 @@ anims/RESET = SubResource( 12 )
 anims/start = SubResource( 13 )
 
 [node name="SMBSnowParticles" type="CPUParticles2D" parent="Camera2D/SMB3/Snow/ParallaxLayer"]
-position = Vector2( 1280, 0 )
-amount = 400
+position = Vector2( 960, 0 )
+amount = 200
 lifetime = 10.0
 preprocess = 10.0
-texture = ExtResource( 25 )
+texture = ExtResource( 42 )
 emission_shape = 2
-emission_rect_extents = Vector2( 1280, 1 )
+emission_rect_extents = Vector2( 960, 1 )
 direction = Vector2( 0, 1 )
 spread = 0.0
 gravity = Vector2( 0, 0 )
 initial_velocity = 150.0
-scale_amount = 0.02
+scale_amount = 3.25
+color_ramp = SubResource( 18 )
 
 [node name="Desert" type="ParallaxBackground" parent="Camera2D/SMB3" groups=["Background"]]
 visible = false
@@ -1790,6 +1799,7 @@ hframes = 3
 vframes = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera2D/SMB3/Water/ParallaxLayer"]
+autoplay = "idle"
 playback_speed = 2.0
 anims/RESET = SubResource( 16 )
 anims/idle = SubResource( 17 )

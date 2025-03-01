@@ -377,6 +377,7 @@ func releaseSneak():
 func die():
 	if (died): return
 	
+	pause_mode = PAUSE_MODE_PROCESS; get_tree().paused = true;
 	motion.x = 0;
 	motion.y = 0;
 	current_sprite.offset.y = 0;

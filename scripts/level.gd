@@ -143,13 +143,6 @@ func _ready():
 #				if (ir == 1):
 #					Global.CurrentAppeareance = Global.APP_SMB3;
 	
-	#Dynamic style backgrounds animation
-	$Camera2D/SMB/Sky/ParallaxLayer/AnimationPlayer.play("start");
-	
-	#Water and Lava animation
-	$Camera2D/SMB/Water/ParallaxLayer/AnimationPlayer.play("idle");
-	$Camera2D/SMB3/Water/ParallaxLayer/AnimationPlayer.play("idle");
-	
 	#yield(get_tree(), "idle_frame");
 	setCameraGrid();
 
@@ -330,7 +323,7 @@ func placeObject(mousepos, pressed = false, customObj = -1):
 		if (cgrid.x <= 6): 
 			if (cgrid.y >= get_node("LevelFloor").current_grid.y):
 				poscheck = false;
-		if (cgrid.x >= get_node("EndFloor").current_grid.x):
+		if (cgrid.x >= get_node("EndFloor").current_grid.x-1):
 			if (cgrid.y >= get_node("EndFloor").current_grid.y):
 				poscheck = false;
 		

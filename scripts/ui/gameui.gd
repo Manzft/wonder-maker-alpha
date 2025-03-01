@@ -55,7 +55,8 @@ func updateFocusSprite():
 
 func _ready():
 	yield(get_tree().create_timer(1.0), "timeout");
-	if (Global.coursePlaying):
+	var check = (Global.SHOW_PAUSE_BUTTON || OS.get_name() == "Android");
+	if (Global.coursePlaying && check):
 		$Pause.show();
 	else:
 		$Pause.hide();
