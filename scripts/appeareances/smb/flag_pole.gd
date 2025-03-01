@@ -44,3 +44,8 @@ func _on_BaseArea_body_entered(body):
 			body.current_sprite.speed_scale = 1;
 			body.in_flag_pole = false;
 			body.current_sprite.flip_h = false;
+
+func _on_DoorArea_body_entered(body):
+	if (body.is_in_group("Character")):
+		if (body.course_clear):
+			body.deactivateSubPixelSprite();

@@ -141,7 +141,7 @@ func _process(_delta):
 				get_node("../Character/SoundShellHit").play();
 		
 		#Wall Dead
-		if (!dead && position.y < 1600):
+		if (!dead && position.y < 1600 && !carrying && canAttack && !invincible):
 			var mygrid = get_parent().calculateGrid(position.x, position.y);
 			if (get_parent().grid_node[mygrid.x][mygrid.y] != null):
 				if (get_parent().grid_node[mygrid.x][mygrid.y].is_in_group("Solid") &&
@@ -319,6 +319,14 @@ func hit(dir, inshell = false, byblock = false, move = false):
 		currentSprite.get_node("Shadow").hide();
 		dead = true;
 		
+		$BrickBreak.play();
+		var inst = load("res://scenes/appearances/smb3/particles/drybonesbone.tscn").instance();
+		get_parent().add_child(inst);
+		inst.position = position;
+		inst = load("res://scenes/appearances/smb3/particles/dryboneshead.tscn").instance();
+		get_parent().add_child(inst);
+		inst.position = position;
+		
 		motion.x = 0;
 		motion.y = 0;
 		if (hitDead):
@@ -354,12 +362,16 @@ func areaCollide(rc):
 			if (!body.dead && body.rendered):
 				chck = true;
 		if (body.is_in_group("Solid") || chck):
+			hitDead = true;
 			if (rc == rcd1):
 				currentSprite.flip_h = false;
+				hit("right");
 			if (rc == rcd2):
 				currentSprite.flip_h = true;
+				hit("left");
 			if (moving && inShell && !body.is_in_group("OnOffSwitch") && !body.is_in_group("OnOffSwitch2")):
-				get_node("../Character/SoundBrick").play();
+				pass
+				#get_node("../Character/SoundBrick").play();
 			if (body.is_in_group("Insideable") || body.is_in_group("OnOffSwitch") || body.is_in_group("OnOffSwitch2")):
 				if (moving && inShell):
 					if (body.is_in_group("Brick")):
@@ -458,7 +470,7 @@ func _on_Area2D2_body_entered(body):
 						
 					get_parent().enemyScore(position);
 			elif (inShell && !moving):
-				if (!dead && !body.died && !body.changingPowerup):
+				if (!dead && !body.died && !body.changingPowerup && alreadydead):
 					if (get_node("../Character").running && !get_node("../Character").carrying && !get_node("../Character").sneaking):
 						get_node("../Character").carrying = true;
 						carrying = true;
@@ -526,6 +538,7 @@ func _on_WakeTimer_timeout():
 		waking = false;
 		currentSprite.play("walk");
 		inbones = false;
+		inShell = false;
 		currentSprite.flip_v = false;
 		currentSprite.position.y = -20;
 		if (currentSprite.flip_h):

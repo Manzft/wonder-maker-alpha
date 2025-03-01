@@ -688,6 +688,7 @@ volume_db = -5.0
 
 [node name="SoundReadytofly" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 34 )
+volume_db = -10.0
 
 [node name="SoundBrickBreak" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 23 )

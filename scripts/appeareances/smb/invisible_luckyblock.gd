@@ -93,7 +93,7 @@ func hit():
 			for node in get_tree().get_nodes_in_group("Enemy"):
 				if (node.position.y >= position.y-52-5 && node.position.y <= position.y-26):
 					if (node.position.x >= position.x-32 && node.position.x <= position.x+32):
-						if (!node.is_in_group("Solid")):
+						if (!node.is_in_group("Solid") && !node.dead):
 							get_node("../Character/SoundShellHit").play();
 							if (node.is_in_group("HasShell")):
 								node.hit("", true);
@@ -258,6 +258,9 @@ func hit():
 				inst.exiting = true;
 				inst.insided = true;
 				get_parent().add_child(inst);
+				
+				if (a_alreadydead):
+					inst.alreadydead = true;
 				
 				$PowerUpAppears.play();
 			else:

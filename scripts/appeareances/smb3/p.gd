@@ -19,6 +19,10 @@ var canSyncAnim = false;
 
 var carrying = false;
 
+var speed_increase = 0;
+
+var max_h_speed = 500;
+
 func _ready():
 	styleChanged();
 	yield(get_tree(), "idle_frame");
@@ -47,28 +51,41 @@ func _process(_delta):
 				dif = 32;
 			
 			position.x = charpos.x+dif;
-			position.y = charpos.y;
+			position.y = charpos.y-5;
 			
 			if (!chara.running):
 				carrying = false;
 				chara.carrying = false;
-				chara.get_node("KickingTimer").start();
-				chara.kicking = true;
 				
 				motion.y = 0;
-				if (chara.position.x >= position.x):
-					var inst = load("res://scenes/appearances/smb3/particles/parthit.tscn").instance();
-					get_parent().add_child(inst);
-					inst.position.x = position.x-12.5;
-					inst.position.y = position.y;
-					motion.x = -400;
-				else:
-					var inst = load("res://scenes/appearances/smb3/particles/parthit.tscn").instance();
-					get_parent().add_child(inst);
-					inst.position.x = position.x+12.5;
-					inst.position.y = position.y;
-					motion.x = 400;
-				chara.get_node("SoundShellHit").play();
+				
+				if (!chara.died && !chara.changingPowerup):
+					speed_increase = abs(get_node("../Character").motion.x);
+					if (Input.is_action_pressed("down") || Input.is_action_pressed("ddown")):
+						if (chara.position.x >= position.x):
+							position.x -= 10;
+							motion.x = -70-speed_increase;
+						else:
+							position.x += 10;
+							motion.x = 70+speed_increase;
+					else:
+						chara.get_node("KickingTimer").start();
+						chara.kicking = true;
+						if (chara.position.x >= position.x):
+							var inst = load("res://scenes/appearances/smb3/particles/parthit.tscn").instance();
+							get_parent().add_child(inst);
+							inst.position.x = position.x-12.5;
+							inst.position.y = position.y;
+							position.x -= 10;
+							motion.x = -max_h_speed-speed_increase;
+						else:
+							var inst = load("res://scenes/appearances/smb3/particles/parthit.tscn").instance();
+							get_parent().add_child(inst);
+							inst.position.x = position.x+12.5;
+							inst.position.y = position.y;
+							position.x += 10;
+							motion.x = max_h_speed+speed_increase;
+						chara.get_node("SoundShellHit").play();
 	else:
 		if (insided):
 			queue_free();
@@ -152,12 +169,15 @@ func _physics_process(delta):
 				hide();
 				
 			#Carrying
-			if (currentSprite.animation != "pressed" && press && !carrying && get_node("../Character").running):
+			if (currentSprite.animation != "pressed" && press && !carrying && get_node("../Character").running && !get_node("../Character").carrying && !get_node("../Character").sneaking):
 				carrying = true;
 				get_node("../Character").carrying = true;
 		
 		if (!exiting):
-			motion.x = lerp(motion.x, 0, 0.0625);
+			if (abs(motion.x) <= 70):
+				motion.x = lerp(motion.x, 0.0, 0.125);
+			else:
+				motion.x = lerp(motion.x, 0.0, 0.03125);
 			motion = move_and_slide(motion, Vector2(0, -1));
 
 func styleChanged():

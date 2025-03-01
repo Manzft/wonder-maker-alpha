@@ -78,7 +78,7 @@ func _process(_delta):
 			canActiveTimerStarted = true;
 		
 		#Wall Dead
-		if (!dead && position.y < 1600):
+		if (!dead && position.y < 1600 && canAttack):
 			var mygrid = get_parent().calculateGrid(position.x, position.y);
 			if (get_parent().grid_node[mygrid.x][mygrid.y] != null):
 				if (get_parent().grid_node[mygrid.x][mygrid.y].is_in_group("Solid") &&
@@ -351,6 +351,15 @@ func _on_Area2D2_body_entered(body):
 	if (body.is_in_group("Character")):
 		if (get_node("../Character").star):
 			return
+		if (body.position.y+8 <= position.y):
+			if (get_node("../Character").position.y+16 < position.y):
+				if (!get_node("../Character").star
+				&& canAttack
+				&& !get_node("../Character").invincible
+				&& !get_node("../Character").died
+				&& !get_node("../Character").changingPowerup):
+					get_node("../Character").hit();
+					return
 		if (inShell && !moving):
 			if (!dead && !body.died && !body.changingPowerup):
 				if (get_node("../Character").position.x >= position.x):

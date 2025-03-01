@@ -120,8 +120,9 @@ config/name="Wonder Maker"
 run/main_scene="res://scenes/ui/SplashScreen.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Wonder Maker"
-boot_splash/image="res://manzft mondongo.png"
+boot_splash/image="res://logodef_png.png"
 boot_splash/fullsize=false
+boot_splash/bg_color=Color( 0.631373, 0.188235, 0.933333, 1 )
 config/icon="res://deficon_final_rounded.png"
 config/windows_native_icon="res://deficon_icon.ico"
 

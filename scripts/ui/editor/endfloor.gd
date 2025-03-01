@@ -83,6 +83,8 @@ func calculate(mpos, start = false, createLevelFloorObjectsAgain = false, custom
 		grid = get_parent().calculateGlobalGrid(mpos.x, mpos.y);
 	else:
 		grid = get_parent().calculateGrid(mpos.x, mpos.y);
+	if (grid.y > 29):
+		return
 	if (grid != current_grid && grid != null && grid.y >= 0 && grid.y <= get_parent().grid_size.y-1 && grid.x >= 25 && grid.x <= get_parent().grid_size.x-10):
 		var changeCharPos = false;
 		if (!start && get_node("../CharacterEditor").current_grid.y == current_grid.y-1 && get_parent().calculateGrid(get_node("../CharacterEditor").position.x, 0).x >= current_grid.x):

@@ -56,7 +56,8 @@ func _process(_delta):
 		if (!dead && position.y < 1600):
 			var mygrid = get_parent().calculateGrid(position.x, position.y);
 			if (get_parent().grid_node[mygrid.x][mygrid.y] != null):
-				if (get_parent().grid_node[mygrid.x][mygrid.y].is_in_group("Solid") &&
+				if (!get_parent().grid_node[mygrid.x][mygrid.y].is_in_group("Muncher") &&
+				get_parent().grid_node[mygrid.x][mygrid.y].is_in_group("Solid") &&
 				!get_parent().grid_node[mygrid.x][mygrid.y].get_node("CollisionShape2D").disabled &&
 				get_parent().grid_node[mygrid.x][mygrid.y].position == get_parent().calculateGridPosition(mygrid)):
 					hitDead = true;

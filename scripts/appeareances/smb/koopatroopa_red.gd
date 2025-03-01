@@ -78,7 +78,7 @@ func _process(_delta):
 				get_node("../Character/SoundShellHit").play();
 		
 		#Wall Dead
-		if (!dead && position.y < 1600):
+		if (!dead && position.y < 1600 && canAttack):
 			var mygrid = get_parent().calculateGrid(position.x, position.y);
 			if (get_parent().grid_node[mygrid.x][mygrid.y] != null):
 				if (get_parent().grid_node[mygrid.x][mygrid.y].is_in_group("Solid") &&

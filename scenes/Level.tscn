@@ -1,4 +1,4 @@
-[gd_scene load_steps=58 format=2]
+[gd_scene load_steps=59 format=2]
 
 [ext_resource path="res://scripts/level.gd" type="Script" id=1]
 [ext_resource path="res://sprites/ui/editor/grid.png" type="Texture" id=2]
@@ -40,6 +40,7 @@
 [ext_resource path="res://sprites/appeareances/smb/background/ghostforest.png" type="Texture" id=38]
 [ext_resource path="res://music/appeareances/smb/ghostforest.mp3" type="AudioStream" id=39]
 [ext_resource path="res://sprites/appeareances/smb3/background/ghostforest.png" type="Texture" id=40]
+[ext_resource path="res://music/appeareances/smb3/ghostforest.mp3" type="AudioStream" id=41]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -1858,7 +1859,7 @@ volume_db = -15.0
 
 [node name="Ghostforest" type="AudioStreamPlayer" parent="GameMusic/SMB" groups=["Music"]]
 stream = ExtResource( 39 )
-volume_db = -17.0
+volume_db = -22.5
 
 [node name="SMB3" type="Node" parent="GameMusic"]
 
@@ -1887,5 +1888,5 @@ stream = ExtResource( 35 )
 volume_db = -15.0
 
 [node name="Ghostforest" type="AudioStreamPlayer" parent="GameMusic/SMB3" groups=["Music"]]
-stream = ExtResource( 33 )
-volume_db = -15.0
+stream = ExtResource( 41 )
+volume_db = -7.0

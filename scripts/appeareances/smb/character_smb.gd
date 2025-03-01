@@ -629,6 +629,8 @@ func _on_AttackingTimer_timeout():
 	attacking = false;
 
 func _on_SoundPButton_finished():
+	if (died):
+		return
 	if (!in_flag_pole):
 		get_parent().gameMusic(true);
 	p = false;
@@ -636,3 +638,6 @@ func _on_SoundPButton_finished():
 	for node in nodes:
 		if (node.currentSprite.animation == "pressed"):
 			node.release();
+
+func deactivateSubPixelSprite():
+	$Mario.position.y = -3;

@@ -124,6 +124,8 @@ func insideNode(code, node):
 		Global.OBJ_DRYBONES:
 			node.drybones = true;
 			node.insided = true;
+			if (get_parent().grab_node.alreadydead):
+				node.a_alreadydead = true;
 
 func _input(event):
 	if (editingText):
@@ -1755,7 +1757,7 @@ func appearanceChange(app, start = false):
 				if (node.is_in_group("Fireflower")):
 					inst.mushroom = node.mushroom;
 						
-				if (node.is_in_group("Spiny")):
+				if (node.is_in_group("Spiny") || node.is_in_group("DryBones")):
 					inst.alreadydead = node.alreadydead;
 				
 				if (node.is_in_group("Twomp") ||

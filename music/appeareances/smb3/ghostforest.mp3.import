@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/ghostforest.mp3-6a243a76e927c3de0a7be9e63abea6aa.mp3str"
+
+[deps]
+
+source_file="res://music/appeareances/smb3/ghostforest.mp3"
+dest_files=[ "res://.import/ghostforest.mp3-6a243a76e927c3de0a7be9e63abea6aa.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

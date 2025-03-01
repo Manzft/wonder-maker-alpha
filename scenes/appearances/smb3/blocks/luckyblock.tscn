@@ -247,7 +247,7 @@ script = ExtResource( 1 )
 [node name="SpriteGround" type="AnimatedSprite" parent="."]
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 9 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="Shadow" type="AnimatedSprite" parent="SpriteGround"]
@@ -256,14 +256,14 @@ position = Vector2( 3, 3 )
 z_index = -3
 z_as_relative = false
 frames = SubResource( 9 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="SpriteUnderground" type="AnimatedSprite" parent="."]
 visible = false
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 14 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="Shadow" type="AnimatedSprite" parent="SpriteUnderground"]
@@ -272,14 +272,14 @@ position = Vector2( 3, 3 )
 z_index = -3
 z_as_relative = false
 frames = SubResource( 14 )
-frame = 1
+frame = 3
 playing = true
 
 [node name="SpriteGhostforest" type="AnimatedSprite" parent="."]
 visible = false
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 32 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="Shadow" type="AnimatedSprite" parent="SpriteGhostforest"]
@@ -288,7 +288,7 @@ position = Vector2( 3, 3 )
 z_index = -3
 z_as_relative = false
 frames = SubResource( 32 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="HasObjectInside" type="Sprite" parent="."]

@@ -45,6 +45,8 @@ var rendered = true;
 
 var canActive = false;
 
+var alreadydead = false;
+
 func _ready():
 	styleChanged();
 	currentSprite.flip_h = true;
@@ -75,7 +77,7 @@ func _process(_delta):
 				get_node("../Character/SoundShellHit").play();
 		
 		#Wall Dead
-		if (!dead && position.y < 1600):
+		if (!dead && position.y < 1600 && canAttack):
 			var mygrid = get_parent().calculateGrid(position.x, position.y);
 			if (get_parent().grid_node[mygrid.x][mygrid.y] != null):
 				if (get_parent().grid_node[mygrid.x][mygrid.y].is_in_group("Solid") &&
@@ -116,21 +118,31 @@ func _process(_delta):
 		$CollisionShape2D.disabled = false;
 		
 		if (get_parent().grab && get_parent().grab_node == self):
-			currentSprite.play("walk");
-			currentSprite.speed_scale = 2;
-			currentSprite.scale = Vector2(4, 4);
-			$AnimationPlayer.play("draging");
-			$SweatParticlesLeft.emitting = true;
-			$SweatParticlesRight.emitting = true;
+			if (alreadydead):
+				currentSprite.play("dead");
+			else:
+				currentSprite.play("walk");
+				currentSprite.speed_scale = 2;
+				currentSprite.scale = Vector2(4, 4);
+				$SweatParticlesLeft.emitting = true;
+				$SweatParticlesRight.emitting = true;
+				$AnimationPlayer.play("draging");
 		else:
-			currentSprite.play("walk");
+			if (alreadydead):
+				currentSprite.play("dead");
+			else:
+				currentSprite.play("walk");
 			currentSprite.speed_scale = 0;
 			currentSprite.frame = 0;
-			$AnimationPlayer.play("RESET");
 			if (currentSprite.scale.x > 3.25):
 				currentSprite.scale = Vector2(3.25, 3.25);
 			$SweatParticlesLeft.emitting = false;
 			$SweatParticlesRight.emitting = false;
+			$AnimationPlayer.play("RESET");
+		
+		if (alreadydead):
+			currentSprite.play("down")
+			inShell = true;
 	Global.rendering(self);
 
 func _physics_process(delta):
@@ -235,6 +247,14 @@ func hit(dir, inshell = false, byblock = false, move = false):
 		currentSprite.get_node("Shadow").hide();
 		dead = true;
 		
+		$BrickBreak.play();
+		var inst = load("res://scenes/appearances/smb/particles/drybonesbone.tscn").instance();
+		get_parent().add_child(inst);
+		inst.position = position;
+		inst = load("res://scenes/appearances/smb/particles/dryboneshead.tscn").instance();
+		get_parent().add_child(inst);
+		inst.position = position;
+		
 		motion.x = 0;
 		motion.y = 0;
 		if (hitDead):
@@ -269,12 +289,16 @@ func areaCollide(rc):
 			if (!body.dead && body.rendered):
 				chck = true;
 		if (body.is_in_group("Solid") || chck):
+			hitDead = true;
 			if (rc == rcd1):
 				currentSprite.flip_h = false;
+				hit("right");
 			if (rc == rcd2):
 				currentSprite.flip_h = true;
+				hit("left");
 			if (moving && inShell && !body.is_in_group("OnOffSwitch") && !body.is_in_group("OnOffSwitch2")):
-				get_node("../Character/SoundBrick").play();
+				pass
+				#get_node("../Character/SoundBrick").play();
 			if (body.is_in_group("Insideable") || body.is_in_group("OnOffSwitch") || body.is_in_group("OnOffSwitch2")):
 				if (moving && inShell):
 					if (body.is_in_group("Brick")):
@@ -357,7 +381,7 @@ func _on_Area2D2_body_entered(body):
 						
 					get_parent().enemyScore(position);
 			elif (inShell && !moving):
-				if (!dead && !body.died && !body.changingPowerup):
+				if (!dead && !body.died && !body.changingPowerup && alreadydead):
 					if (get_node("../Character").position.x >= position.x):
 						hit("left", false, false, true);
 						var inst = load("res://scenes/appearances/smb/particles/parthit.tscn").instance();
@@ -427,7 +451,7 @@ func _on_WakeTimer_timeout():
 			currentSprite.flip_h = true;
 
 func _on_BigWakeTimer_timeout():
-	if (!moving && !dead):
+	if (!moving && !dead && !alreadydead):
 		if (inShell || inbones):
 			waking = true;
 			$WakeTimer.start();

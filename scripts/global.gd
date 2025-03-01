@@ -71,6 +71,8 @@ var CurrentTime = 300;
 var CurrentMusic = "true";
 
 var FPS = false;
+var VSYNC = false;
+var SCREEN_16_9 = false;
 var CurrentInput = "Mouse";
 
 #Save and Load
@@ -536,7 +538,10 @@ func setNodes():
 			objects_count[OBJ_TWOMP] += 1;
 		#Dry Bones
 		if (node.is_in_group("DryBones")):
-			gnode[OBJ_DRYBONES][objects_count[OBJ_DRYBONES]][0] = node.position; objects_count[OBJ_DRYBONES] += 1;
+			gnode[OBJ_DRYBONES][objects_count[OBJ_DRYBONES]][0] = node.position;
+			if (node.alreadydead):
+				gnode[OBJ_DRYBONES][objects_count[OBJ_DRYBONES]][1] = "alreadydead";
+			objects_count[OBJ_DRYBONES] += 1;
 		#Burner
 		if (node.is_in_group("Burner")):
 			gnode[OBJ_BURNER][objects_count[OBJ_BURNER]][0] = node.position;
@@ -649,7 +654,7 @@ func loadNodes(level):
 					if (gnode[i][j][1] == "mushroom"):
 						inst.mushroom = true;
 						
-				if (inst.is_in_group("Spiny")):
+				if (inst.is_in_group("Spiny") || inst.is_in_group("DryBones")):
 					if (gnode[i][j][1] == "alreadydead"):
 						inst.alreadydead = true;
 				
@@ -661,6 +666,40 @@ func loadNodes(level):
 					inst.seldirection = gnode[i][j][1];
 			else:
 				break;
+
+func loadSettings():
+	var score_data = {}
+	var config = ConfigFile.new()
+
+	var err = config.load(get_game_dir()+"/config.ini")
+
+	if err != OK:
+		return
+
+	for section in config.get_sections():
+		if (section == "General"):
+			VSYNC = config.get_value(section, "VSync");
+			SCREEN_16_9 = config.get_value(section, "Force 16:9");
+			
+	OS.vsync_enabled = VSYNC;
+	if (SCREEN_16_9):
+		get_tree().set_screen_stretch(get_tree().STRETCH_MODE_2D, get_tree().STRETCH_ASPECT_KEEP, Vector2(1280, 720));
+	else:
+		get_tree().set_screen_stretch(get_tree().STRETCH_MODE_2D, get_tree().STRETCH_ASPECT_KEEP_HEIGHT, Vector2(1280, 720));
+
+func saveSettings():
+	var config = ConfigFile.new()
+
+	config.set_value("General", "VSync", VSYNC);
+	config.set_value("General", "Force 16:9", SCREEN_16_9);
+
+	config.save(get_game_dir()+"/config.ini");
+
+func checkSettingsFile():
+	var configDir = get_game_dir()+"/config.ini";
+	var dir = Directory.new();
+	if (!dir.file_exists(configDir)):
+		saveSettings();
 
 func rendering(node):
 	return
@@ -676,6 +715,8 @@ func rendering(node):
 		node.show();
 
 func _ready() -> void:
+	checkSettingsFile();
+	loadSettings();
 	OS.request_permissions();
 	
 	#Editor Objects Definition

@@ -1,4 +1,4 @@
-[gd_scene load_steps=339 format=2]
+[gd_scene load_steps=340 format=2]
 
 [ext_resource path="res://scripts/ui/startmenu/FPS.gd" type="Script" id=1]
 [ext_resource path="res://sprites/ui/editor/square_little_button.png" type="Texture" id=2]
@@ -141,6 +141,7 @@
 [ext_resource path="res://scenes/ui/Gameplay UI/SMB3.tscn" type="PackedScene" id=139]
 [ext_resource path="res://sprites/ui/editor/variantSymbol.png" type="Texture" id=140]
 [ext_resource path="res://music/editor/smb3/editor_ghostforest.mp3" type="AudioStream" id=141]
+[ext_resource path="res://music/editor/smb/editor_ghostforest.mp3" type="AudioStream" id=142]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -15322,8 +15323,7 @@ stream = ExtResource( 127 )
 volume_db = -10.0
 
 [node name="Ghostforest" type="AudioStreamPlayer" parent="EditorMusic/SMB" groups=["Music"]]
-stream = ExtResource( 141 )
-volume_db = -10.0
+stream = ExtResource( 142 )
 
 [node name="SMB3" type="Node" parent="EditorMusic"]
 
@@ -15350,6 +15350,10 @@ volume_db = -20.0
 [node name="Snow" type="AudioStreamPlayer" parent="EditorMusic/SMB3" groups=["Music"]]
 stream = ExtResource( 132 )
 volume_db = -20.0
+
+[node name="Ghostforest" type="AudioStreamPlayer" parent="EditorMusic/SMB3" groups=["Music"]]
+stream = ExtResource( 141 )
+volume_db = -15.0
 
 [node name="GameplayUI" type="Node" parent="."]
 

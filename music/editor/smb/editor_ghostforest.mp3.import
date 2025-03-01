@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/editor_ghostforest.mp3-6ee3f867b9a3bb287356663c72c42ab3.mp3str"
+
+[deps]
+
+source_file="res://music/editor/smb/editor_ghostforest.mp3"
+dest_files=[ "res://.import/editor_ghostforest.mp3-6ee3f867b9a3bb287356663c72c42ab3.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
