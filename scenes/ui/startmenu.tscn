@@ -1077,6 +1077,7 @@ tracks/0/keys = {
 }
 
 [node name="StartMenu" type="CanvasLayer" groups=["CurrentTree"]]
+pause_mode = 2
 layer = 10
 script = ExtResource( 8 )
 

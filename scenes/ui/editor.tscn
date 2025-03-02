@@ -8103,9 +8103,9 @@ visible = false
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -11.0
+margin_left = 23.0
 margin_top = -29.0
-margin_right = 11.0
+margin_right = 45.0
 margin_bottom = -7.0
 texture = ExtResource( 37 )
 
@@ -8115,10 +8115,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 1764.0
-margin_top = 1764.0
-margin_right = 1800.0
-margin_bottom = 1800.0
+margin_left = 1786.0
+margin_top = 1786.0
+margin_right = 1822.0
+margin_bottom = 1822.0
 texture = ExtResource( 36 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GamepadCursor/SprintGuide"]
@@ -8127,6 +8127,7 @@ anims/start = SubResource( 49 )
 
 [node name="SectionTop" type="TextureRect" parent="."]
 anchor_right = 1.0
+margin_right = 1280.0
 margin_bottom = 113.0
 texture = ExtResource( 6 )
 expand = true
@@ -8188,6 +8189,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 74.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionTop/SearchButton/Selection"]
@@ -8271,10 +8274,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -31.0
-margin_top = -29.5
-margin_right = 31.0
-margin_bottom = 32.5
+margin_left = 6.0
+margin_top = 8.0
+margin_right = 68.0
+margin_bottom = 70.0
 mouse_filter = 2
 expand = true
 
@@ -8292,6 +8295,8 @@ texture = ExtResource( 140 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 74.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionTop/ObjectButton12/Selection"]
@@ -8375,10 +8380,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -31.0
-margin_top = -29.5
-margin_right = 31.0
-margin_bottom = 32.5
+margin_left = 6.0
+margin_top = 8.0
+margin_right = 68.0
+margin_bottom = 70.0
 mouse_filter = 2
 expand = true
 
@@ -8396,6 +8401,8 @@ texture = ExtResource( 140 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 74.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionTop/ObjectButton11/Selection"]
@@ -8479,10 +8486,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -31.0
-margin_top = -29.5
-margin_right = 31.0
-margin_bottom = 32.5
+margin_left = 6.0
+margin_top = 8.0
+margin_right = 68.0
+margin_bottom = 70.0
 mouse_filter = 2
 expand = true
 
@@ -8500,6 +8507,8 @@ texture = ExtResource( 140 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 74.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionTop/ObjectButton10/Selection"]
@@ -8583,10 +8592,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -31.0
-margin_top = -29.5
-margin_right = 31.0
-margin_bottom = 32.5
+margin_left = 6.0
+margin_top = 8.0
+margin_right = 68.0
+margin_bottom = 70.0
 mouse_filter = 2
 expand = true
 
@@ -8604,6 +8613,8 @@ texture = ExtResource( 140 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 74.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionTop/ObjectButton9/Selection"]
@@ -8687,10 +8698,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -31.0
-margin_top = -29.5
-margin_right = 31.0
-margin_bottom = 32.5
+margin_left = 6.0
+margin_top = 8.0
+margin_right = 68.0
+margin_bottom = 70.0
 mouse_filter = 2
 expand = true
 
@@ -8708,6 +8719,8 @@ texture = ExtResource( 140 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 74.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionTop/ObjectButton8/Selection"]
@@ -8791,10 +8804,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -31.0
-margin_top = -29.5
-margin_right = 31.0
-margin_bottom = 32.5
+margin_left = 6.0
+margin_top = 8.0
+margin_right = 68.0
+margin_bottom = 70.0
 mouse_filter = 2
 expand = true
 
@@ -8812,6 +8825,8 @@ texture = ExtResource( 140 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 74.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionTop/ObjectButton7/Selection"]
@@ -8895,10 +8910,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -31.0
-margin_top = -29.5
-margin_right = 31.0
-margin_bottom = 32.5
+margin_left = 6.0
+margin_top = 8.0
+margin_right = 68.0
+margin_bottom = 70.0
 mouse_filter = 2
 expand = true
 
@@ -8916,6 +8931,8 @@ texture = ExtResource( 140 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 74.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionTop/ObjectButton6/Selection"]
@@ -8999,10 +9016,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -31.0
-margin_top = -29.5
-margin_right = 31.0
-margin_bottom = 32.5
+margin_left = 6.0
+margin_top = 8.0
+margin_right = 68.0
+margin_bottom = 70.0
 mouse_filter = 2
 expand = true
 
@@ -9020,6 +9037,8 @@ texture = ExtResource( 140 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 74.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionTop/ObjectButton5/Selection"]
@@ -9103,10 +9122,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -31.0
-margin_top = -29.5
-margin_right = 31.0
-margin_bottom = 32.5
+margin_left = 6.0
+margin_top = 8.0
+margin_right = 68.0
+margin_bottom = 70.0
 mouse_filter = 2
 expand = true
 
@@ -9124,6 +9143,8 @@ texture = ExtResource( 140 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 74.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionTop/ObjectButton4/Selection"]
@@ -9207,10 +9228,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -31.0
-margin_top = -29.5
-margin_right = 31.0
-margin_bottom = 32.5
+margin_left = 6.0
+margin_top = 8.0
+margin_right = 68.0
+margin_bottom = 70.0
 mouse_filter = 2
 expand = true
 
@@ -9228,6 +9249,8 @@ texture = ExtResource( 140 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 74.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionTop/ObjectButton3/Selection"]
@@ -9311,10 +9334,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -31.0
-margin_top = -29.5
-margin_right = 31.0
-margin_bottom = 32.5
+margin_left = 6.0
+margin_top = 8.0
+margin_right = 68.0
+margin_bottom = 70.0
 mouse_filter = 2
 expand = true
 
@@ -9332,6 +9355,8 @@ texture = ExtResource( 140 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 74.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionTop/ObjectButton2/Selection"]
@@ -9415,10 +9440,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -31.0
-margin_top = -29.5
-margin_right = 31.0
-margin_bottom = 32.5
+margin_left = 6.0
+margin_top = 8.0
+margin_right = 68.0
+margin_bottom = 70.0
 mouse_filter = 2
 expand = true
 
@@ -9438,8 +9463,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -1.69784
 margin_top = -1.69784
-margin_right = -1.69784
-margin_bottom = -1.69784
+margin_right = 72.3022
+margin_bottom = 73.3022
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionTop/ObjectButton1/Selection"]
@@ -9774,6 +9799,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 139.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="AppeareancesMenu/SMBButton/Selection"]
@@ -9872,6 +9899,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 139.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="AppeareancesMenu/SMB3Button/Selection"]
@@ -9956,7 +9985,8 @@ stretch_mode = 1
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 2.28882e-05
+margin_right = 48.6
+margin_bottom = 48.6
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="AppeareancesMenu/CloseButton/Selection"]
@@ -10020,9 +10050,9 @@ self_modulate = Color( 1, 1, 1, 0.941176 )
 anchor_top = 1.0
 anchor_bottom = 1.0
 margin_left = -466.0
-margin_top = 78.0
+margin_top = 118.0
 margin_right = -70.0
-margin_bottom = 360.0
+margin_bottom = 400.0
 grow_horizontal = 0
 rect_scale = Vector2( 0.7, 1 )
 texture = ExtResource( 80 )
@@ -10081,6 +10111,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 381.0
+margin_bottom = 60.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="CoursebotMenuContainer/CoursebotMenu/SaveNewCourse/Selection"]
@@ -10180,6 +10212,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 381.0
+margin_bottom = 60.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="CoursebotMenuContainer/CoursebotMenu/SaveChanges/Selection"]
@@ -10279,6 +10313,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 381.0
+margin_bottom = 60.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="CoursebotMenuContainer/CoursebotMenu/Load/Selection"]
@@ -10374,7 +10410,8 @@ stretch_mode = 1
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 2.28882e-05
+margin_right = 48.6
+margin_bottom = 48.6
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="CoursebotMenuContainer/CoursebotMenu/CloseButton/Selection"]
@@ -10494,6 +10531,8 @@ stretch_mode = 1
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 48.6
+margin_bottom = 48.6
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="StylesMenu/CloseButton/Selection"]
@@ -10597,6 +10636,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 139.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="StylesMenu/Buttons/GroundButton/Selection"]
@@ -10694,6 +10735,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 139.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="StylesMenu/Buttons/UndergroundButton/Selection"]
@@ -10792,6 +10835,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 139.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="StylesMenu/Buttons/UnderwaterButton/Selection"]
@@ -10889,6 +10934,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 139.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="StylesMenu/Buttons/DesertButton/Selection"]
@@ -10986,6 +11033,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 139.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="StylesMenu/Buttons/SnowButton/Selection"]
@@ -11083,6 +11132,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 139.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="StylesMenu/Buttons/SkyButton/Selection"]
@@ -11180,6 +11231,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 139.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="StylesMenu/Buttons/ForestButton/Selection"]
@@ -11278,6 +11331,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 139.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="StylesMenu/Buttons/GhosthouseButton/Selection"]
@@ -11376,6 +11431,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 139.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="StylesMenu/Buttons/AirshipButton/Selection"]
@@ -11474,6 +11531,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 139.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="StylesMenu/Buttons/CastleButton/Selection"]
@@ -11571,6 +11630,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 139.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="StylesMenu/Buttons/GhostforestButton/Selection"]
@@ -11690,6 +11751,8 @@ stretch_mode = 1
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 48.6
+margin_bottom = 48.6
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="CameraMenu/CloseButton/Selection"]
@@ -11801,6 +11864,8 @@ align = 1
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 427.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="CameraMenu/Buttons/None/Selection"]
@@ -11906,6 +11971,8 @@ align = 1
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 427.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="CameraMenu/Buttons/Slow/Selection"]
@@ -12011,6 +12078,8 @@ align = 1
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 427.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="CameraMenu/Buttons/Normal/Selection"]
@@ -12116,6 +12185,8 @@ align = 1
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 427.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="CameraMenu/Buttons/Fast/Selection"]
@@ -12236,6 +12307,8 @@ stretch_mode = 1
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 48.6
+margin_bottom = 48.6
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="TimeMenu/CloseButton/Selection"]
@@ -12350,6 +12423,8 @@ align = 1
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 41.0
+margin_bottom = 36.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="TimeMenu/Buttons/Down000/Selection"]
@@ -12458,6 +12533,8 @@ align = 1
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 41.0
+margin_bottom = 36.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="TimeMenu/Buttons/Down00/Selection"]
@@ -12566,6 +12643,8 @@ align = 1
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 41.0
+margin_bottom = 36.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="TimeMenu/Buttons/Down0/Selection"]
@@ -12675,6 +12754,8 @@ align = 1
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 41.0
+margin_bottom = 36.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="TimeMenu/Buttons/Up000/Selection"]
@@ -12784,6 +12865,8 @@ align = 1
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 41.0
+margin_bottom = 36.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="TimeMenu/Buttons/Up00/Selection"]
@@ -12893,6 +12976,8 @@ align = 1
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 41.0
+margin_bottom = 36.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="TimeMenu/Buttons/Up0/Selection"]
@@ -13102,6 +13187,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 139.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionLeft/AspectButton/Selection"]
@@ -13203,8 +13290,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -4.14421
 margin_top = -4.14421
-margin_right = -4.14421
-margin_bottom = -4.14421
+margin_right = 57.8558
+margin_bottom = 57.8558
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionLeft/StyleButton/Selection"]
@@ -13304,6 +13391,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 51.0
+margin_bottom = 51.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionLeft/SeaLevelButton/Selection"]
@@ -13403,8 +13492,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -0.272569
 margin_top = -0.272569
-margin_right = -0.272568
-margin_bottom = -0.272568
+margin_right = 138.727
+margin_bottom = 61.7274
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionLeft/RecButton/Selection"]
@@ -13511,6 +13600,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 139.0
+margin_bottom = 75.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionLeft/TimeButton/Selection"]
@@ -13629,8 +13720,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -4.14421
 margin_top = -4.14421
-margin_right = -4.14421
-margin_bottom = -4.14421
+margin_right = 57.8558
+margin_bottom = 57.8558
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionLeft/MusicButton/Selection"]
@@ -13702,6 +13793,8 @@ margin_bottom = 52.0
 [node name="SectionRightContainer" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 1280.0
+margin_bottom = 720.0
 mouse_filter = 2
 
 [node name="SectionRight" type="TextureRect" parent="SectionRightContainer"]
@@ -13771,6 +13864,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 62.0
+margin_bottom = 62.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/StartButton/Selection"]
@@ -13867,6 +13962,8 @@ texture = ExtResource( 9 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 62.0
+margin_bottom = 62.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/SavebotButton/Selection"]
@@ -13962,8 +14059,8 @@ texture = ExtResource( 17 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -1.0
-margin_bottom = -1.0
+margin_right = 62.0
+margin_bottom = 62.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/EraseButton/Selection"]
@@ -14060,8 +14157,8 @@ texture = ExtResource( 18 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -1.0
-margin_bottom = -1.0
+margin_right = 62.0
+margin_bottom = 62.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/UndoButton/Selection"]
@@ -14160,8 +14257,8 @@ texture = ExtResource( 18 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -1.0
-margin_bottom = -1.0
+margin_right = 62.0
+margin_bottom = 62.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/ResetButton/Selection"]
@@ -14259,6 +14356,8 @@ texture = ExtResource( 18 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 107.0
+margin_bottom = 67.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/CourseViewerButton/Selection"]
@@ -14336,8 +14435,9 @@ texture = ExtResource( 4 )
 [node name="SectionRight2" type="TextureRect" parent="."]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -110.0
+margin_left = 1170.0
 margin_top = 737.0
+margin_right = 1280.0
 margin_bottom = 754.0
 rect_scale = Vector2( 1, -1 )
 texture = ExtResource( 4 )
@@ -14570,8 +14670,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -4.76971
 margin_top = -4.76971
-margin_right = -4.76971
-margin_bottom = -4.76971
+margin_right = 58.2303
+margin_bottom = 30.2303
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="CourseViewer/Position/Selection"]
@@ -14674,8 +14774,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -1.65653
 margin_top = -1.65653
-margin_right = -1.65653
-margin_bottom = -1.65653
+margin_right = 50.3435
+margin_bottom = 48.3435
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="CourseViewer/Start/Selection"]
@@ -14778,8 +14878,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -1.65653
 margin_top = -1.65653
-margin_right = -1.65653
-margin_bottom = -1.65653
+margin_right = 50.3435
+margin_bottom = 48.3435
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="CourseViewer/End/Selection"]
@@ -14880,6 +14980,8 @@ texture = ExtResource( 18 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 82.0
+margin_bottom = 50.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="CourseViewer/Back/Selection"]
@@ -15110,6 +15212,8 @@ texture = ExtResource( 65 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 162.0
+margin_bottom = 126.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="Play/Selection"]
@@ -15240,7 +15344,8 @@ texture = ExtResource( 66 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -9.15527e-05
+margin_right = 162.0
+margin_bottom = 126.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="Edit/Selection"]

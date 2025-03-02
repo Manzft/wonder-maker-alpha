@@ -2270,8 +2270,8 @@ func _on_Play_pressed():
 				get_parent().add_child(inst);
 				inst.position = get_node("../CharacterEditor").position;
 		
-		if (OS.get_name() == "Android" && Global.CurrentInput != "Gamepad"):
-			$Controls.show();
+		#if (OS.get_name() == "Android" && Global.CurrentInput != "Gamepad"):
+		$Controls.show();
 		
 		Score = 0;
 		Coins = 0;

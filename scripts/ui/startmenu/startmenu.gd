@@ -88,6 +88,7 @@ func _ready():
 	
 	yield(get_tree().create_timer(1.0), "timeout");
 	RichPresence.update_activity("MainMenu");
+
 func _process(_delta):
 	match (CurrentMenu):
 		"StartMenu":
