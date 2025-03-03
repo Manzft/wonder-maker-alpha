@@ -179,7 +179,7 @@ texture = ExtResource( 4 )
 flip_h = true
 
 [node name="CastleDoor" type="Sprite" parent="."]
-position = Vector2( 96.6154, -16 )
+position = Vector2( 96, -16 )
 texture = ExtResource( 6 )
 
 [node name="CastleDoorShadow" type="Sprite" parent="."]

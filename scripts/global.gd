@@ -74,7 +74,7 @@ var FPS = false;
 var VSYNC = false;
 var SCREEN_16_9 = false;
 var SHOW_PAUSE_BUTTON = true;
-var CONTROLS_TRANSPARENCY = 100;
+var CONTROLS_TRANSPARENCY = 100.0;
 var CurrentInput = "Mouse";
 
 #Save and Load

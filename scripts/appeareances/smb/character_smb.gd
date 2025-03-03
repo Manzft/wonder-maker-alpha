@@ -435,13 +435,18 @@ func _process(_delta):
 			die();
 	
 	#Wall Dead
-#	if (!died && position.y < get_parent().calculateGridPosition(Vector2(0, get_parent().grid_size.y-1)).y):
-#		var mygrid = get_parent().calculateGrid(position.x, position.y+12);
-#		if (get_parent().grid_node[mygrid.x][mygrid.y] != null):
-#			if (get_parent().grid_node[mygrid.x][mygrid.y].is_in_group("Solid") &&
-#			!get_parent().grid_node[mygrid.x][mygrid.y].get_node("CollisionShape2D").disabled &&
-#			get_parent().grid_node[mygrid.x][mygrid.y].position == get_parent().calculateGridPosition(mygrid)):
-#				die();
+	if (!died && position.y < get_parent().calculateGridPosition(Vector2(0, get_parent().grid_size.y-1)).y):
+		var mygrid = get_parent().calculateGrid(position.x, position.y+12);
+		var node = get_parent().grid_node[mygrid.x][mygrid.y];
+		if (node != null):
+			if (!node.is_in_group("OffBlock2") &&
+			!node.is_in_group("OnBlock2") &&
+			!node.is_in_group("OffBlock") &&
+			!node.is_in_group("OnBlock") &&
+			node.is_in_group("Solid") &&
+			!node.get_node("CollisionShape2D").disabled &&
+			node.position == get_parent().calculateGridPosition(mygrid)):
+				die();
 
 func _on_KoyoteTimer_timeout():
 	koyoteTime = false;
