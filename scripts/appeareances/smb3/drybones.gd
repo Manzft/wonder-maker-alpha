@@ -169,6 +169,7 @@ func _process(_delta):
 			currentSprite.get_node("Shadow").show();
 			$AnimationPlayer.play("RESET");
 		
+		speed_increase = 0;
 		canActiveTimerStarted = false;
 		invincible = false;
 		carrying = false;
@@ -253,7 +254,7 @@ func _physics_process(delta):
 		if (!dead):
 			if (!arrived && is_on_floor() && canActive):
 				arrived = true;
-			if (!inShell && !inbones):
+			if (!inShell && !inbones && !alreadydead):
 				if (arrived):
 					if (is_on_floor()):
 						if (currentSprite.flip_h):
@@ -334,6 +335,8 @@ func hit(dir, inshell = false, byblock = false, move = false):
 		currentSprite.get_node("Shadow").hide();
 		get_parent().enemyScore(position);
 	else:
+		if (alreadydead):
+			return
 		inShell = true;
 		$BigWakeTimer.start();
 		motion.x = 0;
@@ -364,13 +367,15 @@ func areaCollide(rc):
 			if (!body.dead && body.rendered):
 				chck = true;
 		if (body.is_in_group("Solid") || chck):
-			if (alreadydead): hitDead = true;
+			if (alreadydead && moving && inShell):
+				hitDead = true;
+				invincible = false;
 			if (rc == rcd1):
 				currentSprite.flip_h = false;
-				if (alreadydead): hit("right");
+				if (alreadydead && moving && inShell): hit("right");
 			if (rc == rcd2):
 				currentSprite.flip_h = true;
-				if (alreadydead): hit("left");
+				if (alreadydead && moving && inShell): hit("left");
 			if (moving && inShell && !body.is_in_group("OnOffSwitch") && !body.is_in_group("OnOffSwitch2")):
 				pass
 				#get_node("../Character/SoundBrick").play();
