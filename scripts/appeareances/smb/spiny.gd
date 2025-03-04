@@ -189,7 +189,7 @@ func _physics_process(delta):
 		if (!dead):
 			if (!arrived && is_on_floor() && canActive):
 				arrived = true;
-			if (!inShell):
+			if (!inShell && !alreadydead):
 				if (arrived):
 					if (is_on_floor()):
 						if (currentSprite.flip_h):
@@ -351,7 +351,7 @@ func _on_Area2D2_body_entered(body):
 	if (body.is_in_group("Character")):
 		if (get_node("../Character").star):
 			return
-		if (body.position.y+8 <= position.y):
+		if (body.position.y+8 <= position.y && !currentSprite.flip_v):
 			if (get_node("../Character").position.y+16 < position.y):
 				if (!get_node("../Character").star
 				&& canAttack

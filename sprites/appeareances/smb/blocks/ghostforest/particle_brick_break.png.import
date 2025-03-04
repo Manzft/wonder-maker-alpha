@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/particle_brick_break_ghostforest.png-b1f4ef484ef4b7df4595d74c241a8188.stex"
+path="res://.import/particle_brick_break.png-db833621948867fd8fdda9a186038fb7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/appeareances/smb/blocks/ghostforest/particle_brick_break_ghostforest.png"
-dest_files=[ "res://.import/particle_brick_break_ghostforest.png-b1f4ef484ef4b7df4595d74c241a8188.stex" ]
+source_file="res://sprites/appeareances/smb/blocks/ghostforest/particle_brick_break.png"
+dest_files=[ "res://.import/particle_brick_break.png-db833621948867fd8fdda9a186038fb7.stex" ]
 
 [params]
 

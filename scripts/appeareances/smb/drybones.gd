@@ -186,7 +186,7 @@ func _physics_process(delta):
 		if (!dead):
 			if (!arrived && is_on_floor() && canActive):
 				arrived = true;
-			if (!inShell && !inbones):
+			if (!inShell && !inbones && !alreadydead):
 				if (arrived):
 					if (is_on_floor()):
 						if (currentSprite.flip_h):
@@ -262,6 +262,8 @@ func hit(dir, inshell = false, byblock = false, move = false):
 		currentSprite.get_node("Shadow").hide();
 		get_parent().enemyScore(position);
 	else:
+		if (alreadydead):
+			return
 		currentSprite.play("bones_out");
 		currentSprite.position.y = -27;
 		motion.x = 0;
@@ -289,13 +291,13 @@ func areaCollide(rc):
 			if (!body.dead && body.rendered):
 				chck = true;
 		if (body.is_in_group("Solid") || chck):
-			if (alreadydead): hitDead = true;
+			if (alreadydead && inShell && moving): hitDead = true;
 			if (rc == rcd1):
 				currentSprite.flip_h = false;
-				if (alreadydead): hit("right");
+				if (alreadydead && inShell && moving): hit("right");
 			if (rc == rcd2):
 				currentSprite.flip_h = true;
-				if (alreadydead): hit("left");
+				if (alreadydead && inShell && moving): hit("left");
 			if (moving && inShell && !body.is_in_group("OnOffSwitch") && !body.is_in_group("OnOffSwitch2")):
 				pass
 				#get_node("../Character/SoundBrick").play();
