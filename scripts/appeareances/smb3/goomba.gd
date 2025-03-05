@@ -35,6 +35,8 @@ var rendered = true;
 var canActiveTimerStarted = false;
 var canActive = false;
 
+var timer = 0.0
+
 func _ready():
 	styleChanged();
 	yield(get_tree(), "idle_frame");
@@ -188,8 +190,11 @@ func _physics_process(delta):
 					currentSprite.get_node("Shadow").hide();
 		
 	#Global Movement Controller
-	if (!exiting):
-		motion = move_and_slide(motion, Vector2(0, -1));
+	timer += delta
+	if (timer >= delta*4):
+		timer = 0.0
+		if (!exiting):
+			motion = move_and_slide(motion*4, Vector2(0, -1));
 
 func hit(dir):
 	dead = true;
@@ -282,3 +287,4 @@ func _on_Area2D2_body_entered(body):
 
 func _on_CanActiveTimer_timeout():
 	canActive = true;
+

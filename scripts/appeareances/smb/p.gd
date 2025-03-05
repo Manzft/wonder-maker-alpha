@@ -108,7 +108,7 @@ func _physics_process(delta):
 							get_parent().add_child(inst);
 				nodes = get_tree().get_nodes_in_group("Brick");
 				for node in nodes:
-					if (node.visible && !node.powner && !node.p):
+					if (!node.deactivated && node.visible && !node.powner && !node.p):
 						node.powner = true;
 						node.hide();
 						var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_COIN][Global.OP_SCENE].instance();

@@ -9,12 +9,12 @@
 [ext_resource path="res://scenes/charactereditor.tscn" type="PackedScene" id=7]
 [ext_resource path="res://smm2editor.png" type="Texture" id=8]
 [ext_resource path="res://scenes/ui/endfloor.tscn" type="PackedScene" id=9]
-[ext_resource path="res://music/appeareances/smb/sky.ogg" type="AudioStream" id=10]
+[ext_resource path="res://music/appeareances/smb/underground.mp3" type="AudioStream" id=10]
 [ext_resource path="res://scenes/ui/editor.tscn" type="PackedScene" id=11]
 [ext_resource path="res://sprites/appeareances/smb/background/underground.png" type="Texture" id=12]
 [ext_resource path="res://sprites/appeareances/smb/background/sky.png" type="Texture" id=13]
-[ext_resource path="res://music/appeareances/smb/ground.ogg" type="AudioStream" id=14]
-[ext_resource path="res://music/appeareances/smb/underground.ogg" type="AudioStream" id=15]
+[ext_resource path="res://music/appeareances/smb/ground.mp3" type="AudioStream" id=14]
+[ext_resource path="res://music/appeareances/smb/sky.mp3" type="AudioStream" id=15]
 [ext_resource path="res://scenes/ui/gameui.tscn" type="PackedScene" id=16]
 [ext_resource path="res://sprites/appeareances/smb/background/forest.png" type="Texture" id=17]
 [ext_resource path="res://music/appeareances/smb/forest.mp3" type="AudioStream" id=18]
@@ -1848,11 +1848,11 @@ stream = ExtResource( 14 )
 volume_db = -15.0
 
 [node name="Underground" type="AudioStreamPlayer" parent="GameMusic/SMB" groups=["Music"]]
-stream = ExtResource( 15 )
+stream = ExtResource( 10 )
 volume_db = -15.0
 
 [node name="Sky" type="AudioStreamPlayer" parent="GameMusic/SMB" groups=["Music"]]
-stream = ExtResource( 10 )
+stream = ExtResource( 15 )
 volume_db = -15.0
 
 [node name="Forest" type="AudioStreamPlayer" parent="GameMusic/SMB" groups=["Music"]]
@@ -1879,7 +1879,7 @@ volume_db = -15.0
 
 [node name="Underground" type="AudioStreamPlayer" parent="GameMusic/SMB3" groups=["Music"]]
 stream = ExtResource( 34 )
-volume_db = -10.0
+volume_db = -15.0
 
 [node name="Sky" type="AudioStreamPlayer" parent="GameMusic/SMB3" groups=["Music"]]
 stream = ExtResource( 32 )
@@ -1887,7 +1887,7 @@ volume_db = -15.0
 
 [node name="Forest" type="AudioStreamPlayer" parent="GameMusic/SMB3" groups=["Music"]]
 stream = ExtResource( 33 )
-volume_db = -10.0
+volume_db = -15.0
 
 [node name="Desert" type="AudioStreamPlayer" parent="GameMusic/SMB3" groups=["Music"]]
 stream = ExtResource( 33 )

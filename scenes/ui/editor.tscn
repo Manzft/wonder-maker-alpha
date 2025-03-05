@@ -1,4 +1,4 @@
-[gd_scene load_steps=341 format=2]
+[gd_scene load_steps=339 format=2]
 
 [ext_resource path="res://scripts/ui/startmenu/FPS.gd" type="Script" id=1]
 [ext_resource path="res://sprites/ui/editor/square_little_button.png" type="Texture" id=2]
@@ -40,7 +40,7 @@
 [ext_resource path="res://sprites/ui/editor/pick_object.png" type="Texture" id=38]
 [ext_resource path="res://sprites/ui/editor/styles/icon_Ground.png" type="Texture" id=39]
 [ext_resource path="res://sounds/ui/menu_open.wav" type="AudioStream" id=40]
-[ext_resource path="res://music/editor/smb/editor_ground.mp3" type="AudioStream" id=41]
+[ext_resource path="res://music/editor/smb/sky.mp3" type="AudioStream" id=41]
 [ext_resource path="res://sounds/ui/switch_submit.wav" type="AudioStream" id=42]
 [ext_resource path="res://sprites/ui/editor/eraser_border.png" type="Texture" id=43]
 [ext_resource path="res://sprites/ui/editor/l_guide.png" type="Texture" id=44]
@@ -77,8 +77,8 @@
 [ext_resource path="res://sprites/ui/editor/styles/airship.png" type="Texture" id=75]
 [ext_resource path="res://sprites/ui/editor/styles/snow.png" type="Texture" id=76]
 [ext_resource path="res://sprites/ui/editor/styles/desert.png" type="Texture" id=77]
-[ext_resource path="res://music/editor/smb/editor_sky.mp3" type="AudioStream" id=78]
-[ext_resource path="res://music/editor/smb/editor_underground.mp3" type="AudioStream" id=79]
+[ext_resource path="res://music/editor/smb/snow.mp3" type="AudioStream" id=78]
+[ext_resource path="res://music/editor/smb/ground.mp3" type="AudioStream" id=79]
 [ext_resource path="res://sprites/ui/editor/savebot/bg.png" type="Texture" id=80]
 [ext_resource path="res://sprites/ui/editor/savebot/button1.png" type="Texture" id=81]
 [ext_resource path="res://sprites/ui/editor/savebot/button2.png" type="Texture" id=82]
@@ -91,7 +91,7 @@
 [ext_resource path="res://sprites/ui/editor/sea_level_deactivated.png" type="Texture" id=89]
 [ext_resource path="res://sprites/ui/editor/sea_level_bg.png" type="Texture" id=90]
 [ext_resource path="res://sprites/ui/editor/square_little_big_button.png" type="Texture" id=91]
-[ext_resource path="res://music/editor/smb/editor_forest.mp3" type="AudioStream" id=92]
+[ext_resource path="res://music/editor/smb/desert.mp3" type="AudioStream" id=92]
 [ext_resource path="res://sprites/ui/editor/sea_level.png" type="Texture" id=93]
 [ext_resource path="res://sprites/ui/editor/camera_speed_button.png" type="Texture" id=94]
 [ext_resource path="res://sprites/ui/editor/camera_speed_bg.png" type="Texture" id=95]
@@ -125,23 +125,21 @@
 [ext_resource path="res://sprites/ui/editor/time/clockman_stand.png" type="Texture" id=123]
 [ext_resource path="res://sprites/ui/editor/time/bg.png" type="Texture" id=124]
 [ext_resource path="res://sprites/ui/editor/music.png" type="Texture" id=125]
-[ext_resource path="res://music/editor/smb/editor_desert.mp3" type="AudioStream" id=126]
-[ext_resource path="res://music/editor/smb/editor_snow.mp3" type="AudioStream" id=127]
+[ext_resource path="res://music/editor/smb/underground.mp3" type="AudioStream" id=126]
+[ext_resource path="res://music/editor/smb3/ground.mp3" type="AudioStream" id=127]
 [ext_resource path="res://asdasdasd.png" type="Texture" id=128]
 [ext_resource path="res://sounds/ui/close_menu.wav" type="AudioStream" id=129]
 [ext_resource path="res://sounds/ui/open_typemenu.wav" type="AudioStream" id=130]
 [ext_resource path="res://sprites/ui/editor/appeareances/card_smb3.png" type="Texture" id=131]
-[ext_resource path="res://music/editor/smb3/editor_snow.mp3" type="AudioStream" id=132]
-[ext_resource path="res://music/editor/smb3/editor_forest.mp3" type="AudioStream" id=133]
-[ext_resource path="res://music/editor/smb3/editor_desert.mp3" type="AudioStream" id=134]
-[ext_resource path="res://music/editor/smb3/editor_sky.mp3" type="AudioStream" id=135]
-[ext_resource path="res://music/editor/smb3/editor_ground.mp3" type="AudioStream" id=136]
-[ext_resource path="res://music/editor/smb3/editor_underground.mp3" type="AudioStream" id=137]
+[ext_resource path="res://music/editor/smb3/underground.mp3" type="AudioStream" id=132]
+[ext_resource path="res://music/editor/smb3/forest.mp3" type="AudioStream" id=133]
+[ext_resource path="res://music/editor/smb3/sky.mp3" type="AudioStream" id=134]
+[ext_resource path="res://music/editor/smb3/desert.mp3" type="AudioStream" id=135]
+[ext_resource path="res://music/editor/smb3/snow.mp3" type="AudioStream" id=136]
 [ext_resource path="res://sprites/ui/editor/styles/ghostforest.png" type="Texture" id=138]
 [ext_resource path="res://scenes/ui/Gameplay UI/SMB3.tscn" type="PackedScene" id=139]
 [ext_resource path="res://sprites/ui/editor/variantSymbol.png" type="Texture" id=140]
 [ext_resource path="res://music/editor/smb3/editor_ghostforest.mp3" type="AudioStream" id=141]
-[ext_resource path="res://music/editor/smb/editor_ghostforest.mp3" type="AudioStream" id=142]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -12946,7 +12944,6 @@ anims/idle = SubResource( 276 )
 [node name="ClockMan" type="AnimatedSprite" parent="TimeMenu/Buttons"]
 position = Vector2( 143, 174 )
 frames = SubResource( 253 )
-frame = 1
 speed_scale = 0.33
 playing = true
 
@@ -15307,61 +15304,60 @@ anims/out = SubResource( 151 )
 [node name="SMB" type="Node" parent="EditorMusic"]
 
 [node name="Ground" type="AudioStreamPlayer" parent="EditorMusic/SMB" groups=["Music"]]
-stream = ExtResource( 41 )
+stream = ExtResource( 79 )
 volume_db = -8.0
 
 [node name="Underground" type="AudioStreamPlayer" parent="EditorMusic/SMB" groups=["Music"]]
-stream = ExtResource( 79 )
-volume_db = -16.0
+stream = ExtResource( 126 )
+volume_db = -8.0
 
 [node name="Sky" type="AudioStreamPlayer" parent="EditorMusic/SMB" groups=["Music"]]
-stream = ExtResource( 78 )
-volume_db = -16.0
+stream = ExtResource( 41 )
+volume_db = -8.0
 
 [node name="Forest" type="AudioStreamPlayer" parent="EditorMusic/SMB" groups=["Music"]]
-stream = ExtResource( 92 )
-volume_db = -16.0
+volume_db = -8.0
 
 [node name="Desert" type="AudioStreamPlayer" parent="EditorMusic/SMB" groups=["Music"]]
-stream = ExtResource( 126 )
-volume_db = -16.0
+stream = ExtResource( 92 )
+volume_db = -8.0
 
 [node name="Snow" type="AudioStreamPlayer" parent="EditorMusic/SMB" groups=["Music"]]
-stream = ExtResource( 127 )
-volume_db = -10.0
+stream = ExtResource( 78 )
+volume_db = -8.0
 
 [node name="Ghostforest" type="AudioStreamPlayer" parent="EditorMusic/SMB" groups=["Music"]]
-stream = ExtResource( 142 )
+volume_db = -8.0
 
 [node name="SMB3" type="Node" parent="EditorMusic"]
 
 [node name="Ground" type="AudioStreamPlayer" parent="EditorMusic/SMB3" groups=["Music"]]
-stream = ExtResource( 136 )
-volume_db = -20.0
+stream = ExtResource( 127 )
+volume_db = -15.0
 
 [node name="Underground" type="AudioStreamPlayer" parent="EditorMusic/SMB3" groups=["Music"]]
-stream = ExtResource( 137 )
-volume_db = -20.0
+stream = ExtResource( 132 )
+volume_db = -15.0
 
 [node name="Sky" type="AudioStreamPlayer" parent="EditorMusic/SMB3" groups=["Music"]]
-stream = ExtResource( 135 )
-volume_db = -20.0
+stream = ExtResource( 134 )
+volume_db = -15.0
 
 [node name="Forest" type="AudioStreamPlayer" parent="EditorMusic/SMB3" groups=["Music"]]
 stream = ExtResource( 133 )
-volume_db = -20.0
+volume_db = -15.0
 
 [node name="Desert" type="AudioStreamPlayer" parent="EditorMusic/SMB3" groups=["Music"]]
-stream = ExtResource( 134 )
-volume_db = -20.0
+stream = ExtResource( 135 )
+volume_db = -15.0
 
 [node name="Snow" type="AudioStreamPlayer" parent="EditorMusic/SMB3" groups=["Music"]]
-stream = ExtResource( 132 )
-volume_db = -20.0
+stream = ExtResource( 136 )
+volume_db = -15.0
 
 [node name="Ghostforest" type="AudioStreamPlayer" parent="EditorMusic/SMB3" groups=["Music"]]
 stream = ExtResource( 141 )
-volume_db = -15.0
+volume_db = -20.0
 
 [node name="GameplayUI" type="Node" parent="."]
 

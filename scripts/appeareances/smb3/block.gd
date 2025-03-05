@@ -12,7 +12,10 @@ func _ready():
 	$VisibilityEnabler2D.emit_signal("screen_exited")
 
 func _process(_delta):
-	pass
+	$SpriteUnderground.scale = $SpriteGround.scale;
+	$SpriteUnderground.position = $SpriteGround.position;
+	$SpriteGhostforest.scale = $SpriteGround.scale;
+	$SpriteGhostforest.position = $SpriteGround.position;
 	#perspective();
 
 func perspective():

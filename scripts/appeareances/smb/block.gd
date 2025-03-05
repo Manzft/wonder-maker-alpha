@@ -9,6 +9,12 @@ func _ready():
 		$AnimationPlayer.play("start");
 	$VisibilityEnabler2D.emit_signal("screen_exited")
 
+func _process(_delta):
+	$SpriteUnderground.scale = $SpriteGround.scale;
+	$SpriteUnderground.position = $SpriteGround.position;
+	$SpriteGhostforest.scale = $SpriteGround.scale;
+	$SpriteGhostforest.position = $SpriteGround.position;
+
 func styleChanged():
 	match (Global.CurrentStyle):
 		"Underground":

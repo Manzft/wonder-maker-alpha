@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/ground.mp3-dd595bf8a1a521523f053498c9251377.mp3str"
+
+[deps]
+
+source_file="res://music/editor/smb3/ground.mp3"
+dest_files=[ "res://.import/ground.mp3-dd595bf8a1a521523f053498c9251377.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

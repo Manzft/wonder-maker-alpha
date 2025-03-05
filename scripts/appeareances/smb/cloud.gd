@@ -12,6 +12,10 @@ func _ready():
 	$VisibilityEnabler2D.emit_signal("screen_exited")
 
 func _process(_delta):
+	$SpriteUnderground.scale = $SpriteGround.scale;
+	$SpriteUnderground.position = $SpriteGround.position;
+	$SpriteGhostforest.scale = $SpriteGround.scale;
+	$SpriteGhostforest.position = $SpriteGround.position;
 	if (get_node("../Editor").playing):
 		if (get_node("../Character").position.y <= position.y-49):
 			$CollisionShape2D.disabled = false;
