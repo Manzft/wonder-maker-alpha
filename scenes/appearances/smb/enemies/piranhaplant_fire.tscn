@@ -125,7 +125,6 @@ position = Vector2( 0, -12.5 )
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 17 )
 animation = "up"
-frame = 1
 playing = true
 
 [node name="Shadow" type="AnimatedSprite" parent="SpriteGround"]
@@ -135,6 +134,7 @@ z_index = -3
 z_as_relative = false
 frames = SubResource( 17 )
 animation = "up"
+frame = 1
 playing = true
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -191,12 +191,6 @@ spread = 11.0
 gravity = Vector2( 0, 2000 )
 initial_velocity = 600.0
 angle_curve = SubResource( 12 )
-
-[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
-position = Vector2( -9.53674e-07, 0 )
-scale = Vector2( 2.6, 2.6 )
-process_parent = true
-physics_process_parent = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

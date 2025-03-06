@@ -1711,63 +1711,64 @@ func appearanceChange(app, start = false):
 		editorMusic(true, false);
 	
 	if (!start):
+		Global.emit_signal("changeStyle");
 		#var objects = 0;
-		var nodes = get_tree().get_nodes_in_group("Obj");
-		for node in nodes:
-			#objects += 1;
-			var pos = node.position;
-			var grid = get_parent().calculateGrid(pos.x, pos.y);
-			var obj = get_parent().grid[grid.x][grid.y];
-			
-			#print("Object "+str(objects)+": "+Global.object[Global.CurrentAppeareance][obj][Global.OP_NAME]);
-			
-			if (obj != null && node != null):
-				var scene = Global.object[Global.CurrentAppeareance][obj][Global.OP_SCENE];
-				var inst = scene.instance();
-				get_parent().grid_node[grid.x][grid.y] = inst;
-				get_parent().add_child(inst);
-				inst.position = pos;
-				
-				if (node.is_in_group("Extensible")):
-					for i in range(node.extension_grid_size):
-						get_parent().grid_node[node.extension_grid[i].x][node.extension_grid[i].y] = inst;
-					inst.setGrids(obj);
-					
-				if (node.is_in_group("Insideable")):
-					inst.coinInside = node.coinInside;
-					inst.oneup = node.oneup;
-					inst.star = node.star;
-					inst.mushroom = node.mushroom;
-					inst.fireflower = node.fireflower;
-					inst.goomba = node.goomba;
-					inst.koopatroopa = node.koopatroopa;
-					inst.koopatroopa_red = node.koopatroopa_red;
-					inst.spiny = node.spiny;
-					inst.piranhaplant = node.piranhaplant;
-					inst.withp = node.withp;
-					inst.piranhaplantfire = node.piranhaplantfire;
-					inst.goombrat = node.goombrat;
-					inst.drybones = node.drybones;
-
-					inst.insided = node.insided;
-
-					inst.a_mushroom = node.a_mushroom;
-					inst.a_alreadydead = node.a_alreadydead;
-					
-				if (node.is_in_group("Fireflower")):
-					inst.mushroom = node.mushroom;
-						
-				if (node.is_in_group("Spiny") || node.is_in_group("DryBones")):
-					inst.alreadydead = node.alreadydead;
-				
-				if (node.is_in_group("Twomp") ||
-				node.is_in_group("Burner") ||
-				node.is_in_group("Checkpoint") ||
-				node.is_in_group("Arrow") ||
-				node.is_in_group("Pipe")):
-					inst.seldirection = node.seldirection;
-				
-				node.queue_free();
+#		var nodes = get_tree().get_nodes_in_group("Obj");
+#		for node in nodes:
+#			#objects += 1;
+#			var pos = node.position;
+#			var grid = get_parent().calculateGrid(pos.x, pos.y);
+#			var obj = get_parent().grid[grid.x][grid.y];
+#
+#			#print("Object "+str(objects)+": "+Global.object[Global.CurrentAppeareance][obj][Global.OP_NAME]);
+#
+#			if (obj != null && node != null):
+#				var scene = Global.object[Global.CurrentAppeareance][obj][Global.OP_SCENE];
+#				var inst = scene.instance();
+#				get_parent().grid_node[grid.x][grid.y] = inst;
+#				get_parent().add_child(inst);
+#				inst.position = pos;
+#
+#				if (node.is_in_group("Extensible")):
+#					for i in range(node.extension_grid_size):
+#						get_parent().grid_node[node.extension_grid[i].x][node.extension_grid[i].y] = inst;
+#					inst.setGrids(obj);
+#
+#				if (node.is_in_group("Insideable")):
+#					inst.coinInside = node.coinInside;
+#					inst.oneup = node.oneup;
+#					inst.star = node.star;
+#					inst.mushroom = node.mushroom;
+#					inst.fireflower = node.fireflower;
+#					inst.goomba = node.goomba;
+#					inst.koopatroopa = node.koopatroopa;
+#					inst.koopatroopa_red = node.koopatroopa_red;
+#					inst.spiny = node.spiny;
+#					inst.piranhaplant = node.piranhaplant;
+#					inst.withp = node.withp;
+#					inst.piranhaplantfire = node.piranhaplantfire;
+#					inst.goombrat = node.goombrat;
+#					inst.drybones = node.drybones;
+#
+#					inst.insided = node.insided;
+#
+#					inst.a_mushroom = node.a_mushroom;
+#					inst.a_alreadydead = node.a_alreadydead;
+#
+#				if (node.is_in_group("Fireflower")):
+#					inst.mushroom = node.mushroom;
+#
+#				if (node.is_in_group("Spiny") || node.is_in_group("DryBones")):
+#					inst.alreadydead = node.alreadydead;
+#
+#				if (node.is_in_group("Twomp") ||
+#				node.is_in_group("Burner") ||
+#				node.is_in_group("Checkpoint") ||
+#				node.is_in_group("Arrow") ||
+#				node.is_in_group("Pipe")):
+#					inst.seldirection = node.seldirection;
+#
+#				node.queue_free();
 		
 		styleChange(Global.CurrentStyle);
 	

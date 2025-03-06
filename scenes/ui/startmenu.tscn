@@ -1360,7 +1360,7 @@ margin_top = -12.5
 margin_right = 150.5
 margin_bottom = 12.5
 custom_fonts/font = SubResource( 2 )
-text = "Alpha v1.2 Fix"
+text = "Alpha v1.3"
 align = 1
 
 [node name="StartButton" type="TextureButton" parent="." groups=["Button"]]

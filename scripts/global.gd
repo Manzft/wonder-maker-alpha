@@ -4,12 +4,16 @@ var transition = preload("res://scenes/ui/transition.tscn");
 var transition_out = preload("res://scenes/ui/transition_out.tscn");
 
 signal gameLoaded
+signal render
+signal floorErase
+signal changeStyle
+signal erase
 
 #APPEAREANCES
 const APP_SMB = 0;
 const APP_SMB3 = 1;
 
-const GAME_VERSION = "1.2";
+const GAME_VERSION = "1.3";
 
 #Editor Objects
 var OP_SCENE = 0;
@@ -854,24 +858,20 @@ func setup3dArray(array, width, height, depth):
 				array[x][y][z] = null;
 
 func renderAll():
-	var nodes = get_tree().get_nodes_in_group("Enemy");
-	for node in nodes:
-		node.set_process(true);
-		node.set_physics_process(true);
-		node.rendered = true;
-	nodes = get_tree().get_nodes_in_group("P");
-	for node in nodes:
-		node.set_process(true);
-		node.set_physics_process(true);
+	emit_signal("render", "Enemy");
+	emit_signal("render", "P");
 
 func unrenderAll():
-	var nodes = get_tree().get_nodes_in_group("Enemy");
-	for node in nodes:
-		if (!node.get_node("VisibilityEnabler2D").is_on_screen()):
-			node.set_process(false);
-			node.set_physics_process(false);
+	pass
+#	var nodes = get_tree().get_nodes_in_group("Enemy");
+#	for node in nodes:
+#		if (!node.get_node("VisibilityEnabler2D").is_on_screen()):
+#			node.set_process(false);
+#			node.set_physics_process(false);
 
 func _process(delta):
+	if (!changingToEditMode):
+		emit_signal("render", "");
 	#Render System
 #	if (alternRender && !changingToEditMode):
 #		var nodes = get_tree().get_nodes_in_group("Obj");

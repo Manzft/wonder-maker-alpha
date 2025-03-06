@@ -207,12 +207,6 @@ texture = ExtResource( 5 )
 stream = ExtResource( 7 )
 volume_db = 5.0
 
-[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
-position = Vector2( 26, 26 )
-scale = Vector2( 5.2, 5.2 )
-process_parent = true
-physics_process_parent = true
-
 [connection signal="mouse_entered" from="DirectionButton" to="." method="_on_DirectionButton_mouse_entered"]
 [connection signal="mouse_exited" from="DirectionButton" to="." method="_on_DirectionButton_mouse_exited"]
 [connection signal="pressed" from="DirectionButton" to="." method="_on_DirectionButton_pressed"]

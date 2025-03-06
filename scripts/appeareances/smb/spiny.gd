@@ -43,7 +43,24 @@ var rendered = true;
 var canActiveTimerStarted = false;
 var canActive = false;
 
+func render(group):
+	if (group != ""):
+		if (!is_in_group(group)):
+			return
+	var scrwidth = OS.get_window_size().x;
+	var scrheight = OS.get_window_size().y;
+	var multiplier = 720/scrheight;
+	var finalscrwidth = scrwidth * multiplier;
+	var distance = abs(position.x-Global.campos.x);
+	if (distance-(finalscrwidth/2) > finalscrwidth*0.5):
+		set_process(false);
+		set_physics_process(false);
+	else:
+		set_process(true);
+		set_physics_process(true);
+
 func _ready():
+	Global.connect("render", self, "render");
 	styleChanged();
 	currentSprite.flip_h = true;
 	yield(get_tree(), "idle_frame");
@@ -52,7 +69,6 @@ func _ready():
 	startPos = position;
 	if (insided):
 		currentSprite.flip_h = false;
-	$VisibilityEnabler2D.emit_signal("screen_exited")
 
 func _process(_delta):
 	currentSprite.get_node("Shadow").frame = currentSprite.frame;

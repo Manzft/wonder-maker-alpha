@@ -475,6 +475,8 @@ func gameMusic(a):
 		music.stop();
 
 func reset():
+	Global.emit_signal("erase");
+	return
 	for i in range(grid_size.x):
 		for j in range(grid_size.y):
 			if (grid[i][j] != null || grid_node[i][j] != null):

@@ -236,12 +236,6 @@ gravity = Vector2( 0, 2000 )
 initial_velocity = 600.0
 angle_curve = SubResource( 12 )
 
-[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
-position = Vector2( -9.53674e-07, 0 )
-scale = Vector2( 2.6, 2.6 )
-process_parent = true
-physics_process_parent = true
-
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="body_entered" from="Area2D2" to="." method="_on_Area2D2_body_entered"]

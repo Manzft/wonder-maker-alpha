@@ -1,9 +1,14 @@
 extends KinematicBody2D
 
-const max_walk_speed = 100;
-const jump_h  = -250;
-const gravity = 30;
-const max_fall = jump_h*-3;
+var def_max_walk_speed = 100;
+var def_jump_h  = -250;
+var def_gravity = 30;
+var def_max_fall = def_jump_h*-3;
+
+var max_walk_speed = 100;
+var jump_h  = -250;
+var gravity = 30;
+var max_fall = jump_h*-3;
 
 onready var currentSprite = get_node("SpriteGround");
 
@@ -35,9 +40,16 @@ var rendered = true;
 var canActiveTimerStarted = false;
 var canActive = false;
 
-var timer = 0.0
+var timer = 0.0;
+
+var multiplier = 1;
 
 func _ready():
+	max_walk_speed = def_max_walk_speed*multiplier;
+	jump_h  = def_jump_h*multiplier;
+	gravity = def_gravity*multiplier;
+	max_fall = def_max_fall*multiplier;
+	
 	styleChanged();
 	yield(get_tree(), "idle_frame");
 	if (get_parent().editing):
@@ -169,6 +181,11 @@ func _physics_process(delta):
 					else:
 						motion.x = max_walk_speed;
 					currentSprite.play("walk");
+				else:
+					if (flip_h):
+						motion.x = -max_walk_speed;
+					else:
+						motion.x = max_walk_speed;
 			if (!is_on_floor()):
 				if (motion.y < 0):
 					currentSprite.play("jump");
@@ -191,10 +208,10 @@ func _physics_process(delta):
 		
 	#Global Movement Controller
 	timer += delta
-	if (timer >= delta*4):
+	if (timer >= delta*multiplier):
 		timer = 0.0
 		if (!exiting):
-			motion = move_and_slide(motion*4, Vector2(0, -1));
+			motion = move_and_slide(motion, Vector2(0, -1));
 
 func hit(dir):
 	dead = true;
