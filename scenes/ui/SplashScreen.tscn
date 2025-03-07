@@ -805,7 +805,7 @@ visible = false
 position = Vector2( 16, 150 )
 scale = Vector2( 0.666, 0.666 )
 frames = SubResource( 1 )
-frame = 9
+frame = 34
 speed_scale = 1.25
 playing = true
 
@@ -814,7 +814,7 @@ visible = false
 position = Vector2( 16, 150 )
 scale = Vector2( 0.666, 0.666 )
 frames = SubResource( 6 )
-frame = 58
+frame = 23
 playing = true
 
 [node name="MarioRunNSMBU" type="AnimatedSprite" parent="Sprite"]
@@ -822,7 +822,7 @@ visible = false
 position = Vector2( 16, 150 )
 scale = Vector2( 0.666, 0.666 )
 frames = SubResource( 9 )
-frame = 4
+frame = 5
 speed_scale = 1.7
 playing = true
 
@@ -831,7 +831,7 @@ visible = false
 position = Vector2( 16, 150 )
 scale = Vector2( 0.8, 0.8 )
 frames = SubResource( 7 )
-frame = 10
+frame = 33
 playing = true
 
 [node name="MarioIdleNSMB2" type="AnimatedSprite" parent="Sprite"]
@@ -839,7 +839,7 @@ visible = false
 position = Vector2( 17, 154 )
 scale = Vector2( 2.65, 2.65 )
 frames = SubResource( 102 )
-frame = 46
+frame = 51
 playing = true
 
 [node name="Control" type="Control" parent="."]
@@ -855,10 +855,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 61.0
-margin_top = 230.5
-margin_right = 1219.0
-margin_bottom = 579.5
+margin_left = -579.0
+margin_top = -129.5
+margin_right = 579.0
+margin_bottom = 219.5
 custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "Wonder Maker es un juego hecho sin

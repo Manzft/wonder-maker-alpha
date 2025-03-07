@@ -111,6 +111,7 @@ func calculate(mpos, start = false, createLevelFloorObjectsAgain = false, custom
 			get_node("../CharacterEditor").select(true, true);
 		
 		emit_signal("endFloorChanged", current_grid);
+		Global.emit_signal("floorErase");
 
 func select():
 	match (selected):

@@ -18,7 +18,6 @@ func render(group):
 		set_process(true);
 		set_physics_process(true);
 		
-
 func floorErase():
 	var delete = false;
 	if (get_parent().calculateGrid(position.x, position.y).x <= 6):

@@ -11,6 +11,7 @@ var decorationType = "";
 
 var mygrid = Vector2();
 
+
 func render(group):
 	if (group != ""):
 		if (!is_in_group(group)):
@@ -26,9 +27,42 @@ func render(group):
 	else:
 		set_process(true);
 		set_physics_process(true);
+		
+func floorErase():
+	var delete = false;
+	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
+		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../LevelFloor").current_grid.y):
+			delete = true;
+	if (get_parent().calculateGrid(position.x, position.y).x >= get_node("../EndFloor").current_grid.x-1):
+		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../EndFloor").current_grid.y):
+			delete = true;
+
+	if (delete):
+		get_parent().eraseObject(position, false);
+
+func erase():
+	var nodegrid = get_parent().calculateGrid(position.x, position.y);
+	get_parent().grid[nodegrid.x][nodegrid.y] = null;
+	get_parent().grid_node[nodegrid.x][nodegrid.y] = null;
+	queue_free();
+
+func changeStyle():
+	var pos = position;
+	var grid = get_parent().calculateGrid(pos.x, pos.y);
+	var obj = get_parent().grid[grid.x][grid.y];
+	var scene = Global.object[Global.CurrentAppeareance][obj][Global.OP_SCENE];
+	var inst = scene.instance();
+	get_parent().grid_node[grid.x][grid.y] = inst;
+	get_parent().add_child(inst);
+	inst.position = pos;
+
+	queue_free();
 
 func _ready():
 	Global.connect("render", self, "render");
+	Global.connect("floorErase", self, "floorErase");
+	Global.connect("changeStyle", self, "changeStyle");
+	Global.connect("erase", self, "erase");
 	get_node("../LevelFloor").connect("levelFloorChanged", self, "levelFloorChanged");
 	get_node("../EndFloor").connect("endFloorChanged", self, "endFloorChanged");
 	
