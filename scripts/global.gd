@@ -75,6 +75,8 @@ var CurrentTime = 300;
 var CurrentMusic = "true";
 
 var FPS = false;
+
+var SHOW_FPS = false;
 var VSYNC = false;
 var SCREEN_16_9 = false;
 var SHOW_PAUSE_BUTTON = true;
@@ -628,26 +630,8 @@ func loadNodes(level):
 				if (inst.is_in_group("Insideable")):
 					if (gnode[i][j][1] != null):
 						inst.insided = true;
-						match (gnode[i][j][1]):
-							"coinInside": inst.coinInside = true;
-							"oneup": inst.oneup = true;
-							"star": inst.star = true;
-							"mushroom": inst.mushroom = true;
-							"fireflower": inst.fireflower = true;
-							"goomba": inst.goomba = true;
-							"koopatroopa": inst.koopatroopa = true;
-							"koopatroopa_red": inst.koopatroopa_red = true;
-							"spiny": inst.spiny = true;
-							"piranhaplant": inst.piranhaplant = true;
-							"withp": inst.withp = true;
-							"piranhaplantfire": inst.piranhaplantfire = true;
-							"goombrat": inst.goombrat = true;
-							"drybones": inst.drybones = true;
-							
-						#Atributes
-						match (gnode[i][j][2]):
-							"a_mushroom": inst.a_mushroom = true;
-							"a_alreadydead": inst.a_alreadydead = true;
+						inst.objectInside = gnode[i][j][1];
+						inst.objectAttribute = gnode[i][j][2];
 				
 				if (inst.is_in_group("Extensible")):
 					inst.extension_grid_size = gnode[i][j][10];
@@ -686,7 +670,7 @@ func loadSettings():
 		if (section == "General"):
 			VSYNC = config.get_value(section, "VSync");
 			SCREEN_16_9 = config.get_value(section, "Force 16:9");
-			FPS = config.get_value(section, "Show FPS");
+			SHOW_FPS = config.get_value(section, "Show FPS");
 			SHOW_PAUSE_BUTTON = config.get_value(section, "Show Pause Button (Only PC)");
 			CONTROLS_TRANSPARENCY = config.get_value(section, "Touch Buttons Transparency (%)");
 			
@@ -701,7 +685,7 @@ func saveSettings():
 
 	config.set_value("General", "VSync", VSYNC);
 	config.set_value("General", "Force 16:9", SCREEN_16_9);
-	config.set_value("General", "Show FPS", FPS);
+	config.set_value("General", "Show FPS", SHOW_FPS);
 	config.set_value("General", "Show Pause Button (Only PC)", SHOW_PAUSE_BUTTON);
 	config.set_value("General", "Touch Buttons Transparency (%)", CONTROLS_TRANSPARENCY);
 
@@ -715,20 +699,15 @@ func checkSettingsFile():
 
 func rendering(node):
 	return
-	var chr;
-	if (node.get_node("../Editor").playing):
-		chr = node.get_node("../Character");
-	else:
-		chr = node.get_node("../CharacterEditor");
-	var distance = abs(node.position.x-chr.position.x);
-	if (distance > 1280/4):
-		node.hide();
-	else:
-		node.show();
 
 func _ready() -> void:
 	checkSettingsFile();
 	loadSettings();
+	
+	var inst = load("res://scenes/ui/FPS.tscn").instance();
+	add_child(inst);
+	inst.visible = SHOW_FPS;
+	
 	OS.request_permissions();
 	
 	#Editor Objects Definition
@@ -858,8 +837,7 @@ func setup3dArray(array, width, height, depth):
 				array[x][y][z] = null;
 
 func renderAll():
-	emit_signal("render", "Enemy");
-	emit_signal("render", "P");
+	emit_signal("render", "", true);
 
 func unrenderAll():
 	pass

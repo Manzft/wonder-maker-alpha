@@ -79,53 +79,53 @@ func checkSO(grid, code):
 func insideNode(code, node):
 	match (code):
 		Global.OBJ_COIN:
-			node.coinInside = true;
+			node.objectInside = "coinInside";
 			node.insided = true;
 		Global.OBJ_1UP:
-			node.oneup = true;
+			node.objectInside = "oneup";
 			node.insided = true;
 		Global.OBJ_STAR:
-			node.star = true;
+			node.objectInside = "star";
 			node.insided = true;
 		Global.OBJ_MUSHROOM:
-			node.mushroom = true;
+			node.objectInside = "mushroom";
 			node.insided = true;
 		Global.OBJ_FIREFLOWER:
-			node.fireflower = true;
+			node.objectInside = "fireflower";
 			node.insided = true;
 			if (get_parent().grab_node.mushroom):
-				node.a_mushroom = true;
+				node.objectAttribute = "mushroom";
 		Global.OBJ_GOOMBA:
-			node.goomba = true;
+			node.objectInside = "goomba";
 			node.insided = true;
 		Global.OBJ_KOOPATROOPA:
-			node.koopatroopa = true;
+			node.objectInside = "koopatroopa";
 			node.insided = true;
 		Global.OBJ_KOOPATROOPA_RED:
-			node.koopatroopa_red = true;
+			node.objectInside = "koopatroopa_red";
 			node.insided = true;
 		Global.OBJ_SPINY:
-			node.spiny = true;
+			node.objectInside = "spiny";
 			node.insided = true;
 			if (get_parent().grab_node.alreadydead):
-				node.a_alreadydead = true;
+				node.objectAttribute = "alreadydead";
 		Global.OBJ_PIRANHAPLANT:
-			node.piranhaplant = true;
+			node.objectInside = "piranhaplant";
 			node.insided = true;
 		Global.OBJ_P:
-			node.withp = true;
+			node.objectInside = "withp";
 			node.insided = true;
 		Global.OBJ_PIRANHAPLANT_FIRE:
-			node.piranhaplantfire = true;
+			node.objectInside = "piranhaplantfire";
 			node.insided = true;
 		Global.OBJ_GOOMBRAT:
-			node.goombrat = true;
+			node.objectInside = "goombrat";
 			node.insided = true;
 		Global.OBJ_DRYBONES:
-			node.drybones = true;
+			node.objectInside = "drybones";
 			node.insided = true;
 			if (get_parent().grab_node.alreadydead):
-				node.a_alreadydead = true;
+				node.objectAttribute = "alreadydead";
 
 func _input(event):
 	if (editingText):
@@ -248,7 +248,7 @@ func _input(event):
 					var gr = get_parent().grab_grid;
 					var socheck = checkSO(togrid, get_parent().grid[gr.x][gr.y]);
 					if (socheck):
-						var nodes =  get_tree().get_nodes_in_group("Insideable");
+						var nodes = get_tree().get_nodes_in_group("Insideable");
 						for node in nodes:
 							if (node.position == get_parent().calculateGridPosition(togrid)):
 								insideNode(get_parent().grid[gr.x][gr.y], node);
@@ -284,33 +284,36 @@ func _input(event):
 					#Multiple Grids
 					var mgcheck = true;
 					if (get_parent().grab_node.is_in_group("Extensible")):
-						for i in get_parent().grab_node.extension_grid_size:
-							var g = get_parent().grab_node.default_extension_grid[i];
-							if (get_parent().grid[togrid.x+g.x][togrid.y+g.y] != null && get_parent().grid_node[togrid.x+g.x][togrid.y+g.y] != get_parent().grab_node):
-								mgcheck = false;
+						var node = get_parent().grab_node;
+						if (node.is_in_group("Extensible")):
+							for i in range(node.grid_end.x+1):
+								for j in range(node.grid_end.y+1):
+									if (Vector2(i, j) != node.grid_origin):
+										if (get_parent().grid[togrid.x+i][togrid.y+j] != null && get_parent().grid_node[togrid.x+i][togrid.y+j] != node):
+											mgcheck = false;
 						if (get_parent().grid[togrid.x][togrid.y] != null && get_parent().grid_node[togrid.x][togrid.y] != get_parent().grab_node):
-								mgcheck = false;
+							mgcheck = false;
 					else:
 						mgcheck = !(get_parent().grid[togrid.x][togrid.y] != null && get_parent().grid_node[togrid.x][togrid.y] != get_parent().grab_node);
 					
 					if (!socheck):
 						if (check && poscheck && mgcheck):
 							if (get_parent().grab_node.is_in_group("Extensible")):
-								for g in get_parent().grab_node.default_extension_grid:
-									get_parent().grid[g.x+get_parent().grab_grid.x][g.y+get_parent().grab_grid.y] = null;
-									get_parent().grid_node[g.x+get_parent().grab_grid.x][g.y+get_parent().grab_grid.y] = null;
-								for g in get_parent().grab_node.default_extension_grid:
-									get_parent().grid[g.x+togrid.x][g.y+togrid.y] = get_parent().grab_id;
-									get_parent().grid_node[g.x+togrid.x][g.y+togrid.y] = get_parent().grab_node;
+								var node = get_parent().grab_node;
+								for i in range(node.grid_end.x+1):
+									for j in range(node.grid_end.y+1):
+										if (Vector2(i, j) != node.grid_origin):
+											get_parent().grid[get_parent().grab_grid.x+i][get_parent().grab_grid.y+j] = null;
+											get_parent().grid_node[get_parent().grab_grid.x+i][get_parent().grab_grid.y+j] = null;
+											
+											get_parent().grid[togrid.x+i][togrid.y+j] = get_parent().grab_id;
+											get_parent().grid_node[togrid.x+i][togrid.y+j] = node;
 									
 							get_parent().grid[get_parent().grab_grid.x][get_parent().grab_grid.y] = null;
 							get_parent().grid_node[get_parent().grab_grid.x][get_parent().grab_grid.y] = null;
 							get_parent().grid[togrid.x][togrid.y] = get_parent().grab_id;
 							get_parent().grid_node[togrid.x][togrid.y] = get_parent().grab_node;
 							get_parent().grab_node.position = get_parent().calculateGridPosition(togrid);
-							
-							if (get_parent().grab_node.is_in_group("Extensible")):
-								get_parent().grab_node.setupExtensionGrids();
 						else:
 							get_parent().grab_node.position = get_parent().calculateGridPosition(get_parent().grab_grid);
 						
@@ -365,13 +368,15 @@ func _input(event):
 					
 			var mgcheck = false;
 			check2 = false;
-			if (get_parent().grab_node.is_in_group("Extensible")):
-				for i in get_parent().grab_node.extension_grid_size:
-					var g = get_parent().grab_node.default_extension_grid[i];
-					if (get_parent().grid[grid.x+g.x][grid.y+g.y] != null && get_parent().grid_node[grid.x+g.x][grid.y+g.y] != get_parent().grab_node):
-						check2 = true;
+			var node = get_parent().grab_node;
+			if (node.is_in_group("Extensible")):
+				for i in range(node.grid_end.x+1):
+					for j in range(node.grid_end.y+1):
+						if (Vector2(i, j) != node.grid_origin):
+							if (get_parent().grid[grid.x+i][grid.y+j] != null && get_parent().grid_node[grid.x+i][grid.y+j] != node):
+								check2 = true;
 				if (get_parent().grid[grid.x][grid.y] != null && get_parent().grid_node[grid.x][grid.y] != get_parent().grab_node):
-						check2 = true;
+					check2 = true;
 			else:
 				check2 = get_parent().grid[grid.x][grid.y] != null && get_parent().grid_node[grid.x][grid.y] != get_parent().grab_node;
 			

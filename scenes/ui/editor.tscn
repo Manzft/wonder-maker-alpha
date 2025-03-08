@@ -1,4 +1,4 @@
-[gd_scene load_steps=339 format=2]
+[gd_scene load_steps=340 format=2]
 
 [ext_resource path="res://scripts/ui/startmenu/FPS.gd" type="Script" id=1]
 [ext_resource path="res://sprites/ui/editor/square_little_button.png" type="Texture" id=2]
@@ -136,6 +136,7 @@
 [ext_resource path="res://music/editor/smb3/sky.mp3" type="AudioStream" id=134]
 [ext_resource path="res://music/editor/smb3/desert.mp3" type="AudioStream" id=135]
 [ext_resource path="res://music/editor/smb3/snow.mp3" type="AudioStream" id=136]
+[ext_resource path="res://music/editor/smb/ghostforest.mp3" type="AudioStream" id=137]
 [ext_resource path="res://sprites/ui/editor/styles/ghostforest.png" type="Texture" id=138]
 [ext_resource path="res://scenes/ui/Gameplay UI/SMB3.tscn" type="PackedScene" id=139]
 [ext_resource path="res://sprites/ui/editor/variantSymbol.png" type="Texture" id=140]
@@ -8113,10 +8114,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 1786.0
-margin_top = 1786.0
-margin_right = 1822.0
-margin_bottom = 1822.0
+margin_left = 1797.0
+margin_top = 1797.0
+margin_right = 1833.0
+margin_bottom = 1833.0
 texture = ExtResource( 36 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GamepadCursor/SprintGuide"]
@@ -12944,6 +12945,7 @@ anims/idle = SubResource( 276 )
 [node name="ClockMan" type="AnimatedSprite" parent="TimeMenu/Buttons"]
 position = Vector2( 143, 174 )
 frames = SubResource( 253 )
+frame = 1
 speed_scale = 0.33
 playing = true
 
@@ -15305,29 +15307,30 @@ anims/out = SubResource( 151 )
 
 [node name="Ground" type="AudioStreamPlayer" parent="EditorMusic/SMB" groups=["Music"]]
 stream = ExtResource( 79 )
-volume_db = -8.0
+volume_db = -15.0
 
 [node name="Underground" type="AudioStreamPlayer" parent="EditorMusic/SMB" groups=["Music"]]
 stream = ExtResource( 126 )
-volume_db = -8.0
+volume_db = -15.0
 
 [node name="Sky" type="AudioStreamPlayer" parent="EditorMusic/SMB" groups=["Music"]]
 stream = ExtResource( 41 )
-volume_db = -8.0
+volume_db = -15.0
 
 [node name="Forest" type="AudioStreamPlayer" parent="EditorMusic/SMB" groups=["Music"]]
-volume_db = -8.0
+volume_db = -15.0
 
 [node name="Desert" type="AudioStreamPlayer" parent="EditorMusic/SMB" groups=["Music"]]
 stream = ExtResource( 92 )
-volume_db = -8.0
+volume_db = -15.0
 
 [node name="Snow" type="AudioStreamPlayer" parent="EditorMusic/SMB" groups=["Music"]]
 stream = ExtResource( 78 )
-volume_db = -8.0
+volume_db = -15.0
 
 [node name="Ghostforest" type="AudioStreamPlayer" parent="EditorMusic/SMB" groups=["Music"]]
-volume_db = -8.0
+stream = ExtResource( 137 )
+volume_db = -15.0
 
 [node name="SMB3" type="Node" parent="EditorMusic"]
 

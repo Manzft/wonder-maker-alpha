@@ -2,25 +2,10 @@ extends StaticBody2D
 
 onready var currentSprite = get_node("SpriteGround");
 
-var coinInside = false;
-var oneup = false;
-var star = false;
-var mushroom = false;
-var fireflower = false;
-var goomba = false;
-var koopatroopa = false;
-var koopatroopa_red = false;
-var spiny = false;
-var piranhaplant = false;
-var withp = false;
-var piranhaplantfire = false;
-var goombrat = false;
-var drybones = false;
+var objectInside = "";
+var objectAttribute = "";
 
 var insided = false;
-
-var a_mushroom = false;
-var a_alreadydead = false;
 
 var deactivated =  false;
 
@@ -30,8 +15,11 @@ var myEmptyBlock = null;
 
 var myUpCoinDone = false;
 
-
-func render(group):
+func render(group, forcerender = false):
+	if (forcerender):
+		set_process(true);
+		set_physics_process(true);
+		return
 	if (group != ""):
 		if (!is_in_group(group)):
 			return
@@ -60,10 +48,7 @@ func floorErase():
 		get_parent().eraseObject(position, false);
 
 func erase():
-	var nodegrid = get_parent().calculateGrid(position.x, position.y);
-	get_parent().grid[nodegrid.x][nodegrid.y] = null;
-	get_parent().grid_node[nodegrid.x][nodegrid.y] = null;
-	queue_free();
+	get_parent().eraseObject(position, false);
 
 func changeStyle():
 	var pos = position;
@@ -74,27 +59,8 @@ func changeStyle():
 	get_parent().grid_node[grid.x][grid.y] = inst;
 	get_parent().add_child(inst);
 	inst.position = pos;
-	
-	inst.coinInside = coinInside;
-	inst.oneup = oneup;
-	inst.star = star;
-	inst.mushroom = mushroom;
-	inst.fireflower = fireflower;
-	inst.goomba = goomba;
-	inst.koopatroopa = koopatroopa;
-	inst.koopatroopa_red = koopatroopa_red;
-	inst.spiny = spiny;
-	inst.piranhaplant = piranhaplant;
-	inst.withp = withp;
-	inst.piranhaplantfire = piranhaplantfire;
-	inst.goombrat = goombrat;
-	inst.drybones = drybones;
-
-	inst.insided = insided;
-
-	inst.a_mushroom = a_mushroom;
-	inst.a_alreadydead = a_alreadydead;
-
+	inst.objectInside = objectInside;
+	inst.objectAttribute = objectAttribute;
 	queue_free();
 
 func _ready():
@@ -174,170 +140,133 @@ func hit():
 									node.hit("left");
 								elif (node.position.x >= position.x):
 									node.hit("right");
-								
-
-			if (oneup):
-				candeactivate = true;
-				yield(get_tree().create_timer(0.2), "timeout");
-				
-				var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_1UP][Global.OP_SCENE].instance();
-				inst.position = position;
-				inst.exiting = true;
-				inst.insided = true;
-				get_parent().add_child(inst);
-				
-				$PowerUpAppears.play();
-			elif (star):
-				candeactivate = true;
-				yield(get_tree().create_timer(0.2), "timeout");
-				
-				var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_STAR][Global.OP_SCENE].instance();
-				inst.position = position;
-				inst.exiting = true;
-				inst.insided = true;
-				get_parent().add_child(inst);
-				
-				$PowerUpAppears.play();
-			elif (mushroom):
-				candeactivate = true;
-				yield(get_tree().create_timer(0.2), "timeout");
-				
-				var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_MUSHROOM][Global.OP_SCENE].instance();
-				inst.position = position;
-				inst.exiting = true;
-				inst.insided = true;
-				get_parent().add_child(inst);
-				
-				$PowerUpAppears.play();
-			elif (fireflower):
-				candeactivate = true;
-				yield(get_tree().create_timer(0.2), "timeout");
-				
-				var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_FIREFLOWER][Global.OP_SCENE].instance();
-				inst.position = position;
-				inst.exiting = true;
-				inst.insided = true;
-				if (a_mushroom):
-					inst.mushroom = true;
-				get_parent().add_child(inst);
-				
-				$PowerUpAppears.play();
-			elif (goomba):
-				candeactivate = true;
-				yield(get_tree().create_timer(0.2), "timeout");
-				
-				var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_GOOMBA][Global.OP_SCENE].instance();
-				inst.position = position;
-				inst.position.y -= 52;
-				inst.exiting = true;
-				inst.insided = true;
-				get_parent().add_child(inst);
-				
-				$PowerUpAppears.play();
-			elif (koopatroopa):
-				candeactivate = true;
-				yield(get_tree().create_timer(0.2), "timeout");
-				
-				var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_KOOPATROOPA][Global.OP_SCENE].instance();
-				inst.position = position;
-				inst.position.y -= 52;
-				inst.exiting = true;
-				inst.insided = true;
-				get_parent().add_child(inst);
-				
-				$PowerUpAppears.play();
-			elif (koopatroopa_red):
-				candeactivate = true;
-				yield(get_tree().create_timer(0.2), "timeout");
-				
-				var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_KOOPATROOPA_RED][Global.OP_SCENE].instance();
-				inst.position = position;
-				inst.position.y -= 52;
-				inst.exiting = true;
-				inst.insided = true;
-				get_parent().add_child(inst);
-				
-				$PowerUpAppears.play();
-			elif (spiny):
-				candeactivate = true;
-				yield(get_tree().create_timer(0.2), "timeout");
-				
-				var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_SPINY][Global.OP_SCENE].instance();
-				inst.position = position;
-				inst.position.y -= 52;
-				inst.exiting = true;
-				inst.insided = true;
-				get_parent().add_child(inst);
-				if (a_alreadydead):
-					inst.alreadydead = true;
-				$PowerUpAppears.play();
-			elif (piranhaplant):
-				candeactivate = true;
-				yield(get_tree().create_timer(0.2), "timeout");
-				
-				var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_PIRANHAPLANT][Global.OP_SCENE].instance();
-				inst.position = position;
-				inst.position.y -= 52;
-				inst.exiting = true;
-				inst.insided = true;
-				get_parent().add_child(inst);
-				
-				$PowerUpAppears.play();
-			elif (withp):
-				candeactivate = true;
-				yield(get_tree().create_timer(0.2), "timeout");
-				
-				var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_P][Global.OP_SCENE].instance();
-				inst.position = position;
-				inst.exiting = true;
-				inst.insided = true;
-				get_parent().add_child(inst);
-				
-				$PowerUpAppears.play();
-			elif (piranhaplantfire):
-				candeactivate = true;
-				yield(get_tree().create_timer(0.2), "timeout");
-				
-				var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_PIRANHAPLANT_FIRE][Global.OP_SCENE].instance();
-				inst.position = position;
-				inst.position.y -= 52;
-				inst.exiting = true;
-				inst.insided = true;
-				get_parent().add_child(inst);
-				
-				$PowerUpAppears.play();
-			elif (goombrat):
-				candeactivate = true;
-				yield(get_tree().create_timer(0.2), "timeout");
-				
-				var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_GOOMBRAT][Global.OP_SCENE].instance();
-				inst.position = position;
-				inst.position.y -= 52;
-				inst.exiting = true;
-				inst.insided = true;
-				get_parent().add_child(inst);
-				
-				$PowerUpAppears.play();
-			elif (drybones):
-				candeactivate = true;
-				yield(get_tree().create_timer(0.2), "timeout");
-				
-				var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_DRYBONES][Global.OP_SCENE].instance();
-				inst.position = position;
-				inst.position.y -= 52;
-				inst.exiting = true;
-				inst.insided = true;
-				get_parent().add_child(inst);
-				
-				if (a_alreadydead):
-					inst.alreadydead = true;
-				
-				$PowerUpAppears.play();
-			else:
-				var inst = get_parent().gotCoin[Global.CurrentAppeareance].instance();
-				inst.position = position;
-				get_parent().add_child(inst);
-				candeactivate = true;
+			
+			match (objectInside):
+				"oneup":
+					candeactivate = true;
+					yield(get_tree().create_timer(0.2), "timeout");
+					var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_1UP][Global.OP_SCENE].instance();
+					inst.position = position;
+					inst.exiting = true;
+					inst.insided = true;
+					$PowerUpAppears.play();
+				"star":
+					candeactivate = true;
+					yield(get_tree().create_timer(0.2), "timeout");
+					var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_STAR][Global.OP_SCENE].instance();
+					inst.position = position;
+					inst.exiting = true;
+					inst.insided = true;
+					get_parent().add_child(inst);
+					$PowerUpAppears.play();
+				"mushroom":
+					candeactivate = true;
+					yield(get_tree().create_timer(0.2), "timeout");
+					var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_MUSHROOM][Global.OP_SCENE].instance();
+					inst.position = position;
+					inst.exiting = true;
+					inst.insided = true;
+					get_parent().add_child(inst);
+					$PowerUpAppears.play();
+				"fireflower":
+					candeactivate = true;
+					yield(get_tree().create_timer(0.2), "timeout");
+					var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_FIREFLOWER][Global.OP_SCENE].instance();
+					inst.position = position;
+					inst.exiting = true;
+					inst.insided = true;
+					if (objectAttribute == "a_mushroom"):
+						inst.mushroom = true;
+					get_parent().add_child(inst);
+					$PowerUpAppears.play
+				"goomba":
+					candeactivate = true;
+					yield(get_tree().create_timer(0.2), "timeout");
+					var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_GOOMBA][Global.OP_SCENE].instance();
+					inst.position = position;
+					inst.position.y -= 52;
+					inst.exiting = true;
+					inst.insided = true;
+					get_parent().add_child(inst);
+					$PowerUpAppears.play();
+				"koopatroopa":
+					candeactivate = true;
+					yield(get_tree().create_timer(0.2), "timeout");
+					var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_KOOPATROOPA][Global.OP_SCENE].instance();
+					inst.position = position;
+					inst.position.y -= 52;
+					inst.exiting = true;
+					inst.insided = true;
+					get_parent().add_child(inst);
+					$PowerUpAppears.play();
+				"spiny":
+					candeactivate = true;
+					yield(get_tree().create_timer(0.2), "timeout");
+					var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_SPINY][Global.OP_SCENE].instance();
+					inst.position = position;
+					inst.position.y -= 52;
+					inst.exiting = true;
+					inst.insided = true;
+					if (objectAttribute == "alreadydead"):
+						inst.alreadydead = true;
+					get_parent().add_child(inst);
+					$PowerUpAppears.play();
+				"piranhaplant":
+					candeactivate = true;
+					yield(get_tree().create_timer(0.2), "timeout");
+					var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_PIRANHAPLANT][Global.OP_SCENE].instance();
+					inst.position = position;
+					inst.position.y -= 52;
+					inst.exiting = true;
+					inst.insided = true;
+					get_parent().add_child(inst);
+					$PowerUpAppears.play();
+				"withp":
+					candeactivate = true;
+					yield(get_tree().create_timer(0.2), "timeout");
+					var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_P][Global.OP_SCENE].instance();
+					inst.position = position;
+					inst.exiting = true;
+					inst.insided = true;
+					get_parent().add_child(inst);
+					$PowerUpAppears.play();
+				"piranhaplantfire":
+					candeactivate = true;
+					yield(get_tree().create_timer(0.2), "timeout");
+					var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_PIRANHAPLANT_FIRE][Global.OP_SCENE].instance();
+					inst.position = position;
+					inst.position.y -= 52;
+					inst.exiting = true;
+					inst.insided = true;
+					get_parent().add_child(inst);
+					$PowerUpAppears.play();
+				"goombrat":
+					candeactivate = true;
+					yield(get_tree().create_timer(0.2), "timeout");
+					var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_GOOMBRAT][Global.OP_SCENE].instance();
+					inst.position = position;
+					inst.position.y -= 52;
+					inst.exiting = true;
+					inst.insided = true;
+					get_parent().add_child(inst);
+					$PowerUpAppears.play();
+				"drybones":
+					candeactivate = true;
+					yield(get_tree().create_timer(0.2), "timeout");
+					var inst = Global.object[Global.CurrentAppeareance][Global.OBJ_DRYBONES][Global.OP_SCENE].instance();
+					inst.position = position;
+					inst.position.y -= 52;
+					inst.exiting = true;
+					inst.insided = true;
+					get_parent().add_child(inst);
+					if (objectAttribute == "alreadydead"):
+						inst.alreadydead = true;
+					$PowerUpAppears.play();
+				_:
+					var inst = get_parent().gotCoin[Global.CurrentAppeareance].instance();
+					inst.position = position;
+					get_parent().add_child(inst);
+					candeactivate = true;
 
 func _on_CoinInsideTimer_timeout():
 	candeactivate = true;

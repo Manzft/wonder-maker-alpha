@@ -44,24 +44,51 @@ var rendered = true;
 var canActiveTimerStarted = false;
 var canActive = false;
 
-func render(group):
-	if (group != ""):
-		if (!is_in_group(group)):
-			return
+func render(group, forcerender = false):
+	if (forcerender):
+		set_process(true);
+		set_physics_process(true);
+		return
+	if (group != ""): if (!is_in_group(group)): return
 	var scrwidth = OS.get_window_size().x;
 	var scrheight = OS.get_window_size().y;
 	var multiplier = 720/scrheight;
 	var finalscrwidth = scrwidth * multiplier;
 	var distance = abs(position.x-Global.campos.x);
 	if (distance-(finalscrwidth/2) > finalscrwidth*0.5):
-		set_process(false);
-		set_physics_process(false);
+		set_process(false); set_physics_process(false);
 	else:
-		set_process(true);
-		set_physics_process(true);
+		set_process(true); set_physics_process(true);
+		
+func floorErase():
+	var delete = false;
+	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
+		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../LevelFloor").current_grid.y):
+			delete = true;
+	if (get_parent().calculateGrid(position.x, position.y).x >= get_node("../EndFloor").current_grid.x-1):
+		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../EndFloor").current_grid.y):
+			delete = true;
+	if (delete): get_parent().eraseObject(position, false);
+
+func erase():
+	get_parent().eraseObject(position, false);
+
+func changeStyle():
+	var pos = position;
+	var grid = get_parent().calculateGrid(pos.x, pos.y);
+	var obj = get_parent().grid[grid.x][grid.y];
+	var scene = Global.object[Global.CurrentAppeareance][obj][Global.OP_SCENE];
+	var inst = scene.instance();
+	get_parent().grid_node[grid.x][grid.y] = inst;
+	get_parent().add_child(inst);
+	inst.position = pos;
+	queue_free();
 
 func _ready():
 	Global.connect("render", self, "render");
+	Global.connect("floorErase", self, "floorErase");
+	Global.connect("changeStyle", self, "changeStyle");
+	Global.connect("erase", self, "erase");
 	styleChanged();
 	currentSprite.flip_h = true;
 	yield(get_tree(), "idle_frame");

@@ -8,7 +8,11 @@ var startPos = Vector2();
 var moveCharacter = false;
 
 
-func render(group):
+func render(group, forcerender = false):
+	if (forcerender):
+		set_process(true);
+		set_physics_process(true);
+		return
 	if (group != ""):
 		if (!is_in_group(group)):
 			return
@@ -37,10 +41,7 @@ func floorErase():
 		get_parent().eraseObject(position, false);
 
 func erase():
-	var nodegrid = get_parent().calculateGrid(position.x, position.y);
-	get_parent().grid[nodegrid.x][nodegrid.y] = null;
-	get_parent().grid_node[nodegrid.x][nodegrid.y] = null;
-	queue_free();
+	get_parent().eraseObject(position, false);
 
 func changeStyle():
 	var pos = position;

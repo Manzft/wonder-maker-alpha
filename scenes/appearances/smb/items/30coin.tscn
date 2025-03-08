@@ -216,10 +216,4 @@ anims/start = SubResource( 38 )
 position = Vector2( 26, 26 )
 shape = SubResource( 1 )
 
-[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
-position = Vector2( 25.5, 27.5 )
-scale = Vector2( 5.15, 5.35 )
-process_parent = true
-physics_process_parent = true
-
 [connection signal="body_entered" from="." to="." method="_on_Coin_body_entered"]

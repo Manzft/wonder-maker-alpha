@@ -207,12 +207,6 @@ volume_db = 5.0
 [node name="AudioCheckpoint" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
 
-[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
-position = Vector2( 28.5, 31.5 )
-scale = Vector2( 5.45, 5.75 )
-process_parent = true
-physics_process_parent = true
-
 [connection signal="body_entered" from="." to="." method="_on_Checkpoint_body_entered"]
 [connection signal="mouse_entered" from="DirectionButton" to="." method="_on_DirectionButton_mouse_entered"]
 [connection signal="mouse_exited" from="DirectionButton" to="." method="_on_DirectionButton_mouse_exited"]

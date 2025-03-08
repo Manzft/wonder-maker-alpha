@@ -43,6 +43,9 @@ var seaLevelOffset = 0;
 var seaTopLevelOffset = 0;
 var currentSeaLevelOffset = 0;
 
+#Sync SMB Sprites Variables
+var luckyblock_frame = 0.0;
+
 func _ready():
 	for i in range(grid_size.x): 
 		grid.append([]);
@@ -216,6 +219,7 @@ func setCameraGrid(var start = false):
 		camera_last_pos = campos;
 
 func _process(delta):
+	syncSMBSprites(delta);
 	#Water and Lava Showing
 	get_node("Camera2D/SMB3/Water").hide();
 	get_node("Camera2D/SMB/Water").hide();
@@ -335,9 +339,36 @@ func placeObject(mousepos, pressed = false, customObj = -1):
 					if (customObj != -1): obj = customObj;
 					var scene = Global.object[Global.CurrentAppeareance][obj][Global.OP_SCENE];
 					var inst = scene.instance();
-#					if (obj == Global.OBJ_FLOOR):
-#						$Solids.add_child(inst);
-#					else:
+					
+					#Remove Wide Decoration
+					var nodegrid = cgrid;
+					if (grid[nodegrid.x][nodegrid.y+1] == Global.OBJ_FLOOR):
+						if (grid_node[nodegrid.x][nodegrid.y+1].decorationType == "Wide"):
+							grid_node[nodegrid.x][nodegrid.y+1].quitAllDecoration();
+					if (grid[nodegrid.x+1][nodegrid.y+1] == Global.OBJ_FLOOR):
+						if (grid_node[nodegrid.x+1][nodegrid.y+1].decorationType == "Wide"):
+							grid_node[nodegrid.x+1][nodegrid.y+1].quitAllDecoration();
+					if (grid[nodegrid.x+2][nodegrid.y+1] == Global.OBJ_FLOOR):
+						if (grid_node[nodegrid.x+2][nodegrid.y+1].decorationType == "Wide"):
+							grid_node[nodegrid.x+2][nodegrid.y+1].quitAllDecoration();
+					
+					if (grid[nodegrid.x][nodegrid.y+1] == Global.OBJ_FLOOR):
+						if (grid_node[nodegrid.x][nodegrid.y+1].decorationType == "Short"):
+							grid_node[nodegrid.x][nodegrid.y+1].quitAllDecoration();
+					if (grid[nodegrid.x][nodegrid.y+2] == Global.OBJ_FLOOR):
+						if (grid_node[nodegrid.x][nodegrid.y+2].decorationType == "Short"):
+							grid_node[nodegrid.x][nodegrid.y+2].quitAllDecoration();
+					
+					if (grid[nodegrid.x][nodegrid.y+1] == Global.OBJ_FLOOR):
+						if (grid_node[nodegrid.x][nodegrid.y+1].decorationType == "Tall"):
+							grid_node[nodegrid.x][nodegrid.y+1].quitAllDecoration();
+					if (grid[nodegrid.x][nodegrid.y+2] == Global.OBJ_FLOOR):
+						if (grid_node[nodegrid.x][nodegrid.y+2].decorationType == "Tall"):
+							grid_node[nodegrid.x][nodegrid.y+2].quitAllDecoration();
+					if (grid[nodegrid.x][nodegrid.y+3] == Global.OBJ_FLOOR):
+						if (grid_node[nodegrid.x][nodegrid.y+3].decorationType == "Tall"):
+							grid_node[nodegrid.x][nodegrid.y+3].quitAllDecoration();
+					
 					add_child(inst);
 					inst.position = pos;
 					if (obj == Global.OBJ_FLOOR):
@@ -348,11 +379,7 @@ func placeObject(mousepos, pressed = false, customObj = -1):
 						var a = inst.setupExtensionGrids(true);
 						if (!a):
 							return;
-						inst.show();
-						for gr in inst.extension_grid:
-							if (gr != null):
-								grid[gr.x][gr.y] = obj;
-								grid_node[gr.x][gr.y] = inst;
+						inst.setGrids(obj);
 					
 					grid[cgrid.x][cgrid.y] = obj;
 					grid_node[cgrid.x][cgrid.y] = inst;
@@ -386,8 +413,10 @@ func placeObject(mousepos, pressed = false, customObj = -1):
 					grab_id = grid[cgrid.x][cgrid.y];
 					
 					if (n.is_in_group("Extensible")):
-						for gr in n.default_extension_grid:
-							inst.generateAdditional(gr);
+						for i in range(n.grid_end.x+1):
+							for j in range(n.grid_end.y+1):
+								if (Vector2(i, j) != n.grid_origin):
+									inst.generateAdditional(Vector2(i, j));
 						grab_grid = calculateGrid(n.position.x, n.position.y);
 						grab_id = grid[grab_grid.x][grab_grid.y];
 					
@@ -440,10 +469,11 @@ func eraseObject(mousepos, sound = true, hide = false):
 							grid_node[nodegrid.x][nodegrid.y] = null;
 							
 							if (node.is_in_group("Extensible")):
-								for g in node.extension_grid:
-									if (g != null):
-										grid[g.x][g.y] = null;
-										grid_node[g.x][g.y] = null;
+								for i in range(node.grid_end.x+1):
+									for j in range(node.grid_end.y+1):
+										if (Vector2(i, j) != node.grid_origin):
+											grid[nodegrid.x+i][nodegrid.y+j] = null;
+											grid_node[nodegrid.x+i][nodegrid.y+j] = null;
 							
 							if (isfloor):
 								node.updateNearFloors();
@@ -524,3 +554,9 @@ func setStyleBackground():
 			node.hide();
 	
 	bg.show();
+
+func syncSMBSprites(delta):
+	var divider = 60.0/10.0;
+	luckyblock_frame += 1.0/divider;
+	if (luckyblock_frame >= 3+1):
+		luckyblock_frame = 0.0;
