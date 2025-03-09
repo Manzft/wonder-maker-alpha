@@ -17,7 +17,7 @@ var eraseMode = false;
 
 var playing = false;
 
-var camera_speed = 1000;
+var camera_speed = 750;
 
 var Score = 0;
 var Coins = 0;

@@ -26,7 +26,7 @@ margin_right = 87.0
 margin_bottom = 49.0
 custom_colors/font_color = Color( 0.627451, 0.627451, 0.627451, 1 )
 custom_fonts/font = SubResource( 1 )
-text = "GL2"
+text = "GLES2"
 
 [node name="FPS" type="Label" parent="OGL"]
 anchor_left = 1.0

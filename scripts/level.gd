@@ -467,6 +467,7 @@ func eraseObject(mousepos, sound = true, hide = false):
 							
 							grid[nodegrid.x][nodegrid.y] = null;
 							grid_node[nodegrid.x][nodegrid.y] = null;
+							node.shadow.queue_free();
 							
 							if (node.is_in_group("Extensible")):
 								for i in range(node.grid_end.x+1):

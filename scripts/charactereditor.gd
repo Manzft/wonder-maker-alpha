@@ -14,7 +14,22 @@ var sweats = false;
 
 onready var currentSprite = get_node("SMB");
 
+var shadows = {
+	"SMB": null,
+	"SMB3": null
+}
+
+func add_shadow(ref):
+	var sprite = AnimatedSprite.new();
+	sprite.scale = scale;
+	sprite.frames = ref.frames;
+	sprite.animation = ref.animation;
+	get_node("../ShadowViewport").add_child(sprite);
+	return sprite
+
 func _ready():
+	shadows["SMB"] = add_shadow($SMB);
+	shadows["SMB3"] = add_shadow($SMB);
 	yield(get_tree(), "idle_frame");
 	calculate(position, true);
 	current_grid = mygrid;
@@ -52,6 +67,16 @@ func _input(event):
 				get_node("../Editor").resetTypeMenu();
 
 func _process(_delta):
+	shadows["SMB"].frame = $SMB.frame;
+	shadows["SMB"].animation = $SMB.animation;
+	shadows["SMB"].position = $SMB.global_position+Vector2(3*3.25, 3*3.25);
+	shadows["SMB"].visible = visible;
+	
+	shadows["SMB3"].frame = $SMB3.frame;
+	shadows["SMB3"].animation = $SMB3.animation;
+	shadows["SMB3"].position = $SMB3.global_position+Vector2(3*3.25, 3*3.25);
+	shadows["SMB3"].visible = visible;
+	
 	if (Global.CurrentInput == "Gamepad" && selected):
 		var mpos = get_parent().get_node("Editor/GamepadCursor").rect_position+get_parent().get_node("Camera2D").position;
 		calculate(mpos);
@@ -138,7 +163,6 @@ func select(var sel = null, var fl = false):
 	match (selected):
 		true:
 			currentSprite.play(currentDefaultPowerup+"_idle");
-			currentSprite.get_node("Shadow").play(currentDefaultPowerup+"_idle");
 			selected = false;
 			if (sweats):
 				sweats_toggle();
@@ -177,7 +201,6 @@ func select(var sel = null, var fl = false):
 			#texture = load("res://sprites/ui/editor/floor_level.png");
 		false:
 			currentSprite.play(currentDefaultPowerup+"_walk");
-			currentSprite.get_node("Shadow").play(currentDefaultPowerup+"_walk");
 			selected = true;
 			mouse_selected = true;
 			var inst = load("res://scenes/ui/selection.tscn").instance();
@@ -194,7 +217,6 @@ func select(var sel = null, var fl = false):
 
 func updateSprite():
 	currentSprite.play(currentDefaultPowerup+"_idle");
-	currentSprite.get_node("Shadow").play(currentDefaultPowerup+"_idle");
 
 func sweats_toggle():
 	match (sweats):
@@ -203,13 +225,11 @@ func sweats_toggle():
 			$SweatParticlesLeft.emitting = true;
 			$SweatParticlesRight.emitting = true;
 			currentSprite.play(currentDefaultPowerup+"_crouch");
-			currentSprite.get_node("Shadow").play(currentSprite.animation);
 		true:
 			sweats = false;
 			$SweatParticlesLeft.emitting = false;
 			$SweatParticlesRight.emitting = false;
 			currentSprite.play(currentDefaultPowerup+"_idle");
-			currentSprite.get_node("Shadow").play(currentSprite.animation);
 
 func _on_Area2D_mouse_entered():
 	mouse_entered = true;

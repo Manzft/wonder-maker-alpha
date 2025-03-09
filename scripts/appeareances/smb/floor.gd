@@ -5,6 +5,8 @@ var endlevel = false;
 
 onready var currentSprite = get_node("SpriteGround");
 
+var shadow : Sprite = null
+
 var hasDecoration = false;
 var editPlaced = false;
 var decorationType = "";
@@ -74,16 +76,7 @@ func _ready():
 	spawnDecoration();
 
 func _process(delta):
-	var delete = false;
-	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
-		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../LevelFloor").current_grid.y):
-			delete = true;
-	if (get_parent().calculateGrid(position.x, position.y).x >= get_node("../EndFloor").current_grid.x-1):
-		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../EndFloor").current_grid.y):
-			delete = true;
-
-	if (delete):
-		get_parent().eraseObject(position, false);
+	if (shadow != null): shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
 
 func updateNearFloors():
 	var mygrid = get_parent().calculateGrid(position.x, position.y);
@@ -218,6 +211,14 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = Sprite.new();
+	shadow.texture = currentSprite.texture;
+	shadow.scale = currentSprite.scale
+	get_node("../ShadowViewport").add_child(shadow);
 	
 	if (Global.CurrentStyle == "Desert"):
 		if (!checkFloor(mygrid.x-1, mygrid.y) && !checkFloor(mygrid.x+1, mygrid.y) && checkFloor(mygrid.x, mygrid.y+1)):

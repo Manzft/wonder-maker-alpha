@@ -125,35 +125,14 @@ visible = false
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 1 )
 
-[node name="Shadow" type="Sprite" parent="SpriteGround"]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-texture = ExtResource( 1 )
-
 [node name="SpriteUnderground" type="Sprite" parent="."]
 visible = false
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 4 )
 
-[node name="Shadow" type="Sprite" parent="SpriteUnderground"]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-texture = ExtResource( 1 )
-
 [node name="SpriteSky" type="Sprite" parent="."]
 visible = false
 scale = Vector2( 3.25, 3.25 )
-texture = ExtResource( 3 )
-
-[node name="Shadow" type="Sprite" parent="SpriteSky"]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
 texture = ExtResource( 3 )
 
 [node name="SpriteForest" type="Sprite" parent="."]
@@ -161,35 +140,14 @@ visible = false
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 5 )
 
-[node name="Shadow" type="Sprite" parent="SpriteForest"]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-texture = ExtResource( 5 )
-
 [node name="SpriteDesert" type="Sprite" parent="."]
 visible = false
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 17 )
 
-[node name="Shadow" type="Sprite" parent="SpriteDesert"]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-texture = ExtResource( 5 )
-
 [node name="SpriteDesertVariant" type="Sprite" parent="."]
 visible = false
 scale = Vector2( 3.25, 3.25 )
-texture = ExtResource( 19 )
-
-[node name="Shadow" type="Sprite" parent="SpriteDesertVariant"]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
 texture = ExtResource( 19 )
 
 [node name="SpriteSnow" type="Sprite" parent="."]
@@ -197,35 +155,14 @@ visible = false
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 18 )
 
-[node name="Shadow" type="Sprite" parent="SpriteSnow"]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-texture = ExtResource( 5 )
-
 [node name="SpriteSnowTop" type="Sprite" parent="."]
 visible = false
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 26 )
 
-[node name="Shadow" type="Sprite" parent="SpriteSnowTop"]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-texture = ExtResource( 5 )
-
 [node name="SpriteGhostforest" type="Sprite" parent="."]
 visible = false
 scale = Vector2( 3.25, 3.25 )
-texture = ExtResource( 27 )
-
-[node name="Shadow" type="Sprite" parent="SpriteGhostforest"]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
 texture = ExtResource( 27 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

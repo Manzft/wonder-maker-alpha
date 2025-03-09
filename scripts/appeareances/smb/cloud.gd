@@ -2,8 +2,9 @@ extends StaticBody2D
 
 onready var currentSprite = get_node("SpriteGround");
 
-var charonme = false;
+var shadow : Sprite = null
 
+var charonme = false;
 
 func render(group, forcerender = false):
 	if (forcerender):
@@ -63,6 +64,7 @@ func _ready():
 		$AnimationPlayer.play("start");
 
 func _process(_delta):
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
 	$SpriteUnderground.scale = $SpriteGround.scale;
 	$SpriteUnderground.position = $SpriteGround.position;
 	$SpriteGhostforest.scale = $SpriteGround.scale;
@@ -100,6 +102,14 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = Sprite.new();
+	shadow.texture = currentSprite.texture;
+	shadow.scale = currentSprite.scale
+	get_node("../ShadowViewport").add_child(shadow);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character")):

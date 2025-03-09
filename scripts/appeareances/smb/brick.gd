@@ -2,6 +2,8 @@ extends StaticBody2D
 
 onready var currentSprite = get_node("SpriteGround");
 
+var shadow : Sprite = null
+
 var objectInside = "";
 var objectAttribute = "";
 
@@ -95,6 +97,8 @@ func _ready():
 		$AnimationPlayer.play("start");
 
 func _process(_delta):
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	
 	var delete = false;
 	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
 		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../LevelFloor").current_grid.y):
@@ -161,6 +165,14 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = Sprite.new();
+	shadow.texture = currentSprite.texture;
+	shadow.scale = currentSprite.scale
+	get_node("../ShadowViewport").add_child(shadow);
 
 func hit(var shell = false):
 	if ($AnimationPlayer.current_animation != "hit" && visible):

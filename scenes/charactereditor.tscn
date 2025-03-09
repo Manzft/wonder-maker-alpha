@@ -276,30 +276,10 @@ frames = SubResource( 5 )
 animation = "small_idle"
 playing = true
 
-[node name="Shadow" type="AnimatedSprite" parent="SMB"]
-modulate = Color( 0, 0, 0, 0.294118 )
-show_behind_parent = true
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-frames = SubResource( 5 )
-animation = "small_idle"
-playing = true
-
 [node name="SMB3" type="AnimatedSprite" parent="."]
 visible = false
 show_behind_parent = true
 light_mask = 3
-frames = SubResource( 17 )
-animation = "small_idle"
-playing = true
-
-[node name="Shadow" type="AnimatedSprite" parent="SMB3"]
-modulate = Color( 0, 0, 0, 0.294118 )
-show_behind_parent = true
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
 frames = SubResource( 17 )
 animation = "small_idle"
 playing = true
