@@ -6,6 +6,8 @@ var hitCharacter = false;
 
 var canSyncAnim = false;
 
+var shadow : AnimatedSprite
+
 func render(group, forcerender = false):
 	if (forcerender):
 		set_process(true);
@@ -46,6 +48,9 @@ func changeStyle():
 	inst.position = pos;
 	queue_free();
 
+func eraseShadow():
+	shadow.queue_free();
+
 func _ready():
 	Global.connect("render", self, "render");
 	Global.connect("floorErase", self, "floorErase");
@@ -73,6 +78,11 @@ func _process(_delta):
 	if (hitCharacter):
 		if (!get_node("../Character").invincible && !get_node("../Character").star && !get_node("../Character").died && !get_node("../Character").changingPowerup):
 			get_node("../Character").hit();
+	
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.animation = currentSprite.animation;
+	shadow.frame = currentSprite.frame;
+	shadow.scale = currentSprite.scale;
 
 func styleChanged():
 	match (Global.CurrentStyle):
@@ -96,6 +106,15 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = AnimatedSprite.new();
+	shadow.frames = currentSprite.frames;
+	shadow.animation = currentSprite.animation;
+	shadow.scale = currentSprite.scale
+	get_node("../ShadowViewport").add_child(shadow);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character")):

@@ -7,6 +7,7 @@ var downVelocity = 0.0;
 var startPos = Vector2();
 var moveCharacter = false;
 
+var shadow : AnimatedSprite = null
 
 func render(group, forcerender = false):
 	if (forcerender):
@@ -55,6 +56,9 @@ func changeStyle():
 
 	queue_free();
 
+func eraseShadow():
+	shadow.queue_free();
+
 func _ready():
 	Global.connect("render", self, "render");
 	Global.connect("floorErase", self, "floorErase");
@@ -98,6 +102,11 @@ func _process(delta):
 		if (moveCharacter && get_node("../Character").donuts > 0 && get_node("../Character").clouds <= 0):
 			get_node("../Character").position.y += (5+downVelocity)/0.016*delta/get_node("../Character").donuts;
 		downVelocity += (0.125/0.016)*delta;
+	
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.animation = currentSprite.animation;
+	shadow.frame = currentSprite.frame;
+	shadow.scale = currentSprite.scale;
 
 func styleChanged():
 	match (Global.CurrentStyle):
@@ -121,6 +130,15 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = AnimatedSprite.new();
+	shadow.frames = currentSprite.frames;
+	shadow.animation = currentSprite.animation;
+	shadow.scale = currentSprite.scale
+	get_node("../ShadowViewport").add_child(shadow);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character")):

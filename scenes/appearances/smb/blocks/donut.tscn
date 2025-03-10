@@ -309,24 +309,9 @@ scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 4 )
 speed_scale = 0.0
 
-[node name="Shadow" type="AnimatedSprite" parent="SpriteGround"]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-frames = SubResource( 4 )
-speed_scale = 0.0
-
 [node name="SpriteUnderground" type="AnimatedSprite" parent="."]
 visible = false
 scale = Vector2( 3.25, 3.25 )
-frames = SubResource( 5 )
-
-[node name="Shadow" type="AnimatedSprite" parent="SpriteUnderground"]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
 frames = SubResource( 5 )
 
 [node name="SpriteSnow" type="AnimatedSprite" parent="."]
@@ -334,23 +319,9 @@ visible = false
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 8 )
 
-[node name="Shadow" type="AnimatedSprite" parent="SpriteSnow"]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-frames = SubResource( 5 )
-
 [node name="SpriteGhostforest" type="AnimatedSprite" parent="."]
 visible = false
 scale = Vector2( 3.25, 3.25 )
-frames = SubResource( 10 )
-
-[node name="Shadow" type="AnimatedSprite" parent="SpriteGhostforest"]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
 frames = SubResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

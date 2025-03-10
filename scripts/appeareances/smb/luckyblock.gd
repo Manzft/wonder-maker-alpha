@@ -2,6 +2,8 @@ extends StaticBody2D
 
 onready var currentSprite = get_node("SpriteGround");
 
+var shadow : AnimatedSprite = null
+
 var objectInside = "";
 var objectAttribute = "";
 
@@ -68,6 +70,9 @@ func changeStyle():
 	inst.objectAttribute = objectAttribute;
 	queue_free();
 
+func eraseShadow():
+	shadow.queue_free();
+
 func _ready():
 	Global.connect("render", self, "render");
 	Global.connect("floorErase", self, "floorErase");
@@ -107,6 +112,11 @@ func _process(_delta):
 		if (deactivated):
 			styleChanged();
 			deactivated = false;
+	
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.animation = currentSprite.animation;
+	shadow.frame = currentSprite.frame;
+	shadow.scale = currentSprite.scale;
 
 func styleChanged():
 	match (Global.CurrentStyle):
@@ -130,6 +140,15 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = AnimatedSprite.new();
+	shadow.frames = currentSprite.frames;
+	shadow.animation = currentSprite.animation;
+	shadow.scale = currentSprite.scale
+	get_node("../ShadowViewport").add_child(shadow);
 
 func hit():
 	if ($AnimationPlayer.current_animation != "hit"):

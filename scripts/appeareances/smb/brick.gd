@@ -86,6 +86,9 @@ func changeStyle():
 	inst.objectAttribute = objectAttribute;
 	queue_free();
 
+func eraseShadow():
+	shadow.queue_free();
+
 func _ready():
 	Global.connect("render", self, "render");
 	Global.connect("floorErase", self, "floorErase");
@@ -98,6 +101,8 @@ func _ready():
 
 func _process(_delta):
 	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.scale = currentSprite.scale;
+	shadow.visible = visible;
 	
 	var delete = false;
 	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
@@ -340,19 +345,19 @@ func hit(var shell = false):
 				_:
 					if (get_node("../Character").currentPowerup != "small" || shell):
 						var inst = get_parent().partBrickBreak[Global.CurrentAppeareance].instance();
-						inst.direction.x *= 1;
+						inst.flip = false;
 						inst.position = position;
 						get_parent().add_child(inst);
 						inst = get_parent().partBrickBreak[Global.CurrentAppeareance].instance();
-						inst.direction.x *= 1;
+						inst.flip = false;
 						inst.position = position;
 						get_parent().add_child(inst);
 						inst = get_parent().partBrickBreak[Global.CurrentAppeareance].instance();
-						inst.direction.x *= -1;
+						inst.flip = true;
 						inst.position = position;
 						get_parent().add_child(inst);
 						inst = get_parent().partBrickBreak[Global.CurrentAppeareance].instance();
-						inst.direction.x *= -1;
+						inst.flip = true;
 						inst.position = position;
 						get_parent().add_child(inst);
 						hide();

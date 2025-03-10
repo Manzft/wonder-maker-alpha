@@ -53,6 +53,9 @@ func changeStyle():
 
 	queue_free();
 
+func eraseShadow():
+	shadow.queue_free();
+
 func _ready():
 	Global.connect("render", self, "render");
 	Global.connect("floorErase", self, "floorErase");
@@ -65,6 +68,7 @@ func _ready():
 
 func _process(_delta):
 	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.scale = currentSprite.scale;
 	$SpriteUnderground.scale = $SpriteGround.scale;
 	$SpriteUnderground.position = $SpriteGround.position;
 	$SpriteGhostforest.scale = $SpriteGround.scale;

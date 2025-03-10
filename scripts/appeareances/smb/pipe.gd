@@ -9,6 +9,14 @@ var bye = false;
 
 var seldirection = "up";
 
+#var shadows = {
+#	"top": null,
+#	"body1": null
+#}
+
+var shadowtop : Sprite
+var shadowbody : Sprite
+
 func setupExtensionGrids(start = false):
 	var a = true;
 	var mygrid = get_parent().calculateGrid(position.x, position.y);
@@ -82,6 +90,10 @@ func changeStyle():
 
 	queue_free();
 
+func eraseShadow():
+	shadowbody.queue_free();
+	shadowtop.queue_free();
+
 func _ready():
 	Global.connect("render", self, "render");
 	Global.connect("floorErase", self, "floorErase");
@@ -95,6 +107,7 @@ func _ready():
 
 func _process(_delta):
 	if (bye):
+		eraseShadow();
 		queue_free();
 		
 	$DirectionButton/ArrowLeft.hide();
@@ -104,30 +117,26 @@ func _process(_delta):
 	match (seldirection):
 		"right":
 			$DirectionButton/ArrowRight.show();
-			currentSprite.rotation_degrees = 90;
-			currentSprite.get_node("Shadow").position = Vector2(3, -3);
-			currentSprite.get_node("Body/Shadow").position = Vector2(3, -3);
+			#currentSprite.rotation_degrees = 90;
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(90.0), 0.125);
 			currentSprite.flip_h = false;
 			currentSprite.get_node("Body").flip_h = false;
 		"left":
 			$DirectionButton/ArrowLeft.show();
-			currentSprite.rotation_degrees = 270;
-			currentSprite.get_node("Shadow").position = Vector2(-3, 3);
-			currentSprite.get_node("Body/Shadow").position = Vector2(-3, 3);
+			#currentSprite.rotation_degrees = 270;
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(270.0), 0.125);
 			currentSprite.flip_h = true;
 			currentSprite.get_node("Body").flip_h = true;
 		"down":
 			$DirectionButton/ArrowDown.show();
-			currentSprite.rotation_degrees = 180;
-			currentSprite.get_node("Shadow").position = Vector2(-3, -3);
-			currentSprite.get_node("Body/Shadow").position = Vector2(-3, -3);
+			#currentSprite.rotation_degrees = 180;
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(180.0), 0.125);
 			currentSprite.flip_h = true;
 			currentSprite.get_node("Body").flip_h = true;
 		"up":
 			$DirectionButton/ArrowUp.show();
-			currentSprite.rotation_degrees = 0;
-			currentSprite.get_node("Shadow").position = Vector2(3, 3);
-			currentSprite.get_node("Body/Shadow").position = Vector2(3, 3);
+			#currentSprite.rotation_degrees = 0;
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(0.0), 0.125);
 			currentSprite.flip_h = false;
 			currentSprite.get_node("Body").flip_h = false;
 	
@@ -135,11 +144,39 @@ func _process(_delta):
 		$DirectionButton.hide();
 	else:
 		$DirectionButton.show();
+		
+	shadowtop.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadowtop.scale = currentSprite.scale;
+	shadowtop.rotation_degrees = currentSprite.rotation_degrees;
+	shadowbody.position = currentSprite.get_node("Body").global_position+Vector2(3*3.25, 3*3.25);
+	shadowbody.scale = currentSprite.get_node("Body").scale;
+	shadowbody.rotation_degrees = currentSprite.rotation_degrees;
+	
+#	var 
+#	for key in shadows.keys():
+#		if (key == "top"):
+#
 
 func styleChanged():
 	match (Global.CurrentStyle):
 		_:
 			pass
+	if (shadowtop == null):
+		pass
+	else:
+		shadowtop.queue_free();
+	shadowtop = Sprite.new();
+	shadowtop.texture = currentSprite.texture;
+	shadowtop.scale = currentSprite.scale
+	get_node("../ShadowViewport").add_child(shadowtop);
+	if (shadowbody == null):
+		pass
+	else:
+		shadowbody.queue_free();
+	shadowbody = Sprite.new();
+	shadowbody.texture = currentSprite.texture;
+	shadowbody.scale = currentSprite.scale
+	get_node("../ShadowViewport").add_child(shadowbody);
 
 func _on_DirectionButton_pressed():
 	match (seldirection):

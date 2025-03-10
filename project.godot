@@ -146,7 +146,7 @@ window/stretch/aspect="keep_height"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addons/nv.file_system/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg", "res://addons/nv.file_system/plugin.cfg" )
 
 [global]
 

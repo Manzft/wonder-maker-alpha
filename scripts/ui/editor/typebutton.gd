@@ -157,25 +157,21 @@ func _on_TypeButton_pressed():
 			get_node("../../../../CharacterEditor").currentDefaultPowerup = "mush";
 			var cDP = get_node("../../../../CharacterEditor").currentDefaultPowerup;
 			get_node("../../../../CharacterEditor").currentSprite.play(cDP+"_idle");
-			get_node("../../../../CharacterEditor").currentSprite.get_node("Shadow").play(get_node("../../../../CharacterEditor").currentSprite.animation);
 			get_node("../../../../CharacterEditor/PowerupGot").play();
 		"charquitmushroom":
 			get_node("../../../../CharacterEditor").currentDefaultPowerup = "small";
 			var cDP = get_node("../../../../CharacterEditor").currentDefaultPowerup;
 			get_node("../../../../CharacterEditor").currentSprite.play(cDP+"_idle");
-			get_node("../../../../CharacterEditor").currentSprite.get_node("Shadow").play(get_node("../../../../CharacterEditor").currentSprite.animation);
 			get_node("../../../../CharacterEditor/PowerupOut").play();
 		"charfireflower":
 			get_node("../../../../CharacterEditor").currentDefaultPowerup = "fireflower";
 			var cDP = get_node("../../../../CharacterEditor").currentDefaultPowerup;
 			get_node("../../../../CharacterEditor").currentSprite.play(cDP+"_idle");
-			get_node("../../../../CharacterEditor").currentSprite.get_node("Shadow").play(get_node("../../../../CharacterEditor").currentSprite.animation);
 			get_node("../../../../CharacterEditor/PowerupGot").play();
 		"charquitfireflower":
 			get_node("../../../../CharacterEditor").currentDefaultPowerup = "mush";
 			var cDP = get_node("../../../../CharacterEditor").currentDefaultPowerup;
 			get_node("../../../../CharacterEditor").currentSprite.play(cDP+"_idle");
-			get_node("../../../../CharacterEditor").currentSprite.get_node("Shadow").play(get_node("../../../../CharacterEditor").currentSprite.animation);
 			get_node("../../../../CharacterEditor/PowerupOut").play();
 		"charstar":
 			get_node("../../../../CharacterEditor").star = true;
