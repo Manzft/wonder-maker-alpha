@@ -62,6 +62,8 @@ var seldirection = "down";
 var canswitchonoff = true;
 var canswitchonoff2 = true;
 
+var shadow : AnimatedSprite;
+
 func setupExtensionGrids(start = false):
 	var a = true;
 	var mygrid = get_parent().calculateGrid(position.x, position.y);
@@ -135,6 +137,9 @@ func changeStyle():
 
 	queue_free();
 
+func eraseShadow():
+	shadow.queue_free();
+
 func _ready():
 	Global.connect("render", self, "render");
 	Global.connect("floorErase", self, "floorErase");
@@ -149,10 +154,8 @@ func _ready():
 
 func _process(_delta):
 	if (bye):
+		eraseShadow();
 		queue_free();
-	
-	currentSprite.get_node("Shadow").frame = currentSprite.frame;
-	currentSprite.get_node("Shadow").animation = currentSprite.animation;
 	
 	$DirectionButton/ArrowLeft.hide();
 	$DirectionButton/ArrowRight.hide();
@@ -174,9 +177,11 @@ func _process(_delta):
 		$SweatParticlesLeft.emitting = false;
 		$SweatParticlesRight.emitting = false;
 		if (get_node("../Character").changingPowerup ||get_node("../Character").invincible || get_node("../Character").star || get_node("../Character").died):
-			$StaticBody2D/CollisionShape2D.disabled = true;
+			pass
+			#$StaticBody2D/CollisionShape2D.disabled = true;
 		else:
-			$StaticBody2D/CollisionShape2D.disabled = false;
+			pass
+			#$StaticBody2D/CollisionShape2D.disabled = false;
 		
 		$DirectionButton.hide();
 		
@@ -203,6 +208,7 @@ func _process(_delta):
 					get_node("../Character/SoundShellHit").play();
 	else:
 		if (insided):
+			eraseShadow();
 			queue_free();
 		
 		if (!visible && ready):
@@ -214,7 +220,6 @@ func _process(_delta):
 			active = false
 			hitCharacter = false;
 			position = startPos;
-			currentSprite.get_node("Shadow").show();
 		
 		$DirectionButton.show();
 		startPos = position;
@@ -227,7 +232,7 @@ func _process(_delta):
 		attacking = false;
 		comingBack = false;
 		$CollisionShape2D.disabled = false;
-		$StaticBody2D/CollisionShape2D.disabled = false;
+		#$StaticBody2D/CollisionShape2D.disabled = false;
 		
 		if (get_parent().grab && get_parent().grab_node == self):
 			currentSprite.play("attack");
@@ -258,6 +263,13 @@ func _process(_delta):
 						_on_DirectionButton_pressed();
 			else:
 				get_node("../Editor").externalButton = false;
+	shadow.frame = currentSprite.frame;
+	shadow.animation = currentSprite.animation;
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.rotation_degrees = currentSprite.rotation_degrees;
+	shadow.visible = visible;
+	shadow.flip_h = currentSprite.flip_h;
+	shadow.flip_v = currentSprite.flip_v;
 
 func _physics_process(delta):
 	if (!get_node("../Editor").playing):
@@ -377,9 +389,9 @@ func _physics_process(delta):
 						if (get_node("../Character").position.x < position.x):
 							check = true;
 					
-					if (distance <= 52*3 && check && distancex <= 52*5):
+					if (distance <= 52*4 && check && distancex <= 52*6):
 						attacking = true;
-					elif (distance <= 52*4 && check && distancex <= 52*6):
+					elif (distance <= 52*5 && check && distancex <= 52*7):
 						currentSprite.play("ready_side");
 						if (seldirection == "right"):
 							currentSprite.flip_h = true;
@@ -407,7 +419,6 @@ func hit(dir):
 	
 	if (hitDead):
 		motion.y = other_jump_h*5;
-	currentSprite.get_node("Shadow").hide();
 	get_parent().enemyScore(position);
 
 func jump():
@@ -456,6 +467,15 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = AnimatedSprite.new();
+	shadow.frames = currentSprite.frames;
+	shadow.animation = currentSprite.animation;
+	shadow.scale = currentSprite.scale;
+	get_node("../ShadowViewport").add_child(shadow);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character") && visible && !exiting && active):

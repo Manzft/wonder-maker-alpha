@@ -17,6 +17,8 @@ var insided = false;
 
 var canSyncAnim = false;
 
+var shadow : AnimatedSprite;
+
 func render(group, forcerender = false):
 	if (forcerender):
 		set_process(true);
@@ -57,6 +59,9 @@ func changeStyle():
 	inst.position = pos;
 	queue_free();
 
+func eraseShadow():
+	shadow.queue_free();
+
 func _ready():
 	Global.connect("render", self, "render");
 	Global.connect("floorErase", self, "floorErase");
@@ -70,8 +75,6 @@ func _ready():
 	canSyncAnim = true;
 
 func _process(_delta):
-	currentSprite.get_node("Shadow").frame = currentSprite.frame;
-	currentSprite.get_node("Shadow").animation = currentSprite.animation;
 	if (get_node("../Editor").playing):
 		currentSprite.speed_scale = 1;
 		if (!insided && !active):
@@ -103,6 +106,11 @@ func _process(_delta):
 			currentSprite.play("idle");
 			currentSprite.speed_scale = 0;
 			currentSprite.frame = 0;
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.frame = currentSprite.frame;
+	shadow.animation = currentSprite.animation;
+	shadow.scale = currentSprite.scale;
+	shadow.visible = visible;
 
 func _physics_process(delta):
 	if (get_node("../Editor").playing):
@@ -171,6 +179,14 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = AnimatedSprite.new();
+	shadow.frames = currentSprite.frames;
+	shadow.scale = currentSprite.scale;
+	get_node("../ShadowViewport").add_child(shadow);
 
 func release():
 	currentSprite.play("idle");
@@ -182,6 +198,7 @@ func release():
 				node.powner = false;
 				node.show();
 			if (node.p):
+				node.eraseShadow();
 				node.queue_free();
 	nodes = get_tree().get_nodes_in_group("Brick");
 	for node in nodes:
@@ -189,6 +206,7 @@ func release():
 			node.powner = false;
 			node.show();
 		if (node.p):
+			node.eraseShadow();
 			node.queue_free();
 
 func _on_Area2D_body_entered(body):

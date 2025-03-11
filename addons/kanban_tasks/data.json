@@ -46,6 +46,7 @@
       "tasks": [
         2,
         3,
+        20,
         4,
         5,
         7,
@@ -98,7 +99,7 @@
   "tasks": [
     {
       "category": 0,
-      "title": "New render and shadows system",
+      "title": "New render, shadows and anim sync system",
       "details": ""
     },
     {
@@ -194,6 +195,11 @@
     {
       "category": 0,
       "title": "Mario World Teaser",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Complete Tiles",
       "details": ""
     }
   ]

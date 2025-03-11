@@ -165,16 +165,6 @@ script = ExtResource( 1 )
 position = Vector2( 24, 26 )
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 14 )
-frame = 2
-playing = true
-
-[node name="Shadow" type="AnimatedSprite" parent="SpriteGround"]
-self_modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-frames = SubResource( 14 )
-frame = 2
 playing = true
 
 [node name="SpriteUnderground" type="AnimatedSprite" parent="."]
@@ -182,16 +172,6 @@ visible = false
 position = Vector2( 30, 26 )
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 23 )
-frame = 2
-playing = true
-
-[node name="Shadow" type="AnimatedSprite" parent="SpriteUnderground"]
-self_modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-frames = SubResource( 23 )
-frame = 2
 playing = true
 
 [node name="SpriteGhostforest" type="AnimatedSprite" parent="."]
@@ -199,15 +179,7 @@ visible = false
 position = Vector2( 30, 26 )
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 28 )
-playing = true
-
-[node name="Shadow" type="AnimatedSprite" parent="SpriteGhostforest"]
-self_modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-frames = SubResource( 28 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

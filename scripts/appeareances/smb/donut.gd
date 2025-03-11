@@ -137,7 +137,7 @@ func styleChanged():
 	shadow = AnimatedSprite.new();
 	shadow.frames = currentSprite.frames;
 	shadow.animation = currentSprite.animation;
-	shadow.scale = currentSprite.scale
+	shadow.scale = currentSprite.scale;
 	get_node("../ShadowViewport").add_child(shadow);
 
 func _on_Area2D_body_entered(body):

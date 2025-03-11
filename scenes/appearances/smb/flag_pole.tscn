@@ -105,14 +105,6 @@ texture = ExtResource( 1 )
 offset = Vector2( 0, -84 )
 script = ExtResource( 7 )
 
-[node name="Shadow" type="Sprite" parent="."]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-texture = ExtResource( 1 )
-offset = Vector2( 0, -84 )
-
 [node name="Base" type="StaticBody2D" parent="." groups=["Solid"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Base"]
@@ -147,12 +139,6 @@ stream = ExtResource( 3 )
 position = Vector2( 97, -66.769 )
 texture = ExtResource( 5 )
 
-[node name="Shadow" type="Sprite" parent="CastleFlag"]
-modulate = Color( 0, 0, 0, 0.294118 )
-show_behind_parent = true
-position = Vector2( 3, 3 )
-texture = ExtResource( 5 )
-
 [node name="CastleLeft" type="Sprite" parent="."]
 position = Vector2( 96.9231, -40 )
 texture = ExtResource( 4 )
@@ -163,30 +149,8 @@ z_as_relative = false
 texture = ExtResource( 4 )
 flip_h = true
 
-[node name="CastleLeftShadow" type="Sprite" parent="."]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 99.3077, -37 )
-z_index = -3
-z_as_relative = false
-texture = ExtResource( 4 )
-
-[node name="CastleRightShadow" type="Sprite" parent="."]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 99.3077, -37 )
-z_index = -3
-z_as_relative = false
-texture = ExtResource( 4 )
-flip_h = true
-
 [node name="CastleDoor" type="Sprite" parent="."]
 position = Vector2( 96, -16 )
-texture = ExtResource( 6 )
-
-[node name="CastleDoorShadow" type="Sprite" parent="."]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 99.3074, -13 )
-z_index = -3
-z_as_relative = false
 texture = ExtResource( 6 )
 
 [node name="DoorArea" type="Area2D" parent="."]

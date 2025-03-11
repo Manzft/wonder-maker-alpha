@@ -11,6 +11,9 @@ var seldirection = "up";
 
 var got = false;
 
+var shadowbase : Sprite
+var shadowflag : AnimatedSprite
+
 func setupExtensionGrids(start = false):
 	var a = true;
 	var mygrid = get_parent().calculateGrid(position.x, position.y);
@@ -83,6 +86,10 @@ func changeStyle():
 
 	queue_free();
 
+func eraseShadow():
+	shadowbase.queue_free();
+	shadowflag.queue_free();
+
 func _ready():
 	Global.connect("render", self, "render");
 	Global.connect("floorErase", self, "floorErase");
@@ -101,9 +108,8 @@ func _ready():
 
 func _process(_delta):
 	if (bye):
+		eraseShadow();
 		queue_free();
-		
-	$SpriteGround/SpriteFlag/Shadow.animation = $SpriteGround/SpriteFlag.animation;
 		
 	$DirectionButton/ArrowLeft.hide();
 	$DirectionButton/ArrowRight.hide();
@@ -112,20 +118,16 @@ func _process(_delta):
 	match (seldirection):
 		"down":
 			$DirectionButton/ArrowDown.show();
-			$SpriteGround.rotation_degrees = 180;
-			$SpriteGround/SpriteFlag/Shadow.position = Vector2(-3, -3);
+			$SpriteGround.rotation = lerp_angle($SpriteGround.rotation, deg2rad(180.0), 0.25);
 		"up":
 			$DirectionButton/ArrowUp.show();
-			$SpriteGround.rotation_degrees = 0;
-			$SpriteGround/SpriteFlag/Shadow.position = Vector2(3, 3);
+			$SpriteGround.rotation = lerp_angle($SpriteGround.rotation, deg2rad(0.0), 0.25);
 		"left":
 			$DirectionButton/ArrowLeft.show();
-			$SpriteGround.rotation_degrees = 270;
-			$SpriteGround/SpriteFlag/Shadow.position = Vector2(-3, 3);
+			$SpriteGround.rotation = lerp_angle($SpriteGround.rotation, deg2rad(270.0), 0.25);
 		"right":
 			$DirectionButton/ArrowRight.show();
-			$SpriteGround.rotation_degrees = 90;
-			$SpriteGround/SpriteFlag/Shadow.position = Vector2(3, -3);
+			$SpriteGround.rotation = lerp_angle($SpriteGround.rotation, deg2rad(90.0), 0.25);
 	
 	if (get_node("../Editor").playing):
 		$DirectionButton.hide();
@@ -134,11 +136,35 @@ func _process(_delta):
 		got = false;
 		$AnimationPlayer.play("RESET");
 		$SpriteGround/SpriteFlag.play("default");
+	
+	shadowflag.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadowflag.scale = $SpriteGround.scale;
+	shadowflag.rotation = currentSprite.rotation+$SpriteGround.rotation;
+	shadowbase.position = $SpriteGround.global_position+Vector2(3*3.25, 3*3.25);
+	shadowbase.scale = $SpriteGround.scale;
+	shadowbase.rotation = $SpriteGround.rotation;
 
 func styleChanged():
 	match (Global.CurrentStyle):
 		_:
 			pass
+	if (shadowbase == null):
+		pass
+	else:
+		shadowbase.queue_free();
+	shadowbase = Sprite.new();
+	shadowbase.texture = $SpriteGround.texture;
+	shadowbase.scale = $SpriteGround.scale
+	get_node("../ShadowViewport").add_child(shadowbase);
+	if (shadowflag == null):
+		pass
+	else:
+		shadowflag.queue_free();
+	shadowflag = AnimatedSprite.new();
+	shadowflag.frames = currentSprite.frames;
+	shadowflag.scale = currentSprite.scale;
+	shadowflag.offset = currentSprite.offset;
+	get_node("../ShadowViewport").add_child(shadowflag);
 
 func _on_Checkpoint_body_entered(body):
 	if (body == get_node("../Character") && !got):

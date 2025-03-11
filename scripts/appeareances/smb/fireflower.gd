@@ -7,9 +7,6 @@ const max_fall = jump_h*-1;
 
 onready var currentSprite = get_node("SpriteGround");
 
-onready var rcd1 = get_node("LeftRayCast");
-onready var rcd2 = get_node("RightRayCast");
-
 var motion = Vector2();
 
 var startPos = Vector2();
@@ -24,6 +21,8 @@ var mushroom = false;
 var flip_h = false;
 
 var canSyncAnim = false;
+
+var shadow : AnimatedSprite;
 
 func setMushroom(val):
 	mushroom = val;
@@ -70,6 +69,9 @@ func changeStyle():
 	get_parent().add_child(inst);
 	inst.position = pos;
 	queue_free();
+
+func eraseShadow():
+	shadow.queue_free();
 
 func _ready():
 	Global.connect("render", self, "render");
@@ -134,14 +136,15 @@ func _process(_delta):
 			get_parent().eraseObject(position);
 		currentSprite.speed_scale = 0;
 		currentSprite.frame = 0;
-	Global.rendering(self);
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.frame = currentSprite.frame;
+	shadow.animation = currentSprite.animation;
+	shadow.scale = currentSprite.scale;
+	shadow.visible = visible;
 
 func _physics_process(_delta):
 	if (!get_node("../Editor").playing || !visible):
 		return
-	#Head Hit Raycasts
-	#if (rcd1.is_colliding()): areaCollide(rcd1);
-	#elif (rcd2.is_colliding()): areaCollide(rcd2);
 	
 	if (!active && !exiting):
 		active = true;
@@ -156,12 +159,6 @@ func _physics_process(_delta):
 		motion.y += gravity
 		if (!arrived && is_on_floor()):
 			arrived = true;
-			
-		#if (arrived):
-		#	if (flip_h):
-		#		motion.x = -max_walk_speed;
-		#	else:
-		#		motion.x = max_walk_speed;
 		
 	#Global Movement Controller
 	if (!exiting):
@@ -170,25 +167,24 @@ func _physics_process(_delta):
 func jump():
 	motion.y = jump_h;
 
-func areaCollide(rc):
-	if (!exiting && active):
-		var body = rc.get_collider();
-		if (body.is_in_group("Solid")):
-			#Left
-			if (rc == rcd1 && motion.x < 0):
-				flip_h = false;
-			if (rc == rcd2 && motion.x > 0):
-				flip_h = true;
-
 func styleChanged():
 	match (Global.CurrentStyle):
 		_:
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = AnimatedSprite.new();
+	shadow.frames = currentSprite.frames;
+	shadow.scale = currentSprite.scale;
+	get_node("../ShadowViewport").add_child(shadow);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character") && visible && !exiting && active):
+		shadow.hide();
 		hide();
 		if (body.get_node("PowerupGot").playing):
 			body.get_node("PowerupGot").stop();

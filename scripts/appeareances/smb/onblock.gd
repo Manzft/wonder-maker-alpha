@@ -2,6 +2,9 @@ extends StaticBody2D
 
 onready var currentSprite = get_node("SpriteGround");
 
+var shadow : Sprite;
+var shadowhide : Sprite;
+
 func render(group, forcerender = false):
 	if (forcerender):
 		set_process(true);
@@ -41,6 +44,10 @@ func changeStyle():
 	get_parent().add_child(inst);
 	inst.position = pos;
 	queue_free();
+
+func eraseShadow():
+	shadow.queue_free();
+	shadowhide.queue_free();
 
 func _ready():
 	Global.connect("render", self, "render");
@@ -96,6 +103,13 @@ func _process(_delta):
 		$CollisionShape2D.disabled = false;
 		currentSprite.show();
 		$Hide.hide();
+	
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.scale = currentSprite.scale;
+	shadow.visible = currentSprite.visible;
+	shadowhide.position = $Hide.global_position+Vector2(3*3.25, 3*3.25);
+	shadowhide.scale = $Hide.scale;
+	shadowhide.visible = $Hide.visible;
 
 func styleChanged():
 	match (Global.CurrentStyle):
@@ -103,3 +117,19 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = Sprite.new();
+	shadow.texture = currentSprite.texture;
+	shadow.scale = currentSprite.scale
+	get_node("../ShadowViewport").add_child(shadow);
+	if (shadowhide == null):
+		pass
+	else:
+		shadowhide.queue_free();
+	shadowhide = Sprite.new();
+	shadowhide.texture = $Hide.texture;
+	shadowhide.scale = $Hide.scale
+	get_node("../ShadowViewport").add_child(shadowhide);

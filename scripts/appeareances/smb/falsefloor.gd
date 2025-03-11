@@ -42,3 +42,4 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
+	

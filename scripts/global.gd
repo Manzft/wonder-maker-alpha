@@ -848,7 +848,7 @@ func unrenderAll():
 #			node.set_physics_process(false);
 
 func _process(delta):
-	if (!changingToEditMode):
+	if (!changingToEditMode && !OS.window_minimized):
 		emit_signal("render", "");
 	#Render System
 #	if (alternRender && !changingToEditMode):

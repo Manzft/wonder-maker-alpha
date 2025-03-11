@@ -89,16 +89,7 @@ shape = SubResource( 1 )
 [node name="SpriteGround" type="AnimatedSprite" parent="."]
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 8 )
-frame = 3
-playing = true
-
-[node name="Shadow" type="AnimatedSprite" parent="SpriteGround"]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-frames = SubResource( 8 )
-frame = 3
+frame = 2
 playing = true
 
 [node name="MushroomIcon" type="Sprite" parent="."]
@@ -118,15 +109,5 @@ playback_speed = 10.0
 anims/RESET = SubResource( 2 )
 anims/rescale = SubResource( 9 )
 anims/start = SubResource( 3 )
-
-[node name="LeftRayCast" type="RayCast2D" parent="."]
-position = Vector2( -24, 0 )
-enabled = true
-cast_to = Vector2( -3, 0 )
-
-[node name="RightRayCast" type="RayCast2D" parent="."]
-position = Vector2( 24, 0 )
-enabled = true
-cast_to = Vector2( 3, 0 )
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

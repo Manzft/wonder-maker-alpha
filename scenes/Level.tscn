@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=2]
+[gd_scene load_steps=64 format=2]
 
 [ext_resource path="res://scripts/level.gd" type="Script" id=1]
 [ext_resource path="res://sprites/ui/editor/grid.png" type="Texture" id=2]
@@ -42,6 +42,31 @@
 [ext_resource path="res://sprites/appeareances/smb3/background/ghostforest.png" type="Texture" id=40]
 [ext_resource path="res://music/appeareances/smb3/ghostforest.mp3" type="AudioStream" id=41]
 [ext_resource path="res://sprites/appeareances/smb3/snow_particle.png" type="Texture" id=42]
+
+[sub_resource type="Shader" id=20]
+code = "shader_type canvas_item;
+
+// Activar/Desactivar tinte
+uniform bool tint_active = true;
+// Color del tinte (RGBA)
+uniform vec4 tint_color : hint_color = vec4(1.0, 0.0, 0.0, 1.0);
+
+void fragment() {
+    vec4 texture_color = texture(TEXTURE, UV);
+    
+    if (tint_active) {
+        // Aplicar color del tinte
+        COLOR = vec4(tint_color.rgb, texture_color.a);
+    } else {
+        // Mantener color original
+        COLOR = texture_color;
+    }
+} "
+
+[sub_resource type="ShaderMaterial" id=21]
+shader = SubResource( 20 )
+shader_param/tint_active = false
+shader_param/tint_color = Color( 0.11, 0.11, 0.11, 1 )
 
 [sub_resource type="ViewportTexture" id=19]
 viewport_path = NodePath("ShadowViewport")
@@ -1051,7 +1076,8 @@ usage = 0
 render_target_v_flip = true
 
 [node name="ShadowLayer" type="Sprite" parent="."]
-modulate = Color( 0, 0, 0, 0.294118 )
+modulate = Color( 0, 0, 0, 0.392157 )
+material = SubResource( 21 )
 z_index = -3
 texture = SubResource( 19 )
 centered = false

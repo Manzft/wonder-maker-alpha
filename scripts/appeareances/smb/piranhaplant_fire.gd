@@ -29,6 +29,8 @@ var temporary_vspeed = 0.0;
 
 var rendered = true;
 
+var shadow : AnimatedSprite;
+
 func render(group, forcerender = false):
 	if (forcerender):
 		set_process(true);
@@ -69,6 +71,9 @@ func changeStyle():
 	inst.position = pos;
 	queue_free();
 
+func eraseShadow():
+	shadow.queue_free();
+
 func _ready():
 	Global.connect("render", self, "render");
 	Global.connect("floorErase", self, "floorErase");
@@ -82,9 +87,6 @@ func _ready():
 
 func _process(_delta):
 	currentSprite.speed_scale = 1;
-	currentSprite.get_node("Shadow").frame = currentSprite.frame;
-	currentSprite.get_node("Shadow").animation = currentSprite.animation;
-	currentSprite.get_node("Shadow").flip_h = currentSprite.flip_h;
 	if (get_node("../Editor").playing):
 		currentSprite.scale = Vector2(3.25, 3.25);
 		$SweatParticlesLeft.emitting = false;
@@ -109,6 +111,7 @@ func _process(_delta):
 					get_node("../Character/SoundShellHit").play();
 	else:
 		if (insided):
+			eraseShadow();
 			queue_free();
 		
 		if (!visible):
@@ -119,7 +122,6 @@ func _process(_delta):
 			active = false
 			hitCharacter = false;
 			position = startPos;
-			currentSprite.get_node("Shadow").show();
 		
 		startPos = position;
 		arrived = false;
@@ -147,6 +149,13 @@ func _process(_delta):
 			$SweatParticlesLeft.emitting = false;
 			$SweatParticlesRight.emitting = false;
 			$AnimationPlayer.play("RESET");
+	shadow.frame = currentSprite.frame;
+	shadow.animation = currentSprite.animation;
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.rotation_degrees = currentSprite.rotation_degrees;
+	shadow.visible = visible;
+	shadow.flip_h = currentSprite.flip_h;
+	shadow.flip_v = currentSprite.flip_v;
 
 func _physics_process(delta):
 	if (!get_node("../Editor").playing || !visible):
@@ -209,7 +218,6 @@ func _physics_process(delta):
 						true:
 							hit("left");
 					get_node("../Character/SoundShellHit").play();
-					currentSprite.get_node("Shadow").hide();
 		
 	#Global Movement Controller
 	if (!exiting):
@@ -224,7 +232,6 @@ func hit(dir):
 	
 	if (hitDead):
 		motion.y = jump_h*5;
-	currentSprite.get_node("Shadow").hide();
 	get_parent().enemyScore(position);
 
 func jump():
@@ -236,6 +243,15 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = AnimatedSprite.new();
+	shadow.frames = currentSprite.frames;
+	shadow.animation = currentSprite.animation;
+	shadow.scale = currentSprite.scale;
+	get_node("../ShadowViewport").add_child(shadow);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character") && visible && !exiting && active):
@@ -247,7 +263,6 @@ func _on_Area2D_body_entered(body):
 				hit("left");
 			else:
 				hit("right");
-			currentSprite.get_node("Shadow").hide();
 			get_node("../Character/SoundShellHit").play();
 
 func _on_Area2D_body_exited(body):

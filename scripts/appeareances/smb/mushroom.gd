@@ -10,9 +10,6 @@ onready var currentSprite = get_node("SpriteGround");
 onready var rcd1 = get_node("LeftRayCast");
 onready var rcd2 = get_node("RightRayCast");
 
-var rcd1coll = false;
-var rcd2coll = false;
-
 var motion = Vector2();
 
 var startPos = Vector2();
@@ -23,6 +20,8 @@ var arrived = false;
 var insided = false;
 
 var flip_h = false;
+
+var shadow : Sprite;
 
 func render(group, forcerender = false):
 	if (forcerender):
@@ -64,6 +63,9 @@ func changeStyle():
 	inst.position = pos;
 	queue_free();
 
+func eraseShadow():
+	shadow.queue_free();
+
 func _ready():
 	Global.connect("render", self, "render");
 	Global.connect("floorErase", self, "floorErase");
@@ -81,6 +83,7 @@ func _process(_delta):
 		#currentSprite.speed_scale = 1;
 	else:
 		if (insided):
+			eraseShadow();
 			queue_free();
 		
 		if (!visible):
@@ -95,21 +98,16 @@ func _process(_delta):
 		arrived = false;
 		exiting = false;
 		flip_h = false;
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.scale = currentSprite.scale;
+	shadow.visible = visible;
 
 func _physics_process(_delta):
 	if (!get_node("../Editor").playing):
 		return
 	#Head Hit Raycasts
-	if (rcd1.is_colliding() && !rcd1coll):
-		areaCollide(rcd1);
-		rcd1coll = true;
-	elif (!rcd1.is_colliding() && rcd1coll):
-		rcd1coll = false;
-	if (rcd2.is_colliding() && !rcd2coll):
-		areaCollide(rcd2);
-		rcd2coll = true;
-	elif (!rcd2.is_colliding() && rcd2coll):
-		rcd2coll = false;
+	if (rcd1.is_colliding()): areaCollide(rcd1);
+	if (rcd2.is_colliding()): areaCollide(rcd2);
 	
 	if (!active && !exiting):
 		active = true;
@@ -154,9 +152,18 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = Sprite.new();
+	shadow.texture = currentSprite.texture;
+	shadow.scale = currentSprite.scale;
+	get_node("../ShadowViewport").add_child(shadow);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character") && visible && !exiting && active):
+		shadow.hide();
 		hide();
 		if (body.get_node("PowerupGot").playing):
 			body.get_node("PowerupGot").stop();

@@ -23,7 +23,7 @@ func render(group, forcerender = false):
 		set_process(false); set_physics_process(false);
 	else:
 		set_process(true); set_physics_process(true);
-		
+
 func floorErase():
 	var delete = false;
 	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
@@ -63,6 +63,8 @@ func _ready():
 	canSyncAnim = true;
 
 func _process(_delta):
+	currentSprite.frame = round(get_parent().syncanim.smb.spike);
+	
 	$SpriteUnderground.scale = $SpriteGround.scale;
 	$SpriteUnderground.position = $SpriteGround.position;
 	$SpriteGhostforest.scale = $SpriteGround.scale;

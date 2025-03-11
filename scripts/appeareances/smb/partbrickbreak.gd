@@ -1,6 +1,6 @@
 extends Sprite
 
-const gravity = 0.75;
+const gravity = 45;
 var flip = false;
 var motioned = false;
 
@@ -38,15 +38,15 @@ func _ready():
 	shadow.position = position+Vector2(3*3.25, 3*3.25);
 	get_node("../ShadowViewport").add_child(shadow);
 
-func _process(_delta):
+func _physics_process(delta):
 	if (!motioned):
 		randomize();
-		var rand = round(rand_range(1, 5));
+		var rand = round(rand_range(60, 300));
 		if (flip):
 			motion.x = rand*-1;
 		else:
 			motion.x = rand;
-		rand = round(rand_range(-9, -13));
+		rand = round(rand_range(-540, -780));
 		motion.y = rand;
 		motioned = true;
 	
@@ -56,12 +56,12 @@ func _process(_delta):
 		rotation_degrees += 15;
 	
 	motion.y += gravity;
-	if (motion.y >= 15.0):
-		motion.y = 15.0;
+	if (motion.y >= 900.0):
+		motion.y = 900.0;
 	
 	motion.x = lerp(motion.x, 0.0, 0.01)
 	
-	position += motion;
+	position += motion*delta;
 	
 	shadow.position = position+Vector2(3*3.25, 3*3.25);
 	shadow.rotation_degrees = rotation_degrees;

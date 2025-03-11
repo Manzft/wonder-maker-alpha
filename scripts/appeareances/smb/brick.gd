@@ -102,7 +102,10 @@ func _ready():
 func _process(_delta):
 	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
 	shadow.scale = currentSprite.scale;
-	shadow.visible = visible;
+	if (!currentSprite.visible || !visible):
+		shadow.visible = false;
+	else:
+		shadow.visible = true;
 	
 	var delete = false;
 	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
@@ -137,6 +140,7 @@ func _process(_delta):
 			styleChanged();
 			deactivated = false;
 		if (p):
+			eraseShadow();
 			queue_free();
 		if (powner):
 			powner = false;
@@ -145,8 +149,6 @@ func _process(_delta):
 			$CollisionShape2D.disabled = true;
 		elif (visible):
 			$CollisionShape2D.disabled = false;
-	
-	Global.rendering(self);
 
 func styleChanged():
 	match (Global.CurrentStyle):

@@ -66,8 +66,20 @@ var drifting = false;
 
 var lastScore = 0;
 
+var shadow : AnimatedSprite;
+
+func eraseShadow():
+	shadow.queue_free();
+
 func _ready():
+	shadow = AnimatedSprite.new();
+	shadow.frames = current_sprite.frames;
+	shadow.animation = current_sprite.animation;
+	shadow.scale = current_sprite.scale;
+	get_node("../ShadowViewport").add_child(shadow);
+	
 	yield(get_tree(), "idle_frame");
+	
 	if (get_parent().editing):
 		$AnimationPlayer.play("invincible");
 		invincible = true;
@@ -415,10 +427,13 @@ func _process(_delta):
 	if (Global.playing):
 		Global.charpos = position;
 	#Shadow Animation Sync Controller
-	current_sprite.get_node("Shadow").animation = current_sprite.animation;
-	current_sprite.get_node("Shadow").flip_h = current_sprite.flip_h;
-	current_sprite.get_node("Shadow").frame = current_sprite.frame;
-	current_sprite.get_node("Shadow").offset = current_sprite.offset;
+	shadow.position = current_sprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.animation = current_sprite.animation;
+	shadow.frame = current_sprite.frame;
+	shadow.scale = current_sprite.scale;
+	shadow.offset = current_sprite.offset;
+	shadow.flip_h = current_sprite.flip_h;
+	shadow.flip_v = current_sprite.flip_v;
 	
 	#Fall Dead
 	if (position.y >= 1600 && !course_clear):
@@ -521,6 +536,7 @@ func hit():
 			die();
 
 func powerup(pw, changingpowerup = false):
+	yield(get_tree(), "idle_frame");
 	if (currentPowerup != pw && !died):
 		match (pw):
 			"Star":
@@ -646,4 +662,8 @@ func _on_SoundPButton_finished():
 			node.release();
 
 func deactivateSubPixelSprite():
-	$Mario.position.y = -3;
+	pass
+	#$Mario.position.y = -3;
+
+func _on_Character_tree_exiting():
+	eraseShadow();

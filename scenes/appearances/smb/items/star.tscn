@@ -72,15 +72,8 @@ shape = SubResource( 1 )
 [node name="SpriteGround" type="AnimatedSprite" parent="."]
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 8 )
+frame = 1
 playing = true
-
-[node name="Shadow" type="Sprite" parent="SpriteGround"]
-self_modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-texture = ExtResource( 2 )
-hframes = 4
 
 [node name="Area2D" type="Area2D" parent="."]
 

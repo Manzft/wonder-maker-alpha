@@ -43,8 +43,17 @@ var seaLevelOffset = 0;
 var seaTopLevelOffset = 0;
 var currentSeaLevelOffset = 0;
 
-#Sync SMB Sprites Variables
-var luckyblock_frame = 0.0;
+#Sync Animation
+var syncanim = {
+	smb = {
+		"luckyblock": 0.0,
+		"spike": 0.0,
+		"muncher": 0.0,
+		"piranhaplant": 0.0,
+		"coin": 0.0,
+		"coin10": 0.0
+	}
+}
 
 func _ready():
 	for i in range(grid_size.x): 
@@ -441,51 +450,49 @@ func eraseObject(mousepos, sound = true, hide = false):
 		if (grid[cgrid.x][cgrid.y] != null):
 			var notfloorlevel = true;
 			var pos = calculateGridPosition(cgrid);
-			var nodes = get_tree().get_nodes_in_group("Obj");
-			for node in nodes:
-				if (grid_node[cgrid.x][cgrid.y] == node):
-					get_node("Editor").externalButton = false;
-					if (node.is_in_group("Floor")):
-						if (node.floorlevel || node.endlevel):
-							notfloorlevel = false;
-					if (notfloorlevel):
-						if (hide):
-							node.hide();
-						else:
-							var nodegrid = calculateGrid(node.position.x, node.position.y);
-							var isfloor = false;
-							
-							#Remove Wide Decoration
-							if (grid[nodegrid.x][nodegrid.y] == Global.OBJ_FLOOR):
-								isfloor = true;
-								if (grid[nodegrid.x+1][nodegrid.y] == Global.OBJ_FLOOR):
-									if (grid_node[nodegrid.x+1][nodegrid.y].decorationType == "Wide"):
-										grid_node[nodegrid.x+1][nodegrid.y].quitAllDecoration();
-								if (grid[nodegrid.x+2][nodegrid.y] == Global.OBJ_FLOOR):
-									if (grid_node[nodegrid.x+2][nodegrid.y].decorationType == "Wide"):
-										grid_node[nodegrid.x+2][nodegrid.y].quitAllDecoration();
-							
-							grid[nodegrid.x][nodegrid.y] = null;
-							grid_node[nodegrid.x][nodegrid.y] = null;
-							if (node.has_method("eraseShadow")):
-								node.eraseShadow();
-							
-							if (node.is_in_group("Extensible")):
-								for i in range(node.grid_end.x+1):
-									for j in range(node.grid_end.y+1):
-										if (Vector2(i, j) != node.grid_origin):
-											grid[nodegrid.x+i][nodegrid.y+j] = null;
-											grid_node[nodegrid.x+i][nodegrid.y+j] = null;
-							
-							if (isfloor):
-								node.updateNearFloors();
-							
-							node.queue_free();
-						
-						if (sound):
-							if (!$AudioEraseObject.playing):
-								$AudioEraseObject.pitch_scale = rand_range(0.8, 1.2);
-								$AudioEraseObject.play();
+			var node = grid_node[cgrid.x][cgrid.y];
+			get_node("Editor").externalButton = false;
+			if (node.is_in_group("Floor")):
+				if (node.floorlevel || node.endlevel):
+					notfloorlevel = false;
+			if (notfloorlevel):
+				if (hide):
+					node.hide();
+				else:
+					var nodegrid = calculateGrid(node.position.x, node.position.y);
+					var isfloor = false;
+					
+					#Remove Wide Decoration
+					if (grid[nodegrid.x][nodegrid.y] == Global.OBJ_FLOOR):
+						isfloor = true;
+						if (grid[nodegrid.x+1][nodegrid.y] == Global.OBJ_FLOOR):
+							if (grid_node[nodegrid.x+1][nodegrid.y].decorationType == "Wide"):
+								grid_node[nodegrid.x+1][nodegrid.y].quitAllDecoration();
+						if (grid[nodegrid.x+2][nodegrid.y] == Global.OBJ_FLOOR):
+							if (grid_node[nodegrid.x+2][nodegrid.y].decorationType == "Wide"):
+								grid_node[nodegrid.x+2][nodegrid.y].quitAllDecoration();
+					
+					grid[nodegrid.x][nodegrid.y] = null;
+					grid_node[nodegrid.x][nodegrid.y] = null;
+					if (node.has_method("eraseShadow")):
+						node.eraseShadow();
+					
+					if (node.is_in_group("Extensible")):
+						for i in range(node.grid_end.x+1):
+							for j in range(node.grid_end.y+1):
+								if (Vector2(i, j) != node.grid_origin):
+									grid[nodegrid.x+i][nodegrid.y+j] = null;
+									grid_node[nodegrid.x+i][nodegrid.y+j] = null;
+					
+					if (isfloor):
+						node.updateNearFloors();
+					
+					node.queue_free();
+				
+				if (sound):
+					if (!$AudioEraseObject.playing):
+						$AudioEraseObject.pitch_scale = rand_range(0.8, 1.2);
+						$AudioEraseObject.play();
 
 func gameMusic(a):
 	var nodes = get_tree().get_nodes_in_group("Music");
@@ -559,6 +566,30 @@ func setStyleBackground():
 
 func syncSMBSprites(delta):
 	var divider = 60.0/10.0;
-	luckyblock_frame += 1.0/divider;
-	if (luckyblock_frame >= 3+1):
-		luckyblock_frame = 0.0;
+	syncanim.smb.luckyblock += 1.0/divider;
+	if (syncanim.smb.luckyblock>= 4-0.1):
+		syncanim.smb.luckyblock = 0.0;
+	
+	divider = 60.0/5.0;
+	syncanim.smb.spike += 1.0/divider;
+	if (syncanim.smb.spike >= 2-0.1):
+		syncanim.smb.spike = 0.0;
+		divider = 60.0/5.0;
+	
+	syncanim.smb.muncher += 1.0/divider;
+	if (syncanim.smb.muncher >= 2-0.1):
+		syncanim.smb.muncher = 0.0;
+	
+	syncanim.smb.piranhaplant += 1.0/divider;
+	if (syncanim.smb.piranhaplant >= 2-0.1):
+		syncanim.smb.piranhaplant = 0.0;
+	
+	divider = 60.0/10.0;
+	syncanim.smb.coin += 1.0/divider;
+	if (syncanim.smb.coin > 4-0.1):
+		syncanim.smb.coin = 0.0;
+	
+	divider = 60.0/7.0;
+	syncanim.smb.coin10 += 1.0/divider;
+	if (syncanim.smb.coin10 > 4-0.1):
+		syncanim.smb.coin10 = 0.0;

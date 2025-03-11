@@ -5,7 +5,7 @@ onready var currentSprite = get_node("SpriteGround");
 var p = false;
 var powner = false;
 
-var canSyncAnim = false;
+var shadow : AnimatedSprite;
 
 func render(group, forcerender = false):
 	if (forcerender):
@@ -47,6 +47,9 @@ func changeStyle():
 	inst.position = pos;
 	queue_free();
 
+func eraseShadow():
+	shadow.queue_free();
+
 func _ready():
 	Global.connect("render", self, "render");
 	Global.connect("floorErase", self, "floorErase");
@@ -56,13 +59,14 @@ func _ready():
 	yield(get_tree(), "idle_frame");
 	if (get_parent().editing):
 		$AnimationPlayer.play("start");
-	canSyncAnim = true;
 
 func _process(_delta):
 	if (get_node("../Editor").playing):
+		currentSprite.frame = round(get_parent().syncanim.smb.coin);
 		currentSprite.speed_scale = 1;
 	else:
 		if (p):
+			eraseShadow();
 			queue_free();
 		if (powner):
 			powner = false;
@@ -71,6 +75,11 @@ func _process(_delta):
 			show();
 		currentSprite.speed_scale = 0;
 		currentSprite.frame = 0;
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.frame = currentSprite.frame;
+	shadow.animation = currentSprite.animation;
+	shadow.scale = currentSprite.scale;
+	shadow.visible = visible;
 
 func styleChanged():
 	match (Global.CurrentStyle):
@@ -94,6 +103,14 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = AnimatedSprite.new();
+	shadow.frames = currentSprite.frames;
+	shadow.scale = currentSprite.scale;
+	get_node("../ShadowViewport").add_child(shadow);
 
 func _on_Coin_body_entered(body):
 	if (body.is_in_group("Character") && visible):
@@ -116,4 +133,5 @@ func _on_Coin_body_entered(body):
 		else:
 			var grid = get_parent().calculateGrid(position.x, position.y);
 			get_parent().grid_node[grid.x][grid.y].powner = false;
+			eraseShadow();
 			queue_free();

@@ -118,25 +118,25 @@ func _process(_delta):
 		"right":
 			$DirectionButton/ArrowRight.show();
 			#currentSprite.rotation_degrees = 90;
-			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(90.0), 0.125);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(90.0), 0.25);
 			currentSprite.flip_h = false;
 			currentSprite.get_node("Body").flip_h = false;
 		"left":
 			$DirectionButton/ArrowLeft.show();
 			#currentSprite.rotation_degrees = 270;
-			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(270.0), 0.125);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(270.0), 0.25);
 			currentSprite.flip_h = true;
 			currentSprite.get_node("Body").flip_h = true;
 		"down":
 			$DirectionButton/ArrowDown.show();
 			#currentSprite.rotation_degrees = 180;
-			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(180.0), 0.125);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(180.0), 0.25);
 			currentSprite.flip_h = true;
 			currentSprite.get_node("Body").flip_h = true;
 		"up":
 			$DirectionButton/ArrowUp.show();
 			#currentSprite.rotation_degrees = 0;
-			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(0.0), 0.125);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(0.0), 0.25);
 			currentSprite.flip_h = false;
 			currentSprite.get_node("Body").flip_h = false;
 	

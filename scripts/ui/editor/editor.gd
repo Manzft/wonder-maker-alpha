@@ -252,7 +252,9 @@ func _input(event):
 						for node in nodes:
 							if (node.position == get_parent().calculateGridPosition(togrid)):
 								insideNode(get_parent().grid[gr.x][gr.y], node);
-								
+						
+						if (get_parent().grab_node.has_method("eraseShadow")):
+							get_parent().grab_node.eraseShadow();
 						get_parent().grab_node.queue_free();
 						get_parent().grid[gr.x][gr.y] = null;
 						get_parent().grid_node[gr.x][gr.y] = null;
@@ -1833,14 +1835,23 @@ func styleChange(style, start = false):
 		editorMusic(false)
 	Global.CurrentStyle = style;
 	get_parent().setStyleBackground();
-	if (style == "Ghosthouse" || style == "Underground" || style == "Forest"):
+	if (style == "Ghostforest"  || style == "Ghosthouse" || style == "Underground" || style == "Forest"):
 		get_parent().get_node("TileMap").modulate.r = 255;
 		get_parent().get_node("TileMap").modulate.g = 255;
 		get_parent().get_node("TileMap").modulate.b = 255;
+		if (style != "Forest"):
+			get_parent().get_node("ShadowLayer").material.set_shader_param("tint_active", true)
+			get_parent().get_node("ShadowLayer").modulate = Color(1, 1, 1, 1);
+		if (style == "Ghostforest"):
+			get_parent().get_node("ShadowLayer").material.set_shader_param("tint_color", Color(0.17, 0.08, 0.29, 1))
+		else:
+			get_parent().get_node("ShadowLayer").material.set_shader_param("tint_color", Color(0.11, 0.11, 0.1, 1))
 	else:
 		get_parent().get_node("TileMap").modulate.r = 0;
 		get_parent().get_node("TileMap").modulate.g = 0;
 		get_parent().get_node("TileMap").modulate.b = 0;
+		get_parent().get_node("ShadowLayer").material.set_shader_param("tint_active", false)
+		get_parent().get_node("ShadowLayer").modulate = Color(0, 0, 0, 0.39);
 	var nodes = get_tree().get_nodes_in_group("Obj");
 	for node in nodes:
 		node.styleChanged();

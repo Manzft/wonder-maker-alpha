@@ -85,7 +85,7 @@ func _ready():
 		canSyncAnim = true;
 
 func _process(_delta):
-	currentSprite.frame = round(get_parent().luckyblock_frame);
+	currentSprite.frame = round(get_parent().syncanim.smb.luckyblock);
 	
 	$SpriteUnderground.scale = $SpriteGround.scale;
 	$SpriteUnderground.position = $SpriteGround.position;
@@ -117,6 +117,10 @@ func _process(_delta):
 	shadow.animation = currentSprite.animation;
 	shadow.frame = currentSprite.frame;
 	shadow.scale = currentSprite.scale;
+	if (!currentSprite.visible || !visible):
+		shadow.visible = false;
+	else:
+		shadow.visible = true;
 
 func styleChanged():
 	match (Global.CurrentStyle):

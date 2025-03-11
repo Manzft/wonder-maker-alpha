@@ -6,6 +6,7 @@ var endlevel = false;
 onready var currentSprite = get_node("SpriteGround");
 
 var shadow : Sprite = null
+var shadowdecoration : Sprite = null;
 
 var hasDecoration = false;
 var editPlaced = false;
@@ -57,11 +58,11 @@ func changeStyle():
 	get_parent().grid_node[grid.x][grid.y] = inst;
 	get_parent().add_child(inst);
 	inst.position = pos;
-
 	queue_free();
 
 func eraseShadow():
 	shadow.queue_free();
+	shadowdecoration.queue_free();
 
 func _ready():
 	Global.connect("render", self, "render");
@@ -79,7 +80,15 @@ func _ready():
 	spawnDecoration();
 
 func _process(delta):
-	if (shadow != null): shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	if (shadow != null):
+		shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	if (shadowdecoration != null && decorationType != ""):
+		shadowdecoration.show();
+		var node = Global.CurrentStyle+"/Decoration"+decorationType;
+		shadowdecoration.position = get_node(node).global_position+Vector2(3*3.25, 3*3.25);
+		shadowdecoration.texture = get_node(node).texture;
+	elif (shadowdecoration != null):
+		shadowdecoration.hide();
 
 func updateNearFloors():
 	var mygrid = get_parent().calculateGrid(position.x, position.y);
@@ -103,7 +112,6 @@ func spawnDecoration():
 			var mygrid = get_parent().calculateGrid(position.x, position.y);
 			if (isNotSolidOrDoesntExists(Vector2(mygrid.x, mygrid.y-1)) && isNotSolidOrDoesntExists(Vector2(mygrid.x, mygrid.y-2)) && isNotSolidOrDoesntExists(Vector2(mygrid.x, mygrid.y-3))):
 				get_node(Global.CurrentStyle+"/DecorationTall").show();
-				decorationType = "Tall";
 				hasDecoration = true;
 				if (editPlaced):
 					$SoundSpawnDecoration.play();
@@ -139,6 +147,7 @@ func quitAllDecoration():
 	get_node(Global.CurrentStyle+"/DecorationShort").hide();
 	get_node(Global.CurrentStyle+"/DecorationWide").hide();
 	
+	shadowdecoration.texture = null;
 	hasDecoration = false;
 	decorationType = "";
 
@@ -154,6 +163,10 @@ func swapDecorationStyle(previousStyle):
 	get_node(Global.CurrentStyle+"/DecorationTall").visible = vis1;
 	get_node(Global.CurrentStyle+"/DecorationShort").visible = vis2;
 	get_node(Global.CurrentStyle+"/DecorationWide").visible = vis3;
+	
+	if (vis1): shadowdecoration.texture = get_node(Global.CurrentStyle+"/DecorationTall").texture;
+	if (vis2): shadowdecoration.texture = get_node(Global.CurrentStyle+"/DecorationShort").texture;
+	if (vis3): shadowdecoration.texture = get_node(Global.CurrentStyle+"/DecorationWide").texture;
 
 func checkFloor(x, y):
 	var grid = Vector2(x, y);
@@ -214,14 +227,6 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
-	if (shadow == null):
-		pass
-	else:
-		shadow.queue_free();
-	shadow = Sprite.new();
-	shadow.texture = currentSprite.texture;
-	shadow.scale = currentSprite.scale
-	get_node("../ShadowViewport").add_child(shadow);
 	
 	if (Global.CurrentStyle == "Desert"):
 		if (!checkFloor(mygrid.x-1, mygrid.y) && !checkFloor(mygrid.x+1, mygrid.y) && checkFloor(mygrid.x, mygrid.y+1)):
@@ -246,6 +251,22 @@ func styleChanged():
 				currentSprite.hide();
 				currentSprite = get_node("SpriteSnow");
 				currentSprite.show();
+	
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = Sprite.new();
+	shadow.texture = currentSprite.texture;
+	shadow.scale = currentSprite.scale
+	get_node("../ShadowViewport").add_child(shadow);
+	if (shadowdecoration == null):
+		pass
+	else:
+		shadowdecoration.queue_free();
+	shadowdecoration = Sprite.new();
+	shadowdecoration.scale = currentSprite.scale;
+	get_node("../ShadowViewport").add_child(shadowdecoration);
 
 func levelFloorChanged(levelFloorGrid):
 	if (mygrid.x == levelFloorGrid.x+1):
