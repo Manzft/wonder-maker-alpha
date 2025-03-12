@@ -84,8 +84,9 @@ var CONTROLS_TRANSPARENCY = 100.0;
 var min_controls_transparency = 0.0;
 var max_controls_transparency = 100.0;
 var ENTITY_PHYSICS_SPEED = 100.0;
-var min_entity_physics_speed = 33.0;
+var min_entity_physics_speed = 25.0;
 var max_entity_physics_speed = 100.0;
+var PHYSICS_INTERPOLATION = false;
 
 var CurrentInput = "Mouse";
 
@@ -684,7 +685,8 @@ func loadSettings():
 			ENTITY_PHYSICS_SPEED = config.get_value(section, "Entity Physics Speed (%)", 100.0);
 			if (ENTITY_PHYSICS_SPEED < min_entity_physics_speed): ENTITY_PHYSICS_SPEED = min_entity_physics_speed;
 			if (ENTITY_PHYSICS_SPEED > max_entity_physics_speed): ENTITY_PHYSICS_SPEED = max_entity_physics_speed;
-			
+			PHYSICS_INTERPOLATION = config.get_value(section, "Physics Interpolation", false);
+	
 	OS.vsync_enabled = VSYNC;
 	if (SCREEN_16_9):
 		get_tree().set_screen_stretch(get_tree().STRETCH_MODE_2D, get_tree().STRETCH_ASPECT_KEEP, Vector2(1280, 720));
@@ -700,6 +702,7 @@ func saveSettings():
 	config.set_value("General", "Show Pause Button (Only PC)", SHOW_PAUSE_BUTTON);
 	config.set_value("General", "Touch Buttons Transparency (%)", CONTROLS_TRANSPARENCY);
 	config.set_value("General", "Entity Physics Speed (%)", ENTITY_PHYSICS_SPEED);
+	config.set_value("General", "Physics Interpolation", PHYSICS_INTERPOLATION);
 
 	config.save(get_game_dir()+"/config.ini");
 

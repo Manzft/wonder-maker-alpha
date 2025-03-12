@@ -189,10 +189,14 @@ func _process(_delta):
 			$SweatParticlesRight.emitting = false;
 			$AnimationPlayer.play("RESET");
 	
-	var pos = dupsprite.position.linear_interpolate(position, 0.5)
+	var position_difference = dupsprite.position.distance_to(position)
+	var pos = dupsprite.position.linear_interpolate(position, 0.35)
 	currentSprite.hide();
 	if (Global.playing):
-		dupsprite.position = position;
+		if (Global.PHYSICS_INTERPOLATION && Global.ENTITY_PHYSICS_SPEED < 100.0):
+			dupsprite.position = pos;
+		else:
+			dupsprite.position = position;
 	else:
 		dupsprite.position = position;
 	

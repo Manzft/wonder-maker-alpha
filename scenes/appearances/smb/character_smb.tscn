@@ -276,7 +276,6 @@ tracks/0/keys = {
 [node name="Character" type="KinematicBody2D" groups=["Character"]]
 z_index = 2
 collision_mask = 5
-collision/safe_margin = 0.01
 script = ExtResource( 22 )
 
 [node name="MushCollision" type="CollisionShape2D" parent="."]
