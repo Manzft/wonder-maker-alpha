@@ -14,7 +14,28 @@ var dead = false;
 
 var direction = "right";
 
+var shadow : AnimatedSprite
+var explosionshadow : AnimatedSprite
+
+func eraseShadow():
+	shadow.queue_free();
+	explosionshadow.queue_free();
+
 func _ready():
+	shadow = AnimatedSprite.new();
+	explosionshadow = AnimatedSprite.new();
+	
+	shadow.frames = $Sprite.frames;
+	shadow.animation = $Sprite.animation;
+	shadow.scale = $Sprite.scale;
+	
+	explosionshadow.frames = $SpriteExplosion.frames;
+	explosionshadow.animation = $SpriteExplosion.animation;
+	explosionshadow.scale = $SpriteExplosion.scale;
+	
+	get_node("../ShadowViewport").add_child(shadow);
+	get_node("../ShadowViewport").add_child(explosionshadow);
+	
 	$AnimationPlayer.play("idle");
 	
 	yield(get_tree(), "idle_frame");
@@ -24,8 +45,9 @@ func _ready():
 			$Sprite.play("right");
 		"left":
 			$Sprite.play("left");
-		
-	max_speed += abs(get_node("../Character").motion.x);
+	
+	if (!nogravity):
+		max_speed += abs(get_node("../Character").motion.x);
 	
 	if (nogravity):
 		match (vdirection):
@@ -46,15 +68,20 @@ func _ready():
 
 func _process(_delta):
 	if (!get_node("../Editor").playing):
+		eraseShadow();
 		queue_free();
 	
 	$CollisionShape2D.disabled = nogravity;
 	
-	$Sprite/Shadow.speed_scale = 0;
-	$Sprite/Shadow.frame = $Sprite.frame;
+	shadow.position = $Sprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.animation = $Sprite.animation;
+	shadow.frame = $Sprite.frame;
+	shadow.visible = $Sprite.visible;
 	
-	$SpriteExplosion/Shadow.speed_scale = 0;
-	$SpriteExplosion/Shadow.frame = $SpriteExplosion.frame;
+	explosionshadow.position = $SpriteExplosion.global_position+Vector2(3*3.25, 3*3.25);
+	explosionshadow.animation = $SpriteExplosion.animation;
+	explosionshadow.frame = $SpriteExplosion.frame;
+	explosionshadow.visible = $SpriteExplosion.visible;
 
 func _physics_process(_delta):
 	if (!dead):
@@ -63,6 +90,10 @@ func _physics_process(_delta):
 	
 	if (motion.y > max_fall && !nogravity):
 		motion.y = max_fall;
+		
+	if (position.y >= 1600 || position.y <= -16):
+		eraseShadow();
+		queue_free();
 		
 	motion = move_and_slide(motion, Vector2(0, -1));
 
@@ -85,20 +116,20 @@ func _on_Area2D_body_entered(body):
 	if (nogravity):
 		return;
 	
-	if (body.is_in_group("Enemy") && !body.is_in_group("Solid") && !body.is_in_group("Twomp") && !body.is_in_group("DryBones")):
+	if (body.is_in_group("Enemy") && !body.is_in_group("Solid")):
 		if (!dead && !body.dead):
-				motion.y = 0;
-				motion.x = 0;
-				dead = true;
-				$Sprite.hide();
-				$SpriteExplosion.frame = 0;
-				$SpriteExplosion.play("default");
-				$SpriteExplosion.show();
-				$DeadTimer.start();
-				get_node("../Character/SoundBrick").play();
+			motion.y = 0;
+			motion.x = 0;
+			dead = true;
+			$Sprite.hide();
+			$SpriteExplosion.frame = 0;
+			$SpriteExplosion.play("default");
+			$SpriteExplosion.show();
+			$DeadTimer.start();
+			get_node("../Character/SoundBrick").play();
+			if (!body.is_in_group("Twomp") && !body.is_in_group("DryBones")):
 				body.hitDead = true;
 				body.hit(direction);
-				body.currentSprite.get_node("Shadow").hide();
 	elif (body.is_in_group("Solid") || body.is_in_group("Floor")):
 		if (!dead):
 			if (body.is_in_group("FalseFloor")):
@@ -129,4 +160,5 @@ func _on_Area2D_body_entered(body):
 					get_node("../Character/SoundBrick").play();
 
 func _on_Dead_timeout():
+	eraseShadow();
 	queue_free();

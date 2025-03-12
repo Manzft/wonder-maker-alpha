@@ -31,22 +31,26 @@ var rendered = true;
 
 var shadow : AnimatedSprite;
 
-func render(group, forcerender = false):
+func render(group, forcerender = false, render_range = 60):
 	if (forcerender):
 		set_process(true);
 		set_physics_process(true);
 		return
-	if (group != ""): if (!is_in_group(group)): return
+	if (group != ""):
+		if (!is_in_group(group)):
+			return
 	var scrwidth = OS.get_window_size().x;
 	var scrheight = OS.get_window_size().y;
 	var multiplier = 720/scrheight;
 	var finalscrwidth = scrwidth * multiplier;
 	var distance = abs(position.x-Global.campos.x);
-	if (distance-(finalscrwidth/2) > finalscrwidth*0.5):
-		set_process(false); set_physics_process(false);
+	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+		set_process(false);
+		set_physics_process(false);
 	else:
-		set_process(true); set_physics_process(true);
-		
+		set_process(true);
+		set_physics_process(true);
+
 func floorErase():
 	var delete = false;
 	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
@@ -86,7 +90,7 @@ func _ready():
 
 func _process(_delta):
 	if (get_node("../Editor").playing):
-		currentSprite.frame = round(get_parent().syncanim.smb.muncher);
+		currentSprite.frame = floor(get_parent().syncanim.smb.muncher);
 		currentSprite.speed_scale = 1;
 		currentSprite.scale = Vector2(3.25, 3.25);
 		$SweatParticlesLeft.emitting = false;

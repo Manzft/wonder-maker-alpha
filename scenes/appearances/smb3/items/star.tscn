@@ -68,7 +68,7 @@ shape = SubResource( 1 )
 [node name="SpriteGround" type="AnimatedSprite" parent="."]
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 8 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="Shadow" type="Sprite" parent="SpriteGround"]
@@ -99,11 +99,5 @@ cast_to = Vector2( -3, 0 )
 position = Vector2( 24, 0 )
 enabled = true
 cast_to = Vector2( 3, 0 )
-
-[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
-position = Vector2( -9.53674e-07, 0 )
-scale = Vector2( 2.6, 2.6 )
-process_parent = true
-physics_process_parent = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

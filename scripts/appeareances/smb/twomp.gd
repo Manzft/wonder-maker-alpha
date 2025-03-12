@@ -84,7 +84,7 @@ func setGrids(val):
 				get_parent().grid_node[mygrid.x+i][mygrid.y+j] = self
 				get_parent().grid[mygrid.x+i][mygrid.y+j] = val
 
-func render(group, forcerender = false):
+func render(group, forcerender = false, render_range = 60):
 	if (forcerender):
 		set_process(true);
 		set_physics_process(true);
@@ -97,13 +97,13 @@ func render(group, forcerender = false):
 	var multiplier = 720/scrheight;
 	var finalscrwidth = scrwidth * multiplier;
 	var distance = abs(position.x-Global.campos.x);
-	if (distance-(finalscrwidth/2) > finalscrwidth*0.5):
+	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
 		set_process(false);
 		set_physics_process(false);
 	else:
 		set_process(true);
 		set_physics_process(true);
-		
+
 func floorErase():
 	var delete = false;
 	if (get_parent().calculateGrid(position.x, position.y).x <= 6):

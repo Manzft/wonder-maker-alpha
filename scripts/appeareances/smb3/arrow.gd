@@ -2,45 +2,102 @@ extends Node2D
 
 onready var currentSprite = get_node("SpriteGround");
 
-var extension_grid_size = 3;
-var extension_grid = [];
-var default_extension_grid = [Vector2(1, 0), Vector2(0, 1), Vector2(1, 1)];
+var grid_origin = Vector2(0, 0);
+var grid_end = Vector2(1, 1);
 
 var bye = false;
 
 var seldirection = "right";
 
+var shadow : Sprite;
+
 func setupExtensionGrids(start = false):
 	var a = true;
-	for i in range(extension_grid_size):
-		var e = default_extension_grid[i];
-		var mygrid = get_parent().calculateGrid(position.x, position.y);
-		extension_grid[i] = mygrid+e;
-		if (get_parent().grid_node[extension_grid[i].x][extension_grid[i].y] != null && start):
-			a = false;
-			bye = true;
+	var mygrid = get_parent().calculateGrid(position.x, position.y);
+	for i in range(grid_end.x+1):
+		for j in range(grid_end.y+1):
+			if (Vector2(i, j) != grid_origin):
+				if (get_parent().grid_node[mygrid.x+i][mygrid.y+j] != null && start):
+					a = false;
+					bye = true;
 	return a;
 
 func setGrids(val):
-	setupExtensionGrids();
-	for i in range(extension_grid_size):
-		get_parent().grid[extension_grid[i].x][extension_grid[i].y] = val;
-		get_parent().grid_node[extension_grid[i].x][extension_grid[i].y] = self;
+	var mygrid = get_parent().calculateGrid(position.x, position.y);
+	for i in range(grid_end.x+1):
+		for j in range(grid_end.y+1):
+			if (Vector2(i, j) != grid_origin):
+				get_parent().grid_node[mygrid.x+i][mygrid.y+j] = self
+				get_parent().grid[mygrid.x+i][mygrid.y+j] = val
+
+func render(group, forcerender = false, render_range = 60):
+	if (forcerender):
+		set_process(true);
+		set_physics_process(true);
+		return
+	if (group != ""):
+		if (!is_in_group(group)):
+			return
+	var scrwidth = OS.get_window_size().x;
+	var scrheight = OS.get_window_size().y;
+	var multiplier = 720/scrheight;
+	var finalscrwidth = scrwidth * multiplier;
+	var distance = abs(position.x-Global.campos.x);
+	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+		set_process(false);
+		set_physics_process(false);
+	else:
+		set_process(true);
+		set_physics_process(true);
+
+func floorErase():
+	var delete = false;
+	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
+		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../LevelFloor").current_grid.y):
+			delete = true;
+	if (get_parent().calculateGrid(position.x, position.y).x >= get_node("../EndFloor").current_grid.x-1):
+		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../EndFloor").current_grid.y):
+			delete = true;
+
+	if (delete):
+		get_parent().eraseObject(position, false);
+
+func erase():
+	get_parent().eraseObject(position, false);
+
+func changeStyle():
+	var pos = position;
+	var grid = get_parent().calculateGrid(pos.x, pos.y);
+	var obj = get_parent().grid[grid.x][grid.y];
+	var scene = Global.object[Global.CurrentAppeareance][obj][Global.OP_SCENE];
+	var inst = scene.instance();
+	get_parent().grid_node[grid.x][grid.y] = inst;
+	get_parent().add_child(inst);
+	inst.position = pos;
+	inst.seldirection = seldirection;
+	var mygrid = get_parent().calculateGrid(position.x, position.y);
+	for i in range(grid_end.x+1):
+		for j in range(grid_end.y+1):
+			if (Vector2(i, j) != grid_origin):
+				get_parent().grid_node[grid.x+i][grid.y+j] = inst;
+	queue_free();
+
+func eraseShadow():
+	shadow.queue_free();
 
 func _ready():
+	Global.connect("render", self, "render");
+	Global.connect("floorErase", self, "floorErase");
+	Global.connect("changeStyle", self, "changeStyle");
+	Global.connect("erase", self, "erase");
 	styleChanged();
-	for i in range(50):
-		extension_grid.append([]);
-	for i in range(50):
-		extension_grid[i] = null;
-	
 	yield(get_tree(), "idle_frame");
 	if (get_parent().editing):
 		$AnimationPlayer.play("start");
-	$VisibilityEnabler2D.emit_signal("screen_exited")
 
 func _process(_delta):
 	if (bye):
+		eraseShadow();
 		queue_free();
 		
 	$DirectionButton/ArrowLeft.hide();
@@ -55,47 +112,51 @@ func _process(_delta):
 	match (seldirection):
 		"down":
 			$DirectionButton/ArrowDown.show();
-			currentSprite.rotation_degrees = 90;
-			currentSprite.get_node("Shadow").position = Vector2(3, -3);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(90.0), 0.25);
 		"up":
 			$DirectionButton/ArrowUp.show();
-			currentSprite.rotation_degrees = 270;
-			currentSprite.get_node("Shadow").position = Vector2(-3, 3);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(270.0), 0.25);
 		"left":
 			$DirectionButton/ArrowLeft.show();
-			currentSprite.rotation_degrees = 180;
-			currentSprite.get_node("Shadow").position = Vector2(-3, -3);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(180.0), 0.25);
 		"right":
 			$DirectionButton/ArrowRight.show();
-			currentSprite.rotation_degrees = 0;
-			currentSprite.get_node("Shadow").position = Vector2(3, 3);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(0.0), 0.25);
 		#----------------------------------------------------------
 		"leftdown":
 			$DirectionButton/ArrowLeftDown.show();
-			currentSprite.rotation_degrees = 135;
-			currentSprite.get_node("Shadow").position = Vector2(0, -3);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(135.0), 0.25);
 		"leftup":
 			$DirectionButton/ArrowLeftUp.show();
-			currentSprite.rotation_degrees = 225;
-			currentSprite.get_node("Shadow").position = Vector2(-3, 0);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(225.0), 0.25);
 		"rightdown":
 			$DirectionButton/ArrowRightDown.show();
-			currentSprite.rotation_degrees = 45;
-			currentSprite.get_node("Shadow").position = Vector2(3, 0);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(45.0), 0.25);
 		"rightup":
 			$DirectionButton/ArrowRightUp.show();
-			currentSprite.rotation_degrees = 315;
-			currentSprite.get_node("Shadow").position = Vector2(0, 3);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(315.0), 0.25);
 	
 	if (get_node("../Editor").playing):
 		$DirectionButton.hide();
 	else:
 		$DirectionButton.show();
+	
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.scale = currentSprite.scale;
+	shadow.rotation_degrees = currentSprite.rotation_degrees;
 
 func styleChanged():
 	match (Global.CurrentStyle):
 		_:
 			pass
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = Sprite.new();
+	shadow.texture = currentSprite.texture;
+	shadow.scale = currentSprite.scale
+	get_node("../ShadowViewport").add_child(shadow);
 
 func _on_DirectionButton_pressed():
 	match (seldirection):

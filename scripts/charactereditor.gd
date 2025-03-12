@@ -24,12 +24,13 @@ func add_shadow(ref):
 	sprite.scale = scale;
 	sprite.frames = ref.frames;
 	sprite.animation = ref.animation;
+	sprite.add_to_group("CharacterEditorShadow");
 	get_node("../ShadowViewport").add_child(sprite);
 	return sprite
 
 func _ready():
 	shadows["SMB"] = add_shadow($SMB);
-	shadows["SMB3"] = add_shadow($SMB);
+	shadows["SMB3"] = add_shadow($SMB3);
 	yield(get_tree(), "idle_frame");
 	calculate(position, true);
 	current_grid = mygrid;
@@ -70,12 +71,16 @@ func _process(_delta):
 	shadows["SMB"].frame = $SMB.frame;
 	shadows["SMB"].animation = $SMB.animation;
 	shadows["SMB"].position = $SMB.global_position+Vector2(3*3.25, 3*3.25);
-	shadows["SMB"].visible = visible;
+	shadows["SMB"].visible = $SMB.visible;
 	
 	shadows["SMB3"].frame = $SMB3.frame;
 	shadows["SMB3"].animation = $SMB3.animation;
 	shadows["SMB3"].position = $SMB3.global_position+Vector2(3*3.25, 3*3.25);
-	shadows["SMB3"].visible = visible;
+	shadows["SMB3"].visible = $SMB3.visible;
+	
+	if (!visible):
+		shadows["SMB"].visible = false;
+		shadows["SMB3"].visible = false;
 	
 	if (Global.CurrentInput == "Gamepad" && selected):
 		var mpos = get_parent().get_node("Editor/GamepadCursor").rect_position+get_parent().get_node("Camera2D").position;

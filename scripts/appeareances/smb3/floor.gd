@@ -4,7 +4,7 @@ var floorlevel = false;
 var endlevel = false;
 
 onready var currentSprite = get_node("SpriteGround");
-onready var subCurrentSprite = get_node("SpriteGround/CenterAlone");
+onready var subCurrentSprite = get_node("SpriteGround/Sprite");
 
 var hasDecoration = false;
 var editPlaced = false;
@@ -12,7 +12,64 @@ var decorationType = "";
 
 var mygrid = Vector2();
 
+var shadow : Sprite;
+var shadowdecoration : Sprite
+
+func render(group, forcerender = false, render_range = 60):
+	if (forcerender):
+		set_process(true);
+		set_physics_process(true);
+		return
+	if (group != ""):
+		if (!is_in_group(group)):
+			return
+	var scrwidth = OS.get_window_size().x;
+	var scrheight = OS.get_window_size().y;
+	var multiplier = 720/scrheight;
+	var finalscrwidth = scrwidth * multiplier;
+	var distance = abs(position.x-Global.campos.x);
+	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+		set_process(false);
+		set_physics_process(false);
+	else:
+		set_process(true);
+		set_physics_process(true);
+
+func floorErase():
+	var delete = false;
+	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
+		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../LevelFloor").current_grid.y):
+			delete = true;
+	if (get_parent().calculateGrid(position.x, position.y).x >= get_node("../EndFloor").current_grid.x-1):
+		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../EndFloor").current_grid.y):
+			delete = true;
+
+	if (delete):
+		get_parent().eraseObject(position, false);
+
+func erase():
+	get_parent().eraseObject(position, false);
+
+func changeStyle():
+	var pos = position;
+	var grid = get_parent().calculateGrid(pos.x, pos.y);
+	var obj = get_parent().grid[grid.x][grid.y];
+	var scene = Global.object[Global.CurrentAppeareance][obj][Global.OP_SCENE];
+	var inst = scene.instance();
+	get_parent().grid_node[grid.x][grid.y] = inst;
+	get_parent().add_child(inst);
+	inst.position = pos;
+	queue_free();
+
+func eraseShadow():
+	shadow.queue_free();
+	shadowdecoration.queue_free();
+
 func _ready():
+	Global.connect("render", self, "render");
+	Global.connect("floorErase", self, "floorErase");
+	Global.connect("changeStyle", self, "changeStyle");
+	Global.connect("erase", self, "erase");
 	get_node("../LevelFloor").connect("levelFloorChanged", self, "levelFloorChanged");
 	get_node("../EndFloor").connect("endFloorChanged", self, "endFloorChanged");
 	yield(get_tree(), "idle_frame");
@@ -139,16 +196,16 @@ func checkFloor(x, y):
 	return check;
 
 func _process(_delta):
-	var delete = false;
-	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
-		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../LevelFloor").current_grid.y):
-			delete = true;
-	if (get_parent().calculateGrid(position.x, position.y).x >= get_node("../EndFloor").current_grid.x-1):
-		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../EndFloor").current_grid.y):
-			delete = true;
-
-	if (delete):
-		get_parent().eraseObject(position, false);
+	if (shadow != null):
+		shadow.position = currentSprite.get_node("Sprite").global_position+Vector2(3*3.25, 3*3.25);
+		shadow.frame = currentSprite.get_node("Sprite").frame;
+	if (shadowdecoration != null && decorationType != ""):
+		shadowdecoration.show();
+		var node = Global.CurrentStyle+"/Decoration"+decorationType;
+		shadowdecoration.position = get_node(node).global_position+Vector2(3*3.25, 3*3.25);
+		shadowdecoration.texture = get_node(node).texture;
+	elif (shadowdecoration != null):
+		shadowdecoration.hide();
 
 func styleChanged():
 	swapDecorationStyle(currentSprite.get_name().trim_prefix("Sprite").trim_suffix("Variant").trim_suffix("Top"));
@@ -194,174 +251,94 @@ func styleChanged():
 	&& checkFloor(mygrid.x+1, mygrid.y)
 	&& !checkFloor(mygrid.x, mygrid.y-1)
 	&& checkFloor(mygrid.x, mygrid.y+1)):
-		if (subCurrentSprite != get_node(currentsprite+"/Up")):
-			subCurrentSprite.hide();
-			subCurrentSprite = get_node(currentsprite+"/Up");
-			subCurrentSprite.show();
-			hideShadows();
-			get_node(currentsprite+"/ShadowFull").show();
+		get_node(currentsprite+"/Sprite").frame_coords = Vector2(3, 0);
 	#Up Left
 	elif (!checkFloor(mygrid.x-1, mygrid.y)
 	&& checkFloor(mygrid.x+1, mygrid.y)
 	&& !checkFloor(mygrid.x, mygrid.y-1)
 	&& checkFloor(mygrid.x, mygrid.y+1)):
-		if (subCurrentSprite != get_node(currentsprite+"/UpLeft")):
-			subCurrentSprite.hide();
-			subCurrentSprite = get_node(currentsprite+"/UpLeft");
-			subCurrentSprite.show();
-			hideShadows();
-			get_node(currentsprite+"/ShadowFull").show();
+		get_node(currentsprite+"/Sprite").frame_coords = Vector2(2, 0);
 	#Up Right
 	elif (checkFloor(mygrid.x-1, mygrid.y)
 	&& !checkFloor(mygrid.x+1, mygrid.y)
 	&& !checkFloor(mygrid.x, mygrid.y-1)
 	&& checkFloor(mygrid.x, mygrid.y+1)):
-		if (subCurrentSprite != get_node(currentsprite+"/UpRight")):
-			subCurrentSprite.hide();
-			subCurrentSprite = get_node(currentsprite+"/UpRight");
-			subCurrentSprite.show();
-			hideShadows();
-			get_node(currentsprite+"/ShadowUpRight").show();
+		get_node(currentsprite+"/Sprite").frame_coords = Vector2(4, 0);
 	#Center
 	elif (checkFloor(mygrid.x-1, mygrid.y)
 	&& checkFloor(mygrid.x+1, mygrid.y)
 	&& checkFloor(mygrid.x, mygrid.y-1)
 	&& checkFloor(mygrid.x, mygrid.y+1)):
-		if (subCurrentSprite != get_node(currentsprite+"/Center")):
-			subCurrentSprite.hide();
-			subCurrentSprite = get_node(currentsprite+"/Center");
-			subCurrentSprite.show();
-			hideShadows();
-			get_node(currentsprite+"/ShadowFull").show();
+		get_node(currentsprite+"/Sprite").frame_coords = Vector2(3, 1);
 	#Left
 	elif (!checkFloor(mygrid.x-1, mygrid.y)
 	&& checkFloor(mygrid.x+1, mygrid.y)
 	&& checkFloor(mygrid.x, mygrid.y-1)
 	&& checkFloor(mygrid.x, mygrid.y+1)):
-		if (subCurrentSprite != get_node(currentsprite+"/Left")):
-			subCurrentSprite.hide();
-			subCurrentSprite = get_node(currentsprite+"/Left");
-			subCurrentSprite.show();
-			hideShadows();
-			get_node(currentsprite+"/ShadowFull").show();
+		get_node(currentsprite+"/Sprite").frame_coords = Vector2(2, 1);
 	#Right
 	elif (checkFloor(mygrid.x-1, mygrid.y)
 	&& !checkFloor(mygrid.x+1, mygrid.y)
 	&& checkFloor(mygrid.x, mygrid.y-1)
 	&& checkFloor(mygrid.x, mygrid.y+1)):
-		if (subCurrentSprite != get_node(currentsprite+"/Right")):
-			subCurrentSprite.hide();
-			subCurrentSprite = get_node(currentsprite+"/Right");
-			subCurrentSprite.show();
-			hideShadows();
-			get_node(currentsprite+"/ShadowFull").show();
+		get_node(currentsprite+"/Sprite").frame_coords = Vector2(4, 1);
 	#Down
 	elif (checkFloor(mygrid.x-1, mygrid.y)
 	&& checkFloor(mygrid.x+1, mygrid.y)
 	&& checkFloor(mygrid.x, mygrid.y-1)
 	&& !checkFloor(mygrid.x, mygrid.y+1)):
-		if (subCurrentSprite != get_node(currentsprite+"/Down")):
-			subCurrentSprite.hide();
-			subCurrentSprite = get_node(currentsprite+"/Down");
-			subCurrentSprite.show();
-			hideShadows();
-			get_node(currentsprite+"/ShadowFull").show();
+		get_node(currentsprite+"/Sprite").frame_coords = Vector2(3, 2);
 	#Down Left
 	elif (!checkFloor(mygrid.x-1, mygrid.y)
 	&& checkFloor(mygrid.x+1, mygrid.y)
 	&& checkFloor(mygrid.x, mygrid.y-1)
 	&& !checkFloor(mygrid.x, mygrid.y+1)):
-		if (subCurrentSprite != get_node(currentsprite+"/DownLeft")):
-			subCurrentSprite.hide();
-			subCurrentSprite = get_node(currentsprite+"/DownLeft");
-			subCurrentSprite.show();
-			hideShadows();
-			get_node(currentsprite+"/ShadowDownLeft").show();
+		get_node(currentsprite+"/Sprite").frame_coords = Vector2(2, 2);
 	#Down Right
 	elif (checkFloor(mygrid.x-1, mygrid.y)
 	&& !checkFloor(mygrid.x+1, mygrid.y)
 	&& checkFloor(mygrid.x, mygrid.y-1)
 	&& !checkFloor(mygrid.x, mygrid.y+1)):
-		if (subCurrentSprite != get_node(currentsprite+"/DownRight")):
-			subCurrentSprite.hide();
-			subCurrentSprite = get_node(currentsprite+"/DownRight");
-			subCurrentSprite.show();
-			hideShadows();
-			get_node(currentsprite+"/ShadowDownRight").show();
+		get_node(currentsprite+"/Sprite").frame_coords = Vector2(4, 2);
 	#Left Alone
 	elif (!checkFloor(mygrid.x-1, mygrid.y)
 	&& checkFloor(mygrid.x+1, mygrid.y)
 	&& !checkFloor(mygrid.x, mygrid.y-1)
 	&& !checkFloor(mygrid.x, mygrid.y+1)):
-		if (subCurrentSprite != get_node(currentsprite+"/LeftAlone")):
-			subCurrentSprite.hide();
-			subCurrentSprite = get_node(currentsprite+"/LeftAlone");
-			subCurrentSprite.show();
-			hideShadows();
-			get_node(currentsprite+"/ShadowDownLeft").show();
+		get_node(currentsprite+"/Sprite").frame_coords = Vector2(0, 3);
 	#Right Alone
 	elif (checkFloor(mygrid.x-1, mygrid.y)
 	&& !checkFloor(mygrid.x+1, mygrid.y)
 	&& !checkFloor(mygrid.x, mygrid.y-1)
 	&& !checkFloor(mygrid.x, mygrid.y+1)):
-		if (subCurrentSprite != get_node(currentsprite+"/RightAlone")):
-			subCurrentSprite.hide();
-			subCurrentSprite = get_node(currentsprite+"/RightAlone");
-			subCurrentSprite.show();
-			hideShadows();
-			get_node(currentsprite+"/ShadowRightAlone").show();
+		get_node(currentsprite+"/Sprite").frame_coords = Vector2(2, 3);
 	#Down Alone
 	elif (!checkFloor(mygrid.x-1, mygrid.y)
 	&& !checkFloor(mygrid.x+1, mygrid.y)
 	&& checkFloor(mygrid.x, mygrid.y-1)
 	&& !checkFloor(mygrid.x, mygrid.y+1)):
-		if (subCurrentSprite != get_node(currentsprite+"/DownAlone")):
-			subCurrentSprite.hide();
-			subCurrentSprite = get_node(currentsprite+"/DownAlone");
-			subCurrentSprite.show();
-			hideShadows();
-			get_node(currentsprite+"/ShadowDownAlone").show();
+		get_node(currentsprite+"/Sprite").frame_coords = Vector2(1, 2);
 	#Up Alone
 	elif (!checkFloor(mygrid.x-1, mygrid.y)
 	&& !checkFloor(mygrid.x+1, mygrid.y)
 	&& !checkFloor(mygrid.x, mygrid.y-1)
 	&& checkFloor(mygrid.x, mygrid.y+1)):
-		if (subCurrentSprite != get_node(currentsprite+"/UpAlone")):
-			subCurrentSprite.hide();
-			subCurrentSprite = get_node(currentsprite+"/UpAlone");
-			subCurrentSprite.show();
-			hideShadows();
-			get_node(currentsprite+"/ShadowUpRight").show();
+		get_node(currentsprite+"/Sprite").frame_coords = Vector2(1, 0);
 	#Horizontal Alone
 	elif (checkFloor(mygrid.x-1, mygrid.y)
 	&& checkFloor(mygrid.x+1, mygrid.y)
 	&& !checkFloor(mygrid.x, mygrid.y-1)
 	&& !checkFloor(mygrid.x, mygrid.y+1)):
-		if (subCurrentSprite != get_node(currentsprite+"/HorizontalAlone")):
-			subCurrentSprite.hide();
-			subCurrentSprite = get_node(currentsprite+"/HorizontalAlone");
-			subCurrentSprite.show();
-			hideShadows();
-			get_node(currentsprite+"/ShadowFull").show();
+		get_node(currentsprite+"/Sprite").frame_coords = Vector2(1, 3);
 	#Vertical Alone
 	elif (!checkFloor(mygrid.x-1, mygrid.y)
 	&& !checkFloor(mygrid.x+1, mygrid.y)
 	&& checkFloor(mygrid.x, mygrid.y-1)
 	&& checkFloor(mygrid.x, mygrid.y+1)):
-		if (subCurrentSprite != get_node(currentsprite+"/VerticalAlone")):
-			subCurrentSprite.hide();
-			subCurrentSprite = get_node(currentsprite+"/VerticalAlone");
-			subCurrentSprite.show();
-			hideShadows();
-			get_node(currentsprite+"/ShadowFull").show();
+		get_node(currentsprite+"/Sprite").frame_coords = Vector2(1, 1);
 	#Center Alone
 	else:
-		if (subCurrentSprite != get_node(currentsprite+"/CenterAlone")):
-			subCurrentSprite.hide();
-			subCurrentSprite = get_node(currentsprite+"/CenterAlone");
-			subCurrentSprite.show();
-			hideShadows();
-			get_node(currentsprite+"/Shadow").show();
+		get_node(currentsprite+"/Sprite").frame_coords = Vector2(0, 0);
 			
 	var levelFloorGrid = get_parent().calculateGrid(get_node("../LevelFloor").position.x, get_node("../LevelFloor").position.y);
 	var endFloorGrid = get_parent().calculateGrid(get_node("../EndFloor").position.x, get_node("../EndFloor").position.y);
@@ -376,6 +353,25 @@ func styleChanged():
 			get_node(currentsprite+"/FalseUp2").show();
 		if (mygrid.y > endFloorGrid.y):
 			get_node(currentsprite+"/FalseCenter2").show();
+	
+	
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = Sprite.new();
+	shadow.scale = currentSprite.scale
+	shadow.hframes = currentSprite.get_node("Sprite").hframes;
+	shadow.vframes = currentSprite.get_node("Sprite").vframes;
+	shadow.texture = currentSprite.get_node("Sprite").texture;
+	get_node("../ShadowViewport").add_child(shadow);
+	if (shadowdecoration == null):
+		pass
+	else:
+		shadowdecoration.queue_free();
+	shadowdecoration = Sprite.new();
+	shadowdecoration.scale = currentSprite.scale;
+	get_node("../ShadowViewport").add_child(shadowdecoration);
 
 func levelFloorChanged(levelFloorGrid):
 	if (mygrid.x == levelFloorGrid.x+1):

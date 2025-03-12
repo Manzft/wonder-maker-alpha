@@ -12,7 +12,24 @@ var dir = "";
 
 onready var currentSprite = self
 
+var shadow : Sprite = null
+
+func _ready():
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = Sprite.new();
+	shadow.texture = currentSprite.texture;
+	shadow.scale = currentSprite.scale
+	get_node("../ShadowViewport").add_child(shadow);
+
+func eraseShadow():
+	shadow.queue_free();
+
 func _physics_process(delta):
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.rotation_degrees = rotation_degrees;
 	if (dir == ""):
 		randomize();
 		var ir = round(rand_range(0, 2));

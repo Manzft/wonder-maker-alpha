@@ -66,7 +66,7 @@ void fragment() {
 [sub_resource type="ShaderMaterial" id=21]
 shader = SubResource( 20 )
 shader_param/tint_active = false
-shader_param/tint_color = Color( 0.11, 0.11, 0.11, 1 )
+shader_param/tint_color = Color( 0.113725, 0.113725, 0.113725, 1 )
 
 [sub_resource type="ViewportTexture" id=19]
 viewport_path = NodePath("ShadowViewport")

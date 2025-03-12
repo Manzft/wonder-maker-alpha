@@ -45,13 +45,6 @@ position = Vector2( 26, 26 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 2 )
 
-[node name="Shadow" type="Sprite" parent="SpriteGround"]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-texture = ExtResource( 2 )
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 10.0
 anims/RESET = SubResource( 2 )
@@ -178,12 +171,6 @@ texture = ExtResource( 5 )
 [node name="AudioGrabMove" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
 volume_db = 5.0
-
-[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
-position = Vector2( 30, 28.5 )
-scale = Vector2( 5.6, 5.45 )
-process_parent = true
-physics_process_parent = true
 
 [connection signal="mouse_entered" from="DirectionButton" to="." method="_on_DirectionButton_mouse_entered"]
 [connection signal="mouse_exited" from="DirectionButton" to="." method="_on_DirectionButton_mouse_exited"]

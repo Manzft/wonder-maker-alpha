@@ -1718,6 +1718,9 @@ func appearanceChange(app, start = false):
 		editorMusic(true, false);
 	
 	if (!start):
+		for node in get_node("../ShadowViewport").get_children():
+			if (!node.is_in_group("CharacterEditorShadow")):
+				node.queue_free();
 		Global.emit_signal("changeStyle");
 		#var objects = 0;
 #		var nodes = get_tree().get_nodes_in_group("Obj");
@@ -1843,7 +1846,7 @@ func styleChange(style, start = false):
 			get_parent().get_node("ShadowLayer").material.set_shader_param("tint_active", true)
 			get_parent().get_node("ShadowLayer").modulate = Color(1, 1, 1, 1);
 		if (style == "Ghostforest"):
-			get_parent().get_node("ShadowLayer").material.set_shader_param("tint_color", Color(0.17, 0.08, 0.29, 1))
+			get_parent().get_node("ShadowLayer").material.set_shader_param("tint_color", Color(0.13, 0.08, 0.24, 1))
 		else:
 			get_parent().get_node("ShadowLayer").material.set_shader_param("tint_color", Color(0.11, 0.11, 0.1, 1))
 	else:

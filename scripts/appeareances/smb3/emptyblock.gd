@@ -2,9 +2,13 @@ extends Node2D
 
 onready var currentSprite = get_node("SpriteGround");
 
+var shadow : Sprite = null;
+
 func _process(_delta):
 	if (!Global.playing):
+		shadow.queue_free();
 		queue_free();
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
 
 func _ready():
 	match (Global.CurrentStyle):
@@ -24,3 +28,11 @@ func _ready():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = Sprite.new();
+	shadow.texture = currentSprite.texture;
+	shadow.scale = scale
+	get_node("../ShadowViewport").add_child(shadow);

@@ -1,11 +1,20 @@
 extends KinematicBody2D
 
-const max_walk_speed = 250;
-const jump_h  = -700;
-const other_jump_h  = -250;
-const gravity = 30;
-const max_fall = jump_h*-1;
-const other_max_fall = other_jump_h*-3;
+var def_max_walk_speed = 250;
+var def_jump_h  = -700;
+var def_other_jump_h  = -250;
+var def_gravity = 30;
+var def_max_fall = jump_h*-1;
+var def_other_max_fall = other_jump_h*-3;
+
+var max_walk_speed = 250;
+var jump_h  = -700;
+var other_jump_h  = -250;
+var gravity = 30;
+var max_fall = jump_h*-1;
+var other_max_fall = other_jump_h*-3;
+
+var timer = 0.0;
 
 onready var currentSprite = get_node("SpriteGround");
 
@@ -50,9 +59,8 @@ var temporary_vspeed = 0.0;
 
 var ready = true;
 
-var extension_grid_size = 3;
-var extension_grid = [];
-var default_extension_grid = [Vector2(1, 0), Vector2(0, 1), Vector2(1, 1)];
+var grid_origin = Vector2(0, 0);
+var grid_end = Vector2(1, 1);
 
 var bye = false;
 
@@ -63,41 +71,106 @@ var seldirection = "down";
 var canswitchonoff = true;
 var canswitchonoff2 = true;
 
+var shadow : AnimatedSprite;
+
+func setupExtensionGrids(start = false):
+	var a = true;
+	var mygrid = get_parent().calculateGrid(position.x, position.y);
+	for i in range(grid_end.x+1):
+		for j in range(grid_end.y+1):
+			if (Vector2(i, j) != grid_origin):
+				if (get_parent().grid_node[mygrid.x+i][mygrid.y+j] != null && start):
+					a = false;
+					bye = true;
+	
+	return a;
+
+func setGrids(val):
+	var mygrid = get_parent().calculateGrid(position.x, position.y);
+	for i in range(grid_end.x+1):
+		for j in range(grid_end.y+1):
+			if (Vector2(i, j) != grid_origin):
+				get_parent().grid_node[mygrid.x+i][mygrid.y+j] = self
+				get_parent().grid[mygrid.x+i][mygrid.y+j] = val
+
+func render(group, forcerender = false, render_range = 60):
+	if (forcerender):
+		set_process(true);
+		set_physics_process(true);
+		return
+	if (group != ""):
+		if (!is_in_group(group)):
+			return
+	var scrwidth = OS.get_window_size().x;
+	var scrheight = OS.get_window_size().y;
+	var multiplier = 720/scrheight;
+	var finalscrwidth = scrwidth * multiplier;
+	var distance = abs(position.x-Global.campos.x);
+	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+		set_process(false);
+		set_physics_process(false);
+	else:
+		set_process(true);
+		set_physics_process(true);
+
+func floorErase():
+	var delete = false;
+	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
+		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../LevelFloor").current_grid.y):
+			delete = true;
+	if (get_parent().calculateGrid(position.x, position.y).x >= get_node("../EndFloor").current_grid.x-1):
+		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../EndFloor").current_grid.y):
+			delete = true;
+
+	if (delete):
+		get_parent().eraseObject(position, false);
+
+func erase():
+	get_parent().eraseObject(position, false);
+
+func changeStyle():
+	var pos = position;
+	var grid = get_parent().calculateGrid(pos.x, pos.y);
+	var obj = get_parent().grid[grid.x][grid.y];
+	var scene = Global.object[Global.CurrentAppeareance][obj][Global.OP_SCENE];
+	var inst = scene.instance();
+	get_parent().grid_node[grid.x][grid.y] = inst;
+	get_parent().add_child(inst);
+	inst.position = pos;
+	inst.seldirection = seldirection;
+	var mygrid = get_parent().calculateGrid(position.x, position.y);
+	for i in range(grid_end.x+1):
+		for j in range(grid_end.y+1):
+			if (Vector2(i, j) != grid_origin):
+				get_parent().grid_node[grid.x+i][grid.y+j] = inst;
+
+	queue_free();
+
+func eraseShadow():
+	shadow.queue_free();
+
 func _ready():
+	max_walk_speed = def_max_walk_speed/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	jump_h  = def_jump_h/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	other_jump_h  = def_other_jump_h/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	gravity = def_gravity/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	max_fall = def_max_fall/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	other_max_fall = def_max_fall/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	Global.connect("render", self, "render");
+	Global.connect("floorErase", self, "floorErase");
+	Global.connect("changeStyle", self, "changeStyle");
+	Global.connect("erase", self, "erase");
 	hide();
 	styleChanged();
-	for i in range(50):
-		extension_grid.append([]);
-	for i in range(50):
-		extension_grid[i] = null;
 	yield(get_tree(), "idle_frame");
 	$AnimationPlayer.play("start");
 	startPos = position;
 	ready = true;
 
-func setupExtensionGrids(start = false):
-	var a = true;
-	for i in range(extension_grid_size):
-		var e = default_extension_grid[i];
-		var mygrid = get_parent().calculateGrid(position.x, position.y);
-		extension_grid[i] = mygrid+e;
-		if (get_parent().grid_node[extension_grid[i].x][extension_grid[i].y] != null && start):
-			a = false;
-			bye = true;
-	return a;
-
-func setGrids(val):
-	setupExtensionGrids();
-	for i in range(extension_grid_size):
-		get_parent().grid[extension_grid[i].x][extension_grid[i].y] = val;
-		get_parent().grid_node[extension_grid[i].x][extension_grid[i].y] = self;
-
 func _process(_delta):
 	if (bye):
+		eraseShadow();
 		queue_free();
-	
-	currentSprite.get_node("Shadow").frame = currentSprite.frame;
-	currentSprite.get_node("Shadow").animation = currentSprite.animation;
 	
 	$DirectionButton/ArrowLeft.hide();
 	$DirectionButton/ArrowRight.hide();
@@ -119,9 +192,11 @@ func _process(_delta):
 		$SweatParticlesLeft.emitting = false;
 		$SweatParticlesRight.emitting = false;
 		if (get_node("../Character").changingPowerup ||get_node("../Character").invincible || get_node("../Character").star || get_node("../Character").died):
-			$StaticBody2D/CollisionShape2D.disabled = true;
+			pass
+			#$StaticBody2D/CollisionShape2D.disabled = true;
 		else:
-			$StaticBody2D/CollisionShape2D.disabled = false;
+			pass
+			#$StaticBody2D/CollisionShape2D.disabled = false;
 		
 		$DirectionButton.hide();
 		
@@ -148,6 +223,7 @@ func _process(_delta):
 					get_node("../Character/SoundShellHit").play();
 	else:
 		if (insided):
+			eraseShadow();
 			queue_free();
 		
 		if (!visible && ready):
@@ -159,7 +235,6 @@ func _process(_delta):
 			active = false
 			hitCharacter = false;
 			position = startPos;
-			currentSprite.get_node("Shadow").show();
 		
 		$DirectionButton.show();
 		startPos = position;
@@ -172,7 +247,7 @@ func _process(_delta):
 		attacking = false;
 		comingBack = false;
 		$CollisionShape2D.disabled = false;
-		$StaticBody2D/CollisionShape2D.disabled = false;
+		#$StaticBody2D/CollisionShape2D.disabled = false;
 		
 		if (get_parent().grab && get_parent().grab_node == self):
 			currentSprite.play("attack");
@@ -203,6 +278,13 @@ func _process(_delta):
 						_on_DirectionButton_pressed();
 			else:
 				get_node("../Editor").externalButton = false;
+	shadow.frame = currentSprite.frame;
+	shadow.animation = currentSprite.animation;
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.rotation_degrees = currentSprite.rotation_degrees;
+	shadow.visible = visible;
+	shadow.flip_h = currentSprite.flip_h;
+	shadow.flip_v = currentSprite.flip_v;
 
 func _physics_process(delta):
 	if (!get_node("../Editor").playing):
@@ -322,9 +404,9 @@ func _physics_process(delta):
 						if (get_node("../Character").position.x < position.x):
 							check = true;
 					
-					if (distance <= 52*3 && check && distancex <= 52*5):
+					if (distance <= 52*4 && check && distancex <= 52*6):
 						attacking = true;
-					elif (distance <= 52*4 && check && distancex <= 52*6):
+					elif (distance <= 52*5 && check && distancex <= 52*7):
 						currentSprite.play("ready_side");
 						if (seldirection == "right"):
 							currentSprite.flip_h = true;
@@ -339,9 +421,12 @@ func _physics_process(delta):
 					get_node("../Character").hit();
 		
 	#Global Movement Controller
-	if (!exiting):
-		if (attacking || comingBack):
-			motion = move_and_slide(motion, Vector2(0, -1));
+	timer += delta
+	if (timer >= delta/(Global.ENTITY_PHYSICS_SPEED*0.01)):
+		timer = 0.0
+		if (!exiting):
+			if (attacking || comingBack):
+				motion = move_and_slide(motion, Vector2(0, -1));
 
 func hit(dir):
 	dead = true;
@@ -352,7 +437,6 @@ func hit(dir):
 	
 	if (hitDead):
 		motion.y = other_jump_h*5;
-	currentSprite.get_node("Shadow").hide();
 	get_parent().enemyScore(position);
 
 func jump():
@@ -401,6 +485,15 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = AnimatedSprite.new();
+	shadow.frames = currentSprite.frames;
+	shadow.animation = currentSprite.animation;
+	shadow.scale = currentSprite.scale;
+	get_node("../ShadowViewport").add_child(shadow);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character") && visible && !exiting && active):

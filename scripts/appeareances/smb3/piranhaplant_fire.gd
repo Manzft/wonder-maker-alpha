@@ -1,9 +1,16 @@
 extends KinematicBody2D
 
-const max_walk_speed = 100;
-const jump_h  = -250;
-const gravity = 30;
-const max_fall = jump_h*-3;
+var def_max_walk_speed = 100;
+var def_jump_h  = -250;
+var def_gravity = 30;
+var def_max_fall = def_jump_h*-3;
+
+var max_walk_speed = 100;
+var jump_h  = -250;
+var gravity = 30;
+var max_fall = jump_h*-3;
+
+var timer = 0.0;
 
 onready var currentSprite = get_node("SpriteGround");
 
@@ -29,19 +36,72 @@ var temporary_vspeed = 0.0;
 
 var rendered = true;
 
+var shadow : AnimatedSprite;
+
+func render(group, forcerender = false, render_range = 60):
+	if (forcerender):
+		set_process(true);
+		set_physics_process(true);
+		return
+	if (group != ""):
+		if (!is_in_group(group)):
+			return
+	var scrwidth = OS.get_window_size().x;
+	var scrheight = OS.get_window_size().y;
+	var multiplier = 720/scrheight;
+	var finalscrwidth = scrwidth * multiplier;
+	var distance = abs(position.x-Global.campos.x);
+	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+		set_process(false);
+		set_physics_process(false);
+	else:
+		set_process(true);
+		set_physics_process(true);
+
+func floorErase():
+	var delete = false;
+	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
+		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../LevelFloor").current_grid.y):
+			delete = true;
+	if (get_parent().calculateGrid(position.x, position.y).x >= get_node("../EndFloor").current_grid.x-1):
+		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../EndFloor").current_grid.y):
+			delete = true;
+	if (delete): get_parent().eraseObject(position, false);
+
+func erase():
+	get_parent().eraseObject(position, false);
+
+func changeStyle():
+	var pos = position;
+	var grid = get_parent().calculateGrid(pos.x, pos.y);
+	var obj = get_parent().grid[grid.x][grid.y];
+	var scene = Global.object[Global.CurrentAppeareance][obj][Global.OP_SCENE];
+	var inst = scene.instance();
+	get_parent().grid_node[grid.x][grid.y] = inst;
+	get_parent().add_child(inst);
+	inst.position = pos;
+	queue_free();
+
+func eraseShadow():
+	shadow.queue_free();
+
 func _ready():
+	max_walk_speed = def_max_walk_speed/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	jump_h  = def_jump_h/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	gravity = def_gravity/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	max_fall = def_max_fall/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	Global.connect("render", self, "render");
+	Global.connect("floorErase", self, "floorErase");
+	Global.connect("changeStyle", self, "changeStyle");
+	Global.connect("erase", self, "erase");
 	styleChanged();
 	yield(get_tree(), "idle_frame");
 	if (get_parent().editing):
 		$AnimationPlayer.play("start");
 	startPos = position;
-	$VisibilityEnabler2D.emit_signal("screen_exited")
 
 func _process(_delta):
 	currentSprite.speed_scale = 1;
-	currentSprite.get_node("Shadow").frame = currentSprite.frame;
-	currentSprite.get_node("Shadow").animation = currentSprite.animation;
-	currentSprite.get_node("Shadow").flip_h = currentSprite.flip_h;
 	if (get_node("../Editor").playing):
 		currentSprite.scale = Vector2(3.25, 3.25);
 		$SweatParticlesLeft.emitting = false;
@@ -66,6 +126,7 @@ func _process(_delta):
 					get_node("../Character/SoundShellHit").play();
 	else:
 		if (insided):
+			eraseShadow();
 			queue_free();
 		
 		if (!visible):
@@ -76,7 +137,6 @@ func _process(_delta):
 			active = false
 			hitCharacter = false;
 			position = startPos;
-			currentSprite.get_node("Shadow").show();
 		
 		startPos = position;
 		arrived = false;
@@ -104,6 +164,13 @@ func _process(_delta):
 			$SweatParticlesLeft.emitting = false;
 			$SweatParticlesRight.emitting = false;
 			$AnimationPlayer.play("RESET");
+	shadow.frame = currentSprite.frame;
+	shadow.animation = currentSprite.animation;
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.rotation_degrees = currentSprite.rotation_degrees;
+	shadow.visible = visible;
+	shadow.flip_h = currentSprite.flip_h;
+	shadow.flip_v = currentSprite.flip_v;
 
 func _physics_process(delta):
 	if (!get_node("../Editor").playing || !visible):
@@ -166,11 +233,13 @@ func _physics_process(delta):
 						true:
 							hit("left");
 					get_node("../Character/SoundShellHit").play();
-					currentSprite.get_node("Shadow").hide();
 		
 	#Global Movement Controller
-	if (!exiting):
-		motion = move_and_slide(motion, Vector2(0, -1));
+	timer += delta
+	if (timer >= delta/(Global.ENTITY_PHYSICS_SPEED*0.01)):
+		timer = 0.0
+		if (!exiting):
+			motion = move_and_slide(motion, Vector2(0, -1));
 
 func hit(dir):
 	dead = true;
@@ -181,7 +250,6 @@ func hit(dir):
 	
 	if (hitDead):
 		motion.y = jump_h*5;
-	currentSprite.get_node("Shadow").hide();
 	get_parent().enemyScore(position);
 
 func jump():
@@ -193,6 +261,15 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = AnimatedSprite.new();
+	shadow.frames = currentSprite.frames;
+	shadow.animation = currentSprite.animation;
+	shadow.scale = currentSprite.scale;
+	get_node("../ShadowViewport").add_child(shadow);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character") && visible && !exiting && active):
@@ -204,7 +281,6 @@ func _on_Area2D_body_entered(body):
 				hit("left");
 			else:
 				hit("right");
-			currentSprite.get_node("Shadow").hide();
 			get_node("../Character/SoundShellHit").play();
 
 func _on_Area2D_body_exited(body):

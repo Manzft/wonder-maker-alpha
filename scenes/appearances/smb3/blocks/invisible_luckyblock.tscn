@@ -82,13 +82,6 @@ script = ExtResource( 1 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 2 )
 
-[node name="Shadow" type="Sprite" parent="SpriteGround"]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-texture = ExtResource( 2 )
-
 [node name="HasObjectInside" type="Sprite" parent="."]
 visible = false
 position = Vector2( 11, 11 )
@@ -116,12 +109,6 @@ shape = SubResource( 5 )
 
 [node name="PowerUpAppears" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
-
-[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
-position = Vector2( -9.53674e-07, 0 )
-scale = Vector2( 2.6, 2.6 )
-process_parent = true
-physics_process_parent = true
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="CoinInsideTimer" to="." method="_on_CoinInsideTimer_timeout"]

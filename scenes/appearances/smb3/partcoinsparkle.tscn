@@ -78,14 +78,6 @@ frames = SubResource( 16 )
 frame = 10
 script = ExtResource( 2 )
 
-[node name="Shadow" type="AnimatedSprite" parent="."]
-modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-frames = SubResource( 16 )
-frame = 5
-
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
 one_shot = true

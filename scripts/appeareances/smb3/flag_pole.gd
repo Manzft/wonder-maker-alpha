@@ -18,8 +18,8 @@ func _on_Area2D_body_entered(body):
 			body.get_node("SoundPButton").stop();
 			$AnimationPlayer.play("got");
 			body.get_node("SoundStar").stop();
-			$SoundGoal.play();
 			get_parent().gameMusic(false);
+			$SoundGoal.play();
 			
 			match ($ItemFrame/Item.frame):
 				0: $ItemFrame/ItemGot.play("mushroom");

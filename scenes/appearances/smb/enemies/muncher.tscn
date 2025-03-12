@@ -111,6 +111,7 @@ shape = SubResource( 15 )
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 8 )
 animation = "idle"
+frame = 1
 playing = true
 
 [node name="Area2D" type="Area2D" parent="."]

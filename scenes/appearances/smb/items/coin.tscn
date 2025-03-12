@@ -168,12 +168,14 @@ shape = SubResource( 1 )
 [node name="SpriteGround" type="AnimatedSprite" parent="."]
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 8 )
+frame = 3
 playing = true
 
 [node name="SpriteUnderground" type="AnimatedSprite" parent="."]
 visible = false
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 13 )
+frame = 3
 playing = true
 
 [node name="SpriteGhostforest" type="AnimatedSprite" parent="."]

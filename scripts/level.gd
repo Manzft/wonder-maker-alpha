@@ -14,7 +14,7 @@ var objSelected = -50;
 
 var grab = false;
 var grab_grid = Vector2();
-var grab_node = null;
+var grab_node = null;	
 var grab_node_z_index = 0;
 var grab_id = -1;
 var grab_offset = Vector2();
@@ -52,6 +52,9 @@ var syncanim = {
 		"piranhaplant": 0.0,
 		"coin": 0.0,
 		"coin10": 0.0
+	},
+	smb3 = {
+		"brick": 0.0,
 	}
 }
 
@@ -229,6 +232,7 @@ func setCameraGrid(var start = false):
 
 func _process(delta):
 	syncSMBSprites(delta);
+	syncSMB3Sprites(delta);
 	#Water and Lava Showing
 	get_node("Camera2D/SMB3/Water").hide();
 	get_node("Camera2D/SMB/Water").hide();
@@ -565,31 +569,37 @@ func setStyleBackground():
 	bg.show();
 
 func syncSMBSprites(delta):
-	var divider = 60.0/10.0;
+	var divider = (1/delta)/10.0;
 	syncanim.smb.luckyblock += 1.0/divider;
-	if (syncanim.smb.luckyblock>= 4-0.1):
+	if (syncanim.smb.luckyblock>= 4):
 		syncanim.smb.luckyblock = 0.0;
 	
-	divider = 60.0/5.0;
+	divider = (1/delta)/5.0;
 	syncanim.smb.spike += 1.0/divider;
-	if (syncanim.smb.spike >= 2-0.1):
+	if (syncanim.smb.spike >= 2):
 		syncanim.smb.spike = 0.0;
 		divider = 60.0/5.0;
 	
 	syncanim.smb.muncher += 1.0/divider;
-	if (syncanim.smb.muncher >= 2-0.1):
+	if (syncanim.smb.muncher >= 2):
 		syncanim.smb.muncher = 0.0;
 	
 	syncanim.smb.piranhaplant += 1.0/divider;
-	if (syncanim.smb.piranhaplant >= 2-0.1):
+	if (syncanim.smb.piranhaplant >= 2):
 		syncanim.smb.piranhaplant = 0.0;
 	
-	divider = 60.0/10.0;
+	divider = (1/delta)/10.0;
 	syncanim.smb.coin += 1.0/divider;
-	if (syncanim.smb.coin > 4-0.1):
+	if (syncanim.smb.coin > 4):
 		syncanim.smb.coin = 0.0;
 	
-	divider = 60.0/7.0;
+	divider = (1/delta)/7.0;
 	syncanim.smb.coin10 += 1.0/divider;
-	if (syncanim.smb.coin10 > 4-0.1):
+	if (syncanim.smb.coin10 > 4):
 		syncanim.smb.coin10 = 0.0;
+
+func syncSMB3Sprites(delta):
+	var divider = (1/delta)/10.0;
+	syncanim.smb3.brick += 1.0/divider;
+	if (syncanim.smb3.brick >= 4):
+		syncanim.smb3.brick = 0.0;

@@ -81,6 +81,12 @@ var VSYNC = false;
 var SCREEN_16_9 = false;
 var SHOW_PAUSE_BUTTON = true;
 var CONTROLS_TRANSPARENCY = 100.0;
+var min_controls_transparency = 0.0;
+var max_controls_transparency = 100.0;
+var ENTITY_PHYSICS_SPEED = 100.0;
+var min_entity_physics_speed = 33.0;
+var max_entity_physics_speed = 100.0;
+
 var CurrentInput = "Mouse";
 
 #Save and Load
@@ -668,11 +674,16 @@ func loadSettings():
 
 	for section in config.get_sections():
 		if (section == "General"):
-			VSYNC = config.get_value(section, "VSync");
-			SCREEN_16_9 = config.get_value(section, "Force 16:9");
-			SHOW_FPS = config.get_value(section, "Show FPS");
-			SHOW_PAUSE_BUTTON = config.get_value(section, "Show Pause Button (Only PC)");
-			CONTROLS_TRANSPARENCY = config.get_value(section, "Touch Buttons Transparency (%)");
+			VSYNC = config.get_value(section, "VSync", false);
+			SCREEN_16_9 = config.get_value(section, "Force 16:9", false);
+			SHOW_FPS = config.get_value(section, "Show FPS", false);
+			SHOW_PAUSE_BUTTON = config.get_value(section, "Show Pause Button (Only PC)", true);
+			CONTROLS_TRANSPARENCY = config.get_value(section, "Touch Buttons Transparency (%)", 100.0);
+			if (CONTROLS_TRANSPARENCY < min_controls_transparency): CONTROLS_TRANSPARENCY = min_controls_transparency;
+			if (CONTROLS_TRANSPARENCY > max_controls_transparency): CONTROLS_TRANSPARENCY = max_controls_transparency;
+			ENTITY_PHYSICS_SPEED = config.get_value(section, "Entity Physics Speed (%)", 100.0);
+			if (ENTITY_PHYSICS_SPEED < min_entity_physics_speed): ENTITY_PHYSICS_SPEED = min_entity_physics_speed;
+			if (ENTITY_PHYSICS_SPEED > max_entity_physics_speed): ENTITY_PHYSICS_SPEED = max_entity_physics_speed;
 			
 	OS.vsync_enabled = VSYNC;
 	if (SCREEN_16_9):
@@ -688,6 +699,7 @@ func saveSettings():
 	config.set_value("General", "Show FPS", SHOW_FPS);
 	config.set_value("General", "Show Pause Button (Only PC)", SHOW_PAUSE_BUTTON);
 	config.set_value("General", "Touch Buttons Transparency (%)", CONTROLS_TRANSPARENCY);
+	config.set_value("General", "Entity Physics Speed (%)", ENTITY_PHYSICS_SPEED);
 
 	config.save(get_game_dir()+"/config.ini");
 
@@ -703,6 +715,7 @@ func rendering(node):
 func _ready() -> void:
 	checkSettingsFile();
 	loadSettings();
+	saveSettings();
 	
 	var inst = load("res://scenes/ui/FPS.tscn").instance();
 	add_child(inst);
@@ -837,7 +850,7 @@ func setup3dArray(array, width, height, depth):
 				array[x][y][z] = null;
 
 func renderAll():
-	emit_signal("render", "", true);
+	emit_signal("render", "", true, 70);
 
 func unrenderAll():
 	pass
@@ -849,7 +862,7 @@ func unrenderAll():
 
 func _process(delta):
 	if (!changingToEditMode && !OS.window_minimized):
-		emit_signal("render", "");
+		emit_signal("render", "", false, 70);
 	#Render System
 #	if (alternRender && !changingToEditMode):
 #		var nodes = get_tree().get_nodes_in_group("Obj");

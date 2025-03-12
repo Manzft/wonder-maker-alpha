@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://sprites/appeareances/smb/blocks/ground/floor_ground.png" type="Texture" id=1]
 [ext_resource path="res://scripts/appeareances/smb/floor.gd" type="Script" id=2]
@@ -30,6 +30,7 @@
 [ext_resource path="res://sprites/appeareances/smb/decoration/ghostforest/grass_wide.png" type="Texture" id=28]
 [ext_resource path="res://sprites/appeareances/smb/decoration/ghostforest/grass_short.png" type="Texture" id=29]
 [ext_resource path="res://sprites/appeareances/smb/decoration/ghostforest/grass_tall.png" type="Texture" id=30]
+[ext_resource path="res://sprites/appeareances/smb/blocks/ghostforest/floor_top.png" type="Texture" id=31]
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 26, 26 )
@@ -164,6 +165,11 @@ texture = ExtResource( 26 )
 visible = false
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 27 )
+
+[node name="SpriteGhostforestTop" type="Sprite" parent="."]
+visible = false
+scale = Vector2( 3.25, 3.25 )
+texture = ExtResource( 31 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("")

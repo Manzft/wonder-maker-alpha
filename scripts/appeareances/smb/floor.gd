@@ -14,7 +14,7 @@ var decorationType = "";
 
 var mygrid = Vector2();
 
-func render(group, forcerender = false):
+func render(group, forcerender = false, render_range = 60):
 	if (forcerender):
 		set_process(true);
 		set_physics_process(true);
@@ -27,13 +27,13 @@ func render(group, forcerender = false):
 	var multiplier = 720/scrheight;
 	var finalscrwidth = scrwidth * multiplier;
 	var distance = abs(position.x-Global.campos.x);
-	if (distance-(finalscrwidth/2) > finalscrwidth*0.5):
+	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
 		set_process(false);
 		set_physics_process(false);
 	else:
 		set_process(true);
 		set_physics_process(true);
-		
+
 func floorErase():
 	var delete = false;
 	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
@@ -112,6 +112,7 @@ func spawnDecoration():
 			var mygrid = get_parent().calculateGrid(position.x, position.y);
 			if (isNotSolidOrDoesntExists(Vector2(mygrid.x, mygrid.y-1)) && isNotSolidOrDoesntExists(Vector2(mygrid.x, mygrid.y-2)) && isNotSolidOrDoesntExists(Vector2(mygrid.x, mygrid.y-3))):
 				get_node(Global.CurrentStyle+"/DecorationTall").show();
+				decorationType = "Tall";
 				hasDecoration = true;
 				if (editPlaced):
 					$SoundSpawnDecoration.play();
@@ -250,6 +251,18 @@ func styleChanged():
 			if (currentSprite != get_node("SpriteSnow")):
 				currentSprite.hide();
 				currentSprite = get_node("SpriteSnow");
+				currentSprite.show();
+	
+	if (Global.CurrentStyle == "Ghostforest"):
+		if (!checkFloor(mygrid.x, mygrid.y-1)):
+			if (currentSprite != get_node("SpriteGhostforestTop")):
+				currentSprite.hide();
+				currentSprite = get_node("SpriteGhostforestTop");
+				currentSprite.show();
+		else:
+			if (currentSprite != get_node("SpriteGhostforest")):
+				currentSprite.hide();
+				currentSprite = get_node("SpriteGhostforest");
 				currentSprite.show();
 	
 	if (shadow == null):

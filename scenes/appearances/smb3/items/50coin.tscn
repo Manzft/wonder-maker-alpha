@@ -143,27 +143,10 @@ scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 14 )
 playing = true
 
-[node name="Shadow" type="AnimatedSprite" parent="SpriteGround"]
-self_modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-frames = SubResource( 14 )
-playing = true
-
 [node name="SpriteUnderground" type="AnimatedSprite" parent="."]
 visible = false
 position = Vector2( 26, 26 )
 scale = Vector2( 3.25, 3.25 )
-frames = SubResource( 23 )
-frame = 3
-playing = true
-
-[node name="Shadow" type="AnimatedSprite" parent="SpriteUnderground"]
-self_modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
 frames = SubResource( 23 )
 frame = 3
 playing = true
@@ -175,14 +158,6 @@ scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 48 )
 playing = true
 
-[node name="Shadow" type="AnimatedSprite" parent="SpriteGhostforest"]
-self_modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-frames = SubResource( 48 )
-playing = true
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 26, 26 )
 shape = SubResource( 1 )
@@ -191,11 +166,5 @@ shape = SubResource( 1 )
 playback_speed = 10.0
 anims/RESET = SubResource( 2 )
 anims/start = SubResource( 3 )
-
-[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
-position = Vector2( 25, 30.5 )
-scale = Vector2( 5.1, 5.65 )
-process_parent = true
-physics_process_parent = true
 
 [connection signal="body_entered" from="." to="." method="_on_Coin_body_entered"]

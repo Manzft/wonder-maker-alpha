@@ -49,13 +49,6 @@ shape = SubResource( 1 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 2 )
 
-[node name="Shadow" type="Sprite" parent="SpriteGround"]
-self_modulate = Color( 0, 0, 0, 0.294118 )
-position = Vector2( 3, 3 )
-z_index = -3
-z_as_relative = false
-texture = ExtResource( 2 )
-
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
@@ -76,11 +69,5 @@ cast_to = Vector2( -5, 0 )
 position = Vector2( 24, 0 )
 enabled = true
 cast_to = Vector2( 5, 0 )
-
-[node name="VisibilityEnabler2D" type="VisibilityEnabler2D" parent="."]
-position = Vector2( -9.53674e-07, 0 )
-scale = Vector2( 2.6, 2.6 )
-process_parent = true
-physics_process_parent = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]

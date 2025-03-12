@@ -1,9 +1,16 @@
 extends KinematicBody2D
 
-const max_walk_speed = 250;
-const jump_h  = -400;
-const gravity = 30;
-const max_fall = jump_h*-1;
+var def_max_walk_speed = 250;
+var def_jump_h  = -400;
+var def_gravity = 30;
+var def_max_fall = def_jump_h*-1;
+
+var max_walk_speed = 0.0;
+var jump_h  = 0.0;
+var gravity = 0.0;
+var max_fall = 0.0;
+
+var timer = 0.0;
 
 onready var currentSprite = get_node("SpriteGround");
 
@@ -24,27 +31,76 @@ var insided = false;
 
 var flip_h = false;
 
-var canSyncAnim = false;
+var shadow : AnimatedSprite;
+
+func render(group, forcerender = false, render_range = 60):
+	if (forcerender):
+		set_process(true);
+		set_physics_process(true);
+		return
+	if (group != ""):
+		if (!is_in_group(group)):
+			return
+	var scrwidth = OS.get_window_size().x;
+	var scrheight = OS.get_window_size().y;
+	var multiplier = 720/scrheight;
+	var finalscrwidth = scrwidth * multiplier;
+	var distance = abs(position.x-Global.campos.x);
+	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+		set_process(false);
+		set_physics_process(false);
+	else:
+		set_process(true);
+		set_physics_process(true);
+
+func floorErase():
+	var delete = false;
+	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
+		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../LevelFloor").current_grid.y):
+			delete = true;
+	if (get_parent().calculateGrid(position.x, position.y).x >= get_node("../EndFloor").current_grid.x-1):
+		if (get_parent().calculateGrid(position.x, position.y).y >= get_node("../EndFloor").current_grid.y):
+			delete = true;
+	if (delete): get_parent().eraseObject(position, false);
+
+func erase():
+	get_parent().eraseObject(position, false);
+
+func changeStyle():
+	var pos = position;
+	var grid = get_parent().calculateGrid(pos.x, pos.y);
+	var obj = get_parent().grid[grid.x][grid.y];
+	var scene = Global.object[Global.CurrentAppeareance][obj][Global.OP_SCENE];
+	var inst = scene.instance();
+	get_parent().grid_node[grid.x][grid.y] = inst;
+	get_parent().add_child(inst);
+	inst.position = pos;
+	queue_free();
+
+func eraseShadow():
+	shadow.queue_free();
 
 func _ready():
+	max_walk_speed = def_max_walk_speed/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	jump_h  = def_jump_h/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	gravity = def_gravity/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	max_fall = def_max_fall/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	Global.connect("render", self, "render");
+	Global.connect("floorErase", self, "floorErase");
+	Global.connect("changeStyle", self, "changeStyle");
+	Global.connect("erase", self, "erase");
 	styleChanged();
 	yield(get_tree(), "idle_frame");
 	if (get_parent().editing):
 		$AnimationPlayer.play("start");
 	startPos = position;
-	canSyncAnim = true;
-	$VisibilityEnabler2D.emit_signal("screen_exited")
 
 func _process(_delta):
 	if (get_node("../Editor").playing):
 		currentSprite.speed_scale = 1;
-		
-		if (canSyncAnim):
-			var nodes = get_tree().get_nodes_in_group("Star");
-			for node in nodes:
-				node.currentSprite.frame = currentSprite.frame;
 	else:
 		if (insided):
+			eraseShadow();
 			queue_free();
 		
 		if (!visible):
@@ -61,8 +117,13 @@ func _process(_delta):
 		flip_h = false;
 		currentSprite.speed_scale = 0;
 		currentSprite.frame = 0;
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.frame = currentSprite.frame;
+	shadow.animation = currentSprite.animation;
+	shadow.scale = currentSprite.scale;
+	shadow.visible = visible;
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	if (!get_node("../Editor").playing):
 		return
 	#Head Hit Raycasts
@@ -101,8 +162,11 @@ func _physics_process(_delta):
 				motion.x = max_walk_speed;
 		
 	#Global Movement Controller
-	if (!exiting):
-		motion = move_and_slide(motion, Vector2(0, -1));
+	timer += delta
+	if (timer >= delta/(Global.ENTITY_PHYSICS_SPEED*0.01)):
+		timer = 0.0
+		if (!exiting):
+			motion = move_and_slide(motion, Vector2(0, -1));
 
 func jump():
 	motion.y = jump_h;
@@ -126,6 +190,14 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
+	if (shadow == null):
+		pass
+	else:
+		shadow.queue_free();
+	shadow = AnimatedSprite.new();
+	shadow.frames = currentSprite.frames;
+	shadow.scale = currentSprite.scale;
+	get_node("../ShadowViewport").add_child(shadow);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character") && visible && !exiting && active):
