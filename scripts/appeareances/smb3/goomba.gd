@@ -87,7 +87,6 @@ func changeStyle():
 	get_parent().grid_node[grid.x][grid.y] = inst;
 	get_parent().add_child(inst);
 	inst.position = pos;
-	dupsprite.queue_free();
 	queue_free();
 
 func eraseShadow():
@@ -116,9 +115,9 @@ func _ready():
 func _process(_delta):
 	if (get_node("../Editor").playing):
 		if (dead):
-			z_index = 1;
+			z_index = 2;
 		else:
-			z_index = 0;
+			z_index = 1;
 		
 		currentSprite.speed_scale = 1;
 		if (currentSprite.scale.x > 3.25):
@@ -189,16 +188,13 @@ func _process(_delta):
 			$SweatParticlesRight.emitting = false;
 			$AnimationPlayer.play("RESET");
 	
-	var position_difference = dupsprite.position.distance_to(position)
+	var position_difference = dupsprite.position.distance_to(currentSprite.global_position)
 	var pos = dupsprite.position.linear_interpolate(position, 0.35)
 	currentSprite.hide();
-	if (Global.playing):
-		if (Global.PHYSICS_INTERPOLATION && Global.ENTITY_PHYSICS_SPEED < 100.0):
-			dupsprite.position = pos;
-		else:
-			dupsprite.position = position;
+	if (Global.playing && Global.PHYSICS_INTERPOLATION && Global.ENTITY_PHYSICS_SPEED < 100.0):
+		dupsprite.position = pos;
 	else:
-		dupsprite.position = position;
+		dupsprite.position = currentSprite.global_position;
 	
 	dupsprite.frame = currentSprite.frame;
 	dupsprite.animation = currentSprite.animation;
@@ -215,7 +211,7 @@ func _process(_delta):
 	shadow.rotation_degrees = currentSprite.rotation_degrees+rotation_degrees;
 	shadow.visible = visible;
 	shadow.flip_h = currentSprite.flip_h;
-	shadow.flip_h = currentSprite.flip_v;
+	shadow.flip_v = currentSprite.flip_v;
 	shadow.scale = currentSprite.scale;
 
 func _physics_process(delta):

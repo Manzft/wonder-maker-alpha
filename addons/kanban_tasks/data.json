@@ -50,6 +50,7 @@
       "tasks": [
         2,
         3,
+        25,
         4,
         5,
         7,
@@ -226,6 +227,11 @@
     {
       "category": 3,
       "title": "Burner sound delay",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Finish all styles",
       "details": ""
     }
   ]
