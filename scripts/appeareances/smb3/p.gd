@@ -28,6 +28,10 @@ var carrying = false;
 var speed_increase = 0;
 
 var shadow : AnimatedSprite;
+var dupsprite : AnimatedSprite;
+
+var canPickTimer = 0.0;
+var canPick = true;
 
 func render(group, forcerender = false, render_range = 60):
 	if (forcerender):
@@ -74,6 +78,7 @@ func changeStyle():
 	queue_free();
 
 func eraseShadow():
+	dupsprite.queue_free();
 	shadow.queue_free();
 
 func _ready():
@@ -90,15 +95,18 @@ func _ready():
 	startPos = position;
 	canSyncAnim = true;
 
-func _process(_delta):
-	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
-	shadow.animation = currentSprite.animation;
-	shadow.frame = currentSprite.frame;
-	shadow.scale = currentSprite.scale;
-	shadow.offset = currentSprite.offset;
-	shadow.flip_h = currentSprite.flip_h;
-	shadow.flip_v = currentSprite.flip_v;
+func _process(delta):
 	if (get_node("../Editor").playing):
+		canPickTimer += delta;
+		if (canPickTimer >= 0.5):
+			canPickTimer = 0.0;
+			canPick = true;
+		
+		if (carrying):
+			z_index = 1;
+		else:
+			z_index = 0;
+		
 		currentSprite.speed_scale = 1;
 		if (!insided && !active):
 			active = true;
@@ -123,14 +131,14 @@ func _process(_delta):
 				motion.y = 0;
 				
 				if (!chara.died && !chara.changingPowerup):
-					speed_increase = abs(get_node("../Character").motion.x);
+					speed_increase = (abs(get_node("../Character").motion.x/2))/(Global.ENTITY_PHYSICS_SPEED*0.01);
 					if (Input.is_action_pressed("down") || Input.is_action_pressed("ddown")):
 						if (chara.position.x >= position.x):
-							position.x -= 10;
-							motion.x = -70-speed_increase;
+							position.x -= speed_increase*0.025;
+							motion.x = (-70/(Global.ENTITY_PHYSICS_SPEED*0.01))-speed_increase;
 						else:
-							position.x += 10;
-							motion.x = 70+speed_increase;
+							position.x += speed_increase*0.025;
+							motion.x = (70/(Global.ENTITY_PHYSICS_SPEED*0.01))+speed_increase;
 					else:
 						chara.get_node("KickingTimer").start();
 						chara.kicking = true;
@@ -139,14 +147,14 @@ func _process(_delta):
 							get_parent().add_child(inst);
 							inst.position.x = position.x-12.5;
 							inst.position.y = position.y;
-							position.x -= 10;
+							position.x -= speed_increase*0.05;
 							motion.x = -max_h_speed-speed_increase;
 						else:
 							var inst = load("res://scenes/appearances/smb3/particles/parthit.tscn").instance();
 							get_parent().add_child(inst);
 							inst.position.x = position.x+12.5;
 							inst.position.y = position.y;
-							position.x += 10;
+							position.x += speed_increase*0.05;
 							motion.x = max_h_speed+speed_increase;
 						chara.get_node("SoundShellHit").play();
 	else:
@@ -162,6 +170,7 @@ func _process(_delta):
 			motion = Vector2(0, 0);
 			$CollisionShape2D.disabled = false;
 		
+		canPick = true;
 		carrying = false;
 		startPos = position;
 		press = false;
@@ -173,6 +182,30 @@ func _process(_delta):
 			currentSprite.play("idle");
 			currentSprite.speed_scale = 0;
 			currentSprite.frame = 0;
+	var pos = dupsprite.position.linear_interpolate(currentSprite.global_position, 0.45)
+	currentSprite.hide();
+	if (Global.playing && Global.PHYSICS_INTERPOLATION && Global.ENTITY_PHYSICS_SPEED < 100.0 && !carrying):
+		dupsprite.position = pos;
+	else:
+		dupsprite.position = currentSprite.global_position;
+	
+	dupsprite.frame = currentSprite.frame;
+	dupsprite.animation = currentSprite.animation;
+	dupsprite.rotation_degrees = currentSprite.rotation_degrees+rotation_degrees;
+	dupsprite.visible = visible;
+	dupsprite.flip_h = currentSprite.flip_h;
+	dupsprite.flip_v = currentSprite.flip_v;
+	dupsprite.scale = currentSprite.scale;
+	dupsprite.z_index = z_index;
+	
+	shadow.frame = currentSprite.frame;
+	shadow.animation = currentSprite.animation;
+	shadow.position = dupsprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.rotation_degrees = currentSprite.rotation_degrees+rotation_degrees;
+	shadow.visible = visible;
+	shadow.flip_h = currentSprite.flip_h;
+	shadow.flip_v = currentSprite.flip_v;
+	shadow.scale = currentSprite.scale;
 
 func _physics_process(delta):
 	if (get_node("../Editor").playing):
@@ -233,22 +266,26 @@ func _physics_process(delta):
 				hide();
 				
 			#Carrying
-			if (currentSprite.animation != "pressed" && press && !carrying && get_node("../Character").running && !get_node("../Character").carrying && !get_node("../Character").sneaking):
+			if (canPick && visible && currentSprite.animation != "pressed" && press && !carrying && get_node("../Character").running && !get_node("../Character").carrying && !get_node("../Character").sneaking):
 				carrying = true;
+				canPick = false;
+				canPickTimer = 0.0;
 				get_node("../Character").carrying = true;
+		
+		if (!exiting && !carrying && visible):
+			$CollisionShape2D.disabled = false;
+			if (abs(motion.x) <= 70/(Global.ENTITY_PHYSICS_SPEED*0.01)):
+				motion.x = lerp(motion.x, 0.0, 0.125);
+			else:
+				motion.x = lerp(motion.x, 0.0, 0.03125);
+		else:
+			$CollisionShape2D.disabled = true;
 		
 		timer += delta
 		if (timer >= delta/(Global.ENTITY_PHYSICS_SPEED*0.01)):
 			timer = 0.0
 			if (!exiting && !carrying && visible):
-				$CollisionShape2D.disabled = false;
-				if (abs(motion.x) <= 70):
-					motion.x = lerp(motion.x, 0.0, 0.125);
-				else:
-					motion.x = lerp(motion.x, 0.0, 0.03125);
 				motion = move_and_slide(motion, Vector2(0, -1));
-			else:
-				$CollisionShape2D.disabled = true;
 
 func styleChanged():
 	match (Global.CurrentStyle):
@@ -261,6 +298,18 @@ func styleChanged():
 	shadow.animation = currentSprite.animation;
 	shadow.scale = currentSprite.scale;
 	get_node("../ShadowViewport").add_child(shadow);
+	
+	if (dupsprite == null):
+		pass
+	else:
+		dupsprite.queue_free();
+	dupsprite = AnimatedSprite.new();
+	dupsprite.frames = currentSprite.frames;
+	dupsprite.animation = currentSprite.animation;
+	dupsprite.scale = currentSprite.scale;
+	dupsprite.position = position;
+	dupsprite.add_to_group("SpriteClone");
+	get_parent().add_child(dupsprite);
 
 func release():
 	currentSprite.play("idle");

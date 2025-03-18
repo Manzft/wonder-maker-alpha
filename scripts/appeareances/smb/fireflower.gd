@@ -1,9 +1,16 @@
 extends KinematicBody2D
 
-const max_walk_speed = 200;
-const jump_h  = -500;
-const gravity = 30;
-const max_fall = jump_h*-1;
+var def_max_walk_speed = 200;
+var def_jump_h  = -500;
+var def_gravity = 30;
+var def_max_fall = def_jump_h*-1;
+
+var max_walk_speed = 0.0;
+var jump_h  = 0.0;
+var gravity = 0.0;
+var max_fall = 0.0;
+
+var timer = 0.0;
 
 onready var currentSprite = get_node("SpriteGround");
 
@@ -23,6 +30,10 @@ var flip_h = false;
 var canSyncAnim = false;
 
 var shadow : AnimatedSprite;
+var dupsprite : AnimatedSprite;
+var dupmushicon : Sprite;
+
+var mushIconVisible : bool = false;
 
 func setMushroom(val):
 	mushroom = val;
@@ -75,9 +86,15 @@ func changeStyle():
 	queue_free();
 
 func eraseShadow():
+	dupsprite.queue_free();
+	dupmushicon.queue_free();
 	shadow.queue_free();
 
 func _ready():
+	max_walk_speed = def_max_walk_speed/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	jump_h  = def_jump_h/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	gravity = def_gravity/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	max_fall = def_max_fall/(Global.ENTITY_PHYSICS_SPEED*0.01);
 	Global.connect("render", self, "render");
 	Global.connect("floorErase", self, "floorErase");
 	Global.connect("changeStyle", self, "changeStyle");
@@ -109,10 +126,11 @@ func _process(_delta):
 			var nodes = get_tree().get_nodes_in_group("Fireflower");
 			for node in nodes:
 				node.currentSprite.frame = currentSprite.frame;
-		$MushroomIcon.hide();
+		mushIconVisible = false;
 	else:
-		$MushroomIcon.visible = mushroom;
+		mushIconVisible = mushroom;
 		if (insided):
+			eraseShadow();
 			queue_free();
 		
 		if (!visible):
@@ -140,13 +158,41 @@ func _process(_delta):
 			get_parent().eraseObject(position);
 		currentSprite.speed_scale = 0;
 		currentSprite.frame = 0;
-	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	var pos = dupsprite.position.linear_interpolate(currentSprite.global_position, 0.35)
+	currentSprite.hide();
+	$MushroomIcon.hide();
+	if (Global.playing && Global.PHYSICS_INTERPOLATION && Global.ENTITY_PHYSICS_SPEED < 100.0):
+		dupsprite.position = pos;
+	else:
+		dupsprite.position = currentSprite.global_position;
+	
+	dupsprite.frame = currentSprite.frame;
+	dupsprite.animation = currentSprite.animation;
+	dupsprite.rotation_degrees = currentSprite.rotation_degrees+rotation_degrees;
+	dupsprite.visible = visible;
+	dupsprite.flip_h = currentSprite.flip_h;
+	dupsprite.flip_v = currentSprite.flip_v;
+	dupsprite.scale = currentSprite.scale;
+	dupsprite.z_index = z_index;
+	
 	shadow.frame = currentSprite.frame;
 	shadow.animation = currentSprite.animation;
-	shadow.scale = currentSprite.scale;
+	shadow.position = dupsprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.rotation_degrees = currentSprite.rotation_degrees+rotation_degrees;
 	shadow.visible = visible;
+	shadow.flip_h = currentSprite.flip_h;
+	shadow.flip_v = currentSprite.flip_v;
+	shadow.scale = currentSprite.scale;
+	
+	dupmushicon.position = $MushroomIcon.global_position;
+	dupmushicon.rotation_degrees = $MushroomIcon.rotation_degrees+rotation_degrees;
+	dupmushicon.visible = mushIconVisible;
+	dupmushicon.flip_h = $MushroomIcon.flip_h;
+	dupmushicon.flip_v = $MushroomIcon.flip_v;
+	dupmushicon.scale = $MushroomIcon.scale;
+	dupmushicon.z_index = z_index;
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	if (!get_node("../Editor").playing || !visible):
 		return
 	
@@ -165,8 +211,11 @@ func _physics_process(_delta):
 			arrived = true;
 		
 	#Global Movement Controller
-	if (!exiting):
-		motion = move_and_slide(motion, Vector2(0, -1));
+	timer += delta
+	if (timer >= delta/(Global.ENTITY_PHYSICS_SPEED*0.01)):
+		timer = 0.0
+		if (!exiting):
+			motion = move_and_slide(motion, Vector2(0, -1));
 
 func jump():
 	motion.y = jump_h;
@@ -185,10 +234,34 @@ func styleChanged():
 	shadow.frames = currentSprite.frames;
 	shadow.scale = currentSprite.scale;
 	get_node("../ShadowViewport").add_child(shadow);
+	
+	if (dupsprite == null):
+		pass
+	else:
+		dupsprite.queue_free();
+	dupsprite = AnimatedSprite.new();
+	dupsprite.frames = currentSprite.frames;
+	dupsprite.animation = currentSprite.animation;
+	dupsprite.scale = currentSprite.scale;
+	dupsprite.position = position;
+	dupsprite.add_to_group("SpriteClone");
+	get_parent().add_child(dupsprite);
+	
+	if (dupmushicon == null):
+		pass
+	else:
+		dupmushicon.queue_free();
+	dupmushicon = Sprite.new();
+	dupmushicon.texture = $MushroomIcon.texture;
+	dupmushicon.scale = $MushroomIcon.scale;
+	dupmushicon.position = $MushroomIcon.global_position;
+	dupmushicon.add_to_group("SpriteClone");
+	get_parent().add_child(dupmushicon);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character") && visible && !exiting && active):
 		shadow.hide();
+		dupsprite.hide();
 		hide();
 		if (body.get_node("PowerupGot").playing):
 			body.get_node("PowerupGot").stop();

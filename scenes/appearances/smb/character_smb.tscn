@@ -131,6 +131,11 @@ animations = [ {
 "name": "fireflower_drift",
 "speed": 5.0
 }, {
+"frames": [ SubResource( 30 ) ],
+"loop": true,
+"name": "fireflower_fall",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 38 ) ],
 "loop": true,
 "name": "fireflower_idle",
@@ -159,6 +164,11 @@ animations = [ {
 "frames": [ ExtResource( 34 ) ],
 "loop": true,
 "name": "mush_drift",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 23 ) ],
+"loop": true,
+"name": "mush_fall",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 32 ) ],
@@ -194,6 +204,11 @@ animations = [ {
 "frames": [ ExtResource( 1 ) ],
 "loop": true,
 "name": "small_drift",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 2 ) ],
+"loop": true,
+"name": "small_fall",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 4 ) ],
@@ -337,11 +352,10 @@ collide_with_areas = true
 [node name="Mario" type="AnimatedSprite" parent="."]
 show_behind_parent = true
 light_mask = 3
-position = Vector2( 0, -3 )
+position = Vector2( 0, -2.38419e-07 )
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 5 )
 animation = "small_idle"
-playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 19 )

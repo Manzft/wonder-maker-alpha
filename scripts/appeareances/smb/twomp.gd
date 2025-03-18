@@ -1,11 +1,20 @@
 extends KinematicBody2D
 
-const max_walk_speed = 250;
-const jump_h  = -700;
-const other_jump_h  = -250;
-const gravity = 30;
-const max_fall = jump_h*-1;
-const other_max_fall = other_jump_h*-3;
+var def_max_walk_speed = 250;
+var def_jump_h  = -700;
+var def_other_jump_h  = -250;
+var def_gravity = 30;
+var def_max_fall = def_jump_h*-1;
+var def_other_max_fall = def_other_jump_h*-3;
+
+var max_walk_speed = 250;
+var jump_h  = -700;
+var other_jump_h  = -250;
+var gravity = 30;
+var max_fall = jump_h*-1;
+var other_max_fall = other_jump_h*-3;
+
+var timer = 0.0;
 
 onready var currentSprite = get_node("SpriteGround");
 
@@ -63,6 +72,7 @@ var canswitchonoff = true;
 var canswitchonoff2 = true;
 
 var shadow : AnimatedSprite;
+var dupsprite : AnimatedSprite;
 
 func setupExtensionGrids(start = false):
 	var a = true;
@@ -138,9 +148,16 @@ func changeStyle():
 	queue_free();
 
 func eraseShadow():
+	dupsprite.queue_free();
 	shadow.queue_free();
 
 func _ready():
+	max_walk_speed = def_max_walk_speed/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	jump_h  = def_jump_h/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	other_jump_h  = def_other_jump_h/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	gravity = def_gravity/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	max_fall = def_max_fall/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	other_max_fall = def_max_fall/(Global.ENTITY_PHYSICS_SPEED*0.01);
 	Global.connect("render", self, "render");
 	Global.connect("floorErase", self, "floorErase");
 	Global.connect("changeStyle", self, "changeStyle");
@@ -178,10 +195,8 @@ func _process(_delta):
 		$SweatParticlesRight.emitting = false;
 		if (get_node("../Character").changingPowerup ||get_node("../Character").invincible || get_node("../Character").star || get_node("../Character").died):
 			pass
-			#$StaticBody2D/CollisionShape2D.disabled = true;
 		else:
 			pass
-			#$StaticBody2D/CollisionShape2D.disabled = false;
 		
 		$DirectionButton.hide();
 		
@@ -232,7 +247,6 @@ func _process(_delta):
 		attacking = false;
 		comingBack = false;
 		$CollisionShape2D.disabled = false;
-		#$StaticBody2D/CollisionShape2D.disabled = false;
 		
 		if (get_parent().grab && get_parent().grab_node == self):
 			currentSprite.play("attack");
@@ -263,13 +277,30 @@ func _process(_delta):
 						_on_DirectionButton_pressed();
 			else:
 				get_node("../Editor").externalButton = false;
+	var pos = dupsprite.position.linear_interpolate(currentSprite.global_position, 0.35)
+	currentSprite.hide();
+	if (Global.playing && Global.PHYSICS_INTERPOLATION && Global.ENTITY_PHYSICS_SPEED < 100.0):
+		dupsprite.position = pos;
+	else:
+		dupsprite.position = currentSprite.global_position;
+	
+	dupsprite.frame = currentSprite.frame;
+	dupsprite.animation = currentSprite.animation;
+	dupsprite.rotation_degrees = currentSprite.rotation_degrees+rotation_degrees;
+	dupsprite.visible = visible;
+	dupsprite.flip_h = currentSprite.flip_h;
+	dupsprite.flip_v = currentSprite.flip_v;
+	dupsprite.scale = currentSprite.scale;
+	dupsprite.z_index = z_index-1;
+	
 	shadow.frame = currentSprite.frame;
 	shadow.animation = currentSprite.animation;
-	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
-	shadow.rotation_degrees = currentSprite.rotation_degrees;
+	shadow.position = dupsprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.rotation_degrees = currentSprite.rotation_degrees+rotation_degrees;
 	shadow.visible = visible;
 	shadow.flip_h = currentSprite.flip_h;
 	shadow.flip_v = currentSprite.flip_v;
+	shadow.scale = currentSprite.scale;
 
 func _physics_process(delta):
 	if (!get_node("../Editor").playing):
@@ -305,7 +336,6 @@ func _physics_process(delta):
 	
 	if (active && dead && hitDead):
 		$CollisionShape2D.disabled = true;
-		$StaticBody2D/CollisionShape2D.disabled = true;
 		if (hitSide == "right"):
 			currentSprite.rotation_degrees += 17;
 			motion.x = max_walk_speed*2.5;
@@ -389,9 +419,9 @@ func _physics_process(delta):
 						if (get_node("../Character").position.x < position.x):
 							check = true;
 					
-					if (distance <= 52*4 && check && distancex <= 52*6):
+					if (distance <= 52*4 && check && distancex <= 52*10):
 						attacking = true;
-					elif (distance <= 52*5 && check && distancex <= 52*7):
+					elif (distance <= 52*5 && check && distancex <= 52*12):
 						currentSprite.play("ready_side");
 						if (seldirection == "right"):
 							currentSprite.flip_h = true;
@@ -406,9 +436,12 @@ func _physics_process(delta):
 					get_node("../Character").hit();
 		
 	#Global Movement Controller
-	if (!exiting):
-		if (attacking || comingBack):
-			motion = move_and_slide(motion, Vector2(0, -1));
+	timer += delta
+	if (timer >= delta/(Global.ENTITY_PHYSICS_SPEED*0.01)):
+		timer = 0.0
+		if (!exiting):
+			if (attacking || comingBack):
+				motion = move_and_slide(motion, Vector2(0, -1));
 
 func hit(dir):
 	dead = true;
@@ -476,6 +509,18 @@ func styleChanged():
 	shadow.animation = currentSprite.animation;
 	shadow.scale = currentSprite.scale;
 	get_node("../ShadowViewport").add_child(shadow);
+	
+	if (dupsprite == null):
+		pass
+	else:
+		dupsprite.queue_free();
+	dupsprite = AnimatedSprite.new();
+	dupsprite.frames = currentSprite.frames;
+	dupsprite.animation = currentSprite.animation;
+	dupsprite.scale = currentSprite.scale;
+	dupsprite.position = position;
+	dupsprite.add_to_group("SpriteClone");
+	get_parent().add_child(dupsprite);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character") && visible && !exiting && active):

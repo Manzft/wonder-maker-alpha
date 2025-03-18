@@ -29,6 +29,7 @@ var insided = false;
 var flip_h = false;
 
 var shadow : Sprite;
+var dupsprite : Sprite;
 
 func render(group, forcerender = false, render_range = 60):
 	if (forcerender):
@@ -75,6 +76,7 @@ func changeStyle():
 	queue_free();
 
 func eraseShadow():
+	dupsprite.queue_free();
 	shadow.queue_free();
 
 func _ready():
@@ -113,9 +115,27 @@ func _process(_delta):
 		arrived = false;
 		exiting = false;
 		flip_h = false;
-	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
-	shadow.scale = currentSprite.scale;
+	
+	var pos = dupsprite.position.linear_interpolate(currentSprite.global_position, 0.35)
+	currentSprite.hide();
+	if (Global.playing && Global.PHYSICS_INTERPOLATION && Global.ENTITY_PHYSICS_SPEED < 100.0):
+		dupsprite.position = pos;
+	else:
+		dupsprite.position = currentSprite.global_position;
+	
+	dupsprite.rotation_degrees = currentSprite.rotation_degrees+rotation_degrees;
+	dupsprite.visible = visible;
+	dupsprite.flip_h = currentSprite.flip_h;
+	dupsprite.flip_v = currentSprite.flip_v;
+	dupsprite.scale = currentSprite.scale;
+	dupsprite.z_index = z_index;
+	
+	shadow.position = dupsprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.rotation_degrees = currentSprite.rotation_degrees+rotation_degrees;
 	shadow.visible = visible;
+	shadow.flip_h = currentSprite.flip_h;
+	shadow.flip_v = currentSprite.flip_v;
+	shadow.scale = currentSprite.scale;
 
 func _physics_process(delta):
 	if (!get_node("../Editor").playing || !visible):
@@ -178,6 +198,17 @@ func styleChanged():
 	shadow.texture = currentSprite.texture;
 	shadow.scale = currentSprite.scale;
 	get_node("../ShadowViewport").add_child(shadow);
+	
+	if (dupsprite == null):
+		pass
+	else:
+		dupsprite.queue_free();
+	dupsprite = Sprite.new();
+	dupsprite.texture = currentSprite.texture;
+	dupsprite.scale = currentSprite.scale;
+	dupsprite.position = position;
+	dupsprite.add_to_group("SpriteClone");
+	get_parent().add_child(dupsprite);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character") && visible && !exiting && active):

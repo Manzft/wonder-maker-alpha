@@ -37,6 +37,12 @@ var temporary_vspeed = 0.0;
 var rendered = true;
 
 var shadow : AnimatedSprite;
+var dupsprite : AnimatedSprite;
+
+var preAttack = false;
+var posAttack = false;
+
+var canAttack = false;
 
 func render(group, forcerender = false, render_range = 60):
 	if (forcerender):
@@ -83,6 +89,7 @@ func changeStyle():
 	queue_free();
 
 func eraseShadow():
+	dupsprite.queue_free();
 	shadow.queue_free();
 
 func _ready():
@@ -100,9 +107,48 @@ func _ready():
 		$AnimationPlayer.play("start");
 	startPos = position;
 
-func _process(_delta):
+func _process(delta):
+	if (!preAttack && !posAttack):
+		currentSprite.frame = floor(get_parent().syncanim.smb.piranhaplant);
+	if (preAttack):
+		currentSprite.frame = 1;
+	if (posAttack):
+		currentSprite.frame = 0;
 	currentSprite.speed_scale = 1;
 	if (get_node("../Editor").playing):
+		if (dead):
+			z_index = 2;
+		else:
+			z_index = 1;
+		
+		var timer = get_parent().syncanim.smb3.attackTimer;
+		if (timer >= 3.25 && timer < 4.0 && !preAttack && !posAttack):
+			preAttack = true;
+			canAttack = true;
+		
+		if (timer >= 4.0 && timer < 4.75):
+			if (!dead && !posAttack && canAttack):
+				preAttack = false;
+				posAttack = true;
+				canAttack = false;
+				#Generate Fireball
+				var inst = get_parent().fireball[Global.CurrentAppeareance].instance();
+				inst.position = position;
+				inst.position.y -= 26;
+				inst.nogravity = true;
+				get_parent().add_child(inst);
+				if (!currentSprite.flip_h):
+					inst.direction = "left";
+					inst.position.x -= 26;
+				else:
+					inst.direction = "right";
+					inst.position.x += 26;
+					
+				inst.vdirection = currentSprite.animation;
+		
+		if (timer >= 4.75 && posAttack):
+			posAttack = false;
+		
 		currentSprite.scale = Vector2(3.25, 3.25);
 		$SweatParticlesLeft.emitting = false;
 		$SweatParticlesRight.emitting = false;
@@ -164,13 +210,30 @@ func _process(_delta):
 			$SweatParticlesLeft.emitting = false;
 			$SweatParticlesRight.emitting = false;
 			$AnimationPlayer.play("RESET");
+	var pos = dupsprite.position.linear_interpolate(currentSprite.global_position, 0.35)
+	currentSprite.hide();
+	if (Global.playing && Global.PHYSICS_INTERPOLATION && Global.ENTITY_PHYSICS_SPEED < 100.0):
+		dupsprite.position = pos;
+	else:
+		dupsprite.position = currentSprite.global_position;
+	
+	dupsprite.frame = currentSprite.frame;
+	dupsprite.animation = currentSprite.animation;
+	dupsprite.rotation_degrees = currentSprite.rotation_degrees+rotation_degrees;
+	dupsprite.visible = visible;
+	dupsprite.flip_h = currentSprite.flip_h;
+	dupsprite.flip_v = currentSprite.flip_v;
+	dupsprite.scale = currentSprite.scale;
+	dupsprite.z_index = z_index;
+	
 	shadow.frame = currentSprite.frame;
 	shadow.animation = currentSprite.animation;
-	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
-	shadow.rotation_degrees = currentSprite.rotation_degrees;
+	shadow.position = dupsprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.rotation_degrees = currentSprite.rotation_degrees+rotation_degrees;
 	shadow.visible = visible;
 	shadow.flip_h = currentSprite.flip_h;
 	shadow.flip_v = currentSprite.flip_v;
+	shadow.scale = currentSprite.scale;
 
 func _physics_process(delta):
 	if (!get_node("../Editor").playing || !visible):
@@ -270,6 +333,18 @@ func styleChanged():
 	shadow.animation = currentSprite.animation;
 	shadow.scale = currentSprite.scale;
 	get_node("../ShadowViewport").add_child(shadow);
+	
+	if (dupsprite == null):
+		pass
+	else:
+		dupsprite.queue_free();
+	dupsprite = AnimatedSprite.new();
+	dupsprite.frames = currentSprite.frames;
+	dupsprite.animation = currentSprite.animation;
+	dupsprite.scale = currentSprite.scale;
+	dupsprite.position = position;
+	dupsprite.add_to_group("SpriteClone");
+	get_parent().add_child(dupsprite);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character") && visible && !exiting && active):
@@ -292,18 +367,3 @@ func _on_DeadTimer_timeout():
 
 func _on_Area2D2_body_entered(body):
 	pass
-
-func _on_AttackTimer_timeout():
-	if (get_node("../Editor").playing && !dead):
-		#Generate Fireball
-		var inst = get_parent().fireball[Global.CurrentAppeareance].instance();
-		inst.position = position;
-		inst.position.y -= 13;
-		inst.nogravity = true;
-		get_parent().add_child(inst);
-		if (!currentSprite.flip_h):
-			inst.direction = "left";
-		else:
-			inst.direction = "right";
-			
-		inst.vdirection = currentSprite.animation;

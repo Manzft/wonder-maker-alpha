@@ -72,6 +72,7 @@ shape = SubResource( 1 )
 [node name="SpriteGround" type="AnimatedSprite" parent="."]
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 8 )
+frame = 1
 playing = true
 
 [node name="Area2D" type="Area2D" parent="."]

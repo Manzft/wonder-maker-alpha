@@ -7,8 +7,6 @@ var shadow : Sprite
 var objectInside = "";
 var objectAttribute = "";
 
-var insided = false;
-
 var deactivated =  false;
 
 var candeactivate = false;
@@ -90,7 +88,7 @@ func _process(_delta):
 		if (!visible):
 			show();
 	
-	if (insided):
+	if (objectInside != ""):
 		if (get_node("../Editor").playing):
 			$HasObjectInside.hide();
 		else:
@@ -166,6 +164,7 @@ func hit():
 					inst.position = position;
 					inst.exiting = true;
 					inst.insided = true;
+					get_parent().add_child(inst);
 					$PowerUpAppears.play();
 				"star":
 					candeactivate = true;
@@ -192,10 +191,10 @@ func hit():
 					inst.position = position;
 					inst.exiting = true;
 					inst.insided = true;
-					if (objectAttribute == "a_mushroom"):
+					if (objectAttribute == "mushroom"):
 						inst.mushroom = true;
 					get_parent().add_child(inst);
-					$PowerUpAppears.play
+					$PowerUpAppears.play()
 				"goomba":
 					candeactivate = true;
 					yield(get_tree().create_timer(0.2), "timeout");

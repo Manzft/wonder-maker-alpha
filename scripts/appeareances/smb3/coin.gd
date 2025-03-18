@@ -99,10 +99,6 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGhostforest");
 			currentSprite.show();
-		"Snow":
-			currentSprite.hide();
-			currentSprite = get_node("SpriteUnderground");
-			currentSprite.show();
 		_:
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");

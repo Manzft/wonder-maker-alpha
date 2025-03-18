@@ -20,7 +20,7 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
 			currentSprite.show();
-	if (shadow == null):
+	if (!is_instance_valid(shadow) || shadow == null):
 		pass
 	else:
 		shadow.queue_free();

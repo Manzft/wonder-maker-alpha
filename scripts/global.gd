@@ -1,5 +1,7 @@
 extends Node
 
+var thread : Thread = Thread.new();
+
 var transition = preload("res://scenes/ui/transition.tscn");
 var transition_out = preload("res://scenes/ui/transition_out.tscn");
 
@@ -87,6 +89,7 @@ var ENTITY_PHYSICS_SPEED = 100.0;
 var min_entity_physics_speed = 25.0;
 var max_entity_physics_speed = 100.0;
 var PHYSICS_INTERPOLATION = false;
+var SHADOWS = false;
 
 var CurrentInput = "Mouse";
 
@@ -119,86 +122,99 @@ var campos = Vector2(0, 0);
 
 var alternRender = true;
 
+var level_data = {}
+var object_data = []
+
+var SECURITY_KEY = "27102021"
+
+func getObjectCode(node: Node):
+	var obj : int = -1;
+	for group in node.get_groups():
+#		print(group, " | ", node.get_name())
+#		print("-------------");
+		if (group[0] in "0123456789"):
+			obj = int(group);
+			break
+	return obj
+
+func to_dict(node: Node):
+	var obj : int = getObjectCode(node);
+	
+	var data : Dictionary = {
+		"object": str(obj),
+		"position": var2str(node.position)
+	}
+	
+	if (obj == OBJ_FLOOR):
+		data["decorationType"] = node.decorationType;
+		if (CurrentAppeareance != APP_SMB):
+			data["defaultFrameCoords"] = var2str(node.getFrameCoords());
+			data["defaultFalseUp"] = var2str(node.getFalse("Up"));
+			data["defaultFalseUp2"] = var2str(node.getFalse("Up2"));
+			data["defaultFalseCenter"] = var2str(node.getFalse("Center"));
+			data["defaultFalseCenter2"] = var2str(node.getFalse("Center2"));
+	
+	if (node.is_in_group("Insideable")):
+		data["objectInside"] = node.objectInside;
+		data["objectAttribute"] = node.objectAttribute;
+	
+	if (obj == OBJ_BURNER || obj == OBJ_TWOMP || obj == OBJ_CHECKPOINT
+	|| obj == OBJ_ARROW || obj == OBJ_PIPE):
+		data["seldirection"] = node.seldirection;
+	
+	if (obj == OBJ_DRYBONES || obj == OBJ_SPINY):
+		data["alreadydead"] = var2str(node.alreadydead);
+	
+	if (obj == OBJ_PIPE):
+		data["grid_origin"] = var2str(node.grid_origin);
+		data["grid_end"] = var2str(node.grid_end);
+	
+	return data
+
 func courseGetAppeareance(filedir):
 	var f = File.new()
-	f.open(filedir, File.READ);
-	
-	var appeareance = "";
-	
-	f.get_line();
-	appeareance = f.get_line();
-	
+	f.open_encrypted_with_pass(filedir, File.READ, SECURITY_KEY);
+	var content = f.get_as_text();
 	f.close();
-	
-	return appeareance;
+	var json = JSON.parse(content)
+	var data = json.result;
+	return int(data.appeareance)
 
 func courseGetStyle(filedir):
 	var f = File.new()
-	f.open(filedir, File.READ);
-	
-	var style = "";
-	
-	f.get_line();
-	f.get_line();
-	style = f.get_line();
-	
+	f.open_encrypted_with_pass(filedir, File.READ, SECURITY_KEY);
+	var content = f.get_as_text();
 	f.close();
-	
-	return style;
-
-func courseGetAppearance(filedir):
-	var f = File.new()
-	f.open(filedir, File.READ);
-	
-	var appearance = "";
-	
-	f.get_line();
-	appearance = int(f.get_line());
-	
-	f.close();
-	
-	return appearance;
+	var json = JSON.parse(content)
+	var data = json.result;
+	return data.style;
 
 func courseGetDescription(filedir):
 	var f = File.new()
-	f.open(filedir, File.READ);
-	
-	var description = "";
-	
-	f.get_line();
-	f.get_line();
-	f.get_line();
-	description = f.get_line();
-	
+	f.open_encrypted_with_pass(filedir, File.READ, SECURITY_KEY);
+	var content = f.get_as_text();
+	var json = JSON.parse(content)
+	var data = json.result;
 	f.close();
-	
-	return description;
+	return data.description;
 
 func courseGetUser(filedir):
 	var f = File.new()
-	f.open(filedir, File.READ);
-	
-	var user = "";
-	
-	f.get_line();
-	f.get_line();
-	f.get_line();
-	f.get_line();
-	user = f.get_line();
-	
+	f.open_encrypted_with_pass(filedir, File.READ, SECURITY_KEY);
+	var content = f.get_as_text();
+	var json = JSON.parse(content)
+	var data = json.result;
 	f.close();
-	
-	return user;
+	return data.user;
 
 func courseGetVersion(filedir):
 	var f = File.new()
-	f.open(filedir, File.READ);
-	
-	var version = f.get_line();
-	
+	f.open_encrypted_with_pass(filedir, File.READ, SECURITY_KEY);
+	var content = f.get_as_text();
+	var json = JSON.parse(content)
+	var data = json.result;
 	f.close();
-	
-	return version;
+	return data.version;
 
 func get_game_dir():
 	var todir = "";
@@ -216,70 +232,58 @@ func get_game_dir():
 	return todir;
 
 func saveCourseData(ingame = true):
+	var f = File.new()
+	f.open_encrypted_with_pass(currentlevel, File.WRITE, SECURITY_KEY);
+	
 	if (ingame):
 		setLevelInfo();
+		
+	level_data = {
+		"version": GAME_VERSION,
+		"appeareance": str(CurrentAppeareance),
+		"style": CurrentStyle,
+		"description": currentCourseDescription,
+		"user": currentCourseUser,
+		"levelfloor_grid": var2str(levelfloor_grid),
+		"endfloor_grid": var2str(endfloor_grid),
+		"defaultPowerup": CurrentDefaultPowerup,
+		"star": CurrentStar,
+		"speed": CurrentSpeed,
+		"time": str(CurrentTime),
+		"music": CurrentMusic,
+		
+		"objects": object_data
+	}
 	
-	print("Course Data Saved")
-	var f = File.new()
-	f.open(currentlevel, File.WRITE);
+	f.store_string(JSON.print(level_data));
 	
-	f.store_line(GAME_VERSION);
-	f.store_line(str(CurrentAppeareance));
-	f.store_line(CurrentStyle);
-	
-	f.store_line(currentCourseDescription);
-	f.store_line(currentCourseUser);
-	
-	f.store_line(var2str(levelfloor_grid));
-	f.store_line(var2str(endfloor_grid));
-	
-	f.store_line(CurrentDefaultPowerup);
-	f.store_line(CurrentStar);
-	f.store_line(CurrentSpeed);
-	f.store_line(str(CurrentTime));
-	f.store_line(CurrentMusic);
-	
-	for i in range(Objects):
-		f.store_line(str(objects_count[i]));
-		for j in range(objects_count[i]):
-			for k in range(30):
-				if (gnode[i][j][k] != null):
-					f.store_line(var2str(gnode[i][j][k]));
-				else:
-					f.store_line("null");
-	f.close()
+	f.close();
 
 func loadCourseData(ingame = true):
 	print("Course Data Loaded")
 	var f = File.new()
-	f.open(currentlevel, File.READ);
+	f.open_encrypted_with_pass(currentlevel, File.READ, SECURITY_KEY);
 	
-	var version = f.get_line();
-	#if (version == GAME_VERSION):
-	CurrentAppeareance = int(f.get_line());
-	CurrentStyle = f.get_line();
+	var content = f.get_as_text();
+	var json = JSON.parse(content)
+	level_data = json.result;
 	
-	currentCourseDescription = f.get_line();
-	currentCourseUser = f.get_line();
+	CurrentAppeareance = int(level_data.appeareance);
+	CurrentStyle = level_data.style;
+	currentCourseDescription = level_data.description;
+	currentCourseUser = level_data.user;
 	
-	levelfloor_grid = str2var(f.get_line());
-	endfloor_grid = str2var(f.get_line());
+	levelfloor_grid = str2var(level_data.levelfloor_grid);
+	endfloor_grid = str2var(level_data.endfloor_grid);
 	
-	CurrentDefaultPowerup = f.get_line();
-	CurrentStar = f.get_line();
-	CurrentSpeed =  f.get_line();
-	CurrentTime = int(f.get_line());
-	CurrentMusic = f.get_line();
+	CurrentDefaultPowerup = level_data.defaultPowerup;
+	CurrentStar = level_data.star;
+	CurrentSpeed = level_data.speed;
+	CurrentTime = int(level_data.time);
+	CurrentMusic = level_data.music;
 	
-	for i in range(Objects):
-		objects_count[i] = int(f.get_line());
-		for j in range(objects_count[i]):
-				for k in range(30):
-					var dat = f.get_line();
-					if (dat != "null"):
-						gnode[i][j][k] = str2var(dat);
-					else:
-						gnode[i][j][k] = null;
+	object_data = level_data.objects;
+
 	f.close()
 	if (ingame):
 		loadLevelInfo();
@@ -293,15 +297,13 @@ func setLevelInfo():
 	for node in nodes:
 		level = node;
 	
-	setNodes();
+	saveObjects();
 	nodes = get_tree().get_nodes_in_group("LevelfloorController");
 	for node in nodes:
 		levelfloor_grid = level.calculateGrid(node.position.x, node.position.y);
 	nodes = get_tree().get_nodes_in_group("EndfloorController");
 	for node in nodes:
 		endfloor_grid = level.calculateGrid(node.position.x, node.position.y);
-	print(levelfloor_grid);
-	print(endfloor_grid);
 
 func loadLevelInfo():
 	var level;
@@ -328,341 +330,58 @@ func loadLevelInfo():
 			node.star = true;
 		node.updateSprite();
 	
-	#yield(get_tree().create_timer(0.25), "timeout");
+	yield(get_tree(), "idle_frame");
 	level = null;
 	nodes = get_tree().get_nodes_in_group("Level");
 	for node in nodes:
 		level = node;
-	loadNodes(level);
-	
-	emit_signal("gameLoaded");
+	loadObjects(level);
+	#thread.start(self, "loadObjects", level)
+	#thread.wait_to_finish()
 
-func setNodes():
+func saveObjects():
 	var nodes = get_tree().get_nodes_in_group("Obj");
 	
-	setup3dArray(gnode, Objects, 5000, Objects+3);
-	setupArray(objects_count, Objects, true);
+	object_data = []
 	
 	for node in nodes:
-		#Floor
-		if (!node.is_in_group("FalseFloor") && node.is_in_group("Floor")):
-			gnode[OBJ_FLOOR][objects_count[OBJ_FLOOR]][0] = node.position; objects_count[OBJ_FLOOR] += 1;
-		#Block
-		if (node.is_in_group("Block")):
-			gnode[OBJ_BLOCK][objects_count[OBJ_BLOCK]][0] = node.position; objects_count[OBJ_BLOCK] += 1;
-		#Brick
-		if (node.is_in_group("Brick")):
-			gnode[OBJ_BRICK][objects_count[OBJ_BRICK]][0] = node.position;
-			if (node.coinInside):
-				gnode[OBJ_BRICK][objects_count[OBJ_BRICK]][1] = "coinInside";
-			if (node.oneup):
-				gnode[OBJ_BRICK][objects_count[OBJ_BRICK]][1] = "oneup";
-			if (node.star):
-				gnode[OBJ_BRICK][objects_count[OBJ_BRICK]][1] = "star";
-			if (node.mushroom):
-				gnode[OBJ_BRICK][objects_count[OBJ_BRICK]][1] = "mushroom";
-			if (node.fireflower):
-				gnode[OBJ_BRICK][objects_count[OBJ_BRICK]][1] = "fireflower";
-			if (node.goomba):
-				gnode[OBJ_BRICK][objects_count[OBJ_BRICK]][1] = "goomba";
-			if (node.koopatroopa):
-				gnode[OBJ_BRICK][objects_count[OBJ_BRICK]][1] = "koopatroopa";
-			if (node.koopatroopa_red):
-				gnode[OBJ_BRICK][objects_count[OBJ_BRICK]][1] = "koopatroopa_red";
-			if (node.spiny):
-				gnode[OBJ_BRICK][objects_count[OBJ_BRICK]][1] = "spiny";
-			if (node.piranhaplant):
-				gnode[OBJ_BRICK][objects_count[OBJ_BRICK]][1] = "piranhaplant";
-			if (node.withp):
-				gnode[OBJ_BRICK][objects_count[OBJ_BRICK]][1] = "withp";
-			if (node.piranhaplantfire):
-				gnode[OBJ_BRICK][objects_count[OBJ_BRICK]][1] = "piranhaplantfire";
-			if (node.goombrat):
-				gnode[OBJ_BRICK][objects_count[OBJ_BRICK]][1] = "goombrat";
-			if (node.drybones):
-				gnode[OBJ_BRICK][objects_count[OBJ_BRICK]][1] = "drybones";
-				
-			#Atributtes
-			if (node.a_mushroom):
-				gnode[OBJ_BRICK][objects_count[OBJ_BRICK]][2] = "a_mushroom";
-			if (node.a_alreadydead):
-				gnode[OBJ_BRICK][objects_count[OBJ_BRICK]][2] = "a_alreadydead";
-			
-			objects_count[OBJ_BRICK] += 1;
-		#Coin
-		if (node.is_in_group("Coin") && !node.is_in_group("10Coin") && !node.is_in_group("30Coin") && !node.is_in_group("50Coin")):
-			gnode[OBJ_COIN][objects_count[OBJ_COIN]][0] = node.position; objects_count[OBJ_COIN] += 1;
-		#Luckyblock
-		if (node.is_in_group("Luckyblock") && !node.is_in_group("InvisibleLuckyblock")):
-			gnode[OBJ_LUCKYBLOCK][objects_count[OBJ_LUCKYBLOCK]][0] = node.position;
-			#Inside Objects
-			if (node.coinInside):
-				gnode[OBJ_LUCKYBLOCK][objects_count[OBJ_LUCKYBLOCK]][1] = "coinInside";
-			if (node.oneup):
-				gnode[OBJ_LUCKYBLOCK][objects_count[OBJ_LUCKYBLOCK]][1] = "oneup";
-			if (node.star):
-				gnode[OBJ_LUCKYBLOCK][objects_count[OBJ_LUCKYBLOCK]][1] = "star";
-			if (node.mushroom):
-				gnode[OBJ_LUCKYBLOCK][objects_count[OBJ_LUCKYBLOCK]][1] = "mushroom";
-			if (node.fireflower):
-				gnode[OBJ_LUCKYBLOCK][objects_count[OBJ_LUCKYBLOCK]][1] = "fireflower";
-			if (node.goomba):
-				gnode[OBJ_LUCKYBLOCK][objects_count[OBJ_LUCKYBLOCK]][1] = "goomba";
-			if (node.koopatroopa):
-				gnode[OBJ_LUCKYBLOCK][objects_count[OBJ_LUCKYBLOCK]][1] = "koopatroopa";
-			if (node.koopatroopa_red):
-				gnode[OBJ_LUCKYBLOCK][objects_count[OBJ_LUCKYBLOCK]][1] = "koopatroopa_red";
-			if (node.spiny):
-				gnode[OBJ_LUCKYBLOCK][objects_count[OBJ_LUCKYBLOCK]][1] = "spiny";
-			if (node.piranhaplant):
-				gnode[OBJ_LUCKYBLOCK][objects_count[OBJ_LUCKYBLOCK]][1] = "piranhaplant";
-			if (node.withp):
-				gnode[OBJ_LUCKYBLOCK][objects_count[OBJ_LUCKYBLOCK]][1] = "withp";
-			if (node.piranhaplantfire):
-				gnode[OBJ_LUCKYBLOCK][objects_count[OBJ_LUCKYBLOCK]][1] = "piranhaplantfire";
-			if (node.goombrat):
-				gnode[OBJ_LUCKYBLOCK][objects_count[OBJ_LUCKYBLOCK]][1] = "goombrat";
-			if (node.drybones):
-				gnode[OBJ_LUCKYBLOCK][objects_count[OBJ_LUCKYBLOCK]][1] = "drybones";
-				
-			#Atributtes
-			if (node.a_mushroom):
-				gnode[OBJ_LUCKYBLOCK][objects_count[OBJ_LUCKYBLOCK]][2] = "a_mushroom";
-			if (node.a_alreadydead):
-				gnode[OBJ_LUCKYBLOCK][objects_count[OBJ_LUCKYBLOCK]][2] = "a_alreadydead";
-			
-			objects_count[OBJ_LUCKYBLOCK] += 1;
-		#Invisible Luckyblock
-		if (node.is_in_group("InvisibleLuckyblock")):
-			gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][0] = node.position;
-			if (node.coinInside):
-				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][1] = "coinInside";
-			if (node.oneup):
-				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][1] = "oneup";
-			if (node.star):
-				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][1] = "star";
-			if (node.mushroom):
-				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][1] = "mushroom";
-			if (node.fireflower):
-				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][1] = "fireflower";
-			if (node.goomba):
-				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][1] = "goomba";
-			if (node.koopatroopa):
-				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][1] = "koopatroopa";
-			if (node.koopatroopa_red):
-				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][1] = "koopatroopa_red";
-			if (node.spiny):
-				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][1] = "spiny";
-			if (node.piranhaplant):
-				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][1] = "piranhaplant";
-			if (node.withp):
-				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][1] = "withp";
-			if (node.piranhaplantfire):
-				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][1] = "piranhaplantfire";
-			if (node.goombrat):
-				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][1] = "goombrat";
-			if (node.drybones):
-				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][1] = "drybones";
-				
-			#Atributtes
-			if (node.a_mushroom):
-				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][2] = "a_mushroom";
-			if (node.a_alreadydead):
-				gnode[OBJ_INVISIBLE_LUCKYBLOCK][objects_count[OBJ_INVISIBLE_LUCKYBLOCK]][2] = "a_alreadydead";
-			
-			objects_count[OBJ_INVISIBLE_LUCKYBLOCK] += 1;
-		#Cloud
-		if (node.is_in_group("Cloud")):
-			gnode[OBJ_CLOUD][objects_count[OBJ_CLOUD]][0] = node.position; objects_count[OBJ_CLOUD] += 1;
-		#Donut
-		if (node.is_in_group("Donut")):
-			gnode[OBJ_DONUT][objects_count[OBJ_DONUT]][0] = node.position; objects_count[OBJ_DONUT] += 1;
-		#Spike
-		if (node.is_in_group("Spike")):
-			gnode[OBJ_SPIKE][objects_count[OBJ_SPIKE]][0] = node.position; objects_count[OBJ_SPIKE] += 1;
-		#10 Coin
-		if (node.is_in_group("10Coin")):
-			gnode[OBJ_10COIN][objects_count[OBJ_10COIN]][0] = node.position; 
-			gnode[OBJ_10COIN][objects_count[OBJ_10COIN]][10] = node.extension_grid_size;
-			for i in range(node.extension_grid_size):
-				gnode[OBJ_10COIN][objects_count[OBJ_10COIN]][11+i] = node.default_extension_grid[i];
-			objects_count[OBJ_10COIN] += 1;
-		#30 Coin
-		if (node.is_in_group("30Coin")):
-			gnode[OBJ_30COIN][objects_count[OBJ_30COIN]][0] = node.position; 
-			gnode[OBJ_30COIN][objects_count[OBJ_30COIN]][10] = node.extension_grid_size;
-			for i in range(node.extension_grid_size):
-				gnode[OBJ_30COIN][objects_count[OBJ_30COIN]][11+i] = node.default_extension_grid[i];
-			objects_count[OBJ_30COIN] += 1;
-		#50 Coin
-		if (node.is_in_group("50Coin")):
-			gnode[OBJ_50COIN][objects_count[OBJ_50COIN]][0] = node.position; 
-			gnode[OBJ_50COIN][objects_count[OBJ_50COIN]][10] = node.extension_grid_size;
-			for i in range(node.extension_grid_size):
-				gnode[OBJ_50COIN][objects_count[OBJ_50COIN]][11+i] = node.default_extension_grid[i];
-			objects_count[OBJ_50COIN] += 1;
-		#1UP
-		if (node.is_in_group("1up")):
-			gnode[OBJ_1UP][objects_count[OBJ_1UP]][0] = node.position; objects_count[OBJ_1UP] += 1;
-		#MUSHROOM
-		if (node.is_in_group("Mushroom")):
-			gnode[OBJ_MUSHROOM][objects_count[OBJ_MUSHROOM]][0] = node.position; objects_count[OBJ_MUSHROOM] += 1;
-		#STAR
-		if (node.is_in_group("Star")):
-			gnode[OBJ_STAR][objects_count[OBJ_STAR]][0] = node.position; objects_count[OBJ_STAR] += 1;
-		#FIREFLOWER
-		if (node.is_in_group("Fireflower")):
-			gnode[OBJ_FIREFLOWER][objects_count[OBJ_FIREFLOWER]][0] = node.position;
-			if (node.mushroom):
-				gnode[OBJ_FIREFLOWER][objects_count[OBJ_FIREFLOWER]][1] = "mushroom";
-			objects_count[OBJ_FIREFLOWER] += 1;
-		#Goomba
-		if (node.is_in_group("Goomba")):
-			gnode[OBJ_GOOMBA][objects_count[OBJ_GOOMBA]][0] = node.position; objects_count[OBJ_GOOMBA] += 1;
-		#Goombrat
-		if (node.is_in_group("Goombrat")):
-			gnode[OBJ_GOOMBRAT][objects_count[OBJ_GOOMBRAT]][0] = node.position; objects_count[OBJ_GOOMBRAT] += 1;
-		#Koopa Troopa
-		if (node.is_in_group("KoopaTroopa")):
-			gnode[OBJ_KOOPATROOPA][objects_count[OBJ_KOOPATROOPA]][0] = node.position; objects_count[OBJ_KOOPATROOPA] += 1;
-		#Koopa Troopa Red
-		if (node.is_in_group("KoopaTroopaRed")):
-			gnode[OBJ_KOOPATROOPA_RED][objects_count[OBJ_KOOPATROOPA_RED]][0] = node.position; objects_count[OBJ_KOOPATROOPA_RED] += 1;
-		#Spiny
-		if (node.is_in_group("Spiny")):
-			gnode[OBJ_SPINY][objects_count[OBJ_SPINY]][0] = node.position;
-			if (node.alreadydead):
-				gnode[OBJ_SPINY][objects_count[OBJ_SPINY]][1] = "alreadydead";
-			objects_count[OBJ_SPINY] += 1;
-		#Piranha Plant
-		if (node.is_in_group("PiranhaPlant")):
-			gnode[OBJ_PIRANHAPLANT][objects_count[OBJ_PIRANHAPLANT]][0] = node.position; objects_count[OBJ_PIRANHAPLANT] += 1;
-		#Piranha Plant Fire
-		if (node.is_in_group("PiranhaPlantFire")):
-			gnode[OBJ_PIRANHAPLANT_FIRE][objects_count[OBJ_PIRANHAPLANT_FIRE]][0] = node.position; objects_count[OBJ_PIRANHAPLANT_FIRE] += 1;
-		#Muncher
-		if (node.is_in_group("Muncher")):
-			gnode[OBJ_MUNCHER][objects_count[OBJ_MUNCHER]][0] = node.position; objects_count[OBJ_MUNCHER] += 1;
-		#Twomp
-		if (node.is_in_group("Twomp")):
-			gnode[OBJ_TWOMP][objects_count[OBJ_TWOMP]][0] = node.position;
-			gnode[OBJ_TWOMP][objects_count[OBJ_TWOMP]][1] = node.seldirection;
-			gnode[OBJ_TWOMP][objects_count[OBJ_TWOMP]][10] = node.extension_grid_size;
-			for i in range(node.extension_grid_size):
-				gnode[OBJ_TWOMP][objects_count[OBJ_TWOMP]][11+i] = node.default_extension_grid[i];
-			objects_count[OBJ_TWOMP] += 1;
-		#Dry Bones
-		if (node.is_in_group("DryBones")):
-			gnode[OBJ_DRYBONES][objects_count[OBJ_DRYBONES]][0] = node.position;
-			if (node.alreadydead):
-				gnode[OBJ_DRYBONES][objects_count[OBJ_DRYBONES]][1] = "alreadydead";
-			objects_count[OBJ_DRYBONES] += 1;
-		#Burner
-		if (node.is_in_group("Burner")):
-			gnode[OBJ_BURNER][objects_count[OBJ_BURNER]][0] = node.position;
-			gnode[OBJ_BURNER][objects_count[OBJ_BURNER]][1] = node.seldirection;
-			objects_count[OBJ_BURNER] += 1;
-		#P
-		if (node.is_in_group("P")):
-			gnode[OBJ_P][objects_count[OBJ_P]][0] = node.position; objects_count[OBJ_P] += 1;
-		#P Block
-		if (node.is_in_group("PBlock")):
-			gnode[OBJ_PBLOCK][objects_count[OBJ_PBLOCK]][0] = node.position; objects_count[OBJ_PBLOCK] += 1;
-		#ON/OFF Switch
-		if (node.is_in_group("OnOffSwitch")):
-			gnode[OBJ_ONOFFSWITCH][objects_count[OBJ_ONOFFSWITCH]][0] = node.position; objects_count[OBJ_ONOFFSWITCH] += 1;
-		#ON/OFF Switch 2
-		if (node.is_in_group("OnOffSwitch2")):
-			gnode[OBJ_ONOFFSWITCH2][objects_count[OBJ_ONOFFSWITCH2]][0] = node.position; objects_count[OBJ_ONOFFSWITCH2] += 1;
-		#ON Block
-		if (node.is_in_group("OnBlock")):
-			gnode[OBJ_ONBLOCK][objects_count[OBJ_ONBLOCK]][0] = node.position; objects_count[OBJ_ONBLOCK] += 1;
-		#ON Block 2
-		if (node.is_in_group("OnBlock2")):
-			gnode[OBJ_ONBLOCK2][objects_count[OBJ_ONBLOCK2]][0] = node.position; objects_count[OBJ_ONBLOCK2] += 1;
-		#OFF Block
-		if (node.is_in_group("OffBlock")):
-			gnode[OBJ_OFFBLOCK][objects_count[OBJ_OFFBLOCK]][0] = node.position; objects_count[OBJ_OFFBLOCK] += 1;
-		#OFF Block 2
-		if (node.is_in_group("OffBlock2")):
-			gnode[OBJ_OFFBLOCK2][objects_count[OBJ_OFFBLOCK2]][0] = node.position; objects_count[OBJ_OFFBLOCK2] += 1;
-		#Checkpoint
-		if (node.is_in_group("Checkpoint")):
-			gnode[OBJ_CHECKPOINT][objects_count[OBJ_CHECKPOINT]][0] = node.position;
-			gnode[OBJ_CHECKPOINT][objects_count[OBJ_CHECKPOINT]][1] = node.seldirection;
-			gnode[OBJ_CHECKPOINT][objects_count[OBJ_CHECKPOINT]][10] = node.extension_grid_size;
-			for i in range(node.extension_grid_size):
-				gnode[OBJ_CHECKPOINT][objects_count[OBJ_CHECKPOINT]][11+i] = node.default_extension_grid[i];
-			objects_count[OBJ_CHECKPOINT] += 1;
-		#Arrow
-		if (node.is_in_group("Arrow")):
-			gnode[OBJ_ARROW][objects_count[OBJ_ARROW]][0] = node.position;
-			gnode[OBJ_ARROW][objects_count[OBJ_ARROW]][1] = node.seldirection;
-			gnode[OBJ_ARROW][objects_count[OBJ_ARROW]][10] = node.extension_grid_size;
-			for i in range(node.extension_grid_size):
-				gnode[OBJ_ARROW][objects_count[OBJ_ARROW]][11+i] = node.default_extension_grid[i];
-			objects_count[OBJ_ARROW] += 1;
-		#Pipe
-		if (node.is_in_group("Pipe")):
-			gnode[OBJ_PIPE][objects_count[OBJ_PIPE]][0] = node.position;
-			gnode[OBJ_PIPE][objects_count[OBJ_PIPE]][1] = node.seldirection;
-			gnode[OBJ_PIPE][objects_count[OBJ_PIPE]][10] = node.extension_grid_size;
-			for i in range(node.extension_grid_size):
-				gnode[OBJ_PIPE][objects_count[OBJ_PIPE]][11+i] = node.default_extension_grid[i];
-			objects_count[OBJ_PIPE] += 1;
+		if (!node.is_in_group("FalseFloor")):
+			object_data.append(to_dict(node));
 
-func loadNodes(level):
+func loadObjects(level):
 	if (level == null):
 		return
-	for i in range(Objects):
-		for j in range(objects_count[i]):
-			if (gnode[i][j][0] != null):
-				var inst = object[CurrentAppeareance][i][OP_SCENE].instance();
-				inst.position = gnode[i][j][0];
-#				if (i == Global.OBJ_FLOOR):
-#					level.get_node("Solids").add_child(inst);
-#				else:
-				if (inst.is_in_group("OptimizedFloor")):
-					level.get_node("Solids").add_child(inst);
-				else:
-					level.add_child(inst);
-				var gr = level.calculateGrid(inst.position.x, inst.position.y);
-				if (gr.x > level.grid_size.x || gr.y > level.grid_size.y):
-					inst.queue_free();
-					return;
-				else:
-					level.grid[gr.x][gr.y] = i;
-					level.grid_node[gr.x][gr.y] = inst;
-				
-				if (inst.is_in_group("Insideable")):
-					if (gnode[i][j][1] != null):
-						inst.insided = true;
-						inst.objectInside = gnode[i][j][1];
-						inst.objectAttribute = gnode[i][j][2];
-				
-				if (inst.is_in_group("Extensible")):
-					inst.extension_grid_size = gnode[i][j][10];
-					for k in range(20):
-						if (gnode[i][j][k+10+1] != null):
-							inst.default_extension_grid[k] = gnode[i][j][k+10+1];
-					inst.setGrids(i);
-					
-				if (inst.is_in_group("Fireflower")):
-					if (gnode[i][j][1] == "mushroom"):
-						inst.mushroom = true;
-						
-				if (inst.is_in_group("Spiny") || inst.is_in_group("DryBones")):
-					if (gnode[i][j][1] == "alreadydead"):
-						inst.alreadydead = true;
-				
-				if (inst.is_in_group("Twomp") ||
-				inst.is_in_group("Burner") ||
-				inst.is_in_group("Checkpoint") ||
-				inst.is_in_group("Arrow") ||
-				inst.is_in_group("Pipe")):
-					inst.seldirection = gnode[i][j][1];
-			else:
-				break;
+	
+	for obj in object_data:
+		var inst = Global.object[Global.CurrentAppeareance][int(obj.object)][Global.OP_SCENE].instance();
+		level.placeObject(str2var(obj.position), false, int(obj.object), false, false, inst);
+		
+		if (int(obj.object) == OBJ_FLOOR):
+			inst.decorationType = obj.decorationType;
+			if (CurrentAppeareance != APP_SMB):
+				inst.defaultFrameCoords = str2var(obj.defaultFrameCoords);
+				inst.defaultFalseUp = str2var(obj.defaultFalseUp);
+				inst.defaultFalseUp2 = str2var(obj.defaultFalseUp2);
+				inst.defaultFalseCenter = str2var(obj.defaultFalseCenter);
+				inst.defaultFalseCenter2 = str2var(obj.defaultFalseCenter2);
+		
+		if (inst.is_in_group("Insideable")):
+			inst.objectInside = obj.objectInside;
+			inst.objectAttribute = obj.objectAttribute;
+		
+		if (int(obj.object) == OBJ_BURNER || int(obj.object) == OBJ_TWOMP || int(obj.object) == OBJ_CHECKPOINT
+		|| int(obj.object) == OBJ_ARROW || int(obj.object) == OBJ_PIPE):
+			if ("seldirection" in obj):
+				inst.seldirection = obj.seldirection;
+		
+		if (int(obj.object) == OBJ_DRYBONES || int(obj.object) == OBJ_SPINY):
+			inst.alreadydead = str2var(obj.alreadydead)
+		
+		if (int(obj.object) == OBJ_PIPE):
+			inst.grid_origin = str2var(obj.grid_origin);
+			inst.grid_end = str2var(obj.grid_end);
+	
+	emit_signal("gameLoaded");
 
 func loadSettings():
 	var score_data = {}
@@ -686,6 +405,7 @@ func loadSettings():
 			if (ENTITY_PHYSICS_SPEED < min_entity_physics_speed): ENTITY_PHYSICS_SPEED = min_entity_physics_speed;
 			if (ENTITY_PHYSICS_SPEED > max_entity_physics_speed): ENTITY_PHYSICS_SPEED = max_entity_physics_speed;
 			PHYSICS_INTERPOLATION = config.get_value(section, "Physics Interpolation", false);
+			SHADOWS = config.get_value(section, "Shadows (Experimental)", true);
 	
 	OS.vsync_enabled = VSYNC;
 	if (SCREEN_16_9):
@@ -703,6 +423,7 @@ func saveSettings():
 	config.set_value("General", "Touch Buttons Transparency (%)", CONTROLS_TRANSPARENCY);
 	config.set_value("General", "Entity Physics Speed (%)", ENTITY_PHYSICS_SPEED);
 	config.set_value("General", "Physics Interpolation", PHYSICS_INTERPOLATION);
+	config.set_value("General", "Shadows (Experimental)", SHADOWS);
 
 	config.save(get_game_dir()+"/config.ini");
 
@@ -857,11 +578,6 @@ func renderAll():
 
 func unrenderAll():
 	pass
-#	var nodes = get_tree().get_nodes_in_group("Enemy");
-#	for node in nodes:
-#		if (!node.get_node("VisibilityEnabler2D").is_on_screen()):
-#			node.set_process(false);
-#			node.set_physics_process(false);
 
 func _process(delta):
 	if (!changingToEditMode && !OS.window_minimized):
@@ -1039,3 +755,11 @@ func hasVariants(var objCode):
 		OBJ_DRYBONES: variants = true;
 	
 	return variants;
+
+func isChainable(var objCode):
+	var chainable = false;
+	match (objCode):
+		OBJ_GOOMBA: chainable = true;
+	
+	return chainable;
+

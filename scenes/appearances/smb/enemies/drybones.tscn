@@ -120,6 +120,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [ 0.0 ]
 }
+tracks/2/type = "value"
+tracks/2/path = NodePath("SpriteGround:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -14 ) ]
+}
 
 [sub_resource type="Animation" id=38]
 resource_name = "draging"
@@ -179,6 +191,7 @@ max_value = 360.0
 _data = [ Vector2( 0.0138889, 122.577 ), 0.0, 0.0, 0, 0, Vector2( 0.505952, 360 ), 0.0, 0.0, 0, 0 ]
 
 [node name="DryBones" type="KinematicBody2D" groups=["DryBones", "Enemy", "HasShell", "Obj"]]
+z_index = 1
 collision_layer = 2
 collision_mask = 0
 script = ExtResource( 1 )
@@ -188,6 +201,7 @@ position = Vector2( 0, -14 )
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 24 )
 animation = "walk"
+frame = 1
 playing = true
 flip_h = true
 
@@ -265,7 +279,6 @@ one_shot = true
 [node name="CanActiveTimer" type="Timer" parent="."]
 wait_time = 0.125
 one_shot = true
-autostart = true
 
 [node name="SweatParticlesRight" type="CPUParticles2D" parent="."]
 modulate = Color( 1, 1, 1, 0.870588 )

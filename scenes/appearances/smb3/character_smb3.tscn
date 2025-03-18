@@ -615,7 +615,7 @@ collide_with_areas = true
 [node name="Mario" type="AnimatedSprite" parent="."]
 show_behind_parent = true
 light_mask = 3
-position = Vector2( 0, -3 )
+position = Vector2( 0, -2.38419e-07 )
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 5 )
 animation = "small_idle"

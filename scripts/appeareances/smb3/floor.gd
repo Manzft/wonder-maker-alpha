@@ -15,6 +15,16 @@ var mygrid = Vector2();
 var shadow : Sprite;
 var shadowdecoration : Sprite
 
+var pr;
+var levelFloorGrid : Vector2
+var endFloorGrid : Vector2
+
+var defaultFrameCoords : Vector2 = Vector2(-1, -1)
+var defaultFalseUp : bool = false
+var defaultFalseUp2 : bool = false
+var defaultFalseCenter : bool = false
+var defaultFalseCenter2 : bool = false
+
 func render(group, forcerender = false, render_range = 60):
 	if (forcerender):
 		set_process(true);
@@ -66,6 +76,7 @@ func eraseShadow():
 	shadowdecoration.queue_free();
 
 func _ready():
+	pr = get_parent();
 	Global.connect("render", self, "render");
 	Global.connect("floorErase", self, "floorErase");
 	Global.connect("changeStyle", self, "changeStyle");
@@ -79,8 +90,11 @@ func _ready():
 	
 	styleChanged();
 	updateNearFloors();
-	spawnDecoration();
-	$VisibilityEnabler2D.emit_signal("screen_exited")
+	if (editPlaced):
+		spawnDecoration();
+	else:
+		setDecoration()
+	editPlaced = true;
 
 func spawnDecoration():
 	var i = str(round(rand_range(0, 20)));
@@ -112,6 +126,21 @@ func spawnDecoration():
 						hasDecoration = true;
 						if (editPlaced):
 							$SoundSpawnDecoration.play();
+
+func setDecoration():
+	match (decorationType):
+		"Tall":
+			get_node(Global.CurrentStyle+"/DecorationTall").show();
+			decorationType = "Tall";
+			hasDecoration = true;
+		"Short":
+			get_node(Global.CurrentStyle+"/DecorationShort").show();
+			decorationType = "Short";
+			hasDecoration = true
+		"Wide":
+			get_node(Global.CurrentStyle+"/DecorationWide").show();
+			decorationType = "Wide";
+			hasDecoration = true
 
 func updateNearFloors():
 	var mygrid = get_parent().calculateGrid(position.x, position.y);
@@ -173,9 +202,6 @@ func hideFalse():
 
 func checkFloor(x, y):
 	var grid = Vector2(x, y);
-	var pr = get_parent();
-	var levelFloorGrid = pr.calculateGrid(get_node("../LevelFloor").position.x, get_node("../LevelFloor").position.y);
-	var endFloorGrid = pr.calculateGrid(get_node("../EndFloor").position.x, get_node("../EndFloor").position.y);
 	
 	var check = false;
 	
@@ -244,116 +270,439 @@ func styleChanged():
 			currentSprite.show();
 			
 	hideFalse();
-	var mygrid = get_parent().calculateGrid(position.x, position.y);
 	var currentsprite = "Sprite"+Global.CurrentStyle;
-	#Up
-	if (checkFloor(mygrid.x-1, mygrid.y)
-	&& checkFloor(mygrid.x+1, mygrid.y)
-	&& !checkFloor(mygrid.x, mygrid.y-1)
-	&& checkFloor(mygrid.x, mygrid.y+1)):
-		get_node(currentsprite+"/Sprite").frame_coords = Vector2(3, 0);
-	#Up Left
-	elif (!checkFloor(mygrid.x-1, mygrid.y)
-	&& checkFloor(mygrid.x+1, mygrid.y)
-	&& !checkFloor(mygrid.x, mygrid.y-1)
-	&& checkFloor(mygrid.x, mygrid.y+1)):
-		get_node(currentsprite+"/Sprite").frame_coords = Vector2(2, 0);
-	#Up Right
-	elif (checkFloor(mygrid.x-1, mygrid.y)
-	&& !checkFloor(mygrid.x+1, mygrid.y)
-	&& !checkFloor(mygrid.x, mygrid.y-1)
-	&& checkFloor(mygrid.x, mygrid.y+1)):
-		get_node(currentsprite+"/Sprite").frame_coords = Vector2(4, 0);
-	#Center
-	elif (checkFloor(mygrid.x-1, mygrid.y)
-	&& checkFloor(mygrid.x+1, mygrid.y)
-	&& checkFloor(mygrid.x, mygrid.y-1)
-	&& checkFloor(mygrid.x, mygrid.y+1)):
-		get_node(currentsprite+"/Sprite").frame_coords = Vector2(3, 1);
-	#Left
-	elif (!checkFloor(mygrid.x-1, mygrid.y)
-	&& checkFloor(mygrid.x+1, mygrid.y)
-	&& checkFloor(mygrid.x, mygrid.y-1)
-	&& checkFloor(mygrid.x, mygrid.y+1)):
-		get_node(currentsprite+"/Sprite").frame_coords = Vector2(2, 1);
-	#Right
-	elif (checkFloor(mygrid.x-1, mygrid.y)
-	&& !checkFloor(mygrid.x+1, mygrid.y)
-	&& checkFloor(mygrid.x, mygrid.y-1)
-	&& checkFloor(mygrid.x, mygrid.y+1)):
-		get_node(currentsprite+"/Sprite").frame_coords = Vector2(4, 1);
-	#Down
-	elif (checkFloor(mygrid.x-1, mygrid.y)
-	&& checkFloor(mygrid.x+1, mygrid.y)
-	&& checkFloor(mygrid.x, mygrid.y-1)
-	&& !checkFloor(mygrid.x, mygrid.y+1)):
-		get_node(currentsprite+"/Sprite").frame_coords = Vector2(3, 2);
-	#Down Left
-	elif (!checkFloor(mygrid.x-1, mygrid.y)
-	&& checkFloor(mygrid.x+1, mygrid.y)
-	&& checkFloor(mygrid.x, mygrid.y-1)
-	&& !checkFloor(mygrid.x, mygrid.y+1)):
-		get_node(currentsprite+"/Sprite").frame_coords = Vector2(2, 2);
-	#Down Right
-	elif (checkFloor(mygrid.x-1, mygrid.y)
-	&& !checkFloor(mygrid.x+1, mygrid.y)
-	&& checkFloor(mygrid.x, mygrid.y-1)
-	&& !checkFloor(mygrid.x, mygrid.y+1)):
-		get_node(currentsprite+"/Sprite").frame_coords = Vector2(4, 2);
-	#Left Alone
-	elif (!checkFloor(mygrid.x-1, mygrid.y)
-	&& checkFloor(mygrid.x+1, mygrid.y)
-	&& !checkFloor(mygrid.x, mygrid.y-1)
-	&& !checkFloor(mygrid.x, mygrid.y+1)):
-		get_node(currentsprite+"/Sprite").frame_coords = Vector2(0, 3);
-	#Right Alone
-	elif (checkFloor(mygrid.x-1, mygrid.y)
-	&& !checkFloor(mygrid.x+1, mygrid.y)
-	&& !checkFloor(mygrid.x, mygrid.y-1)
-	&& !checkFloor(mygrid.x, mygrid.y+1)):
-		get_node(currentsprite+"/Sprite").frame_coords = Vector2(2, 3);
-	#Down Alone
-	elif (!checkFloor(mygrid.x-1, mygrid.y)
-	&& !checkFloor(mygrid.x+1, mygrid.y)
-	&& checkFloor(mygrid.x, mygrid.y-1)
-	&& !checkFloor(mygrid.x, mygrid.y+1)):
-		get_node(currentsprite+"/Sprite").frame_coords = Vector2(1, 2);
-	#Up Alone
-	elif (!checkFloor(mygrid.x-1, mygrid.y)
-	&& !checkFloor(mygrid.x+1, mygrid.y)
-	&& !checkFloor(mygrid.x, mygrid.y-1)
-	&& checkFloor(mygrid.x, mygrid.y+1)):
-		get_node(currentsprite+"/Sprite").frame_coords = Vector2(1, 0);
-	#Horizontal Alone
-	elif (checkFloor(mygrid.x-1, mygrid.y)
-	&& checkFloor(mygrid.x+1, mygrid.y)
-	&& !checkFloor(mygrid.x, mygrid.y-1)
-	&& !checkFloor(mygrid.x, mygrid.y+1)):
-		get_node(currentsprite+"/Sprite").frame_coords = Vector2(1, 3);
-	#Vertical Alone
-	elif (!checkFloor(mygrid.x-1, mygrid.y)
-	&& !checkFloor(mygrid.x+1, mygrid.y)
-	&& checkFloor(mygrid.x, mygrid.y-1)
-	&& checkFloor(mygrid.x, mygrid.y+1)):
-		get_node(currentsprite+"/Sprite").frame_coords = Vector2(1, 1);
-	#Center Alone
-	else:
-		get_node(currentsprite+"/Sprite").frame_coords = Vector2(0, 0);
+	if (editPlaced || defaultFrameCoords == Vector2(-1, -1)):
+		levelFloorGrid = pr.calculateGrid(get_node("../LevelFloor").position.x, get_node("../LevelFloor").position.y);
+		endFloorGrid = pr.calculateGrid(get_node("../EndFloor").position.x, get_node("../EndFloor").position.y);
+		var mygrid = get_parent().calculateGrid(position.x, position.y);
+		
+		#MAIN COMBINATIONS
+		#Up
+		if (checkFloor(mygrid.x-1, mygrid.y)
+		&& checkFloor(mygrid.x+1, mygrid.y)
+		&& !checkFloor(mygrid.x, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y+1)):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(3, 0);
+		#Up Left
+		elif (!checkFloor(mygrid.x-1, mygrid.y)
+		&& checkFloor(mygrid.x+1, mygrid.y)
+		&& !checkFloor(mygrid.x, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y+1)):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(2, 0);
+		#Up Right
+		elif (checkFloor(mygrid.x-1, mygrid.y)
+		&& !checkFloor(mygrid.x+1, mygrid.y)
+		&& !checkFloor(mygrid.x, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y+1)):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(4, 0);
+		#Center
+		elif (checkFloor(mygrid.x-1, mygrid.y)
+		&& checkFloor(mygrid.x+1, mygrid.y)
+		&& checkFloor(mygrid.x, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y+1)):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(3, 1);
+		#Left
+		elif (!checkFloor(mygrid.x-1, mygrid.y)
+		&& checkFloor(mygrid.x+1, mygrid.y)
+		&& checkFloor(mygrid.x, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y+1)):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(2, 1);
+		#Right
+		elif (checkFloor(mygrid.x-1, mygrid.y)
+		&& !checkFloor(mygrid.x+1, mygrid.y)
+		&& checkFloor(mygrid.x, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y+1)):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(4, 1);
+		#Down
+		elif (checkFloor(mygrid.x-1, mygrid.y)
+		&& checkFloor(mygrid.x+1, mygrid.y)
+		&& checkFloor(mygrid.x, mygrid.y-1)
+		&& !checkFloor(mygrid.x, mygrid.y+1)):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(3, 2);
+		#Down Left
+		elif (!checkFloor(mygrid.x-1, mygrid.y)
+		&& checkFloor(mygrid.x+1, mygrid.y)
+		&& checkFloor(mygrid.x, mygrid.y-1)
+		&& !checkFloor(mygrid.x, mygrid.y+1)):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(2, 2);
+		#Down Right
+		elif (checkFloor(mygrid.x-1, mygrid.y)
+		&& !checkFloor(mygrid.x+1, mygrid.y)
+		&& checkFloor(mygrid.x, mygrid.y-1)
+		&& !checkFloor(mygrid.x, mygrid.y+1)):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(4, 2);
+		#Left Alone
+		elif (!checkFloor(mygrid.x-1, mygrid.y)
+		&& checkFloor(mygrid.x+1, mygrid.y)
+		&& !checkFloor(mygrid.x, mygrid.y-1)
+		&& !checkFloor(mygrid.x, mygrid.y+1)):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(0, 3);
+		#Right Alone
+		elif (checkFloor(mygrid.x-1, mygrid.y)
+		&& !checkFloor(mygrid.x+1, mygrid.y)
+		&& !checkFloor(mygrid.x, mygrid.y-1)
+		&& !checkFloor(mygrid.x, mygrid.y+1)):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(2, 3);
+		#Down Alone
+		elif (!checkFloor(mygrid.x-1, mygrid.y)
+		&& !checkFloor(mygrid.x+1, mygrid.y)
+		&& checkFloor(mygrid.x, mygrid.y-1)
+		&& !checkFloor(mygrid.x, mygrid.y+1)):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(1, 2);
+		#Up Alone
+		elif (!checkFloor(mygrid.x-1, mygrid.y)
+		&& !checkFloor(mygrid.x+1, mygrid.y)
+		&& !checkFloor(mygrid.x, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y+1)):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(1, 0);
+		#Horizontal Alone
+		elif (checkFloor(mygrid.x-1, mygrid.y)
+		&& checkFloor(mygrid.x+1, mygrid.y)
+		&& !checkFloor(mygrid.x, mygrid.y-1)
+		&& !checkFloor(mygrid.x, mygrid.y+1)):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(1, 3);
+		#Vertical Alone
+		elif (!checkFloor(mygrid.x-1, mygrid.y)
+		&& !checkFloor(mygrid.x+1, mygrid.y)
+		&& checkFloor(mygrid.x, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y+1)):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(1, 1);
+		#Center Alone
+		else:
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(0, 0);
+		
+		#SPECIFIC COMBINATIONS
+		
+		#  $
+		# $O$
+		#  $
+		if (checkFloor(mygrid.x-1, mygrid.y) && !checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && !checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1) && !checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(1, 5);
 			
-	var levelFloorGrid = get_parent().calculateGrid(get_node("../LevelFloor").position.x, get_node("../LevelFloor").position.y);
-	var endFloorGrid = get_parent().calculateGrid(get_node("../EndFloor").position.x, get_node("../EndFloor").position.y);
-	if (mygrid.x == levelFloorGrid.x+1):
-		if (mygrid.y == levelFloorGrid.y):
-			get_node(currentsprite+"/FalseUp").show();
-		if (mygrid.y > levelFloorGrid.y):
-			get_node(currentsprite+"/FalseCenter").show();
-	
-	if (mygrid.x == endFloorGrid.x-2):
-		if (mygrid.y == endFloorGrid.y):
-			get_node(currentsprite+"/FalseUp2").show();
-		if (mygrid.y > endFloorGrid.y):
-			get_node(currentsprite+"/FalseCenter2").show();
-	
+		# $
+		# O$
+		# $
+		if (!checkFloor(mygrid.x-1, mygrid.y)# && !checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && !checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1)# && !checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(5, 1);
+		
+		#  $
+		# $O
+		#  $
+		if (checkFloor(mygrid.x-1, mygrid.y) && !checkFloor(mygrid.x-1, mygrid.y-1)
+		&& !checkFloor(mygrid.x+1, mygrid.y)# && !checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1) && !checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1)# && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(8, 1);
+			
+		#  $
+		# $O
+		#  
+		if (checkFloor(mygrid.x-1, mygrid.y) && !checkFloor(mygrid.x-1, mygrid.y-1)
+		&& !checkFloor(mygrid.x+1, mygrid.y)# && !checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1)# && !checkFloor(mygrid.x-1, mygrid.y+1)
+		&& !checkFloor(mygrid.x, mygrid.y+1)# && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(10, 1);
+		
+		#  $
+		#  O$
+		#  
+		if (!checkFloor(mygrid.x-1, mygrid.y)# && !checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && !checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1)# && !checkFloor(mygrid.x-1, mygrid.y+1)
+		&& !checkFloor(mygrid.x, mygrid.y+1)# && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(11, 1);
+		
+		#  $O
+		#   $
+		#  
+		if (checkFloor(mygrid.x-1, mygrid.y)# && !checkFloor(mygrid.x-1, mygrid.y-1)
+		&& !checkFloor(mygrid.x+1, mygrid.y)# && !checkFloor(mygrid.x+1, mygrid.y-1)
+		&& !checkFloor(mygrid.x, mygrid.y-1) && !checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1)# && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(10, 2);
+		
+		#  O$
+		#  $
+		#  
+		if (!checkFloor(mygrid.x-1, mygrid.y)# && !checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y)# && !checkFloor(mygrid.x+1, mygrid.y-1)
+		&& !checkFloor(mygrid.x, mygrid.y-1)# && !checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(11, 2);
+			
+		#  
+		# $O$
+		#  $
+		if (checkFloor(mygrid.x-1, mygrid.y)# && !checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y)# && !checkFloor(mygrid.x+1, mygrid.y-1)
+		&& !checkFloor(mygrid.x, mygrid.y-1) && !checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(4, 3);
+		
+		#  $
+		# $O$
+		#  
+		if (checkFloor(mygrid.x-1, mygrid.y) && !checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && !checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1)# && !checkFloor(mygrid.x-1, mygrid.y+1)
+		&& !checkFloor(mygrid.x, mygrid.y+1)# && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(4, 6);
+			
+		# $$
+		# $O$
+		# $$
+		if (checkFloor(mygrid.x-1, mygrid.y) && checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && !checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1) && checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(1, 8);
+		
+		#  $$
+		# $O$
+		#  $$
+		if (checkFloor(mygrid.x-1, mygrid.y) && !checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1) && !checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(4, 8);
+		
+		# $$$
+		# $O$
+		#  $
+		if (checkFloor(mygrid.x-1, mygrid.y) && checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1) && !checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(1, 11);
+		
+		#  $
+		# $O$
+		# $$$
+		if (checkFloor(mygrid.x-1, mygrid.y) && !checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && !checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1) && checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(4, 11);
+		
+		# $O$
+		# $$
+		# 
+		if (checkFloor(mygrid.x-1, mygrid.y)# && checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y)# && checkFloor(mygrid.x+1, mygrid.y-1)
+		&& !checkFloor(mygrid.x, mygrid.y-1) && checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(1, 13);
+		
+		# $O$
+		#  $$
+		# 
+		if (checkFloor(mygrid.x-1, mygrid.y)# && checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y)# && checkFloor(mygrid.x+1, mygrid.y-1)
+		&& !checkFloor(mygrid.x, mygrid.y-1) && !checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(4, 13);
+			
+		#  $$
+		# $O$
+		# 
+		if (checkFloor(mygrid.x-1, mygrid.y) && !checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1)# && checkFloor(mygrid.x-1, mygrid.y+1)
+		&& !checkFloor(mygrid.x, mygrid.y+1)# && checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(4, 16);
+		
+		# $$
+		# $O$
+		# 
+		if (checkFloor(mygrid.x-1, mygrid.y) && checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && !checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1)# && checkFloor(mygrid.x-1, mygrid.y+1)
+		&& !checkFloor(mygrid.x, mygrid.y+1)# && checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(1, 16);
+		
+		# $$
+		# $O
+		#  $
+		if (checkFloor(mygrid.x-1, mygrid.y) && checkFloor(mygrid.x-1, mygrid.y-1)
+		&& !checkFloor(mygrid.x+1, mygrid.y)# && checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1) && !checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1)# && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(9, 14);
+		
+		# $$
+		# O$
+		# $
+		if (!checkFloor(mygrid.x-1, mygrid.y)# && checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1)# && checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(6, 14);
+		
+		# $
+		# O$
+		# $$
+		if (!checkFloor(mygrid.x-1, mygrid.y)# && checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && !checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1)# && checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(6, 17);
+		
+		#  $
+		# $O
+		# $$
+		if (checkFloor(mygrid.x-1, mygrid.y) && !checkFloor(mygrid.x-1, mygrid.y-1)
+		&& !checkFloor(mygrid.x+1, mygrid.y)# && checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1) && checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1)# && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(9, 17);
+		
+		# $$
+		# $O$
+		#  $$
+		if (checkFloor(mygrid.x-1, mygrid.y) && checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && !checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1) && !checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(13, 5);
+		
+		#  $$
+		# $O$
+		# $$
+		if (checkFloor(mygrid.x-1, mygrid.y) && !checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1) && checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(16, 5);
+		
+		# $$
+		# $O$
+		#  $
+		if (checkFloor(mygrid.x-1, mygrid.y) && checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && !checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1) && !checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(13, 8);
+		
+		#  $$
+		# $O$
+		#  $
+		if (checkFloor(mygrid.x-1, mygrid.y) && !checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1) && !checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(16, 8);
+		
+		#  $
+		# $O$
+		# $$
+		if (checkFloor(mygrid.x-1, mygrid.y) && !checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && !checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1) && checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(13, 11);
+		
+		#  $
+		# $O$
+		#  $$
+		if (checkFloor(mygrid.x-1, mygrid.y) && !checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && !checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1) && !checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(16, 11);
+		
+		# $$
+		# $O$
+		# $$$
+		if (checkFloor(mygrid.x-1, mygrid.y) && checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && !checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1) && checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(7, 8);
+		
+		#  $$
+		# $O$
+		# $$$
+		if (checkFloor(mygrid.x-1, mygrid.y) && !checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1) && checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(10, 8);
+		
+		# $$$
+		# $O$
+		# $$
+		if (checkFloor(mygrid.x-1, mygrid.y) && checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1) && checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && !checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(7, 5);
+		
+		# $$$
+		# $O$
+		#  $$
+		if (checkFloor(mygrid.x-1, mygrid.y) && checkFloor(mygrid.x-1, mygrid.y-1)
+		&& checkFloor(mygrid.x+1, mygrid.y) && checkFloor(mygrid.x+1, mygrid.y-1)
+		&& checkFloor(mygrid.x, mygrid.y-1) && !checkFloor(mygrid.x-1, mygrid.y+1)
+		&& checkFloor(mygrid.x, mygrid.y+1) && checkFloor(mygrid.x+1, mygrid.y+1)
+		):
+			get_node(currentsprite+"/Sprite").frame_coords = Vector2(10, 5);
+		
+		#FALSE FLOOR
+		var levelFloorGrid = get_parent().calculateGrid(get_node("../LevelFloor").position.x, get_node("../LevelFloor").position.y);
+		var endFloorGrid = get_parent().calculateGrid(get_node("../EndFloor").position.x, get_node("../EndFloor").position.y);
+		if (mygrid.x == levelFloorGrid.x+1):
+			if (mygrid.y == levelFloorGrid.y):
+				get_node(currentsprite+"/FalseUp").show();
+			if (mygrid.y > levelFloorGrid.y):
+				get_node(currentsprite+"/FalseCenter").show();
+		
+		if (mygrid.x == endFloorGrid.x-2):
+			if (mygrid.y == endFloorGrid.y):
+				get_node(currentsprite+"/FalseUp2").show();
+			if (mygrid.y > endFloorGrid.y):
+				get_node(currentsprite+"/FalseCenter2").show();
+	else:
+		get_node(currentsprite+"/Sprite").frame_coords = defaultFrameCoords;
+		get_node(currentsprite+"/FalseUp").visible = defaultFalseUp;
+		get_node(currentsprite+"/FalseCenter").visible = defaultFalseCenter;
+		get_node(currentsprite+"/FalseUp2").visible = defaultFalseUp2;
+		get_node(currentsprite+"/FalseCenter2").visible = defaultFalseCenter2;
 	
 	if (shadow == null):
 		pass
@@ -380,3 +729,11 @@ func levelFloorChanged(levelFloorGrid):
 func endFloorChanged(endFloorGrid):
 	if (mygrid.x == endFloorGrid.x-2 || mygrid.x == endFloorGrid.x-3):
 		styleChanged();
+
+func getFrameCoords():
+	var currentsprite = "Sprite"+Global.CurrentStyle;
+	return get_node(currentsprite+"/Sprite").frame_coords;
+
+func getFalse(Str: String):
+	var currentsprite = "Sprite"+Global.CurrentStyle;
+	return get_node(currentsprite+"/False"+Str).visible;

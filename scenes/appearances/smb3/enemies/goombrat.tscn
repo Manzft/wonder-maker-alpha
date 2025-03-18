@@ -136,6 +136,7 @@ max_value = 360.0
 _data = [ Vector2( 0.0138889, 122.577 ), 0.0, 0.0, 0, 0, Vector2( 0.505952, 360 ), 0.0, 0.0, 0, 0 ]
 
 [node name="Goombrat" type="KinematicBody2D" groups=["Enemy", "Goombrat", "Obj"]]
+z_index = 1
 collision_layer = 2
 collision_mask = 0
 script = ExtResource( 1 )

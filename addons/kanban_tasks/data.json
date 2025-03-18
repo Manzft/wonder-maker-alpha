@@ -48,58 +48,77 @@
     {
       "title": "Todo",
       "tasks": [
-        2,
+        24,
         3,
-        25,
         4,
-        5,
         7,
-        8,
-        10,
-        1,
-        6,
         9,
+        1,
+        5,
+        8,
+        13,
         14,
-        15,
+        10,
         11,
         12,
-        13,
-        16
+        15
       ]
     },
     {
       "title": "Doing",
       "tasks": [
-        21,
-        22,
-        20
+        43
       ]
     },
     {
       "title": "Done",
       "tasks": [
-        0
+        6,
+        27,
+        2,
+        0,
+        21,
+        20,
+        28,
+        19
       ]
     },
     {
       "title": "Maybe",
       "tasks": [
-        19,
         18,
-        17
+        17,
+        16
       ]
     },
     {
       "title": "Bugs",
       "tasks": [
-        23,
-        24
+
       ]
     },
     {
       "title": "Bugs Fixed",
       "tasks": [
-
+        44,
+        41,
+        40,
+        42,
+        39,
+        38,
+        37,
+        35,
+        25,
+        23,
+        22,
+        26,
+        32,
+        31,
+        29,
+        36,
+        33,
+        34,
+        30
       ]
     }
   ],
@@ -117,11 +136,6 @@
     {
       "category": 0,
       "title": "New save and load level system",
-      "details": ""
-    },
-    {
-      "category": 0,
-      "title": "Loading level bar system",
       "details": ""
     },
     {
@@ -212,7 +226,7 @@
     {
       "category": 0,
       "title": "Changeable Entities Physics Speed",
-      "details": "SMB: ✖ | SMB3: ✔"
+      "details": "SMB: ✔| SMB3: ✔"
     },
     {
       "category": 0,
@@ -232,6 +246,106 @@
     {
       "category": 0,
       "title": "Finish all styles",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Carried shell dies when jumping in a enemy",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Carried objects low z_index",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "New Mario Jump",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Optimize and finish smb3 floor",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Fireflower mush icon doesn't work properly",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Can carry a p button while is pressed",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Insideable objects error spawning fireflower",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Spawned fireflower doesn't erasing properly when changing to edit mode",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Snow coins with another palette in SMB3",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "SMB3 Scores in SMB items",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Twomp Dir Button doesn't shows correctly",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Insideable objects attributes not working",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Mario Fall animation when sneak jumping",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Mario Fall animation when jumping and getting powerup",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Powerup doesn't dissapear while getting powerup",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Edit Button bugged",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "A fireball explosion can hit mario",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "1UP doesn't showing g hen getting 1up item in SMB",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Column Enemies",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Mario can jump ANOTHER time when motion.y == 0",
       "details": ""
     }
   ]

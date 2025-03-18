@@ -80,50 +80,36 @@ func insideNode(code, node):
 	match (code):
 		Global.OBJ_COIN:
 			node.objectInside = "coinInside";
-			node.insided = true;
 		Global.OBJ_1UP:
 			node.objectInside = "oneup";
-			node.insided = true;
 		Global.OBJ_STAR:
 			node.objectInside = "star";
-			node.insided = true;
 		Global.OBJ_MUSHROOM:
 			node.objectInside = "mushroom";
-			node.insided = true;
 		Global.OBJ_FIREFLOWER:
 			node.objectInside = "fireflower";
-			node.insided = true;
 			if (get_parent().grab_node.mushroom):
 				node.objectAttribute = "mushroom";
 		Global.OBJ_GOOMBA:
 			node.objectInside = "goomba";
-			node.insided = true;
 		Global.OBJ_KOOPATROOPA:
 			node.objectInside = "koopatroopa";
-			node.insided = true;
 		Global.OBJ_KOOPATROOPA_RED:
 			node.objectInside = "koopatroopa_red";
-			node.insided = true;
 		Global.OBJ_SPINY:
 			node.objectInside = "spiny";
-			node.insided = true;
 			if (get_parent().grab_node.alreadydead):
 				node.objectAttribute = "alreadydead";
 		Global.OBJ_PIRANHAPLANT:
 			node.objectInside = "piranhaplant";
-			node.insided = true;
 		Global.OBJ_P:
 			node.objectInside = "withp";
-			node.insided = true;
 		Global.OBJ_PIRANHAPLANT_FIRE:
 			node.objectInside = "piranhaplantfire";
-			node.insided = true;
 		Global.OBJ_GOOMBRAT:
 			node.objectInside = "goombrat";
-			node.insided = true;
 		Global.OBJ_DRYBONES:
 			node.objectInside = "drybones";
-			node.insided = true;
 			if (get_parent().grab_node.alreadydead):
 				node.objectAttribute = "alreadydead";
 
@@ -288,10 +274,11 @@ func _input(event):
 					if (get_parent().grab_node.is_in_group("Extensible")):
 						var node = get_parent().grab_node;
 						if (node.is_in_group("Extensible")):
-							for i in range(node.grid_end.x+1):
-								for j in range(node.grid_end.y+1):
-									if (Vector2(i, j) != node.grid_origin):
-										if (get_parent().grid[togrid.x+i][togrid.y+j] != null && get_parent().grid_node[togrid.x+i][togrid.y+j] != node):
+							var grid_origin = node.grid_origin;
+							for i in range(node.grid_end.x+1+(abs(grid_origin.x))):
+								for j in range(node.grid_end.y+1+(abs(grid_origin.y))):
+									if (Vector2(i, j) != node.grid_origin*-1):
+										if (get_parent().grid[togrid.x+i+grid_origin.x][togrid.y+j+grid_origin.y] != null && get_parent().grid_node[togrid.x+i+grid_origin.x][togrid.y+j+grid_origin.y] != node):
 											mgcheck = false;
 						if (get_parent().grid[togrid.x][togrid.y] != null && get_parent().grid_node[togrid.x][togrid.y] != get_parent().grab_node):
 							mgcheck = false;
@@ -302,20 +289,23 @@ func _input(event):
 						if (check && poscheck && mgcheck):
 							if (get_parent().grab_node.is_in_group("Extensible")):
 								var node = get_parent().grab_node;
-								for i in range(node.grid_end.x+1):
-									for j in range(node.grid_end.y+1):
+								var grid_origin = node.grid_origin;
+								for i in range(node.grid_end.x+1+(abs(grid_origin.x))):
+									for j in range(node.grid_end.y+1+(abs(grid_origin.y))):
 										if (Vector2(i, j) != node.grid_origin):
-											get_parent().grid[get_parent().grab_grid.x+i][get_parent().grab_grid.y+j] = null;
-											get_parent().grid_node[get_parent().grab_grid.x+i][get_parent().grab_grid.y+j] = null;
+											get_parent().grid[get_parent().grab_grid.x+i+grid_origin.x][get_parent().grab_grid.y+j+grid_origin.y] = null;
+											get_parent().grid_node[get_parent().grab_grid.x+i+grid_origin.x][get_parent().grab_grid.y+j+grid_origin.y] = null;
 											
-											get_parent().grid[togrid.x+i][togrid.y+j] = get_parent().grab_id;
-											get_parent().grid_node[togrid.x+i][togrid.y+j] = node;
+											get_parent().grid[togrid.x+i+grid_origin.x][togrid.y+j+grid_origin.y] = get_parent().grab_id;
+											get_parent().grid_node[togrid.x+i+grid_origin.x][togrid.y+j+grid_origin.y] = node;
 									
 							get_parent().grid[get_parent().grab_grid.x][get_parent().grab_grid.y] = null;
 							get_parent().grid_node[get_parent().grab_grid.x][get_parent().grab_grid.y] = null;
 							get_parent().grid[togrid.x][togrid.y] = get_parent().grab_id;
 							get_parent().grid_node[togrid.x][togrid.y] = get_parent().grab_node;
 							get_parent().grab_node.position = get_parent().calculateGridPosition(togrid);
+							if (Global.isChainable(get_parent().grab_id)):
+								get_parent().grab_node.chainAnimation();
 						else:
 							get_parent().grab_node.position = get_parent().calculateGridPosition(get_parent().grab_grid);
 						
@@ -372,10 +362,11 @@ func _input(event):
 			check2 = false;
 			var node = get_parent().grab_node;
 			if (node.is_in_group("Extensible")):
-				for i in range(node.grid_end.x+1):
-					for j in range(node.grid_end.y+1):
-						if (Vector2(i, j) != node.grid_origin):
-							if (get_parent().grid[grid.x+i][grid.y+j] != null && get_parent().grid_node[grid.x+i][grid.y+j] != node):
+				var grid_origin = node.grid_origin;
+				for i in range(node.grid_end.x+1+(abs(grid_origin.x))):
+					for j in range(node.grid_end.y+1+(abs(grid_origin.y))):
+						if (Vector2(i, j) != node.grid_origin*-1):
+							if (get_parent().grid[grid.x+i+grid_origin.x][grid.y+j+grid_origin.y] != null && get_parent().grid_node[grid.x+i+grid_origin.x][grid.y+j+grid_origin.y] != node):
 								check2 = true;
 				if (get_parent().grid[grid.x][grid.y] != null && get_parent().grid_node[grid.x][grid.y] != get_parent().grab_node):
 					check2 = true;
@@ -527,7 +518,7 @@ func _ready():
 		RichPresence.update_activity("PlayingCoursebot")
 	
 	if (!get_parent().startmenu && !Global.coursePlaying):
-		editorMusic(true);
+		#editorMusic(true);
 		RichPresence.update_activity("Editing");
 	
 	for i in range(12): 
@@ -570,11 +561,11 @@ func prepareLoad():
 		appearanceChange(Global.CurrentAppeareance, true);
 		styleChange(Global.CurrentStyle, true);
 	else:
-		Global.currentlevel = "res://title level.wm"
+		pass
+		Global.currentlevel = "res://title level.wom"
 		Global.currentCourseName = "Title Level";
 		Global.loadCourseData();
 		appearanceChange(Global.CurrentAppeareance, true);
-		styleChange(Global.CurrentStyle, true);
 
 func gameLoaded():
 	yield(get_tree().create_timer(0.125), "timeout");
@@ -1274,33 +1265,38 @@ func gamepadReleaseGrab():
 	#Multiple Grids
 	var mgcheck = true;
 	if (get_parent().grab_node.is_in_group("Extensible")):
-		for i in get_parent().grab_node.extension_grid_size:
-			var g = get_parent().grab_node.default_extension_grid[i];
-			if (get_parent().grid[togrid.x+g.x][togrid.y+g.y] != null && get_parent().grid_node[togrid.x+g.x][togrid.y+g.y] != get_parent().grab_node):
-				mgcheck = false;
+		var node = get_parent().grab_node;
+		if (node.is_in_group("Extensible")):
+			var grid_origin = node.grid_origin;
+			for i in range(node.grid_end.x+1+(abs(grid_origin.x))):
+				for j in range(node.grid_end.y+1+(abs(grid_origin.y))):
+					if (Vector2(i, j) != node.grid_origin):
+						if (get_parent().grid[togrid.x+i+grid_origin.x][togrid.y+j+grid_origin.y] != null && get_parent().grid_node[togrid.x+i+grid_origin.x][togrid.y+j+grid_origin.y] != node):
+							mgcheck = false;
 		if (get_parent().grid[togrid.x][togrid.y] != null && get_parent().grid_node[togrid.x][togrid.y] != get_parent().grab_node):
-				mgcheck = false;
+			mgcheck = false;
 	else:
 		mgcheck = !(get_parent().grid[togrid.x][togrid.y] != null && get_parent().grid_node[togrid.x][togrid.y] != get_parent().grab_node);
 	
 	if (!socheck):
 		if (check && poscheck && mgcheck):
 			if (get_parent().grab_node.is_in_group("Extensible")):
-				for g in get_parent().grab_node.default_extension_grid:
-					get_parent().grid[g.x+get_parent().grab_grid.x][g.y+get_parent().grab_grid.y] = null;
-					get_parent().grid_node[g.x+get_parent().grab_grid.x][g.y+get_parent().grab_grid.y] = null;
-				for g in get_parent().grab_node.default_extension_grid:
-					get_parent().grid[g.x+togrid.x][g.y+togrid.y] = get_parent().grab_id;
-					get_parent().grid_node[g.x+togrid.x][g.y+togrid.y] = get_parent().grab_node;
+				var node = get_parent().grab_node;
+				var grid_origin = node.grid_origin;
+				for i in range(node.grid_end.x+1+(abs(grid_origin.x))):
+					for j in range(node.grid_end.y+1+(abs(grid_origin.y))):
+						if (Vector2(i, j) != node.grid_origin):
+							get_parent().grid[get_parent().grab_grid.x+i+grid_origin.x][get_parent().grab_grid.y+j+grid_origin.y] = null;
+							get_parent().grid_node[get_parent().grab_grid.x+i+grid_origin.x][get_parent().grab_grid.y+j+grid_origin.y] = null;
+							
+							get_parent().grid[togrid.x+i+grid_origin.x][togrid.y+j+grid_origin.y] = get_parent().grab_id;
+							get_parent().grid_node[togrid.x+i+grid_origin.x][togrid.y+j+grid_origin.y] = node;
 					
 			get_parent().grid[get_parent().grab_grid.x][get_parent().grab_grid.y] = null;
 			get_parent().grid_node[get_parent().grab_grid.x][get_parent().grab_grid.y] = null;
 			get_parent().grid[togrid.x][togrid.y] = get_parent().grab_id;
 			get_parent().grid_node[togrid.x][togrid.y] = get_parent().grab_node;
 			get_parent().grab_node.position = get_parent().calculateGridPosition(togrid);
-			
-			if (get_parent().grab_node.is_in_group("Extensible")):
-				get_parent().grab_node.setupExtensionGrids();
 		else:
 			get_parent().grab_node.position = get_parent().calculateGridPosition(get_parent().grab_grid);
 		
@@ -1710,88 +1706,65 @@ func appearanceChange(app, start = false):
 	
 	if (!playing):
 		editorMusic(false, false);
-	
+	var last_app = Global.CurrentAppeareance;
 	Global.CurrentAppeareance = app;
 	updateObjectButtons();
 	
 	if (!playing):
 		editorMusic(true, false);
 	
-	if (!start):
-		for node in get_node("../ShadowViewport").get_children():
-			if (!node.is_in_group("CharacterEditorShadow")):
-				node.queue_free();
-		Global.emit_signal("changeStyle");
-		#var objects = 0;
-#		var nodes = get_tree().get_nodes_in_group("Obj");
-#		for node in nodes:
-#			#objects += 1;
-#			var pos = node.position;
-#			var grid = get_parent().calculateGrid(pos.x, pos.y);
-#			var obj = get_parent().grid[grid.x][grid.y];
-#
-#			#print("Object "+str(objects)+": "+Global.object[Global.CurrentAppeareance][obj][Global.OP_NAME]);
-#
-#			if (obj != null && node != null):
-#				var scene = Global.object[Global.CurrentAppeareance][obj][Global.OP_SCENE];
-#				var inst = scene.instance();
-#				get_parent().grid_node[grid.x][grid.y] = inst;
-#				get_parent().add_child(inst);
-#				inst.position = pos;
-#
-#				if (node.is_in_group("Extensible")):
-#					for i in range(node.extension_grid_size):
-#						get_parent().grid_node[node.extension_grid[i].x][node.extension_grid[i].y] = inst;
-#					inst.setGrids(obj);
-#
-#				if (node.is_in_group("Insideable")):
-#					inst.coinInside = node.coinInside;
-#					inst.oneup = node.oneup;
-#					inst.star = node.star;
-#					inst.mushroom = node.mushroom;
-#					inst.fireflower = node.fireflower;
-#					inst.goomba = node.goomba;
-#					inst.koopatroopa = node.koopatroopa;
-#					inst.koopatroopa_red = node.koopatroopa_red;
-#					inst.spiny = node.spiny;
-#					inst.piranhaplant = node.piranhaplant;
-#					inst.withp = node.withp;
-#					inst.piranhaplantfire = node.piranhaplantfire;
-#					inst.goombrat = node.goombrat;
-#					inst.drybones = node.drybones;
-#
-#					inst.insided = node.insided;
-#
-#					inst.a_mushroom = node.a_mushroom;
-#					inst.a_alreadydead = node.a_alreadydead;
-#
-#				if (node.is_in_group("Fireflower")):
-#					inst.mushroom = node.mushroom;
-#
-#				if (node.is_in_group("Spiny") || node.is_in_group("DryBones")):
-#					inst.alreadydead = node.alreadydead;
-#
-#				if (node.is_in_group("Twomp") ||
-#				node.is_in_group("Burner") ||
-#				node.is_in_group("Checkpoint") ||
-#				node.is_in_group("Arrow") ||
-#				node.is_in_group("Pipe")):
-#					inst.seldirection = node.seldirection;
-#
-#				node.queue_free();
-		
-		styleChange(Global.CurrentStyle);
+	for node in get_node("../ShadowViewport").get_children():
+		if (!node.is_in_group("CharacterEditorShadow")):
+			node.queue_free();
+	var nodes = get_tree().get_nodes_in_group("SpriteClone");
+	for node in nodes:
+		node.queue_free();
 	
+	if (!start):
+#		Global.emit_signal("changeStyle");
+		nodes = get_tree().get_nodes_in_group("Obj");
+		for node in nodes:
+			if (!node.is_in_group("FalseFloor")):
+				var obj = Global.getObjectCode(node);
+				var pos = node.position;
+				var inst = Global.object[Global.CurrentAppeareance][obj][Global.OP_SCENE].instance();
+				if (obj == Global.OBJ_FLOOR):
+					inst.decorationType = node.decorationType;
+					if (Global.CurrentAppeareance != Global.APP_SMB && last_app != Global.APP_SMB):
+						inst.defaultFrameCoords = node.defaultFrameCoords;
+						inst.defaultFalseUp = node.defaultFalseUp;
+						inst.defaultFalseUp2 = node.defaultFalseUp2;
+						inst.defaultFalseCenter = node.defaultFalseCenter;
+						inst.defaultFalseCenter2 = node.defaultFalseCenter2;
+				
+				if (node.is_in_group("Insideable")):
+					inst.objectInside = node.objectInside;
+					inst.objectAttribute = node.objectAttribute;
+				
+				if (obj == Global.OBJ_BURNER || obj == Global.OBJ_TWOMP || obj == Global.OBJ_CHECKPOINT
+				|| obj == Global.OBJ_ARROW || obj == Global.OBJ_PIPE):
+					inst.seldirection = node.seldirection;
+				
+				if (obj == Global.OBJ_DRYBONES || obj == Global.OBJ_SPINY):
+					inst.alreadydead = node.alreadydead;
+				
+				if (obj == Global.OBJ_PIPE):
+					inst.grid_origin = node.grid_origin;
+					inst.grid_end = node.grid_end;
+				
+				get_parent().eraseObject(pos, false, false, false);
+				get_parent().placeObject(pos, false, obj, false, false, inst);
 	emit_signal("appearanceChanged", app);
+	yield(get_tree(), "idle_frame");
+	styleChange(Global.CurrentStyle, true, true);
 
 	#thread.wait_to_finish();
 	print("Appearance Changed Successfully");
 
 func _on_SMBButton_pressed():
-	$AudioBigButton.play();
-	#appearanceChange(Global.APP_SMB);
-	#thread.start(self, "appearanceChange", Global.APP_SMB);
 	appearanceChange(Global.APP_SMB);
+	yield(get_tree(), "idle_frame");
+	$AudioBigButton.play();
 	closeMenus();
 func _on_SMBButton_mouse_entered():
 	mouseFocus = "AppeareancesMenu/SMBButton"; button_mouse_entered(); changeFocus();
@@ -1799,10 +1772,9 @@ func _on_SMBButton_mouse_exited():
 	button_mouse_exited(); mouseFocus = ""; changeFocus();
 
 func _on_SMB3Button_pressed():
-	$AudioBigButton.play();
-	var thread = Thread.new();
-	#thread.start(self, "appearanceChange", Global.APP_SMB3);
 	appearanceChange(Global.APP_SMB3);
+	yield(get_tree(), "idle_frame");
+	$AudioBigButton.play();
 	closeMenus();
 func _on_SMB3Button_mouse_entered():
 	mouseFocus = "AppeareancesMenu/SMB3Button"; button_mouse_entered(); changeFocus();
@@ -1833,18 +1805,18 @@ func _on_CoursebotMenuCloseButton_mouse_entered():
 func _on_CoursebotMenuCloseButton_mouse_exited():
 	button_mouse_exited(); mouseFocus = ""; changeFocus();
 
-func styleChange(style, start = false):
+func styleChange(style, start = false, dontTellObj : bool = false):
 	if (!start):
 		editorMusic(false)
 	Global.CurrentStyle = style;
 	get_parent().setStyleBackground();
-	if (style == "Ghostforest"  || style == "Ghosthouse" || style == "Underground" || style == "Forest"):
+	if (style == "Ghostforest"  || style == "Ghosthouse" || style == "Underground"):
 		get_parent().get_node("TileMap").modulate.r = 255;
 		get_parent().get_node("TileMap").modulate.g = 255;
 		get_parent().get_node("TileMap").modulate.b = 255;
-		if (style != "Forest"):
-			get_parent().get_node("ShadowLayer").material.set_shader_param("tint_active", true)
-			get_parent().get_node("ShadowLayer").modulate = Color(1, 1, 1, 1);
+		
+		get_parent().get_node("ShadowLayer").material.set_shader_param("tint_active", true)
+		get_parent().get_node("ShadowLayer").modulate = Color(1, 1, 1, 1);
 		if (style == "Ghostforest"):
 			get_parent().get_node("ShadowLayer").material.set_shader_param("tint_color", Color(0.13, 0.08, 0.24, 1))
 		else:
@@ -1855,9 +1827,11 @@ func styleChange(style, start = false):
 		get_parent().get_node("TileMap").modulate.b = 0;
 		get_parent().get_node("ShadowLayer").material.set_shader_param("tint_active", false)
 		get_parent().get_node("ShadowLayer").modulate = Color(0, 0, 0, 0.39);
-	var nodes = get_tree().get_nodes_in_group("Obj");
-	for node in nodes:
-		node.styleChanged();
+	var nodes : Array;
+	if (!dontTellObj):
+		nodes = get_tree().get_nodes_in_group("Obj");
+		for node in nodes:
+			node.styleChanged();
 	nodes = get_tree().get_nodes_in_group("StartSign");
 	for node in nodes:
 		node.styleChanged();
@@ -2037,7 +2011,7 @@ func _on_TimeMenuAnimationPlayer_animation_finished(anim_name):
 #Coursebot Menu
 func enterTextFinished(text, type):
 	if (type == "CourseName"):
-		Global.currentlevel = Global.get_game_dir()+"/Courses/"+text+".wm";
+		Global.currentlevel = Global.get_game_dir()+"/Courses/"+text+".wom";
 		Global.currentCourseName = text;
 		savedFocus = getFocusNode();
 		var inst = Global.enterText("Ingresa la descripción del nivel:", "CourseDescription", self);
@@ -2314,7 +2288,7 @@ func _on_Play_pressed():
 		for node in nodes:
 			if (node.position.y <= 840):
 				get_parent().freecam = true;
-				print("freecam");
+				print("Cam now is FREE");
 				break;
 		
 		$Edit/AnimationPlayer.play("in");

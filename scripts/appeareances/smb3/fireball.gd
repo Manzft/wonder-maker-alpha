@@ -2,13 +2,22 @@ extends KinematicBody2D
 
 var motion = Vector2();
 
-var max_speed = 500;
-const jump_h  = -500;
-const gravity = 50;
-const max_fall = jump_h*-1;
+var def_max_speed = 500;
+var def_jump_h  = -500;
+var def_gravity = 50;
+var def_max_fall = def_jump_h*-1;
+
+var max_speed = 0;
+var jump_h  = 0;
+var gravity = 0;
+var max_fall = 0;
+
+var timer = 0.0;
 
 var nogravity = false;
 var vdirection = "up";
+
+var spriteVisible = true;
 
 var dead = false;
 
@@ -16,14 +25,22 @@ var direction = "right";
 
 var shadow : AnimatedSprite
 var explosionshadow : AnimatedSprite
+var dupsprite : AnimatedSprite
 
 func eraseShadow():
+	dupsprite.queue_free();
 	shadow.queue_free();
 	explosionshadow.queue_free();
 
 func _ready():
+	max_speed = def_max_speed/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	jump_h  = def_jump_h/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	gravity = def_gravity/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	max_fall = def_max_fall/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	
 	shadow = AnimatedSprite.new();
 	explosionshadow = AnimatedSprite.new();
+	dupsprite = AnimatedSprite.new();
 	
 	shadow.frames = $Sprite.frames;
 	shadow.animation = $Sprite.animation;
@@ -33,8 +50,16 @@ func _ready():
 	explosionshadow.animation = $SpriteExplosion.animation;
 	explosionshadow.scale = $SpriteExplosion.scale;
 	
+	dupsprite.frames = $Sprite.frames;
+	dupsprite.animation = $Sprite.animation;
+	dupsprite.scale = $Sprite.scale;
+	dupsprite.position = $Sprite.global_position;
+	dupsprite.light_mask = $Sprite.light_mask;
+	dupsprite.add_to_group("SpriteClone");
+	
 	get_node("../ShadowViewport").add_child(shadow);
 	get_node("../ShadowViewport").add_child(explosionshadow);
+	get_parent().add_child(dupsprite);
 	
 	$AnimationPlayer.play("idle");
 	
@@ -73,17 +98,36 @@ func _process(_delta):
 	
 	$CollisionShape2D.disabled = nogravity;
 	
-	shadow.position = $Sprite.global_position+Vector2(3*3.25, 3*3.25);
+	var position_difference = dupsprite.position.distance_to($Sprite.global_position)
+	var pos = dupsprite.position.linear_interpolate($Sprite.global_position, 0.35)
+	$Sprite.hide();
+	if (Global.playing && Global.PHYSICS_INTERPOLATION && Global.ENTITY_PHYSICS_SPEED < 100.0):
+		dupsprite.position = pos;
+	else:
+		dupsprite.position = $Sprite.global_position;
+	
+	dupsprite.frame = $Sprite.frame;
+	dupsprite.animation = $Sprite.animation;
+	dupsprite.rotation_degrees = $Sprite.rotation_degrees+rotation_degrees;
+	dupsprite.visible = spriteVisible;
+	dupsprite.flip_h = $Sprite.flip_h;
+	dupsprite.flip_h = $Sprite.flip_v;
+	dupsprite.scale = $Sprite.scale;
+	dupsprite.z_index = z_index;
+	
+	$Light2D.global_position = dupsprite.position;
+	
+	shadow.position = dupsprite.position+Vector2(3*3.25, 3*3.25);
 	shadow.animation = $Sprite.animation;
 	shadow.frame = $Sprite.frame;
-	shadow.visible = $Sprite.visible;
+	shadow.visible = dupsprite.visible;
 	
 	explosionshadow.position = $SpriteExplosion.global_position+Vector2(3*3.25, 3*3.25);
 	explosionshadow.animation = $SpriteExplosion.animation;
 	explosionshadow.frame = $SpriteExplosion.frame;
 	explosionshadow.visible = $SpriteExplosion.visible;
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	if (!dead):
 		if (!nogravity):
 			motion.y += gravity;
@@ -94,34 +138,34 @@ func _physics_process(_delta):
 	if (position.y >= 1600 || position.y <= -16):
 		eraseShadow();
 		queue_free();
-		
-	motion = move_and_slide(motion, Vector2(0, -1));
+	
+	timer += delta
+	if (timer >= delta/(Global.ENTITY_PHYSICS_SPEED*0.01)):
+		timer = 0.0
+		motion = move_and_slide(motion, Vector2(0, -1));
 
 func jump():
 	motion.y = jump_h;
 
 func _on_Area2D_body_entered(body):
-	if (body == get_node("../Character") && nogravity && !get_node("../Character").invincible && !get_node("../Character").star):
+	if (!dead && body == get_node("../Character") && nogravity && !get_node("../Character").invincible && !get_node("../Character").star):
 		body.hit();
 		motion.y = 0;
 		motion.x = 0;
 		dead = true;
-		$Sprite.hide();
+		spriteVisible = false;
 		$SpriteExplosion.frame = 0;
 		$SpriteExplosion.play("default");
 		$SpriteExplosion.show();
 		$DeadTimer.start();
 		get_node("../Character/SoundBrick").play();
 	
-	if (nogravity):
-		return;
-	
-	if (body.is_in_group("Enemy") && !body.is_in_group("Solid")):
+	if (body.is_in_group("Enemy") && !body.is_in_group("Solid") && !nogravity):
 		if (!dead && !body.dead):
 			motion.y = 0;
 			motion.x = 0;
 			dead = true;
-			$Sprite.hide();
+			spriteVisible = false;
 			$SpriteExplosion.frame = 0;
 			$SpriteExplosion.play("default");
 			$SpriteExplosion.show();
@@ -139,20 +183,20 @@ func _on_Area2D_body_entered(body):
 					motion.y = 0;
 					motion.x = 0;
 					dead = true;
-					$Sprite.hide();
+					spriteVisible = false;
 					$SpriteExplosion.frame = 0;
 					$SpriteExplosion.play("default");
 					$SpriteExplosion.show();
 					$DeadTimer.start();
 					get_node("../Character/SoundBrick").play();
 			else:
-				if (body.position.y-26 > position.y+12):
+				if (body.position.y-26 > position.y+12 && !nogravity):
 					jump();
 				else:
 					motion.y = 0;
 					motion.x = 0;
 					dead = true;
-					$Sprite.hide();
+					spriteVisible = false;
 					$SpriteExplosion.frame = 0;
 					$SpriteExplosion.play("default");
 					$SpriteExplosion.show();

@@ -189,7 +189,7 @@ func _process(_delta):
 			$AnimationPlayer.play("RESET");
 	
 	var position_difference = dupsprite.position.distance_to(currentSprite.global_position)
-	var pos = dupsprite.position.linear_interpolate(position, 0.35)
+	var pos = dupsprite.position.linear_interpolate(currentSprite.global_position, 0.35)
 	currentSprite.hide();
 	if (Global.playing && Global.PHYSICS_INTERPOLATION && Global.ENTITY_PHYSICS_SPEED < 100.0):
 		dupsprite.position = pos;
@@ -201,7 +201,7 @@ func _process(_delta):
 	dupsprite.rotation_degrees = currentSprite.rotation_degrees+rotation_degrees;
 	dupsprite.visible = visible;
 	dupsprite.flip_h = currentSprite.flip_h;
-	dupsprite.flip_h = currentSprite.flip_v;
+	dupsprite.flip_v = currentSprite.flip_v;
 	dupsprite.scale = currentSprite.scale;
 	dupsprite.z_index = z_index;
 	
@@ -346,9 +346,12 @@ func styleChanged():
 	dupsprite.animation = currentSprite.animation;
 	dupsprite.scale = currentSprite.scale;
 	dupsprite.position = position;
+	dupsprite.add_to_group("SpriteClone");
 	get_parent().add_child(dupsprite);
 
 func _on_Area2D_body_entered(body):
+	if (body == self):
+		return
 	if (body.is_in_group("Character") && visible && !exiting && active):
 		hitCharacter = true;
 	if (body.is_in_group("HasShell")):
@@ -389,12 +392,8 @@ func _on_Area2D2_body_entered(body):
 				
 				body.get_node("SoundEnemyHit").play();
 				
-				if !(Input.is_action_pressed("a") || Input.is_action_pressed("b")):
-					get_node("../Character").motion.y = get_node("../Character").jump_h/2;
-					get_node("../Character").jumping = true;
-				else:
-					get_node("../Character").motion.y = get_node("../Character").jump_h*1.1;
-					get_node("../Character").jumping = true;
+				get_node("../Character").motion.y = get_node("../Character").jump_h;
+				get_node("../Character").jumping = true;
 
 func _on_CanActiveTimer_timeout():
 	canActive = true;

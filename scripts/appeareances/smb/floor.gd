@@ -77,7 +77,11 @@ func _ready():
 	mygrid = get_parent().calculateGrid(position.x, position.y);
 	updateNearFloors();
 	styleChanged();
-	spawnDecoration();
+	if (editPlaced):
+		spawnDecoration();
+	else:
+		setDecoration()
+	editPlaced = false;
 
 func _process(delta):
 	if (shadow != null):
@@ -134,6 +138,21 @@ func spawnDecoration():
 						hasDecoration = true;
 						if (editPlaced):
 							$SoundSpawnDecoration.play();
+
+func setDecoration():
+	match (decorationType):
+		"Tall":
+			get_node(Global.CurrentStyle+"/DecorationTall").show();
+			decorationType = "Tall";
+			hasDecoration = true;
+		"Short":
+			get_node(Global.CurrentStyle+"/DecorationShort").show();
+			decorationType = "Short";
+			hasDecoration = true
+		"Wide":
+			get_node(Global.CurrentStyle+"/DecorationWide").show();
+			decorationType = "Wide";
+			hasDecoration = true
 
 func isNotSolidOrDoesntExists(mygrid = Vector2()):
 	var check = (get_node("../").grid_node[mygrid.x][mygrid.y] == null);

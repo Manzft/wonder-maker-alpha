@@ -106,21 +106,19 @@ func setCourseName():
 			else:
 				#print("Found file: " + file_name)
 				if (filecount <= 14):
-					if (file_name.get_extension() == "wm"):
-						var ver = Global.courseGetVersion(todir+"/"+file_name);
-						if (ver == Global.GAME_VERSION || ver == "1.1"):
-							get_node("Base/Course"+str(filecount)+"/Label").text = file_name.trim_suffix(".wm");
-							var node = get_node("Base/Course"+str(filecount));
-							
-							var inst = load("res://scenes/ui/course_content.tscn").instance();
-							node.add_child(inst);
-							inst.rect_position = Vector2(9, 8);
-							var style = Global.courseGetStyle(Global.get_game_dir()+"/Courses/"+file_name);
-							var appearance = Global.courseGetAppearance(Global.get_game_dir()+"/Courses/"+file_name);
-							inst.setAppearance(appearance);
-							inst.setStyle(style);
-							#node.show();
-							filecount += 1;
+					if (file_name.get_extension() == "wom"):
+						get_node("Base/Course"+str(filecount)+"/Label").text = file_name.trim_suffix(".wom");
+						var node = get_node("Base/Course"+str(filecount));
+						
+						var inst = load("res://scenes/ui/course_content.tscn").instance();
+						node.add_child(inst);
+						inst.rect_position = Vector2(9, 8);
+						var style = Global.courseGetStyle(Global.get_game_dir()+"/Courses/"+file_name);
+						var appearance = Global.courseGetAppeareance(Global.get_game_dir()+"/Courses/"+file_name);
+						inst.setAppearance(appearance);
+						inst.setStyle(style);
+						#node.show();
+						filecount += 1;
 			file_name = dir.get_next()
 	else:
 		savedFocus = getFocusNode();
@@ -147,22 +145,22 @@ func course(id):
 	if (!Global.loadingCourse):
 		var node = get_node("Base/Course"+str(id));
 		if (node.get_node("Label").text != ""):
-			Global.currentlevel = Global.get_game_dir()+"/Courses/"+node.get_node("Label").text+".wm";
+			Global.currentlevel = Global.get_game_dir()+"/Courses/"+node.get_node("Label").text+".wom";
 			
 			$LevelInfo.show();
 			var inst = load("res://scenes/ui/course_content.tscn").instance();
 			$LevelInfo.add_child(inst);
 			inst.rect_position = Vector2(35.5, 81);
 			inst.rect_scale = Vector2(2.55, 2.55);
-			var style = Global.courseGetStyle(Global.get_game_dir()+"/Courses/"+node.get_node("Label").text+".wm");
-			var appearance = Global.courseGetAppearance(Global.get_game_dir()+"/Courses/"+node.get_node("Label").text+".wm");
+			var style = Global.courseGetStyle(Global.get_game_dir()+"/Courses/"+node.get_node("Label").text+".wom");
+			var appearance = Global.courseGetAppeareance(Global.get_game_dir()+"/Courses/"+node.get_node("Label").text+".wom");
 			inst.setAppearance(appearance);
 			inst.setStyle(style);
 			
 			$LevelInfo/CourseName.text = node.get_node("Label").text;
-			var description = Global.courseGetDescription(Global.get_game_dir()+"/Courses/"+node.get_node("Label").text+".wm");
+			var description = Global.courseGetDescription(Global.get_game_dir()+"/Courses/"+node.get_node("Label").text+".wom");
 			$LevelInfo/CourseDescription.text = description;
-			var user = Global.courseGetUser(Global.get_game_dir()+"/Courses/"+node.get_node("Label").text+".wm");
+			var user = Global.courseGetUser(Global.get_game_dir()+"/Courses/"+node.get_node("Label").text+".wom");
 			$LevelInfo/CourseUser.text = user;
 			
 			if (Global.CurrentInput == "Gamepad"):
@@ -172,7 +170,7 @@ func course(id):
 	else:
 		var node = get_node("Base/Course"+str(id));
 		if (node.get_node("Label").text != ""):
-			Global.currentlevel = Global.get_game_dir()+"/Courses/"+node.get_node("Label").text+".wm";
+			Global.currentlevel = Global.get_game_dir()+"/Courses/"+node.get_node("Label").text+".wom";
 			Global.currentCourseName = node.get_node("Label").text;
 			Global.changeScene("res://scenes/Level.tscn");
 			Global.toLoad = true;
@@ -330,7 +328,7 @@ func enterTextFinished(text, type):
 		var content = f.get_as_text();
 		f.close();
 		
-		var newpath = Global.get_game_dir()+"/Courses/"+text+".wm";
+		var newpath = Global.get_game_dir()+"/Courses/"+text+".wom";
 		
 		f.open(newpath, File.WRITE);
 		f.store_string(content);

@@ -63,6 +63,8 @@ var alreadydead = false;
 var shadow : AnimatedSprite
 var dupsprite : AnimatedSprite
 
+var canHit = true;
+
 func render(group, forcerender = false, render_range = 60):
 	if (forcerender):
 		set_process(true);
@@ -160,7 +162,8 @@ func _process(_delta):
 			if (!chara.running):
 				carrying = false;
 				chara.carrying = false;
-				
+				canHit = false;
+				$CanHitTimer.start();
 				motion.y = 0;
 				
 				if (!dead && !chara.died && !chara.changingPowerup):
@@ -169,14 +172,13 @@ func _process(_delta):
 						invincible = true;
 						$InvincibleTimer.start();
 						$AttackTimer.start();
-						speed_increase = abs(get_node("../Character").motion.x);
+						speed_increase = (abs(get_node("../Character").motion.x/2))/(Global.ENTITY_PHYSICS_SPEED*0.01);
 						if (chara.position.x >= position.x):
 							position.x -= 10;
-							motion.x = -70-speed_increase;
+							motion.x = (-70/(Global.ENTITY_PHYSICS_SPEED*0.01))-speed_increase;
 						else:
 							position.x += 10;
-							motion.x = 70+speed_increase;
-						
+							motion.x = (70/(Global.ENTITY_PHYSICS_SPEED*0.01))+speed_increase;
 					else:
 						chara.get_node("KickingTimer").start();
 						chara.kicking = true;
@@ -184,12 +186,14 @@ func _process(_delta):
 							hit("left", false, false, true);
 							var inst = load("res://scenes/appearances/smb3/particles/parthit.tscn").instance();
 							get_parent().add_child(inst);
+							position.x -= speed_increase*0.025;
 							inst.position.x = position.x-12.5;
 							inst.position.y = position.y;
 						else:
 							hit("right", false, false, true);
 							var inst = load("res://scenes/appearances/smb3/particles/parthit.tscn").instance();
 							get_parent().add_child(inst);
+							position.x += speed_increase*0.025;
 							inst.position.x = position.x+12.5;
 							inst.position.y = position.y;
 						canAttack = false;
@@ -229,6 +233,8 @@ func _process(_delta):
 			position = startPos;
 			$AnimationPlayer.play("RESET");
 		
+		canHit = true;
+		canActive = false;
 		speed_increase = 0;
 		canActiveTimerStarted = false;
 		invincible = false;
@@ -272,10 +278,9 @@ func _process(_delta):
 			$SweatParticlesRight.emitting = false;
 			$AnimationPlayer.play("RESET");
 	
-	var position_difference = dupsprite.position.distance_to(currentSprite.global_position)
-	var pos = dupsprite.position.linear_interpolate(position, 0.35)
+	var pos = dupsprite.position.linear_interpolate(currentSprite.global_position, 0.35)
 	currentSprite.hide();
-	if (Global.playing && Global.PHYSICS_INTERPOLATION && Global.ENTITY_PHYSICS_SPEED < 100.0):
+	if (Global.playing && Global.PHYSICS_INTERPOLATION && Global.ENTITY_PHYSICS_SPEED < 100.0 && !carrying):
 		dupsprite.position = pos;
 	else:
 		dupsprite.position = currentSprite.global_position;
@@ -285,7 +290,7 @@ func _process(_delta):
 	dupsprite.rotation_degrees = currentSprite.rotation_degrees+rotation_degrees;
 	dupsprite.visible = visible;
 	dupsprite.flip_h = currentSprite.flip_h;
-	dupsprite.flip_h = currentSprite.flip_v;
+	dupsprite.flip_v = currentSprite.flip_v;
 	dupsprite.scale = currentSprite.scale;
 	dupsprite.z_index = z_index;
 	
@@ -395,7 +400,7 @@ func hit(dir, inshell = false, byblock = false, move = false):
 				currentSprite.flip_h = true;
 			"right":
 				currentSprite.flip_h = false;
-		speed_increase = abs(get_node("../Character").motion.x/2);
+		speed_increase = (abs(get_node("../Character").motion.x/2))/(Global.ENTITY_PHYSICS_SPEED*0.01);
 		moving = true;
 	elif (!inshell):
 		if (invincible):
@@ -502,10 +507,11 @@ func styleChanged():
 	dupsprite.animation = currentSprite.animation;
 	dupsprite.scale = currentSprite.scale;
 	dupsprite.position = position;
+	dupsprite.add_to_group("SpriteClone");
 	get_parent().add_child(dupsprite);
 
 func _on_Area2D_body_entered(body):
-	if (body == self):
+	if (body == self || !Global.playing):
 		return
 	if (body.is_in_group("Character") && visible && !exiting && active):
 		hitCharacter = true;
@@ -517,8 +523,10 @@ func _on_Area2D_body_entered(body):
 			else:
 				hit("right");
 			get_node("../Character/SoundShellHit").play();
+	if (!get_node("../Character").is_on_floor()):
+		return;
 	if (body.is_in_group("Enemy") && !body.is_in_group("NotKilleableWithShell")):
-		if (!dead && visible && !exiting && active && carrying):
+		if (!body.dead && !dead && visible && !exiting && active && carrying):
 			hitDead = true;
 			body.hitDead = true;
 			carrying = false;
@@ -572,13 +580,9 @@ func _on_Area2D2_body_entered(body):
 					
 					body.get_node("SoundEnemyHit").play();
 					
-					if !(Input.is_action_pressed("a") || Input.is_action_pressed("b")):
-						get_node("../Character").motion.y = get_node("../Character").jump_h*0.7;
-						get_node("../Character").jumping = true;
-					else:
-						get_node("../Character").motion.y = get_node("../Character").jump_h*1;
-						get_node("../Character").jumping = true;
-						
+					get_node("../Character").motion.y = get_node("../Character").jump_h;
+					get_node("../Character").jumping = true;
+					
 					get_parent().enemyScore(position);
 			elif (inShell && !moving):
 				if (!dead && !body.died && !body.changingPowerup && alreadydead):
@@ -588,6 +592,8 @@ func _on_Area2D2_body_entered(body):
 						$BigWakeTimer.stop();
 						$BigWakeTimer.start();
 					else:
+						if (!canHit):
+							return
 						if (get_node("../Character").position.x >= position.x):
 							hit("left", false, false, true);
 							var inst = load("res://scenes/appearances/smb3/particles/parthit.tscn").instance();
@@ -607,6 +613,8 @@ func _on_Area2D2_body_entered(body):
 						body.get_node("SoundShellHit").play();
 			elif (inShell && moving):
 				if (!dead && !body.died && !body.is_on_floor() && !body.changingPowerup):
+					if (!canHit):
+						return
 					currentSprite.play("down");
 					#$DeadTimer.start();
 					moving = false;
@@ -629,12 +637,8 @@ func _on_Area2D2_body_entered(body):
 					
 					body.get_node("SoundEnemyHit").play();
 					
-					if !(Input.is_action_pressed("a") || Input.is_action_pressed("b")):
-						get_node("../Character").motion.y = get_node("../Character").jump_h/2;
-						get_node("../Character").jumping = true;
-					else:
-						get_node("../Character").motion.y = get_node("../Character").jump_h*1.1;
-						get_node("../Character").jumping = true;
+					get_node("../Character").motion.y = get_node("../Character").jump_h;
+					get_node("../Character").jumping = true;
 					
 					get_parent().enemyScore(position);
 
@@ -673,3 +677,6 @@ func _on_CanActiveTimer_timeout():
 
 func _on_InvincibleTimer_timeout():
 	invincible = false;
+
+func _on_CanHitTimer_timeout():
+	canHit = true;

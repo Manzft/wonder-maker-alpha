@@ -12945,7 +12945,6 @@ anims/idle = SubResource( 276 )
 [node name="ClockMan" type="AnimatedSprite" parent="TimeMenu/Buttons"]
 position = Vector2( 143, 174 )
 frames = SubResource( 253 )
-frame = 1
 speed_scale = 0.33
 playing = true
 
@@ -15292,7 +15291,7 @@ anims/idle = SubResource( 148 )
 
 [node name="Tap" type="Sprite" parent="Edit"]
 show_behind_parent = true
-position = Vector2( 81, 8.5 )
+position = Vector2( 81.5, 9 )
 texture = ExtResource( 62 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Edit"]

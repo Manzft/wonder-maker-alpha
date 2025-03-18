@@ -7,26 +7,6 @@ var shadow : Sprite = null
 var objectInside = "";
 var objectAttribute = "";
 
-#var coinInside = false;
-#var oneup = false;
-#var star = false;
-#var mushroom = false;
-#var fireflower = false;
-#var goomba = false;
-#var koopatroopa = false;
-#var koopatroopa_red = false;
-#var spiny = false;
-#var piranhaplant = false;
-#var withp = false;
-#var piranhaplantfire = false;
-#var goombrat = false;
-#var drybones = false;
-#
-var insided = false;
-#
-#var a_mushroom = false;
-#var a_alreadydead = false;
-
 var deactivated =  false;
 
 var candeactivate = false;
@@ -123,7 +103,7 @@ func _process(_delta):
 	$SpriteGhostforest.scale = $SpriteGround.scale;
 	$SpriteGhostforest.position = $SpriteGround.position;
 	
-	if (insided):
+	if (objectInside != ""):
 		if (get_node("../Editor").playing):
 			$HasObjectInside.hide();
 		else:
@@ -231,6 +211,7 @@ func hit(var shell = false):
 					inst.position = position;
 					inst.exiting = true;
 					inst.insided = true;
+					get_parent().add_child(inst);
 					$PowerUpAppears.play();
 				"star":
 					candeactivate = true;
@@ -257,10 +238,10 @@ func hit(var shell = false):
 					inst.position = position;
 					inst.exiting = true;
 					inst.insided = true;
-					if (objectAttribute == "a_mushroom"):
+					if (objectAttribute == "mushroom"):
 						inst.mushroom = true;
 					get_parent().add_child(inst);
-					$PowerUpAppears.play
+					$PowerUpAppears.play()
 				"goomba":
 					candeactivate = true;
 					yield(get_tree().create_timer(0.2), "timeout");

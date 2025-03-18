@@ -139,6 +139,7 @@ _data = [ Vector2( 0.0138889, 122.577 ), 0.0, 0.0, 0, 0, Vector2( 0.505952, 360 
 extents = Vector2( 39, 52 )
 
 [node name="Twomp" type="KinematicBody2D" groups=["Enemy", "Extensible", "NotKilleableWithShell", "Obj", "Twomp"]]
+z_index = 2
 collision_layer = 2
 collision_mask = 0
 script = ExtResource( 1 )
@@ -327,6 +328,7 @@ collision_mask = 0
 visible = false
 position = Vector2( 26, 26 )
 shape = SubResource( 13 )
+disabled = true
 
 [node name="DirectionButton" type="TextureButton" parent="."]
 margin_left = 7.0

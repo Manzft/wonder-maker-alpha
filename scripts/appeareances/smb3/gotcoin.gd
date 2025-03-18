@@ -58,6 +58,8 @@ func _process(delta):
 	shadow.animation = currentSprite.animation;
 	shadow.scale = scale;
 	shadow.visible = visible;
+	
+	$SpriteGhostforest.position = $SpriteGround.position;
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if (anim_name == "start"):

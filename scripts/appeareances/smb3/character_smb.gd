@@ -3,9 +3,10 @@ extends KinematicBody2D
 const acceleration = 10;
 const max_walk_speed = 300;
 const max_run_speed = 550;
-const jump_h  = -1000;
-const gravity = 40;
-const max_fall = jump_h*-1;
+#const jump_h  = -1000;
+const jump_h  = -600;
+const gravity = 50;
+const max_fall = 1000;
 
 var running = false;
 var jumping = false;
@@ -75,6 +76,11 @@ var carrying = false;
 var kicking = false;
 
 var shadow : AnimatedSprite;
+
+var jump_timer = 0.0;
+
+var koyoteFalling = false;
+var startedJumping = false;
 
 func eraseShadow():
 	shadow.queue_free();
@@ -236,9 +242,14 @@ func _physics_process(delta):
 						else:
 							pass
 				else:
-					if (falling || jumping):
+					if (jumping):
 						if (!sneaking):
 							current_sprite.play(currentPowerup+"_star_jump");
+						else:
+							pass
+					if (falling):
+						if (!sneaking):
+							current_sprite.play(currentPowerup+"_fall");
 						else:
 							pass
 			else:
@@ -257,16 +268,20 @@ func _physics_process(delta):
 							else:
 								pass
 				
-			if (!falling):
+			if (!koyoteFalling && motion.y >= 0 && !startedJumping):
 				koyoteTime = true;
 				$KoyoteTimer.start();
+				koyoteFalling = true;
+			if (!falling && motion.y >= 0 && !startedJumping):
 				falling = true;
 		elif (is_on_floor()):
 			jumping = false;
 			koyoteTime = false;
+			koyoteFalling = false;
 			falling = false;
 			singlegridcheck = false;
 			lastScore = 0;
+			startedJumping = false;
 		
 		#Movement Controller
 		if (drifting && is_on_floor()):
@@ -312,7 +327,10 @@ func _physics_process(delta):
 				if (current_sprite.flip_h):
 					current_sprite.flip_h = false;
 			if (motion.x < max_speed):
-				motion.x += acc;
+				if (is_on_floor()):
+					motion.x += acc;
+				else:
+					motion.x += acc/1.25;
 			else:
 				motion.x -= acc/2;
 		elif (inpchckl && sneakchck && !course_clear && startmenucheck):
@@ -347,7 +365,10 @@ func _physics_process(delta):
 				if (!current_sprite.flip_h):
 					current_sprite.flip_h = true;
 			if (motion.x > -max_speed):
-				motion.x -= acc;
+				if (is_on_floor()):
+					motion.x -= acc;
+				else:
+					motion.x -= acc/1.25;
 			else:
 				motion.x += acc/2;
 		else:
@@ -411,31 +432,36 @@ func _physics_process(delta):
 		if (is_on_floor() || koyoteTime):
 			if (!course_clear && startmenucheck):
 				if (Input.is_action_just_pressed("a") || Input.is_action_just_pressed("b")):
-					#High Jump Controller
-					if (abs(motion.x) >= max_run_speed):
-						motion.y = jump_h*1.1;
-					else:
-						motion.y = jump_h;
-					
 					if (!sneaking && !attacking):
 						current_sprite.play(currentPowerup+"_jump");
 					jumping = true;
-					$SoundJump.play();
+					if (!$SoundJump.playing):
+						$SoundJump.play();
 					koyoteTime = false;
 					drifting = false;
-					
+					jumping = true;
+					jump_timer = 0.0;
+					#if (abs(motion.x) >= max_run_speed):
+					motion.y = jump_h;
 					detectSingleGrid();
+					startedJumping = true;
 			if (friction):
 				motion.x = lerp(motion.x, 0, 0.0625);
 		else:
 			if (friction):
 				motion.x = lerp(motion.x, 0, 0.01);
+		var a = Input.is_action_pressed("a") || Input.is_action_pressed("b");
+		if (jumping && jump_timer < 0.3 && a && motion.y < 0):
+			motion.y = jump_h;
+			jump_timer += delta;
+		else:
+			jumping = false;
 		
-		if (Input.is_action_just_released("a") || Input.is_action_just_released("b")):
-			if (jumping && motion.y < jump_h*0.35 && !is_on_floor() && !course_clear && startmenucheck):
-				motion.y = jump_h*0.35
-				if (!sneaking):
-					current_sprite.play(currentPowerup+"_jump");
+#		if (Input.is_action_just_released("a") || Input.is_action_just_released("b")):
+#			if (jumping && motion.y < jump_h*0.35 && !is_on_floor() && !course_clear && startmenucheck):
+#				motion.y = jump_h*0.35
+#				if (!sneaking):
+#					current_sprite.play(currentPowerup+"_jump");
 				
 		#Sneak Controller
 		if (Input.is_action_pressed("down") || Input.is_action_pressed("ddown")):
@@ -543,7 +569,7 @@ func die():
 	$SmallCollision.disabled = true;
 	$SneakCollision.disabled = true;
 	$MushCollision.disabled = true;
-	motion.y = jump_h*1;
+	motion.y = -1000;
 
 func _process(_delta):
 	#Shadow Animation Sync Controller

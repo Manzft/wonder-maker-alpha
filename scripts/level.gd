@@ -14,7 +14,7 @@ var objSelected = -50;
 
 var grab = false;
 var grab_grid = Vector2();
-var grab_node = null;	
+var grab_node = null;
 var grab_node_z_index = 0;
 var grab_id = -1;
 var grab_offset = Vector2();
@@ -55,6 +55,7 @@ var syncanim = {
 	},
 	smb3 = {
 		"brick": 0.0,
+		"attackTimer": 0.0
 	}
 }
 
@@ -111,11 +112,9 @@ func _ready():
 				else:
 					#print("Found file: " + file_name)
 					if (filecount <= 14):
-						if (file_name.get_extension() == "wm"):
-							var ver = Global.courseGetVersion(todir+"/"+file_name);
-							if (ver == Global.GAME_VERSION || ver == "1.1"):
+						if (file_name.get_extension() == "wom"):
 								file[filecount] = Global.get_game_dir()+"/Courses/"+file_name;
-								fileName[filecount] = file_name.trim_suffix(".wm");
+								fileName[filecount] = file_name.trim_suffix(".wom");
 								filecount += 1;
 				file_name = dir.get_next()
 				
@@ -131,32 +130,9 @@ func _ready():
 				Global.currentCourseName = filenameselected;
 				Global.toLoad = true;
 			else:
-				Global.currentlevel = "res://title level.wm"
+				Global.currentlevel = "res://title level.wom"
 				Global.currentCourseName = "Title Level";
 				Global.toLoad = true;
-				
-#				randomize();
-#				#Random Style
-#				var ir = round(rand_range(0, 5));
-#				if (ir == 0):
-#					Global.CurrentStyle = "Ground";
-#				if (ir == 1):
-#					Global.CurrentStyle = "Underground";
-#				if (ir == 2):
-#					Global.CurrentStyle = "Sky";
-#				if (ir == 3):
-#					Global.CurrentStyle = "Forest";
-#				if (ir == 4):
-#					Global.CurrentStyle = "Desert";
-#				if (ir == 5):
-#					Global.CurrentStyle = "Snow";
-#
-#				#Random Appearance
-#				ir = round(rand_range(0, 1));
-#				if (ir == 0):
-#					Global.CurrentAppeareance = Global.APP_SMB;
-#				if (ir == 1):
-#					Global.CurrentAppeareance = Global.APP_SMB3;
 	
 	#yield(get_tree(), "idle_frame");
 	setCameraGrid();
@@ -231,6 +207,7 @@ func setCameraGrid(var start = false):
 		camera_last_pos = campos;
 
 func _process(delta):
+	$ShadowLayer.visible = Global.SHADOWS;
 	syncSMBSprites(delta);
 	syncSMB3Sprites(delta);
 	#Water and Lava Showing
@@ -331,18 +308,22 @@ func calculateGridPosition(cgrid):
 	var center = Vector2(offset.x+(increase*cgrid.x), offset.y+(increase*cgrid.y));
 	return center;
 
-func placeObject(mousepos, pressed = false, customObj = -1):
-	yield(get_tree(), "idle_frame");
+func placeObject(mousepos, pressed = false, customObj = -1, sound : bool = true, inEditor : bool = true, inst : Node = null):
+	if (get_node("Editor").externalButton):
+		return
+	if (inEditor):
+		yield(get_tree(), "idle_frame");
 	if (!$LevelFloor.selected && !$CharacterEditor.selected && !$CharacterEditor.mouse_selected && !$EndFloor.selected):
 		var cgrid = calculateGrid(mousepos.x, mousepos.y);
 		
 		var poscheck = true;
-		if (cgrid.x <= 6): 
-			if (cgrid.y >= get_node("LevelFloor").current_grid.y):
-				poscheck = false;
-		if (cgrid.x >= get_node("EndFloor").current_grid.x-1):
-			if (cgrid.y >= get_node("EndFloor").current_grid.y):
-				poscheck = false;
+		if (inEditor):
+			if (cgrid.x <= 6): 
+				if (cgrid.y >= get_node("LevelFloor").current_grid.y):
+					poscheck = false;
+			if (cgrid.x >= get_node("EndFloor").current_grid.x-1):
+				if (cgrid.y >= get_node("EndFloor").current_grid.y):
+					poscheck = false;
 		
 		if (cgrid != null && poscheck):
 			if (grid[cgrid.x][cgrid.y] == null && grid_node[cgrid.x][cgrid.y] == null):
@@ -351,7 +332,8 @@ func placeObject(mousepos, pressed = false, customObj = -1):
 					var obj = objSelected;
 					if (customObj != -1): obj = customObj;
 					var scene = Global.object[Global.CurrentAppeareance][obj][Global.OP_SCENE];
-					var inst = scene.instance();
+					if (inst == null):
+						inst = scene.instance();
 					
 					#Remove Wide Decoration
 					var nodegrid = cgrid;
@@ -384,7 +366,8 @@ func placeObject(mousepos, pressed = false, customObj = -1):
 					
 					add_child(inst);
 					inst.position = pos;
-					if (obj == Global.OBJ_FLOOR):
+					inst.add_to_group(str(obj))
+					if (obj == Global.OBJ_FLOOR && inEditor):
 						inst.editPlaced = true;
 					
 					if (inst.is_in_group("Extensible")):
@@ -397,12 +380,13 @@ func placeObject(mousepos, pressed = false, customObj = -1):
 					grid[cgrid.x][cgrid.y] = obj;
 					grid_node[cgrid.x][cgrid.y] = inst;
 					
-					if (!$AudioPlaceObject.playing):
-						$AudioPlaceObject.pitch_scale = rand_range(0.8, 1.2);
-						$AudioPlaceObject.play();
-					elif (!$AudioPlaceObject2.playing):
-						$AudioPlaceObject2.pitch_scale = rand_range(0.8, 1.2);
-						$AudioPlaceObject2.play();
+					if (sound):
+						if (!$AudioPlaceObject.playing):
+							$AudioPlaceObject.pitch_scale = rand_range(0.8, 1.2);
+							$AudioPlaceObject.play();
+						elif (!$AudioPlaceObject2.playing):
+							$AudioPlaceObject2.pitch_scale = rand_range(0.8, 1.2);
+							$AudioPlaceObject2.play();
 			else:
 				var check = true;
 				
@@ -420,16 +404,17 @@ func placeObject(mousepos, pressed = false, customObj = -1):
 					$Editor.resetTypeMenu();
 					
 					grab = true;
-					var inst = load("res://scenes/ui/selection.tscn").instance();
-					add_child(inst);
+					var inst2 = load("res://scenes/ui/selection.tscn").instance();
+					add_child(inst2);
 					grab_grid = cgrid;
 					grab_id = grid[cgrid.x][cgrid.y];
 					
 					if (n.is_in_group("Extensible")):
-						for i in range(n.grid_end.x+1):
-							for j in range(n.grid_end.y+1):
-								if (Vector2(i, j) != n.grid_origin):
-									inst.generateAdditional(Vector2(i, j));
+						var grid_origin = n.grid_origin;
+						for i in range(n.grid_end.x+1+(abs(grid_origin.x))):
+							for j in range(n.grid_end.y+1+(abs(grid_origin.y))):
+								if (Vector2(i, j) != grid_origin*-1):
+									inst2.generateAdditional(Vector2(i+grid_origin.x, j+grid_origin.y));
 						grab_grid = calculateGrid(n.position.x, n.position.y);
 						grab_id = grid[grab_grid.x][grab_grid.y];
 					
@@ -448,12 +433,12 @@ func placeObject(mousepos, pressed = false, customObj = -1):
 						$Editor/AudioGrab.pitch_scale = rand_range(0.8, 1.2);
 						$Editor/AudioGrab.play();
 
-func eraseObject(mousepos, sound = true, hide = false):
+func eraseObject(mousepos, sound = true, hide = false, editMode: bool =  true):
 	var cgrid = calculateGrid(mousepos.x, mousepos.y);
 	if (cgrid != null):
 		if (grid[cgrid.x][cgrid.y] != null):
 			var notfloorlevel = true;
-			var pos = calculateGridPosition(cgrid);
+			var pos = mousepos;
 			var node = grid_node[cgrid.x][cgrid.y];
 			get_node("Editor").externalButton = false;
 			if (node.is_in_group("Floor")):
@@ -467,7 +452,7 @@ func eraseObject(mousepos, sound = true, hide = false):
 					var isfloor = false;
 					
 					#Remove Wide Decoration
-					if (grid[nodegrid.x][nodegrid.y] == Global.OBJ_FLOOR):
+					if (grid[nodegrid.x][nodegrid.y] == Global.OBJ_FLOOR && editMode):
 						isfloor = true;
 						if (grid[nodegrid.x+1][nodegrid.y] == Global.OBJ_FLOOR):
 							if (grid_node[nodegrid.x+1][nodegrid.y].decorationType == "Wide"):
@@ -482,11 +467,11 @@ func eraseObject(mousepos, sound = true, hide = false):
 						node.eraseShadow();
 					
 					if (node.is_in_group("Extensible")):
-						for i in range(node.grid_end.x+1):
-							for j in range(node.grid_end.y+1):
-								if (Vector2(i, j) != node.grid_origin):
-									grid[nodegrid.x+i][nodegrid.y+j] = null;
-									grid_node[nodegrid.x+i][nodegrid.y+j] = null;
+						for i in range(node.grid_end.x+1+(abs(node.grid_origin.x))):
+							for j in range(node.grid_end.y+1+(abs(node.grid_origin.y))):
+								if (Vector2(i, j) != node.grid_origin*-1):
+									grid[nodegrid.x+i+node.grid_origin.x][nodegrid.y+j+node.grid_origin.y] = null;
+									grid_node[nodegrid.x+i+node.grid_origin.x][nodegrid.y+j+node.grid_origin.y] = null;
 					
 					if (isfloor):
 						node.updateNearFloors();
@@ -603,3 +588,7 @@ func syncSMB3Sprites(delta):
 	syncanim.smb3.brick += 1.0/divider;
 	if (syncanim.smb3.brick >= 4):
 		syncanim.smb3.brick = 0.0;
+		
+	syncanim.smb3.attackTimer += delta;
+	
+	if (syncanim.smb3.attackTimer >= 4.8): syncanim.smb3.attackTimer = 0.0;

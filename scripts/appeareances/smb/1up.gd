@@ -1,9 +1,16 @@
 extends KinematicBody2D
 
-const max_walk_speed = 200;
-const jump_h  = -500;
-const gravity = 30;
-const max_fall = jump_h*-1;
+var def_max_walk_speed = 200;
+var def_jump_h  = -500;
+var def_gravity = 30;
+var def_max_fall = def_jump_h*-1;
+
+var max_walk_speed = 0.0;
+var jump_h  = 0.0;
+var gravity = 0.0;
+var max_fall = 0.0;
+
+var timer = 0.0;
 
 onready var currentSprite = get_node("SpriteGround");
 
@@ -22,6 +29,7 @@ var insided = false;
 var flip_h = false;
 
 var shadow : Sprite;
+var dupsprite : Sprite;
 
 func render(group, forcerender = false, render_range = 60):
 	if (forcerender):
@@ -68,9 +76,14 @@ func changeStyle():
 	queue_free();
 
 func eraseShadow():
+	dupsprite.queue_free();
 	shadow.queue_free();
 
 func _ready():
+	max_walk_speed = def_max_walk_speed/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	jump_h  = def_jump_h/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	gravity = def_gravity/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	max_fall = def_max_fall/(Global.ENTITY_PHYSICS_SPEED*0.01);
 	Global.connect("render", self, "render");
 	Global.connect("floorErase", self, "floorErase");
 	Global.connect("changeStyle", self, "changeStyle");
@@ -102,11 +115,29 @@ func _process(_delta):
 		arrived = false;
 		exiting = false;
 		flip_h = false;
-	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
-	shadow.scale = currentSprite.scale;
+	
+	var pos = dupsprite.position.linear_interpolate(currentSprite.global_position, 0.35)
+	currentSprite.hide();
+	if (Global.playing && Global.PHYSICS_INTERPOLATION && Global.ENTITY_PHYSICS_SPEED < 100.0):
+		dupsprite.position = pos;
+	else:
+		dupsprite.position = currentSprite.global_position;
+	
+	dupsprite.rotation_degrees = currentSprite.rotation_degrees+rotation_degrees;
+	dupsprite.visible = visible;
+	dupsprite.flip_h = currentSprite.flip_h;
+	dupsprite.flip_v = currentSprite.flip_v;
+	dupsprite.scale = currentSprite.scale;
+	dupsprite.z_index = z_index;
+	
+	shadow.position = dupsprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.rotation_degrees = currentSprite.rotation_degrees+rotation_degrees;
 	shadow.visible = visible;
+	shadow.flip_h = currentSprite.flip_h;
+	shadow.flip_v = currentSprite.flip_v;
+	shadow.scale = currentSprite.scale;
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	if (!get_node("../Editor").playing || !visible):
 		return
 	#Head Hit Raycasts
@@ -134,8 +165,11 @@ func _physics_process(_delta):
 				motion.x = max_walk_speed;
 		
 	#Global Movement Controller
-	if (!exiting):
-		motion = move_and_slide(motion, Vector2(0, -1));
+	timer += delta
+	if (timer >= delta/(Global.ENTITY_PHYSICS_SPEED*0.01)):
+		timer = 0.0
+		if (!exiting):
+			motion = move_and_slide(motion, Vector2(0, -1));
 
 func jump():
 	motion.y = jump_h;
@@ -164,6 +198,17 @@ func styleChanged():
 	shadow.texture = currentSprite.texture;
 	shadow.scale = currentSprite.scale;
 	get_node("../ShadowViewport").add_child(shadow);
+	
+	if (dupsprite == null):
+		pass
+	else:
+		dupsprite.queue_free();
+	dupsprite = Sprite.new();
+	dupsprite.texture = currentSprite.texture;
+	dupsprite.scale = currentSprite.scale;
+	dupsprite.position = position;
+	dupsprite.add_to_group("SpriteClone");
+	get_parent().add_child(dupsprite);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character") && visible && !exiting && active):
@@ -175,6 +220,5 @@ func _on_Area2D_body_entered(body):
 		var inst = load("res://scenes/appearances/smb/Score.tscn").instance();
 		get_parent().add_child(inst);
 		inst.position = get_node("../Character").position;
-		inst.position.y -= 26
-		inst.position.x += 26
+		inst.position.y -= 26;
 		inst.get_node("Text").text = "1UP";

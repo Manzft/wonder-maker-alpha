@@ -2,7 +2,9 @@ extends StaticBody2D
 
 onready var currentSprite = get_node("SpriteGround");
 
+var grid_origin_def = Vector2(0, 0);
 var grid_origin = Vector2(0, 0);
+var grid_end_def = Vector2(1, 1);
 var grid_end = Vector2(1, 1);
 
 var bye = false;
@@ -17,23 +19,34 @@ var seldirection = "up";
 var shadowtop : Sprite
 var shadowbody : Sprite
 
+var resizing : bool = false
+
+var currentGrid : Vector2 = Vector2(0, 0);
+var toGrid : Vector2 = Vector2(0, 0);
+
 func setupExtensionGrids(start = false):
 	var a = true;
-	var mygrid = get_parent().calculateGrid(position.x, position.y);
-	for i in range(grid_end.x+1):
-		for j in range(grid_end.y+1):
-			if (Vector2(i, j) != grid_origin):
+	var mygrid = get_parent().calculateGrid(position.x, position.y)+grid_origin;
+	for i in range(grid_end.x+1+(abs(grid_origin.x))):
+		for j in range(grid_end.y+1+(abs(grid_origin.y))):
+			if (Vector2(i, j) != grid_origin*-1):
 				if (get_parent().grid_node[mygrid.x+i][mygrid.y+j] != null && start):
 					a = false;
 					bye = true;
-	
 	return a;
 
+func unSetAllGrids():
+	var mygrid = get_parent().calculateGrid(position.x, position.y)+grid_origin;
+	for i in range(grid_end.x+1+(abs(grid_origin.x))):
+		for j in range(grid_end.y+1+(abs(grid_origin.y))):
+			get_parent().grid_node[mygrid.x+i][mygrid.y+j] = null;
+			get_parent().grid[mygrid.x+i][mygrid.y+j] = null;
+
 func setGrids(val):
-	var mygrid = get_parent().calculateGrid(position.x, position.y);
-	for i in range(grid_end.x+1):
-		for j in range(grid_end.y+1):
-			if (Vector2(i, j) != grid_origin):
+	var mygrid = get_parent().calculateGrid(position.x, position.y)+grid_origin;
+	for i in range(grid_end.x+1+(abs(grid_origin.x))):
+		for j in range(grid_end.y+1+(abs(grid_origin.y))):
+			if (Vector2(i, j) != grid_origin*-1):
 				get_parent().grid_node[mygrid.x+i][mygrid.y+j] = self
 				get_parent().grid[mygrid.x+i][mygrid.y+j] = val
 
@@ -104,6 +117,9 @@ func _ready():
 	yield(get_tree(), "idle_frame");
 	if (get_parent().editing):
 		$AnimationPlayer.play("start");
+	updateShape();
+	yield(get_tree().create_timer(0.25), "timeout");
+	setBodySprites();
 
 func _process(_delta):
 	if (bye):
@@ -121,41 +137,71 @@ func _process(_delta):
 			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(90.0), 0.25);
 			currentSprite.flip_h = false;
 			currentSprite.get_node("Body").flip_h = false;
+			$Arrows.position = Vector2(52, 26);
+			$Arrows.rotation_degrees = 90;
 		"left":
 			$DirectionButton/ArrowLeft.show();
 			#currentSprite.rotation_degrees = 270;
 			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(270.0), 0.25);
 			currentSprite.flip_h = true;
 			currentSprite.get_node("Body").flip_h = true;
+			$Arrows.position = Vector2(-17, 26);
+			$Arrows.rotation_degrees = 90;
 		"down":
 			$DirectionButton/ArrowDown.show();
 			#currentSprite.rotation_degrees = 180;
 			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(180.0), 0.25);
 			currentSprite.flip_h = true;
 			currentSprite.get_node("Body").flip_h = true;
+			$Arrows.position = Vector2(26, 69);
+			$Arrows.rotation_degrees = 0;
 		"up":
 			$DirectionButton/ArrowUp.show();
 			#currentSprite.rotation_degrees = 0;
 			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(0.0), 0.25);
 			currentSprite.flip_h = false;
 			currentSprite.get_node("Body").flip_h = false;
+			$Arrows.position = Vector2(26, 0);
+			$Arrows.rotation_degrees = 0;
+			
 	
 	if (get_node("../Editor").playing):
+		$ResizeContainer/ResizeButton.hide();
 		$DirectionButton.hide();
+		$Arrows.hide();
 	else:
-		$DirectionButton.show();
+		$DirectionButton.visible = (grid_end == grid_end_def && grid_origin == grid_origin_def && !resizing);
+		$ResizeContainer/ResizeButton.show();
+		$Arrows.visible = resizing;
 		
 	shadowtop.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
 	shadowtop.scale = currentSprite.scale;
 	shadowtop.rotation_degrees = currentSprite.rotation_degrees;
-	shadowbody.position = currentSprite.get_node("Body").global_position+Vector2(3*3.25, 3*3.25);
-	shadowbody.scale = currentSprite.get_node("Body").scale;
+	
+	shadowbody.position = currentSprite.get_node("Body").global_position+Vector2(3*3.25, (3)*3.25)
+	shadowbody.scale = currentSprite.scale;
+	
+	if (seldirection == "up"):
+		shadowbody.position.y += 8*3.25;
+		shadowbody.position.y += (8*(grid_end.y-1))*3.25;
+		shadowbody.scale.y += (1*(grid_end.y-1)+1*abs(grid_origin.y))*3.25;
+	if (seldirection == "down"):
+		shadowbody.position.y -= 8*3.25;
+		shadowbody.position.y -= (8*abs(grid_origin.y))*3.25;
+		shadowbody.scale.y += (1*(grid_end.y-1)+1*abs(grid_origin.y))*3.25;
+	
+	if (seldirection == "left"):
+		shadowbody.position.x += 8*3.25;
+		shadowbody.position.x += (8*(grid_end.x-1))*3.25;
+		shadowbody.scale.y += (1*(grid_end.x-1)+1*abs(grid_origin.x))*3.25;
+	if (seldirection == "right"):
+		shadowbody.position.x -= 8*3.25;
+		shadowbody.position.x -= (8*abs(grid_origin.x))*3.25;
+		shadowbody.scale.y += (1*(grid_end.x-1)+1*abs(grid_origin.x))*3.25;
+	
 	shadowbody.rotation_degrees = currentSprite.rotation_degrees;
 	
-#	var 
-#	for key in shadows.keys():
-#		if (key == "top"):
-#
+	$ResizeContainer.rotation_degrees = shadowtop.rotation_degrees
 
 func styleChanged():
 	match (Global.CurrentStyle):
@@ -175,6 +221,8 @@ func styleChanged():
 		shadowbody.queue_free();
 	shadowbody = Sprite.new();
 	shadowbody.texture = currentSprite.texture;
+	shadowbody.vframes = currentSprite.get_node("Body").vframes;
+	shadowbody.frame = currentSprite.get_node("Body").frame;
 	shadowbody.scale = currentSprite.scale
 	get_node("../ShadowViewport").add_child(shadowbody);
 
@@ -193,7 +241,242 @@ func _on_DirectionButton_pressed():
 		get_node("../Editor").externalButton = false;
 
 func _on_DirectionButton_mouse_entered():
+	if (get_parent().grab):
+		return
 	get_node("../Editor").externalButton = true;
 
 func _on_DirectionButton_mouse_exited():
 	get_node("../Editor").externalButton = false;
+	resizing = false;
+
+func _on_ResizeButton_mouse_exited():
+	if (!resizing):
+		get_node("../Editor").externalButton = false;
+
+func _on_ResizeButton_pressed():
+	if (get_parent().grab):
+		return
+	currentGrid = get_parent().calculateGrid(position.x, position.y);
+	resizing = true;
+
+func updateShape():
+	var shape = RectangleShape2D.new()
+	shape.extents = Vector2(52+(26*(1*(grid_end.x-1)))+(26*(1*abs(grid_origin.x))), 52+(26*(1*(grid_end.y-1)))+(26*(1*abs(grid_origin.y))));
+	$CollisionShape2D.shape = shape;
+	$CollisionShape2D.position.y = 26+(26*(1*(grid_end.y-1)))+(26*(1*(grid_origin.y)));
+	$CollisionShape2D.position.x = 26+(26*(1*(grid_end.x-1)))+(26*(1*(grid_origin.x)));
+
+func setBodySprites():
+	#Erase all body sprites
+	for node in currentSprite.get_children():
+		if (node.name != "Body"):
+			node.queue_free();
+	
+	if (grid_end != grid_end_def):
+		#Up
+		if (grid_end.y > grid_end_def.y):
+			for i in range(grid_end.y-1):
+				var inst = Sprite.new();
+				inst.texture = currentSprite.get_node("Body").texture;
+				inst.offset = currentSprite.get_node("Body").offset;
+				inst.vframes = currentSprite.get_node("Body").vframes;
+				inst.frame = currentSprite.get_node("Body").frame;
+				inst.flip_h = currentSprite.get_node("Body").flip_h;
+				inst.position.y += 16*(i+1);
+				inst.name = "Body"+str(i+2);
+				currentSprite.add_child(inst);
+		#Left
+		if (grid_end.x > grid_end_def.x):
+			for i in range(grid_end.x-1):
+				var inst = Sprite.new();
+				inst.texture = currentSprite.get_node("Body").texture;
+				inst.offset = currentSprite.get_node("Body").offset;
+				inst.vframes = currentSprite.get_node("Body").vframes;
+				inst.frame = currentSprite.get_node("Body").frame;
+				inst.flip_h = currentSprite.get_node("Body").flip_h;
+				inst.position.y += 16*(i+1);
+				inst.name = "Body"+str(i+2);
+				currentSprite.add_child(inst);
+	
+	if (grid_origin != grid_origin_def):
+		#Down
+		if (grid_origin.y < grid_origin_def.y):
+			for i in range(abs(grid_origin.y)):
+				var inst = Sprite.new();
+				inst.texture = currentSprite.get_node("Body").texture;
+				inst.offset = currentSprite.get_node("Body").offset;
+				inst.vframes = currentSprite.get_node("Body").vframes;
+				inst.frame = currentSprite.get_node("Body").frame;
+				inst.flip_h = currentSprite.get_node("Body").flip_h;
+				inst.position.y += 16*(i+1);
+				inst.name = "Body"+str(i+2);
+				currentSprite.add_child(inst);
+		#Right
+		if (grid_origin.x < grid_origin_def.x):
+			for i in range(abs(grid_origin.x)):
+				var inst = Sprite.new();
+				inst.texture = currentSprite.get_node("Body").texture;
+				inst.offset = currentSprite.get_node("Body").offset;
+				inst.vframes = currentSprite.get_node("Body").vframes;
+				inst.frame = currentSprite.get_node("Body").frame;
+				inst.flip_h = currentSprite.get_node("Body").flip_h;
+				inst.position.y += 16*(i+1);
+				inst.name = "Body"+str(i+2);
+				currentSprite.add_child(inst);
+
+func _input(event):
+	var a = (event is InputEventMouseButton && event.button_index == BUTTON_LEFT && !event.is_pressed());
+	var b = (event is InputEventScreenTouch && !event.is_pressed());
+	if (a || b):
+		if (resizing):
+			resizing = false;
+			toGrid = currentGrid;
+			get_node("../Editor").externalButton = false;
+	
+	a = (event is InputEventMouseMotion);
+	b = (event is InputEventScreenDrag);
+	if (a || b):
+		if (resizing):
+			if (get_parent().grab):
+				get_node("../Editor").gamepadReleaseGrab();
+			var eventpos = Vector2(event.position.x, event.position.y);
+			var thisToGrid = get_parent().calculateGrid(eventpos.x+get_parent().get_node("Camera2D").position.x, eventpos.y+get_parent().get_node("Camera2D").position.y);
+			if (currentGrid != thisToGrid && thisToGrid != toGrid):
+				toGrid = thisToGrid;
+				match (seldirection):
+					"up":
+						if (toGrid.y < currentGrid.y):
+							var can = true;
+							for i in range(grid_end.x+1+(abs(grid_origin.x))):
+								if (Vector2(i, currentGrid.y-1) != grid_origin*-1):
+									if (get_parent().grid[currentGrid.x+i][currentGrid.y-1] != null):
+										can = false;
+							if (can):
+								unSetAllGrids();
+								currentGrid = Vector2(currentGrid.x, currentGrid.y-1);
+								grid_end = Vector2(grid_end.x, grid_end.y+1);
+								position = get_parent().calculateGridPosition(currentGrid);
+								setGrids(Global.OBJ_PIPE);
+								get_parent().grid[currentGrid.x][currentGrid.y] = Global.OBJ_PIPE;
+								get_parent().grid_node[currentGrid.x][currentGrid.y] = self;
+								
+								setBodySprites();
+								
+								$AudioGrabMove.play();
+								updateShape();
+						if (toGrid.y > currentGrid.y && grid_end != grid_end_def):
+							unSetAllGrids();
+							currentGrid = Vector2(currentGrid.x, currentGrid.y+1);
+							grid_end = Vector2(grid_end.x, grid_end.y-1);
+							position = get_parent().calculateGridPosition(currentGrid);
+							setGrids(Global.OBJ_PIPE);
+							get_parent().grid[currentGrid.x][currentGrid.y] = Global.OBJ_PIPE;
+							get_parent().grid_node[currentGrid.x][currentGrid.y] = self;
+							
+							setBodySprites();
+							
+							$AudioGrabMove.play();
+							updateShape();
+					"left":
+						if (toGrid.x < currentGrid.x):
+							var can = true;
+							for j in range(grid_end.y+1+(abs(grid_origin.x))):
+								if (Vector2(currentGrid.x-1, j) != grid_origin*-1):
+									if (get_parent().grid[currentGrid.x-1][currentGrid.y+j] != null):
+										can = false;
+							if (can):
+								unSetAllGrids();
+								currentGrid = Vector2(currentGrid.x-1, currentGrid.y);
+								grid_end = Vector2(grid_end.x+1, grid_end.y);
+								position = get_parent().calculateGridPosition(currentGrid);
+								setGrids(Global.OBJ_PIPE);
+								get_parent().grid[currentGrid.x][currentGrid.y] = Global.OBJ_PIPE;
+								get_parent().grid_node[currentGrid.x][currentGrid.y] = self;
+								
+								setBodySprites();
+								
+								$AudioGrabMove.play();
+								updateShape();
+						if (toGrid.x > currentGrid.x && grid_end != grid_end_def):
+							unSetAllGrids();
+							currentGrid = Vector2(currentGrid.x+1, currentGrid.y);
+							grid_end = Vector2(grid_end.x-1, grid_end.y);
+							position = get_parent().calculateGridPosition(currentGrid);
+							setGrids(Global.OBJ_PIPE);
+							get_parent().grid[currentGrid.x][currentGrid.y] = Global.OBJ_PIPE;
+							get_parent().grid_node[currentGrid.x][currentGrid.y] = self;
+							
+							setBodySprites();
+							
+							$AudioGrabMove.play();
+							updateShape();
+					"right":
+						if (toGrid.x > currentGrid.x+grid_end.x):
+							var can = true;
+							for j in range(grid_end.y+1+(abs(grid_origin.y))):
+								if (Vector2(currentGrid.x+grid_end.x+1, j) != grid_origin*-1):
+									if (get_parent().grid[currentGrid.x+grid_end.x+1][currentGrid.y+j] != null):
+										can = false;
+							if (can):
+								unSetAllGrids();
+								grid_origin.x -= 1;
+								currentGrid = Vector2(currentGrid.x+1, currentGrid.y);
+								grid_end = Vector2(grid_end.x, grid_end.y);
+								position = get_parent().calculateGridPosition(currentGrid);
+								setGrids(Global.OBJ_PIPE);
+								get_parent().grid[currentGrid.x][currentGrid.y] = Global.OBJ_PIPE;
+								get_parent().grid_node[currentGrid.x][currentGrid.y] = self;
+								
+								setBodySprites();
+								
+								$AudioGrabMove.play();
+								updateShape();
+						if (toGrid.x < currentGrid.x+grid_end.x && grid_origin != grid_origin_def):
+							unSetAllGrids();
+							grid_origin.x += 1;
+							currentGrid = Vector2(currentGrid.x-1, currentGrid.y);
+							grid_end = Vector2(grid_end.x, grid_end.y);
+							position = get_parent().calculateGridPosition(currentGrid);
+							setGrids(Global.OBJ_PIPE);
+							get_parent().grid[currentGrid.x][currentGrid.y] = Global.OBJ_PIPE;
+							get_parent().grid_node[currentGrid.x][currentGrid.y] = self;
+							
+							setBodySprites();
+							
+							$AudioGrabMove.play();
+							updateShape();
+					"down":
+						if (toGrid.y > currentGrid.y+grid_end.y):
+							var can = true;
+							for i in range(grid_end.x+1+(abs(grid_origin.x))):
+								if (Vector2(i, currentGrid.y+grid_end.y+1) != grid_origin*-1):
+									if (get_parent().grid[currentGrid.x+i][currentGrid.y+grid_end.y+1] != null):
+										can = false;
+							if (can):
+								unSetAllGrids();
+								grid_origin.y -= 1;
+								currentGrid = Vector2(currentGrid.x, currentGrid.y+1);
+								grid_end = Vector2(grid_end.x, grid_end.y);
+								position = get_parent().calculateGridPosition(currentGrid);
+								setGrids(Global.OBJ_PIPE);
+								get_parent().grid[currentGrid.x][currentGrid.y] = Global.OBJ_PIPE;
+								get_parent().grid_node[currentGrid.x][currentGrid.y] = self;
+								
+								setBodySprites();
+								
+								$AudioGrabMove.play();
+								updateShape();
+						if (toGrid.y < currentGrid.y+grid_end.y && grid_origin != grid_origin_def):
+							unSetAllGrids();
+							grid_origin.y += 1;
+							currentGrid = Vector2(currentGrid.x, currentGrid.y-1);
+							grid_end = Vector2(grid_end.x, grid_end.y);
+							position = get_parent().calculateGridPosition(currentGrid);
+							setGrids(Global.OBJ_PIPE);
+							get_parent().grid[currentGrid.x][currentGrid.y] = Global.OBJ_PIPE;
+							get_parent().grid_node[currentGrid.x][currentGrid.y] = self;
+							
+							setBodySprites();
+							
+							$AudioGrabMove.play();
+							updateShape();

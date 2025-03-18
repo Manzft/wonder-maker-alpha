@@ -1,9 +1,16 @@
 extends KinematicBody2D
 
-const max_walk_speed = 100;
-const jump_h  = -250;
-const gravity = 30;
-const max_fall = jump_h*-3;
+var def_max_walk_speed = 100;
+var def_jump_h  = -250;
+var def_gravity = 30;
+var def_max_fall = def_jump_h*-3;
+
+var max_walk_speed = 100;
+var jump_h  = -250;
+var gravity = 30;
+var max_fall = jump_h*-3;
+
+var timer = 0.0;
 
 onready var currentSprite = get_node("SpriteGround");
 
@@ -30,6 +37,7 @@ var temporary_vspeed = 0.0;
 var rendered = true;
 
 var shadow : AnimatedSprite
+var dupsprite : AnimatedSprite
 
 func render(group, forcerender = false, render_range = 60):
 	if (forcerender):
@@ -76,9 +84,14 @@ func changeStyle():
 	queue_free();
 
 func eraseShadow():
+	dupsprite.queue_free();
 	shadow.queue_free();
 
 func _ready():
+	max_walk_speed = def_max_walk_speed/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	jump_h  = def_jump_h/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	gravity = def_gravity/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	max_fall = def_max_fall/(Global.ENTITY_PHYSICS_SPEED*0.01);
 	Global.connect("render", self, "render");
 	Global.connect("floorErase", self, "floorErase");
 	Global.connect("changeStyle", self, "changeStyle");
@@ -92,6 +105,11 @@ func _ready():
 func _process(_delta):
 	currentSprite.speed_scale = 1;
 	if (get_node("../Editor").playing):
+		if (dead):
+			z_index = 2;
+		else:
+			z_index = 1;
+		
 		currentSprite.frame = floor(get_parent().syncanim.smb.piranhaplant);
 		currentSprite.scale = Vector2(3.25, 3.25);
 		$SweatParticlesLeft.emitting = false;
@@ -153,13 +171,30 @@ func _process(_delta):
 			$SweatParticlesLeft.emitting = false;
 			$SweatParticlesRight.emitting = false;
 			$AnimationPlayer.play("RESET");
+	var pos = dupsprite.position.linear_interpolate(currentSprite.global_position, 0.35)
+	currentSprite.hide();
+	if (Global.playing && Global.PHYSICS_INTERPOLATION && Global.ENTITY_PHYSICS_SPEED < 100.0):
+		dupsprite.position = pos;
+	else:
+		dupsprite.position = currentSprite.global_position;
+	
+	dupsprite.frame = currentSprite.frame;
+	dupsprite.animation = currentSprite.animation;
+	dupsprite.rotation_degrees = currentSprite.rotation_degrees+rotation_degrees;
+	dupsprite.visible = visible;
+	dupsprite.flip_h = currentSprite.flip_h;
+	dupsprite.flip_v = currentSprite.flip_v;
+	dupsprite.scale = currentSprite.scale;
+	dupsprite.z_index = z_index;
+	
 	shadow.frame = currentSprite.frame;
 	shadow.animation = currentSprite.animation;
-	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
-	shadow.rotation_degrees = currentSprite.rotation_degrees;
+	shadow.position = dupsprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.rotation_degrees = currentSprite.rotation_degrees+rotation_degrees;
 	shadow.visible = visible;
 	shadow.flip_h = currentSprite.flip_h;
 	shadow.flip_v = currentSprite.flip_v;
+	shadow.scale = currentSprite.scale;
 
 func _physics_process(delta):
 	if (!get_node("../Editor").playing):
@@ -213,8 +248,11 @@ func _physics_process(delta):
 					get_node("../Character/SoundShellHit").play();
 		
 	#Global Movement Controller
-	if (!exiting):
-		motion = move_and_slide(motion, Vector2(0, -1));
+	timer += delta
+	if (timer >= delta/(Global.ENTITY_PHYSICS_SPEED*0.01)):
+		timer = 0.0
+		if (!exiting):
+			motion = move_and_slide(motion, Vector2(0, -1));
 
 func hit(dir):
 	dead = true;
@@ -245,6 +283,18 @@ func styleChanged():
 	shadow.animation = currentSprite.animation;
 	shadow.scale = currentSprite.scale;
 	get_node("../ShadowViewport").add_child(shadow);
+	
+	if (dupsprite == null):
+		pass
+	else:
+		dupsprite.queue_free();
+	dupsprite = AnimatedSprite.new();
+	dupsprite.frames = currentSprite.frames;
+	dupsprite.animation = currentSprite.animation;
+	dupsprite.scale = currentSprite.scale;
+	dupsprite.position = position;
+	dupsprite.add_to_group("SpriteClone");
+	get_parent().add_child(dupsprite);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character") && visible && !exiting && active):

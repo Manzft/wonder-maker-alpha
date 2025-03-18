@@ -382,7 +382,7 @@ hframes = 4
 visible = false
 frames = SubResource( 22 )
 animation = "1up"
-frame = 2
+frame = 1
 playing = true
 
 [node name="SoundGoal" type="AudioStreamPlayer" parent="."]

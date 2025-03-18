@@ -1,10 +1,14 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://scripts/appeareances/smb3/pipe.gd" type="Script" id=1]
 [ext_resource path="res://sprites/appeareances/smb3/blocks/ground/pipe.png" type="Texture" id=2]
+[ext_resource path="res://sprites/ui/editor/floor_level_arrow.png" type="Texture" id=3]
+[ext_resource path="res://sprites/ui/editor/floor_level_arrow_body.png" type="Texture" id=4]
 [ext_resource path="res://sprites/ui/editor/arrow_direction_change.png" type="Texture" id=5]
 [ext_resource path="res://sprites/ui/editor/sea_level_main_button.png" type="Texture" id=6]
 [ext_resource path="res://sounds/ui/grab_move.wav" type="AudioStream" id=7]
+[ext_resource path="res://sprites/ui/editor/pipe_size.png" type="Texture" id=8]
+[ext_resource path="res://sprites/ui/editor/pipe_size_selected.png" type="Texture" id=9]
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 52, 52 )
@@ -37,6 +41,157 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Vector2( 2, 2 ), Vector2( 3.25, 3.25 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("ArrowUp:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, -52 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BodyUp:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -0.5, -30 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BodyUp:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ArrowDown:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -1, 52 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("BodyDown:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -0.5, 30 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("BodyDown:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=6]
+resource_name = "selected"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("ArrowUp:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, -50 ), Vector2( 0.5, -102 ), Vector2( 0.5, -50 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("BodyUp:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -0.5, -28 ), Vector2( -0.5, -51.75 ), Vector2( -0.5, -28 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("BodyUp:scale")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 4.96154 ), Vector2( 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("ArrowDown:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -1.75, 33 ), Vector2( -1.75, 83 ), Vector2( -1.75, 33 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("BodyDown:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( -0.75, 11 ), Vector2( -0.75, 39 ), Vector2( -0.75, 11 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("BodyDown:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1, 4.96154 ), Vector2( 1, 1 ) ]
 }
 
 [node name="Pipe" type="StaticBody2D" groups=["Extensible", "Obj", "Pipe", "Solid"]]
@@ -188,6 +343,163 @@ texture = ExtResource( 5 )
 stream = ExtResource( 7 )
 volume_db = 5.0
 
+[node name="ResizeContainer" type="Node2D" parent="."]
+position = Vector2( 26, 26 )
+
+[node name="ResizeButton" type="TextureButton" parent="ResizeContainer"]
+margin_left = -48.0
+margin_top = -48.0
+margin_right = 47.0
+margin_bottom = -20.0
+action_mode = 0
+keep_pressed_outside = true
+texture_normal = ExtResource( 8 )
+texture_pressed = ExtResource( 9 )
+
+[node name="ArrowUp" type="TextureRect" parent="ResizeContainer/ResizeButton"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -9.0
+margin_top = -11.5
+margin_right = 9.0
+margin_bottom = 9.5
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="ArrowDown" type="TextureRect" parent="ResizeContainer/ResizeButton"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 9.0
+margin_top = 12.0
+margin_right = 27.0
+margin_bottom = 33.0
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="ArrowLeft" type="TextureRect" parent="ResizeContainer/ResizeButton"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -11.0
+margin_top = 9.0
+margin_right = 7.0
+margin_bottom = 30.0
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="ArrowRight" type="TextureRect" parent="ResizeContainer/ResizeButton"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 12.0
+margin_top = -9.0
+margin_right = 30.0
+margin_bottom = 12.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="ArrowLeftUp" type="TextureRect" parent="ResizeContainer/ResizeButton"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -15.0
+margin_top = -2.0
+margin_right = 3.0
+margin_bottom = 19.0
+rect_rotation = -45.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="ArrowLeftDown" type="TextureRect" parent="ResizeContainer/ResizeButton"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -2.0
+margin_top = 15.0
+margin_right = 16.0
+margin_bottom = 36.0
+rect_rotation = 225.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="ArrowRightUp" type="TextureRect" parent="ResizeContainer/ResizeButton"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 2.0
+margin_top = -14.0
+margin_right = 20.0
+margin_bottom = 7.0
+rect_rotation = 45.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="ArrowRightDown" type="TextureRect" parent="ResizeContainer/ResizeButton"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 15.0
+margin_top = 2.0
+margin_right = 33.0
+margin_bottom = 23.0
+rect_rotation = 135.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="Arrows" type="Node2D" parent="."]
+visible = false
+position = Vector2( 26, 0 )
+
+[node name="ArrowUp" type="Sprite" parent="Arrows"]
+show_behind_parent = true
+position = Vector2( 0, -52 )
+texture = ExtResource( 3 )
+
+[node name="BodyUp" type="Sprite" parent="Arrows"]
+show_behind_parent = true
+position = Vector2( -0.5, -30 )
+texture = ExtResource( 4 )
+
+[node name="ArrowDown" type="Sprite" parent="Arrows"]
+show_behind_parent = true
+position = Vector2( -1, 52 )
+scale = Vector2( -1, -1 )
+texture = ExtResource( 3 )
+
+[node name="BodyDown" type="Sprite" parent="Arrows"]
+show_behind_parent = true
+position = Vector2( -0.5, 30 )
+texture = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Arrows"]
+autoplay = "selected"
+anims/RESET = SubResource( 5 )
+anims/selected = SubResource( 6 )
+
 [connection signal="mouse_entered" from="DirectionButton" to="." method="_on_DirectionButton_mouse_entered"]
 [connection signal="mouse_exited" from="DirectionButton" to="." method="_on_DirectionButton_mouse_exited"]
 [connection signal="pressed" from="DirectionButton" to="." method="_on_DirectionButton_pressed"]
+[connection signal="mouse_entered" from="ResizeContainer/ResizeButton" to="." method="_on_DirectionButton_mouse_entered"]
+[connection signal="mouse_exited" from="ResizeContainer/ResizeButton" to="." method="_on_ResizeButton_mouse_exited"]
+[connection signal="pressed" from="ResizeContainer/ResizeButton" to="." method="_on_ResizeButton_pressed"]

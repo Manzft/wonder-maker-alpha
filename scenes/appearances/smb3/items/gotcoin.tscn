@@ -139,20 +139,20 @@ script = ExtResource( 3 )
 [node name="SpriteGround" type="AnimatedSprite" parent="."]
 position = Vector2( 0, -12 )
 frames = SubResource( 5 )
-frame = 1
+frame = 2
 playing = true
 
 [node name="SpriteUnderground" type="AnimatedSprite" parent="."]
 visible = false
 position = Vector2( 0, -12 )
 frames = SubResource( 10 )
+frame = 1
 playing = true
 
 [node name="SpriteGhostforest" type="AnimatedSprite" parent="."]
 visible = false
 position = Vector2( 0, -12 )
 frames = SubResource( 25 )
-frame = 3
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

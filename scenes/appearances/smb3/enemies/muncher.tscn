@@ -98,6 +98,7 @@ extents = Vector2( 26, 26.5 )
 extents = Vector2( 25, 25 )
 
 [node name="Muncher" type="KinematicBody2D" groups=["Enemy", "Muncher", "NotKilleableWithShell", "Obj", "Solid"]]
+z_index = 1
 collision_layer = 8
 collision_mask = 8
 moving_platform_apply_velocity_on_leave = 2
