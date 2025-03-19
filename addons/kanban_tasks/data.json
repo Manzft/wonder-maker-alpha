@@ -94,7 +94,7 @@
     {
       "title": "Bugs",
       "tasks": [
-
+        45
       ]
     },
     {
@@ -346,6 +346,11 @@
     {
       "category": 3,
       "title": "Mario can jump ANOTHER time when motion.y == 0",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Can move stuff outside screen",
       "details": ""
     }
   ]

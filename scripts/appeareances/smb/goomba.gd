@@ -146,6 +146,7 @@ func _process(delta):
 			if (Global.isChainable(get_parent().grid[gr.x][gr.y+1])):
 				chained = true;
 				chainObject = get_parent().grid_node[gr.x][gr.y+1];
+				arrived = true;
 			
 			var ir = round(rand_range(0, 1));
 			if (ir == 1):
@@ -168,6 +169,15 @@ func _process(delta):
 		
 		if (chained):
 			if (chainObject != null):
+				if ("inbones" in chainObject):
+					if (chainObject.inbones):
+						chained = false;
+						chainObject = null;
+				if ("inshell" in chainObject):
+					if (chainObject.inshell):
+						chained = false;
+						chainObject = null;
+				
 				if (chainObject.visible):
 					position.y = chainObject.position.y-51;
 					if (chainObject.stopped):
@@ -395,14 +405,14 @@ func hit(dir):
 	motion.x = 0;
 	motion.y = 0;
 	
-	if (chained && !hitDead):
-		stopChainObject = true;
-	chained = false;
-	
 	if (hitDead):
 		motion.y = jump_h*5;
 	
 	get_parent().enemyScore(position);
+	
+	if (chained && !hitDead):
+		stopChainObject = true;
+	chained = false;
 
 func jump():
 	motion.y = jump_h;

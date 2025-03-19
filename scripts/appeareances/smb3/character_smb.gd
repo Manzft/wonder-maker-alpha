@@ -12,7 +12,7 @@ var running = false;
 var jumping = false;
 var koyoteTime = false;
 var sneaking = false;
-var falling = false;
+var falling = true;
 
 var died = false;
 var deadwait = false;
@@ -430,7 +430,7 @@ func _physics_process(delta):
 		
 		#Jump and friction controller
 		if (is_on_floor() || koyoteTime):
-			if (!course_clear && startmenucheck):
+			if (!course_clear && startmenucheck && !falling):
 				if (Input.is_action_just_pressed("a") || Input.is_action_just_pressed("b")):
 					if (!sneaking && !attacking):
 						current_sprite.play(currentPowerup+"_jump");

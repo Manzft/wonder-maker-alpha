@@ -760,6 +760,8 @@ func isChainable(var objCode):
 	var chainable = false;
 	match (objCode):
 		OBJ_GOOMBA: chainable = true;
+		OBJ_GOOMBRAT: chainable = true;
+		OBJ_DRYBONES: chainable = true;
 	
 	return chainable;
 

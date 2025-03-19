@@ -280,10 +280,17 @@ func _input(event):
 									if (Vector2(i, j) != node.grid_origin*-1):
 										if (get_parent().grid[togrid.x+i+grid_origin.x][togrid.y+j+grid_origin.y] != null && get_parent().grid_node[togrid.x+i+grid_origin.x][togrid.y+j+grid_origin.y] != node):
 											mgcheck = false;
+										if (togrid.y+j+grid_origin.y < 0 || togrid.y+j+grid_origin.y > 29 || togrid.x+i+grid_origin.x < 0):
+											mgcheck = false;
 						if (get_parent().grid[togrid.x][togrid.y] != null && get_parent().grid_node[togrid.x][togrid.y] != get_parent().grab_node):
 							mgcheck = false;
+						if (togrid.y < 0 || togrid.y > 29 || togrid.x < 0):
+							mgcheck = false;
 					else:
-						mgcheck = !(get_parent().grid[togrid.x][togrid.y] != null && get_parent().grid_node[togrid.x][togrid.y] != get_parent().grab_node);
+						mgcheck = !(get_parent().grid[togrid.x][togrid.y] != null
+						&& get_parent().grid_node[togrid.x][togrid.y] != get_parent().grab_node
+						&& togrid.y >= 0 && togrid.y <= 29
+						&& togrid.x >= 0);
 					
 					if (!socheck):
 						if (check && poscheck && mgcheck):
@@ -368,10 +375,17 @@ func _input(event):
 						if (Vector2(i, j) != node.grid_origin*-1):
 							if (get_parent().grid[grid.x+i+grid_origin.x][grid.y+j+grid_origin.y] != null && get_parent().grid_node[grid.x+i+grid_origin.x][grid.y+j+grid_origin.y] != node):
 								check2 = true;
+							if (grid.y+j+grid_origin.y < 0 || grid.y+j+grid_origin.y > 29 || grid.x+i+grid_origin.x < 0):
+								check2 = true;
 				if (get_parent().grid[grid.x][grid.y] != null && get_parent().grid_node[grid.x][grid.y] != get_parent().grab_node):
 					check2 = true;
+				if (grid.y < 0 || grid.y > 29 || grid.x < 0):
+					check2 = true;
 			else:
-				check2 = get_parent().grid[grid.x][grid.y] != null && get_parent().grid_node[grid.x][grid.y] != get_parent().grab_node;
+				check2 = (get_parent().grid[grid.x][grid.y] != null
+				&& get_parent().grid_node[grid.x][grid.y] != get_parent().grab_node
+				&& grid.y >= 0 && grid.y <= 29
+				&& grid.x >= 0);
 			
 			if (check2 || !check || !poscheck || mgcheck):
 				if (get_node("../Selection/AnimationPlayer").current_animation != "error"):
@@ -720,13 +734,13 @@ func updateObjectButtons():
 		else:
 			var a = "";
 			a = str(i+1);
-			var selected = "";
 			get_node("SectionTop/ObjectButton"+a+"/Icon").texture = Global.object[Global.CurrentAppeareance][selected_objects[i]][Global.OP_ICON];
 			
 			if (selected_objects[i] == get_parent().objSelected):
-				selected = "_selected";
+				get_node("SectionTop/ObjectButton"+a).texture_normal = load("res://sprites/ui/new interface/editor/object_select_button_selected.png");
 				get_node("SectionTop/ObjectButton"+a+"/Icon/AnimationPlayer").play("in");
 			else:
+				get_node("SectionTop/ObjectButton"+a).texture_normal = load("res://sprites/ui/new interface/editor/object_select_button.png");
 				get_node("SectionTop/ObjectButton"+a+"/Icon/AnimationPlayer").play("RESET");
 			
 			get_node("SectionTop/ObjectButton"+a+"/HasVariants").visible = Global.hasVariants(selected_objects[i]);
@@ -734,13 +748,13 @@ func updateObjectButtons():
 			var category = Global.getCategory(selected_objects[i]);
 			match (category):
 				"Terrain":
-					get_node("SectionTop/ObjectButton"+a).texture_normal = load("res://sprites/ui/editor/pick_object_terrain"+selected+".png");
+					get_node("SectionTop/ObjectButton"+a+"/Top").modulate = Color("#3accff");
 				"Items":
-					get_node("SectionTop/ObjectButton"+a).texture_normal = load("res://sprites/ui/editor/pick_object_items"+selected+".png");
+					get_node("SectionTop/ObjectButton"+a+"/Top").modulate = Color("#fe84ff");
 				"Enemies":
-					get_node("SectionTop/ObjectButton"+a).texture_normal = load("res://sprites/ui/editor/pick_object_enemies"+selected+".png");
+					get_node("SectionTop/ObjectButton"+a+"/Top").modulate = Color("#62ff64");
 				"Gizmos":
-					get_node("SectionTop/ObjectButton"+a).texture_normal = load("res://sprites/ui/editor/pick_object"+selected+".png");
+					get_node("SectionTop/ObjectButton"+a+"/Top").modulate = Color("#fffc4b");
 
 var moveCamToChar = false;
 
@@ -1161,7 +1175,8 @@ func _process(delta):
 				closeMenus();
 				#_on_UndoButton_pressed();
 			if (Input.is_action_just_pressed("x") && savedFocus == null && Global.CurrentInput == "Gamepad"):
-				toggle_gamepadCursor();
+				pass
+				#toggle_gamepadCursor();
 			if (Input.is_action_just_pressed("select") && Global.CurrentInput == "Gamepad"):
 				_on_Play_pressed();
 			if (Input.is_action_just_pressed("dup") || Input.is_action_just_pressed("dleft") || Input.is_action_just_pressed("dright") || Input.is_action_just_pressed("ddown")):
@@ -1573,12 +1588,14 @@ func objectButtonPressed(var num):
 			get_parent().objSelected = selected_objects[num-1];
 			updateObjectButtons();
 			if (Global.CurrentInput == "Gamepad"):
-				toggle_gamepadCursor();
+				pass
+				#toggle_gamepadCursor();
 		else:
 			get_parent().objSelected = -50;
 			updateObjectButtons();
 			if (Global.CurrentInput == "Gamepad"):
-				toggle_gamepadCursor();
+				pass
+				#toggle_gamepadCursor();
 	if (eraseMode):
 		toggle_eraseMode();
 	$AudioPress.play();
@@ -2352,7 +2369,7 @@ func _on_Edit_mouse_exited():
 	button_mouse_exited(); mouseFocus = ""; changeFocus();
 
 func _on_CloseButtons_pressed():
-	if (!playing && get_parent().objSelected != -50 && !get_node("../EndFloor").selected && !get_node("../LevelFloor").selected && !get_node("../CharacterEditor").selected):
+	if (!playing && !get_node("../EndFloor").selected && !get_node("../LevelFloor").selected && !get_node("../CharacterEditor").selected):
 		toggle_buttons();
 
 func _on_SeaLevel_button_down():

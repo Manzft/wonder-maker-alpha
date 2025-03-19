@@ -480,3 +480,6 @@ func _input(event):
 							
 							$AudioGrabMove.play();
 							updateShape();
+
+func _on_Pipe_tree_exiting():
+	get_node("../Editor").externalButton = false;

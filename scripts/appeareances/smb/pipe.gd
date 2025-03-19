@@ -30,7 +30,7 @@ func setupExtensionGrids(start = false):
 	for i in range(grid_end.x+1+(abs(grid_origin.x))):
 		for j in range(grid_end.y+1+(abs(grid_origin.y))):
 			if (Vector2(i, j) != grid_origin*-1):
-				if (get_parent().grid_node[mygrid.x+i][mygrid.y+j] != null && start):
+				if (get_parent().grid[mygrid.x+i][mygrid.y+j] != null && start):
 					a = false;
 					bye = true;
 	return a;
@@ -341,6 +341,8 @@ func _input(event):
 				get_node("../Editor").gamepadReleaseGrab();
 			var eventpos = Vector2(event.position.x, event.position.y);
 			var thisToGrid = get_parent().calculateGrid(eventpos.x+get_parent().get_node("Camera2D").position.x, eventpos.y+get_parent().get_node("Camera2D").position.y);
+			if (thisToGrid.y < 0 || thisToGrid.y > 29 || thisToGrid.x < 0):
+				return
 			if (currentGrid != thisToGrid && thisToGrid != toGrid):
 				toGrid = thisToGrid;
 				match (seldirection):
@@ -481,3 +483,5 @@ func _input(event):
 							$AudioGrabMove.play();
 							updateShape();
 
+func _on_Pipe_tree_exiting():
+	get_node("../Editor").externalButton = false;

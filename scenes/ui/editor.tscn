@@ -1,11 +1,11 @@
-[gd_scene load_steps=340 format=2]
+[gd_scene load_steps=344 format=2]
 
 [ext_resource path="res://scripts/ui/startmenu/FPS.gd" type="Script" id=1]
 [ext_resource path="res://sprites/ui/editor/square_little_button.png" type="Texture" id=2]
-[ext_resource path="res://sprites/ui/editor/section_bg_left.png" type="Texture" id=3]
+[ext_resource path="res://sprites/ui/new interface/editor/panel_side_left.png" type="Texture" id=3]
 [ext_resource path="res://sprites/ui/editor/section_bg_right.png" type="Texture" id=4]
 [ext_resource path="res://fonts/NINTENDOSWITCHUI.TTF" type="DynamicFontData" id=5]
-[ext_resource path="res://sprites/ui/editor/section_bg_top.png" type="Texture" id=6]
+[ext_resource path="res://sprites/ui/new interface/editor/panel_top.png" type="Texture" id=6]
 [ext_resource path="res://smm2editor.png" type="Texture" id=7]
 [ext_resource path="res://scripts/ui/editor/editor.gd" type="Script" id=8]
 [ext_resource path="res://sprites/ui/editor/start_button_guide.png" type="Texture" id=9]
@@ -141,6 +141,10 @@
 [ext_resource path="res://scenes/ui/Gameplay UI/SMB3.tscn" type="PackedScene" id=139]
 [ext_resource path="res://sprites/ui/editor/variantSymbol.png" type="Texture" id=140]
 [ext_resource path="res://music/editor/smb3/editor_ghostforest.mp3" type="AudioStream" id=141]
+[ext_resource path="res://sprites/ui/new interface/editor/object_select_button_top.png" type="Texture" id=142]
+[ext_resource path="res://sprites/ui/new interface/editor/object_select_button.png" type="Texture" id=143]
+[ext_resource path="res://sprites/ui/new interface/editor/tab.png" type="Texture" id=144]
+[ext_resource path="res://sprites/ui/new interface/editor/panel_side_right.png" type="Texture" id=145]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -7369,7 +7373,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, 116 ) ]
+"values": [ Vector2( -200, 120 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SectionTop:rect_position")
@@ -7381,7 +7385,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ) ]
+"values": [ Vector2( 0, -96 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("SectionRightContainer:rect_position")
@@ -7429,7 +7433,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1280, 113 ) ]
+"values": [ Vector2( 1280, 207 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("SectionRightContainer:rect_size")
@@ -7468,7 +7472,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -182, 116 ), Vector2( 10, 116 ), Vector2( 0, 116 ) ]
+"values": [ Vector2( -396, 120 ), Vector2( -190, 120 ), Vector2( -200, 120 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SectionTop:rect_position")
@@ -7480,7 +7484,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, -113 ), Vector2( 0, 10 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 0, -210 ), Vector2( 0, -86 ), Vector2( 0, -96 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("SectionRightContainer:rect_position")
@@ -7531,7 +7535,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 116 ), Vector2( 10, 116 ), Vector2( -182, 116 ) ]
+"values": [ Vector2( -200, 120 ), Vector2( -190, 120 ), Vector2( -396, 120 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("SectionTop:rect_position")
@@ -7543,11 +7547,11 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 10 ), Vector2( 0, -113 ) ]
+"values": [ Vector2( 0, -96 ), Vector2( 0, -86 ), Vector2( 0, -210 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("SectionRightContainer:rect_position")
-tracks/2/interp = 1
+tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
@@ -7796,7 +7800,7 @@ tracks/3/keys = {
 "times": PoolRealArray( 0, 0.5, 1, 2 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 16, 568 ), Vector2( -26, 553 ), Vector2( 16, 568 ), Vector2( -200, 568 ) ]
+"values": [ Vector2( 16, 568 ), Vector2( 0, 553 ), Vector2( 16, 568 ), Vector2( -200, 568 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("../AudioStartButton:playing")
@@ -8114,10 +8118,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 1797.0
-margin_top = 1797.0
-margin_right = 1833.0
-margin_bottom = 1833.0
+margin_left = 1808.0
+margin_top = 1808.0
+margin_right = 1844.0
+margin_bottom = 1844.0
 texture = ExtResource( 36 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GamepadCursor/SprintGuide"]
@@ -8126,30 +8130,20 @@ anims/start = SubResource( 49 )
 
 [node name="SectionTop" type="TextureRect" parent="."]
 anchor_right = 1.0
-margin_bottom = 113.0
+margin_top = -96.0
+margin_bottom = 111.0
 texture = ExtResource( 6 )
 expand = true
 stretch_mode = 1
-
-[node name="Tab" type="TextureRect" parent="SectionTop"]
-show_behind_parent = true
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -33.0
-margin_top = -2.0
-margin_right = 33.0
-margin_bottom = 3.0
-texture = ExtResource( 12 )
+flip_h = true
 
 [node name="SearchButton" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -92.0
-margin_top = 24.0
+margin_top = 110.0
 margin_right = -18.0
-margin_bottom = 99.0
+margin_bottom = 185.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
@@ -8241,14 +8235,14 @@ anims/idle = SubResource( 35 )
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -518.0
-margin_top = 24.0
+margin_top = 110.0
 margin_right = -444.0
-margin_bottom = 99.0
+margin_bottom = 185.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
 focus_neighbour_bottom = NodePath("../../SectionLeft/AspectButton")
-texture_normal = ExtResource( 38 )
+texture_normal = ExtResource( 143 )
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="SectionTop/ObjectButton12"]
@@ -8341,18 +8335,24 @@ playback_speed = 1.25
 anims/RESET = SubResource( 50 )
 anims/idle = SubResource( 51 )
 
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton12"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 6.0
+texture = ExtResource( 142 )
+
 [node name="ObjectButton11" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -431.0
-margin_top = 24.0
+margin_top = 110.0
 margin_right = -357.0
-margin_bottom = 99.0
+margin_bottom = 185.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
 focus_neighbour_bottom = NodePath("../../SectionLeft/AspectButton")
-texture_normal = ExtResource( 38 )
+texture_normal = ExtResource( 143 )
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="SectionTop/ObjectButton11"]
@@ -8445,18 +8445,24 @@ playback_speed = 1.25
 anims/RESET = SubResource( 52 )
 anims/idle = SubResource( 53 )
 
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton11"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 6.0
+texture = ExtResource( 142 )
+
 [node name="ObjectButton10" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -342.0
-margin_top = 24.0
+margin_top = 110.0
 margin_right = -268.0
-margin_bottom = 99.0
+margin_bottom = 185.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
 focus_neighbour_bottom = NodePath("../../SectionLeft/AspectButton")
-texture_normal = ExtResource( 38 )
+texture_normal = ExtResource( 143 )
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="SectionTop/ObjectButton10"]
@@ -8549,18 +8555,24 @@ playback_speed = 1.25
 anims/RESET = SubResource( 54 )
 anims/idle = SubResource( 55 )
 
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton10"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 6.0
+texture = ExtResource( 142 )
+
 [node name="ObjectButton9" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -254.0
-margin_top = 24.0
+margin_top = 110.0
 margin_right = -180.0
-margin_bottom = 99.0
+margin_bottom = 185.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
 focus_neighbour_bottom = NodePath("../../SectionLeft/AspectButton")
-texture_normal = ExtResource( 38 )
+texture_normal = ExtResource( 143 )
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="SectionTop/ObjectButton9"]
@@ -8653,18 +8665,24 @@ playback_speed = 1.25
 anims/RESET = SubResource( 56 )
 anims/idle = SubResource( 57 )
 
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton9"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 6.0
+texture = ExtResource( 142 )
+
 [node name="ObjectButton8" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -166.0
-margin_top = 24.0
+margin_top = 110.0
 margin_right = -92.0
-margin_bottom = 99.0
+margin_bottom = 185.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
 focus_neighbour_bottom = NodePath("../../SectionLeft/AspectButton")
-texture_normal = ExtResource( 38 )
+texture_normal = ExtResource( 143 )
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="SectionTop/ObjectButton8"]
@@ -8757,18 +8775,24 @@ playback_speed = 1.25
 anims/RESET = SubResource( 58 )
 anims/idle = SubResource( 59 )
 
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton8"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 6.0
+texture = ExtResource( 142 )
+
 [node name="ObjectButton7" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -78.0
-margin_top = 24.0
+margin_top = 110.0
 margin_right = -4.0
-margin_bottom = 99.0
+margin_bottom = 185.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
 focus_neighbour_bottom = NodePath("../../SectionLeft/AspectButton")
-texture_normal = ExtResource( 38 )
+texture_normal = ExtResource( 143 )
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="SectionTop/ObjectButton7"]
@@ -8861,18 +8885,24 @@ playback_speed = 1.25
 anims/RESET = SubResource( 60 )
 anims/idle = SubResource( 61 )
 
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton7"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 6.0
+texture = ExtResource( 142 )
+
 [node name="ObjectButton6" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = 9.0
-margin_top = 24.0
+margin_top = 110.0
 margin_right = 83.0
-margin_bottom = 99.0
+margin_bottom = 185.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
 focus_neighbour_bottom = NodePath("../../SectionRightContainer/SectionRight/StartButton")
-texture_normal = ExtResource( 38 )
+texture_normal = ExtResource( 143 )
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="SectionTop/ObjectButton6"]
@@ -8965,18 +8995,24 @@ playback_speed = 1.25
 anims/RESET = SubResource( 62 )
 anims/idle = SubResource( 63 )
 
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton6"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 6.0
+texture = ExtResource( 142 )
+
 [node name="ObjectButton5" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = 96.0
-margin_top = 24.0
+margin_top = 110.0
 margin_right = 170.0
-margin_bottom = 99.0
+margin_bottom = 185.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
 focus_neighbour_bottom = NodePath("../../SectionRightContainer/SectionRight/StartButton")
-texture_normal = ExtResource( 38 )
+texture_normal = ExtResource( 143 )
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="SectionTop/ObjectButton5"]
@@ -9069,18 +9105,24 @@ playback_speed = 1.25
 anims/RESET = SubResource( 64 )
 anims/idle = SubResource( 65 )
 
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton5"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 6.0
+texture = ExtResource( 142 )
+
 [node name="ObjectButton4" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = 183.0
-margin_top = 24.0
+margin_top = 110.0
 margin_right = 257.0
-margin_bottom = 99.0
+margin_bottom = 185.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
 focus_neighbour_bottom = NodePath("../../SectionRightContainer/SectionRight/StartButton")
-texture_normal = ExtResource( 38 )
+texture_normal = ExtResource( 143 )
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="SectionTop/ObjectButton4"]
@@ -9173,18 +9215,24 @@ playback_speed = 1.25
 anims/RESET = SubResource( 66 )
 anims/idle = SubResource( 67 )
 
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton4"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 6.0
+texture = ExtResource( 142 )
+
 [node name="ObjectButton3" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = 272.0
-margin_top = 24.0
-margin_right = 346.0
-margin_bottom = 99.0
+margin_left = 270.0
+margin_top = 110.0
+margin_right = 344.0
+margin_bottom = 184.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
 focus_neighbour_bottom = NodePath("../../SectionRightContainer/SectionRight/StartButton")
-texture_normal = ExtResource( 38 )
+texture_normal = ExtResource( 143 )
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="SectionTop/ObjectButton3"]
@@ -9207,9 +9255,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -31.0
-margin_top = -29.5
+margin_top = -29.0
 margin_right = 31.0
-margin_bottom = 32.5
+margin_bottom = 33.0
 mouse_filter = 2
 expand = true
 
@@ -9227,6 +9275,8 @@ texture = ExtResource( 140 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = -31.0
+margin_bottom = -21.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionTop/ObjectButton3/Selection"]
@@ -9277,18 +9327,24 @@ playback_speed = 1.25
 anims/RESET = SubResource( 68 )
 anims/idle = SubResource( 69 )
 
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton3"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 6.0
+texture = ExtResource( 142 )
+
 [node name="ObjectButton2" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = 359.0
-margin_top = 24.0
-margin_right = 433.0
-margin_bottom = 99.0
+margin_left = 357.0
+margin_top = 110.0
+margin_right = 431.0
+margin_bottom = 184.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
 focus_neighbour_bottom = NodePath("../../SectionRightContainer/SectionRight/StartButton")
-texture_normal = ExtResource( 38 )
+texture_normal = ExtResource( 143 )
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="SectionTop/ObjectButton2"]
@@ -9311,9 +9367,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -31.0
-margin_top = -29.5
+margin_top = -29.0
 margin_right = 31.0
-margin_bottom = 32.5
+margin_bottom = 33.0
 mouse_filter = 2
 expand = true
 
@@ -9331,6 +9387,7 @@ texture = ExtResource( 140 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_bottom = 1.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionTop/ObjectButton2/Selection"]
@@ -9381,18 +9438,24 @@ playback_speed = 1.25
 anims/RESET = SubResource( 70 )
 anims/idle = SubResource( 71 )
 
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton2"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 6.0
+texture = ExtResource( 142 )
+
 [node name="ObjectButton1" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = 446.0
-margin_top = 24.0
+margin_top = 110.0
 margin_right = 520.0
-margin_bottom = 99.0
+margin_bottom = 185.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
 focus_neighbour_bottom = NodePath("../../SectionRightContainer/SectionRight/StartButton")
-texture_normal = ExtResource( 38 )
+texture_normal = ExtResource( 143 )
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="SectionTop/ObjectButton1"]
@@ -9435,10 +9498,10 @@ texture = ExtResource( 140 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -1.69784
-margin_top = -1.69784
-margin_right = -1.69784
-margin_bottom = -1.69784
+margin_left = -0.328372
+margin_top = -0.328372
+margin_right = -0.328369
+margin_bottom = -0.328369
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionTop/ObjectButton1/Selection"]
@@ -9488,6 +9551,12 @@ texture = ExtResource( 23 )
 playback_speed = 1.25
 anims/RESET = SubResource( 72 )
 anims/idle = SubResource( 73 )
+
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton1"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 6.0
+texture = ExtResource( 142 )
 
 [node name="GamepadCursorGuideQuit" type="Control" parent="SectionTop"]
 anchor_left = 1.0
@@ -9672,23 +9741,28 @@ margin_bottom = 32.0
 custom_fonts/font = SubResource( 43 )
 text = "Borrador"
 
-[node name="SectionTop" type="TextureRect" parent="SectionTop"]
-anchor_right = 1.0
-margin_bottom = 113.0
-rect_scale = Vector2( 1, -1 )
-texture = ExtResource( 6 )
-expand = true
-stretch_mode = 1
-
 [node name="CloseButtons" type="TextureButton" parent="SectionTop"]
+anchor_left = 0.217
+anchor_top = 1.0
+anchor_right = 0.217
+anchor_bottom = 1.0
+margin_left = -53.76
+margin_top = -2.0
+margin_right = 54.24
+margin_bottom = 13.0
+
+[node name="Tab" type="TextureRect" parent="SectionTop/CloseButtons"]
+show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -54.0
-margin_top = -9.0
-margin_right = 54.0
-margin_bottom = 14.0
+margin_left = 52.0
+margin_top = 1.0
+margin_right = 157.0
+margin_bottom = 16.0
+rect_rotation = 180.0
+texture = ExtResource( 144 )
 
 [node name="AppeareancesMenu" type="TextureRect" parent="."]
 visible = false
@@ -12975,17 +13049,14 @@ align = 1
 valign = 1
 
 [node name="SectionLeft" type="TextureRect" parent="."]
-margin_top = 116.0
-margin_right = 183.0
-margin_bottom = 596.0
+margin_left = -200.0
+margin_top = 120.0
+margin_right = 202.0
+margin_bottom = 600.0
 rect_pivot_offset = Vector2( -335, 386 )
 texture = ExtResource( 3 )
-
-[node name="Tab" type="Sprite" parent="SectionLeft"]
-show_behind_parent = true
-position = Vector2( 184, 246 )
-rotation = -1.5708
-texture = ExtResource( 12 )
+expand = true
+stretch_mode = 5
 
 [node name="LeftOpenMenuIndicator" type="NinePatchRect" parent="SectionLeft"]
 visible = false
@@ -13057,10 +13128,10 @@ texture = ExtResource( 89 )
 [node name="AspectButton" type="TextureButton" parent="SectionLeft" groups=["Button"]]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -158.0
-margin_top = 18.0
-margin_right = -19.0
-margin_bottom = 93.0
+margin_left = -178.0
+margin_top = 37.0
+margin_right = -39.0
+margin_bottom = 112.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
@@ -13153,10 +13224,10 @@ anims/idle = SubResource( 33 )
 [node name="StyleButton" type="TextureButton" parent="SectionLeft" groups=["Button"]]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 26.0
-margin_top = -382.0
-margin_right = 88.0
-margin_bottom = -320.0
+margin_left = 226.0
+margin_top = -363.0
+margin_right = 288.0
+margin_bottom = -301.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
@@ -13256,10 +13327,10 @@ anims/idle = SubResource( 37 )
 [node name="SeaLevelButton" type="TextureButton" parent="SectionLeft" groups=["Button"]]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 102.0
-margin_top = -375.0
-margin_right = 153.0
-margin_bottom = -324.0
+margin_left = 302.0
+margin_top = -356.0
+margin_right = 353.0
+margin_bottom = -305.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
@@ -13355,10 +13426,10 @@ anims/idle = SubResource( 213 )
 [node name="RecButton" type="TextureButton" parent="SectionLeft" groups=["Button"]]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 24.5
-margin_top = -311.0
-margin_right = 163.5
-margin_bottom = -249.0
+margin_left = 224.5
+margin_top = -292.0
+margin_right = 363.5
+margin_bottom = -230.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
@@ -13456,10 +13527,10 @@ anims/idle = SubResource( 39 )
 [node name="TimeButton" type="TextureButton" parent="SectionLeft" groups=["Button"]]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -158.0
-margin_top = 240.0
-margin_right = -19.0
-margin_bottom = 315.0
+margin_left = -178.0
+margin_top = 259.0
+margin_right = -39.0
+margin_bottom = 334.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
@@ -13562,10 +13633,10 @@ anims/idle = SubResource( 41 )
 [node name="MusicButton" type="TextureButton" parent="SectionLeft" groups=["Button"]]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 59.0
-margin_top = -123.0
-margin_right = 121.0
-margin_bottom = -61.0
+margin_left = 259.0
+margin_top = -104.0
+margin_right = 321.0
+margin_bottom = -42.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
@@ -13679,23 +13750,27 @@ playback_speed = 1.25
 anims/RESET = SubResource( 277 )
 anims/idle = SubResource( 278 )
 
-[node name="SectionLeft" type="TextureRect" parent="SectionLeft"]
-margin_left = 670.0
-margin_right = 853.0
-margin_bottom = 480.0
-rect_scale = Vector2( -1, 1 )
-rect_pivot_offset = Vector2( -335, 386 )
-texture = ExtResource( 3 )
-
 [node name="CloseButtons" type="TextureButton" parent="SectionLeft"]
-anchor_left = 1.0
+anchor_left = 0.98
+anchor_top = 0.169
+anchor_right = 0.98
+anchor_bottom = 0.169
+margin_left = 0.039978
+margin_top = -53.12
+margin_right = 15.04
+margin_bottom = 52.88
+
+[node name="Image" type="TextureRect" parent="SectionLeft/CloseButtons"]
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -14.0
-margin_top = -39.0
-margin_right = 16.0
-margin_bottom = 52.0
+margin_left = 7.0
+margin_top = -52.5
+margin_right = 112.0
+margin_bottom = -12.5
+rect_rotation = 90.0
+texture = ExtResource( 144 )
 
 [node name="SectionRightContainer" type="Control" parent="."]
 anchor_right = 1.0
@@ -13707,8 +13782,11 @@ anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -110.0
 margin_top = 116.0
+margin_right = 104.0
 margin_bottom = 720.0
-texture = ExtResource( 4 )
+texture = ExtResource( 145 )
+expand = true
+stretch_mode = 6
 
 [node name="RightOpenMenuIndicator" type="NinePatchRect" parent="SectionRightContainer/SectionRight"]
 visible = false
@@ -14322,6 +14400,7 @@ margin_right = 19.0
 margin_bottom = -8.0
 
 [node name="SectionRight2" type="TextureRect" parent="SectionRightContainer"]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = 110.0
@@ -14332,6 +14411,7 @@ rect_scale = Vector2( -1, 1 )
 texture = ExtResource( 4 )
 
 [node name="SectionRight2" type="TextureRect" parent="."]
+visible = false
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -110.0
@@ -14489,6 +14569,7 @@ stream = ExtResource( 52 )
 visible = false
 
 [node name="SideMenu" parent="." instance=ExtResource( 58 )]
+visible = false
 margin_left = 0.0
 margin_right = 610.0
 

@@ -2,7 +2,7 @@ extends Node2D
 
 var editing = true;
 
-var grid_size = Vector2(500, 35);
+var grid_size = Vector2(500, 50);
 var grid = [];
 var grid_node = [];
 

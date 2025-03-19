@@ -123,6 +123,8 @@ func _on_TypeButton_pressed():
 			var pos = get_node("../../../..").grab_node.position;
 			get_node("../../../..").eraseObject(pos, false);
 			get_node("../../../..").placeObject(pos, false, Global.OBJ_PIRANHAPLANT_FIRE);
+			get_node("../../../..").objSelected = Global.OBJ_PIRANHAPLANT_FIRE;
+			get_node("../../..").selObj();
 		"piranhaplant":
 			var pos = get_node("../../../..").grab_node.position;
 			get_node("../../../..").eraseObject(pos, false);
@@ -131,10 +133,14 @@ func _on_TypeButton_pressed():
 			var pos = get_node("../../../..").grab_node.position;
 			get_node("../../../..").eraseObject(pos, false);
 			get_node("../../../..").placeObject(pos, false, Global.OBJ_GOOMBRAT);
+			get_node("../../../..").objSelected = Global.OBJ_GOOMBRAT;
+			get_node("../../..").selObj();
 		"goomba":
 			var pos = get_node("../../../..").grab_node.position;
 			get_node("../../../..").eraseObject(pos, false);
 			get_node("../../../..").placeObject(pos, false, Global.OBJ_GOOMBA);
+			get_node("../../../..").objSelected = Global.OBJ_GOOMBA;
+			get_node("../../..").selObj();
 		"spinydead":
 			get_node("../../../..").grab_node.alreadydead = true;
 		"spinyalive":
@@ -143,10 +149,14 @@ func _on_TypeButton_pressed():
 			var pos = get_node("../../../..").grab_node.position;
 			get_node("../../../..").eraseObject(pos, false);
 			get_node("../../../..").placeObject(pos, false, Global.OBJ_KOOPATROOPA_RED);
+			get_node("../../../..").objSelected = Global.OBJ_KOOPATROOPA_RED;
+			get_node("../../..").selObj();
 		"koopatroopa":
 			var pos = get_node("../../../..").grab_node.position;
 			get_node("../../../..").eraseObject(pos, false);
 			get_node("../../../..").placeObject(pos, false, Global.OBJ_KOOPATROOPA);
+			get_node("../../../..").objSelected = Global.OBJ_KOOPATROOPA;
+			get_node("../../..").selObj();
 		"drybonesdead":
 			get_node("../../../..").grab_node.alreadydead = true;
 		"drybonesalive":
