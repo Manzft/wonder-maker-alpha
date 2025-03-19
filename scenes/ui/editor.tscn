@@ -1,4 +1,4 @@
-[gd_scene load_steps=344 format=2]
+[gd_scene load_steps=343 format=2]
 
 [ext_resource path="res://scripts/ui/startmenu/FPS.gd" type="Script" id=1]
 [ext_resource path="res://sprites/ui/editor/square_little_button.png" type="Texture" id=2]
@@ -11,7 +11,6 @@
 [ext_resource path="res://sprites/ui/editor/start_button_guide.png" type="Texture" id=9]
 [ext_resource path="res://sprites/ui/editor/menu_icon.png" type="Texture" id=10]
 [ext_resource path="res://sprites/ui/editor/guardabot_icon.png" type="Texture" id=11]
-[ext_resource path="res://sprites/ui/editor/section_tab.png" type="Texture" id=12]
 [ext_resource path="res://sounds/ui/button_start.ogg" type="AudioStream" id=13]
 [ext_resource path="res://sprites/ui/editor/circle_little_Button.png" type="Texture" id=14]
 [ext_resource path="res://sprites/ui/editor/eraser_icon.png" type="Texture" id=15]
@@ -2080,6 +2079,408 @@ tracks/2/keys = {
 size = 20
 font_data = ExtResource( 5 )
 
+[sub_resource type="Animation" id=20]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ) ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=22]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ) ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=24]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ) ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=26]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ) ]
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=28]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ) ]
+}
+
+[sub_resource type="Animation" id=29]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=227]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 107, 67 ) ]
+}
+
+[sub_resource type="Animation" id=228]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 107, 67 ), Vector2( 117, 77 ), Vector2( 107, 67 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+
 [sub_resource type="Animation" id=128]
 length = 0.001
 tracks/0/type = "value"
@@ -2288,7 +2689,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 20, 13 ) ]
+"values": [ Vector2( 220, 32 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("../SectionLeft/LeftOpenMenuIndicator:rect_size")
@@ -2300,7 +2701,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 13, 82 ), Vector2( 162, 82 ) ]
+"values": [ Vector2( 13, 82 ), Vector2( 168, 82 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath(".:modulate")
@@ -2412,7 +2813,7 @@ tracks/5/keys = {
 "times": PoolRealArray( 0.3 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 20, 13 ) ]
+"values": [ Vector2( 220, 32 ) ]
 }
 tracks/6/type = "value"
 tracks/6/path = NodePath("../SectionLeft/LeftOpenMenuIndicator:rect_size")
@@ -2424,7 +2825,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 162, 82 ), Vector2( 13, 82 ) ]
+"values": [ Vector2( 168, 82 ), Vector2( 13, 82 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath(".:modulate")
@@ -3583,7 +3984,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 21, 93 ) ]
+"values": [ Vector2( 220, 112 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("../SectionLeft/LeftOpenMenuIndicator2:rect_size")
@@ -3595,7 +3996,7 @@ tracks/7/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 13, 72 ), Vector2( 162, 72 ) ]
+"values": [ Vector2( 13, 72 ), Vector2( 168, 72 ) ]
 }
 tracks/8/type = "value"
 tracks/8/path = NodePath("../SectionLeft/LeftOpenMenuIndicator2:visible")
@@ -3695,7 +4096,7 @@ tracks/6/keys = {
 "times": PoolRealArray( 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 162, 72 ), Vector2( 13, 72 ) ]
+"values": [ Vector2( 168, 72 ), Vector2( 13, 72 ) ]
 }
 tracks/7/type = "value"
 tracks/7/path = NodePath("../SectionLeft/LeftOpenMenuIndicator2:visible")
@@ -3719,7 +4120,7 @@ tracks/8/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 21, 93 ) ]
+"values": [ Vector2( 220, 112 ) ]
 }
 
 [sub_resource type="Animation" id=138]
@@ -4734,7 +5135,7 @@ tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 20, 164 ) ]
+"values": [ Vector2( 220, 183 ) ]
 }
 tracks/8/type = "value"
 tracks/8/path = NodePath("../SectionLeft/LeftOpenMenuIndicator3:rect_size")
@@ -4746,7 +5147,7 @@ tracks/8/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 13, 72 ), Vector2( 163, 72 ) ]
+"values": [ Vector2( 13, 72 ), Vector2( 168, 72 ) ]
 }
 
 [sub_resource type="Animation" id=216]
@@ -4846,7 +5247,7 @@ tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 20, 164 ) ]
+"values": [ Vector2( 220, 183 ) ]
 }
 tracks/8/type = "value"
 tracks/8/path = NodePath("../SectionLeft/LeftOpenMenuIndicator3:rect_size")
@@ -4858,7 +5259,7 @@ tracks/8/keys = {
 "times": PoolRealArray( 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 163, 72 ), Vector2( 13, 72 ) ]
+"values": [ Vector2( 168, 72 ), Vector2( 13, 72 ) ]
 }
 
 [sub_resource type="Animation" id=217]
@@ -5404,7 +5805,7 @@ tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 20, 235 ) ]
+"values": [ Vector2( 220, 254 ) ]
 }
 tracks/8/type = "value"
 tracks/8/path = NodePath("../SectionLeft/LeftOpenMenuIndicator4:rect_size")
@@ -5416,7 +5817,7 @@ tracks/8/keys = {
 "times": PoolRealArray( 0, 0.2 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 13, 82 ), Vector2( 163, 82 ) ]
+"values": [ Vector2( 13, 82 ), Vector2( 168, 82 ) ]
 }
 
 [sub_resource type="Animation" id=248]
@@ -5516,7 +5917,7 @@ tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 20, 235 ) ]
+"values": [ Vector2( 220, 254 ) ]
 }
 tracks/8/type = "value"
 tracks/8/path = NodePath("../SectionLeft/LeftOpenMenuIndicator4:rect_size")
@@ -5528,7 +5929,7 @@ tracks/8/keys = {
 "times": PoolRealArray( 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 163, 82 ), Vector2( 13, 82 ) ]
+"values": [ Vector2( 168, 82 ), Vector2( 13, 82 ) ]
 }
 
 [sub_resource type="Animation" id=249]
@@ -6435,408 +6836,6 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:rect_position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=20]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 62, 62 ) ]
-}
-
-[sub_resource type="Animation" id=21]
-resource_name = "idle"
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_size")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:rect_position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=22]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 62, 62 ) ]
-}
-
-[sub_resource type="Animation" id=23]
-resource_name = "idle"
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_size")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:rect_position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=24]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 62, 62 ) ]
-}
-
-[sub_resource type="Animation" id=25]
-resource_name = "idle"
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_size")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:rect_position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=26]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 62, 62 ) ]
-}
-
-[sub_resource type="Animation" id=27]
-resource_name = "idle"
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_size")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:rect_position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=28]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 62, 62 ) ]
-}
-
-[sub_resource type="Animation" id=29]
-resource_name = "idle"
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_size")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:rect_position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=227]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 107, 67 ) ]
-}
-
-[sub_resource type="Animation" id=228]
-resource_name = "idle"
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_size")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 107, 67 ), Vector2( 117, 77 ), Vector2( 107, 67 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:rect_position")
@@ -8118,10 +8117,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 1808.0
-margin_top = 1808.0
-margin_right = 1844.0
-margin_bottom = 1844.0
+margin_left = 1819.0
+margin_top = 1819.0
+margin_right = 1855.0
+margin_bottom = 1855.0
 texture = ExtResource( 36 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GamepadCursor/SprintGuide"]
@@ -9275,8 +9274,7 @@ texture = ExtResource( 140 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -31.0
-margin_bottom = -21.0
+margin_bottom = 1.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SectionTop/ObjectButton3/Selection"]
@@ -9764,6 +9762,674 @@ margin_bottom = 16.0
 rect_rotation = 180.0
 texture = ExtResource( 144 )
 
+[node name="SectionRightContainer" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="SectionRight" type="TextureRect" parent="SectionRightContainer"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -110.0
+margin_top = 116.0
+margin_right = 104.0
+margin_bottom = 720.0
+texture = ExtResource( 145 )
+expand = true
+stretch_mode = 6
+
+[node name="RightOpenMenuIndicator" type="NinePatchRect" parent="SectionRightContainer/SectionRight"]
+visible = false
+margin_left = 91.0
+margin_top = 103.0
+margin_right = 104.0
+margin_bottom = 175.0
+grow_horizontal = 0
+rect_scale = Vector2( -1, 1 )
+texture = ExtResource( 87 )
+patch_margin_left = 12
+patch_margin_top = 7
+patch_margin_right = 1
+patch_margin_bottom = 9
+
+[node name="StartButton" type="TextureButton" parent="SectionRightContainer/SectionRight" groups=["Button"]]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 23.0
+margin_top = -583.0
+margin_right = 85.0
+margin_bottom = -521.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_pivot_offset = Vector2( -10, 15 )
+focus_neighbour_left = NodePath("../../../SectionLeft/AspectButton")
+focus_neighbour_top = NodePath("../../../SectionTop/SearchButton")
+focus_neighbour_bottom = NodePath("../SavebotButton")
+texture_normal = ExtResource( 2 )
+stretch_mode = 3
+
+[node name="Shadow" type="TextureRect" parent="SectionRightContainer/SectionRight/StartButton"]
+modulate = Color( 0, 0, 0, 0.184314 )
+show_behind_parent = true
+margin_top = 5.0
+margin_right = 62.0
+margin_bottom = 67.0
+mouse_filter = 2
+texture = ExtResource( 2 )
+
+[node name="Icon" type="TextureRect" parent="SectionRightContainer/SectionRight/StartButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.0
+margin_top = -27.0
+margin_right = 27.0
+margin_bottom = 27.0
+mouse_filter = 2
+texture = ExtResource( 10 )
+
+[node name="Guide" type="Sprite" parent="SectionRightContainer/SectionRight/StartButton"]
+position = Vector2( 55, 54 )
+texture = ExtResource( 9 )
+
+[node name="Selection" type="Control" parent="SectionRightContainer/SectionRight/StartButton" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/StartButton/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="UpRight" type="TextureRect" parent="SectionRightContainer/SectionRight/StartButton/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="DownRight" type="TextureRect" parent="SectionRightContainer/SectionRight/StartButton/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="DownLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/StartButton/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SectionRightContainer/SectionRight/StartButton/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 20 )
+anims/idle = SubResource( 21 )
+
+[node name="SavebotButton" type="TextureButton" parent="SectionRightContainer/SectionRight" groups=["Button"]]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 23.0
+margin_top = -497.0
+margin_right = 85.0
+margin_bottom = -435.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_pivot_offset = Vector2( -10, 15 )
+focus_neighbour_left = NodePath("../../../SectionLeft/StyleButton")
+focus_neighbour_top = NodePath("../StartButton")
+focus_neighbour_bottom = NodePath("../EraseButton")
+texture_normal = ExtResource( 2 )
+stretch_mode = 3
+
+[node name="Shadow" type="TextureRect" parent="SectionRightContainer/SectionRight/SavebotButton"]
+modulate = Color( 0, 0, 0, 0.184314 )
+show_behind_parent = true
+margin_top = 5.0
+margin_right = 62.0
+margin_bottom = 67.0
+mouse_filter = 2
+texture = ExtResource( 2 )
+
+[node name="Icon" type="TextureRect" parent="SectionRightContainer/SectionRight/SavebotButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.0
+margin_top = -23.0
+margin_right = 27.0
+margin_bottom = 21.0
+mouse_filter = 2
+texture = ExtResource( 11 )
+
+[node name="Guide" type="Sprite" parent="SectionRightContainer/SectionRight/SavebotButton"]
+visible = false
+position = Vector2( 55, 54 )
+texture = ExtResource( 9 )
+
+[node name="Selection" type="Control" parent="SectionRightContainer/SectionRight/SavebotButton" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/SavebotButton/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="UpRight" type="TextureRect" parent="SectionRightContainer/SectionRight/SavebotButton/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="DownRight" type="TextureRect" parent="SectionRightContainer/SectionRight/SavebotButton/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="DownLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/SavebotButton/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SectionRightContainer/SectionRight/SavebotButton/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 22 )
+anims/idle = SubResource( 23 )
+
+[node name="EraseButton" type="TextureButton" parent="SectionRightContainer/SectionRight" groups=["Button"]]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 22.5
+margin_top = -189.5
+margin_right = 85.5
+margin_bottom = -126.5
+grow_horizontal = 2
+grow_vertical = 2
+rect_pivot_offset = Vector2( -10, 15 )
+focus_neighbour_left = NodePath("../../../SectionLeft/TimeButton")
+focus_neighbour_top = NodePath("../SavebotButton")
+focus_neighbour_bottom = NodePath("../UndoButton")
+texture_normal = ExtResource( 14 )
+stretch_mode = 3
+
+[node name="Shadow" type="TextureRect" parent="SectionRightContainer/SectionRight/EraseButton"]
+modulate = Color( 0, 0, 0, 0.184314 )
+show_behind_parent = true
+margin_top = 5.0
+margin_right = 62.0
+margin_bottom = 67.0
+mouse_filter = 2
+texture = ExtResource( 14 )
+
+[node name="Icon" type="TextureRect" parent="SectionRightContainer/SectionRight/EraseButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -17.0
+margin_top = -23.5
+margin_right = 17.0
+margin_bottom = 23.5
+mouse_filter = 2
+texture = ExtResource( 15 )
+
+[node name="Guide" type="Sprite" parent="SectionRightContainer/SectionRight/EraseButton"]
+position = Vector2( 53.5, 54 )
+texture = ExtResource( 17 )
+
+[node name="Selection" type="Control" parent="SectionRightContainer/SectionRight/EraseButton" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1.0
+margin_bottom = -1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/EraseButton/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="UpRight" type="TextureRect" parent="SectionRightContainer/SectionRight/EraseButton/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="DownRight" type="TextureRect" parent="SectionRightContainer/SectionRight/EraseButton/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="DownLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/EraseButton/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SectionRightContainer/SectionRight/EraseButton/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 24 )
+anims/idle = SubResource( 25 )
+
+[node name="UndoButton" type="TextureButton" parent="SectionRightContainer/SectionRight" groups=["Button"]]
+visible = false
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 22.5
+margin_top = -188.5
+margin_right = 85.5
+margin_bottom = -125.5
+grow_horizontal = 2
+grow_vertical = 2
+rect_pivot_offset = Vector2( -10, 15 )
+focus_neighbour_left = NodePath("../../../SectionLeft/TimeButton")
+focus_neighbour_top = NodePath("../EraseButton")
+focus_neighbour_bottom = NodePath("../ResetButton")
+texture_normal = ExtResource( 2 )
+stretch_mode = 3
+
+[node name="Shadow" type="TextureRect" parent="SectionRightContainer/SectionRight/UndoButton"]
+modulate = Color( 0, 0, 0, 0.184314 )
+show_behind_parent = true
+margin_top = 5.0
+margin_right = 62.0
+margin_bottom = 67.0
+mouse_filter = 2
+texture = ExtResource( 2 )
+
+[node name="Icon" type="TextureRect" parent="SectionRightContainer/SectionRight/UndoButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -23.5
+margin_top = -24.0
+margin_right = 23.5
+margin_bottom = 24.0
+mouse_filter = 2
+texture = ExtResource( 16 )
+
+[node name="Guide" type="Sprite" parent="SectionRightContainer/SectionRight/UndoButton"]
+position = Vector2( 53.5, 54 )
+texture = ExtResource( 18 )
+
+[node name="Selection" type="Control" parent="SectionRightContainer/SectionRight/UndoButton" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1.0
+margin_bottom = -1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/UndoButton/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="UpRight" type="TextureRect" parent="SectionRightContainer/SectionRight/UndoButton/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="DownRight" type="TextureRect" parent="SectionRightContainer/SectionRight/UndoButton/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="DownLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/UndoButton/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SectionRightContainer/SectionRight/UndoButton/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 26 )
+anims/idle = SubResource( 27 )
+
+[node name="ResetButton" type="TextureButton" parent="SectionRightContainer/SectionRight" groups=["Button"]]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 22.5
+margin_top = -99.5
+margin_right = 85.5
+margin_bottom = -36.5
+grow_horizontal = 2
+grow_vertical = 2
+rect_pivot_offset = Vector2( -10, 15 )
+focus_neighbour_left = NodePath("../CourseViewerButton")
+focus_neighbour_top = NodePath("../UndoButton")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath(".")
+action_mode = 0
+texture_normal = ExtResource( 2 )
+stretch_mode = 3
+
+[node name="Shadow" type="TextureRect" parent="SectionRightContainer/SectionRight/ResetButton"]
+modulate = Color( 0, 0, 0, 0.184314 )
+show_behind_parent = true
+margin_top = 5.0
+margin_right = 62.0
+margin_bottom = 67.0
+mouse_filter = 2
+texture = ExtResource( 2 )
+
+[node name="Icon" type="TextureRect" parent="SectionRightContainer/SectionRight/ResetButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -23.5
+margin_top = -24.0
+margin_right = 23.5
+margin_bottom = 24.0
+mouse_filter = 2
+texture = ExtResource( 24 )
+
+[node name="Guide" type="Sprite" parent="SectionRightContainer/SectionRight/ResetButton"]
+visible = false
+position = Vector2( 53.5, 54 )
+texture = ExtResource( 18 )
+
+[node name="Selection" type="Control" parent="SectionRightContainer/SectionRight/ResetButton" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1.0
+margin_bottom = -1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/ResetButton/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="UpRight" type="TextureRect" parent="SectionRightContainer/SectionRight/ResetButton/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="DownRight" type="TextureRect" parent="SectionRightContainer/SectionRight/ResetButton/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="DownLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/ResetButton/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SectionRightContainer/SectionRight/ResetButton/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 28 )
+anims/idle = SubResource( 29 )
+
+[node name="CourseViewerButton" type="TextureButton" parent="SectionRightContainer/SectionRight" groups=["Button"]]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -120.0
+margin_top = -83.0
+margin_right = -13.0
+margin_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_pivot_offset = Vector2( -10, 15 )
+focus_neighbour_left = NodePath("../../../SectionLeft/TimeButton")
+focus_neighbour_top = NodePath("../UndoButton")
+focus_neighbour_right = NodePath("../ResetButton")
+action_mode = 0
+texture_normal = ExtResource( 99 )
+stretch_mode = 3
+
+[node name="Shadow" type="TextureRect" parent="SectionRightContainer/SectionRight/CourseViewerButton"]
+modulate = Color( 0, 0, 0, 0.184314 )
+show_behind_parent = true
+margin_top = 5.0
+margin_right = 62.0
+margin_bottom = 67.0
+mouse_filter = 2
+texture = ExtResource( 99 )
+
+[node name="Icon" type="TextureRect" parent="SectionRightContainer/SectionRight/CourseViewerButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -28.5
+margin_top = -21.5
+margin_right = 28.5
+margin_bottom = 21.5
+mouse_filter = 2
+texture = ExtResource( 100 )
+
+[node name="Guide" type="Sprite" parent="SectionRightContainer/SectionRight/CourseViewerButton"]
+visible = false
+position = Vector2( 53.5, 54 )
+texture = ExtResource( 18 )
+
+[node name="Selection" type="Control" parent="SectionRightContainer/SectionRight/CourseViewerButton" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/CourseViewerButton/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="UpRight" type="TextureRect" parent="SectionRightContainer/SectionRight/CourseViewerButton/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="DownRight" type="TextureRect" parent="SectionRightContainer/SectionRight/CourseViewerButton/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="DownLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/CourseViewerButton/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SectionRightContainer/SectionRight/CourseViewerButton/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 227 )
+anims/idle = SubResource( 228 )
+
+[node name="CloseButtons" type="TextureButton" parent="SectionRightContainer/SectionRight"]
+anchor_top = 0.116
+anchor_bottom = 0.116
+margin_left = -14.0
+margin_top = -53.064
+margin_right = 1.0
+margin_bottom = 52.936
+
+[node name="Tab" type="TextureRect" parent="SectionRightContainer/SectionRight/CloseButtons"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -7.5
+margin_top = -1.0
+margin_right = 97.5
+margin_bottom = 14.0
+rect_rotation = 270.0
+texture = ExtResource( 144 )
+
+[node name="SectionRight2" type="TextureRect" parent="SectionRightContainer"]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 110.0
+margin_top = 116.0
+margin_right = 220.0
+margin_bottom = 720.0
+rect_scale = Vector2( -1, 1 )
+texture = ExtResource( 4 )
+
+[node name="SectionRight2" type="TextureRect" parent="."]
+visible = false
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -110.0
+margin_top = 737.0
+margin_bottom = 754.0
+rect_scale = Vector2( 1, -1 )
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 2
+
+[node name="SectionRight" type="TextureRect" parent="SectionRight2"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 110.0
+margin_right = 220.0
+margin_bottom = 17.0
+rect_scale = Vector2( -1, 1 )
+texture = ExtResource( 4 )
+expand = true
+stretch_mode = 2
+
 [node name="AppeareancesMenu" type="TextureRect" parent="."]
 visible = false
 modulate = Color( 1, 1, 1, 0 )
@@ -9776,7 +10442,7 @@ rect_scale = Vector2( 0.7, 1 )
 texture = ExtResource( 54 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AppeareancesMenu"]
-playback_speed = 1.5
+playback_speed = 3.0
 anims/RESET = SubResource( 128 )
 anims/in = SubResource( 129 )
 anims/out = SubResource( 205 )
@@ -10101,7 +10767,7 @@ rect_scale = Vector2( 0.7, 1 )
 texture = ExtResource( 80 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CoursebotMenuContainer/CoursebotMenu"]
-playback_speed = 1.5
+playback_speed = 3.0
 anims/RESET = SubResource( 209 )
 anims/in = SubResource( 210 )
 anims/out = SubResource( 211 )
@@ -10510,7 +11176,7 @@ rect_scale = Vector2( 0.7, 1 )
 texture = ExtResource( 57 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="StylesMenu"]
-playback_speed = 1.5
+playback_speed = 3.0
 anims/RESET = SubResource( 206 )
 anims/in = SubResource( 207 )
 anims/out = SubResource( 208 )
@@ -11700,13 +12366,13 @@ modulate = Color( 1, 1, 1, 0 )
 self_modulate = Color( 1, 1, 1, 0.941176 )
 margin_left = 182.0
 margin_top = 116.0
-margin_right = 578.0
+margin_right = 624.0
 margin_bottom = 595.0
 rect_scale = Vector2( 0.7, 1 )
 texture = ExtResource( 95 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="CameraMenu"]
-playback_speed = 1.5
+playback_speed = 3.0
 anims/RESET = SubResource( 214 )
 anims/in = SubResource( 215 )
 anims/out = SubResource( 216 )
@@ -12251,7 +12917,7 @@ rect_scale = Vector2( 0.7, 1 )
 texture = ExtResource( 124 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="TimeMenu"]
-playback_speed = 1.5
+playback_speed = 3.0
 anims/RESET = SubResource( 246 )
 anims/in = SubResource( 247 )
 anims/out = SubResource( 248 )
@@ -13019,6 +13685,7 @@ anims/idle = SubResource( 276 )
 [node name="ClockMan" type="AnimatedSprite" parent="TimeMenu/Buttons"]
 position = Vector2( 143, 174 )
 frames = SubResource( 253 )
+frame = 1
 speed_scale = 0.33
 playing = true
 
@@ -13108,10 +13775,10 @@ patch_margin_bottom = 9
 
 [node name="SeaLevel" type="TextureRect" parent="SectionLeft"]
 modulate = Color( 0, 0, 0, 0.113725 )
-margin_left = 103.0
-margin_top = 105.0
-margin_right = 154.0
-margin_bottom = 156.0
+margin_left = 302.0
+margin_top = 124.0
+margin_right = 353.0
+margin_bottom = 175.0
 texture = ExtResource( 90 )
 
 [node name="Deactivated" type="TextureRect" parent="SectionLeft/SeaLevel"]
@@ -13771,667 +14438,6 @@ margin_right = 112.0
 margin_bottom = -12.5
 rect_rotation = 90.0
 texture = ExtResource( 144 )
-
-[node name="SectionRightContainer" type="Control" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-
-[node name="SectionRight" type="TextureRect" parent="SectionRightContainer"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -110.0
-margin_top = 116.0
-margin_right = 104.0
-margin_bottom = 720.0
-texture = ExtResource( 145 )
-expand = true
-stretch_mode = 6
-
-[node name="RightOpenMenuIndicator" type="NinePatchRect" parent="SectionRightContainer/SectionRight"]
-visible = false
-margin_left = 91.0
-margin_top = 103.0
-margin_right = 104.0
-margin_bottom = 175.0
-grow_horizontal = 0
-rect_scale = Vector2( -1, 1 )
-texture = ExtResource( 87 )
-patch_margin_left = 12
-patch_margin_top = 7
-patch_margin_right = 1
-patch_margin_bottom = 9
-
-[node name="StartButton" type="TextureButton" parent="SectionRightContainer/SectionRight" groups=["Button"]]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 23.0
-margin_top = -583.0
-margin_right = 85.0
-margin_bottom = -521.0
-grow_horizontal = 2
-grow_vertical = 2
-rect_pivot_offset = Vector2( -10, 15 )
-focus_neighbour_left = NodePath("../../../SectionLeft/AspectButton")
-focus_neighbour_top = NodePath("../../../SectionTop/SearchButton")
-focus_neighbour_bottom = NodePath("../SavebotButton")
-texture_normal = ExtResource( 2 )
-stretch_mode = 3
-
-[node name="Shadow" type="TextureRect" parent="SectionRightContainer/SectionRight/StartButton"]
-modulate = Color( 0, 0, 0, 0.184314 )
-show_behind_parent = true
-margin_top = 5.0
-margin_right = 62.0
-margin_bottom = 67.0
-mouse_filter = 2
-texture = ExtResource( 2 )
-
-[node name="Icon" type="TextureRect" parent="SectionRightContainer/SectionRight/StartButton"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -27.0
-margin_top = -27.0
-margin_right = 27.0
-margin_bottom = 27.0
-mouse_filter = 2
-texture = ExtResource( 10 )
-
-[node name="Guide" type="Sprite" parent="SectionRightContainer/SectionRight/StartButton"]
-position = Vector2( 55, 54 )
-texture = ExtResource( 9 )
-
-[node name="Selection" type="Control" parent="SectionRightContainer/SectionRight/StartButton" groups=["Selection"]]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-
-[node name="UpLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/StartButton/Selection"]
-margin_left = -5.0
-margin_top = -5.0
-margin_right = 35.0
-margin_bottom = 35.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="UpRight" type="TextureRect" parent="SectionRightContainer/SectionRight/StartButton/Selection"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 3.0
-margin_top = -5.0
-margin_right = 43.0
-margin_bottom = 35.0
-rect_rotation = 90.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="DownRight" type="TextureRect" parent="SectionRightContainer/SectionRight/StartButton/Selection"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 5.0
-margin_right = 43.0
-margin_bottom = 44.9999
-rect_rotation = 180.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="DownLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/StartButton/Selection"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = -5.0
-margin_top = 5.0
-margin_right = 35.0
-margin_bottom = 44.9999
-rect_rotation = 270.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SectionRightContainer/SectionRight/StartButton/Selection"]
-playback_speed = 1.25
-anims/RESET = SubResource( 20 )
-anims/idle = SubResource( 21 )
-
-[node name="SavebotButton" type="TextureButton" parent="SectionRightContainer/SectionRight" groups=["Button"]]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 23.0
-margin_top = -497.0
-margin_right = 85.0
-margin_bottom = -435.0
-grow_horizontal = 2
-grow_vertical = 2
-rect_pivot_offset = Vector2( -10, 15 )
-focus_neighbour_left = NodePath("../../../SectionLeft/StyleButton")
-focus_neighbour_top = NodePath("../StartButton")
-focus_neighbour_bottom = NodePath("../EraseButton")
-texture_normal = ExtResource( 2 )
-stretch_mode = 3
-
-[node name="Shadow" type="TextureRect" parent="SectionRightContainer/SectionRight/SavebotButton"]
-modulate = Color( 0, 0, 0, 0.184314 )
-show_behind_parent = true
-margin_top = 5.0
-margin_right = 62.0
-margin_bottom = 67.0
-mouse_filter = 2
-texture = ExtResource( 2 )
-
-[node name="Icon" type="TextureRect" parent="SectionRightContainer/SectionRight/SavebotButton"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -27.0
-margin_top = -23.0
-margin_right = 27.0
-margin_bottom = 21.0
-mouse_filter = 2
-texture = ExtResource( 11 )
-
-[node name="Guide" type="Sprite" parent="SectionRightContainer/SectionRight/SavebotButton"]
-visible = false
-position = Vector2( 55, 54 )
-texture = ExtResource( 9 )
-
-[node name="Selection" type="Control" parent="SectionRightContainer/SectionRight/SavebotButton" groups=["Selection"]]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-
-[node name="UpLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/SavebotButton/Selection"]
-margin_left = -5.0
-margin_top = -5.0
-margin_right = 35.0
-margin_bottom = 35.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="UpRight" type="TextureRect" parent="SectionRightContainer/SectionRight/SavebotButton/Selection"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 3.0
-margin_top = -5.0
-margin_right = 43.0
-margin_bottom = 35.0
-rect_rotation = 90.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="DownRight" type="TextureRect" parent="SectionRightContainer/SectionRight/SavebotButton/Selection"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 5.0
-margin_right = 43.0
-margin_bottom = 44.9999
-rect_rotation = 180.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="DownLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/SavebotButton/Selection"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = -5.0
-margin_top = 5.0
-margin_right = 35.0
-margin_bottom = 44.9999
-rect_rotation = 270.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SectionRightContainer/SectionRight/SavebotButton/Selection"]
-playback_speed = 1.25
-anims/RESET = SubResource( 22 )
-anims/idle = SubResource( 23 )
-
-[node name="EraseButton" type="TextureButton" parent="SectionRightContainer/SectionRight" groups=["Button"]]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 22.5
-margin_top = -189.5
-margin_right = 85.5
-margin_bottom = -126.5
-grow_horizontal = 2
-grow_vertical = 2
-rect_pivot_offset = Vector2( -10, 15 )
-focus_neighbour_left = NodePath("../../../SectionLeft/TimeButton")
-focus_neighbour_top = NodePath("../SavebotButton")
-focus_neighbour_bottom = NodePath("../UndoButton")
-texture_normal = ExtResource( 14 )
-stretch_mode = 3
-
-[node name="Shadow" type="TextureRect" parent="SectionRightContainer/SectionRight/EraseButton"]
-modulate = Color( 0, 0, 0, 0.184314 )
-show_behind_parent = true
-margin_top = 5.0
-margin_right = 62.0
-margin_bottom = 67.0
-mouse_filter = 2
-texture = ExtResource( 14 )
-
-[node name="Icon" type="TextureRect" parent="SectionRightContainer/SectionRight/EraseButton"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -17.0
-margin_top = -23.5
-margin_right = 17.0
-margin_bottom = 23.5
-mouse_filter = 2
-texture = ExtResource( 15 )
-
-[node name="Guide" type="Sprite" parent="SectionRightContainer/SectionRight/EraseButton"]
-position = Vector2( 53.5, 54 )
-texture = ExtResource( 17 )
-
-[node name="Selection" type="Control" parent="SectionRightContainer/SectionRight/EraseButton" groups=["Selection"]]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -1.0
-margin_bottom = -1.0
-mouse_filter = 2
-
-[node name="UpLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/EraseButton/Selection"]
-margin_left = -5.0
-margin_top = -5.0
-margin_right = 35.0
-margin_bottom = 35.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="UpRight" type="TextureRect" parent="SectionRightContainer/SectionRight/EraseButton/Selection"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 3.0
-margin_top = -5.0
-margin_right = 43.0
-margin_bottom = 35.0
-rect_rotation = 90.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="DownRight" type="TextureRect" parent="SectionRightContainer/SectionRight/EraseButton/Selection"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 5.0
-margin_right = 43.0
-margin_bottom = 44.9999
-rect_rotation = 180.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="DownLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/EraseButton/Selection"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = -5.0
-margin_top = 5.0
-margin_right = 35.0
-margin_bottom = 44.9999
-rect_rotation = 270.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SectionRightContainer/SectionRight/EraseButton/Selection"]
-playback_speed = 1.25
-anims/RESET = SubResource( 24 )
-anims/idle = SubResource( 25 )
-
-[node name="UndoButton" type="TextureButton" parent="SectionRightContainer/SectionRight" groups=["Button"]]
-visible = false
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 22.5
-margin_top = -188.5
-margin_right = 85.5
-margin_bottom = -125.5
-grow_horizontal = 2
-grow_vertical = 2
-rect_pivot_offset = Vector2( -10, 15 )
-focus_neighbour_left = NodePath("../../../SectionLeft/TimeButton")
-focus_neighbour_top = NodePath("../EraseButton")
-focus_neighbour_bottom = NodePath("../ResetButton")
-texture_normal = ExtResource( 2 )
-stretch_mode = 3
-
-[node name="Shadow" type="TextureRect" parent="SectionRightContainer/SectionRight/UndoButton"]
-modulate = Color( 0, 0, 0, 0.184314 )
-show_behind_parent = true
-margin_top = 5.0
-margin_right = 62.0
-margin_bottom = 67.0
-mouse_filter = 2
-texture = ExtResource( 2 )
-
-[node name="Icon" type="TextureRect" parent="SectionRightContainer/SectionRight/UndoButton"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -23.5
-margin_top = -24.0
-margin_right = 23.5
-margin_bottom = 24.0
-mouse_filter = 2
-texture = ExtResource( 16 )
-
-[node name="Guide" type="Sprite" parent="SectionRightContainer/SectionRight/UndoButton"]
-position = Vector2( 53.5, 54 )
-texture = ExtResource( 18 )
-
-[node name="Selection" type="Control" parent="SectionRightContainer/SectionRight/UndoButton" groups=["Selection"]]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -1.0
-margin_bottom = -1.0
-mouse_filter = 2
-
-[node name="UpLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/UndoButton/Selection"]
-margin_left = -5.0
-margin_top = -5.0
-margin_right = 35.0
-margin_bottom = 35.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="UpRight" type="TextureRect" parent="SectionRightContainer/SectionRight/UndoButton/Selection"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 3.0
-margin_top = -5.0
-margin_right = 43.0
-margin_bottom = 35.0
-rect_rotation = 90.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="DownRight" type="TextureRect" parent="SectionRightContainer/SectionRight/UndoButton/Selection"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 5.0
-margin_right = 43.0
-margin_bottom = 44.9999
-rect_rotation = 180.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="DownLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/UndoButton/Selection"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = -5.0
-margin_top = 5.0
-margin_right = 35.0
-margin_bottom = 44.9999
-rect_rotation = 270.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SectionRightContainer/SectionRight/UndoButton/Selection"]
-playback_speed = 1.25
-anims/RESET = SubResource( 26 )
-anims/idle = SubResource( 27 )
-
-[node name="ResetButton" type="TextureButton" parent="SectionRightContainer/SectionRight" groups=["Button"]]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 22.5
-margin_top = -99.5
-margin_right = 85.5
-margin_bottom = -36.5
-grow_horizontal = 2
-grow_vertical = 2
-rect_pivot_offset = Vector2( -10, 15 )
-focus_neighbour_left = NodePath("../CourseViewerButton")
-focus_neighbour_top = NodePath("../UndoButton")
-focus_neighbour_right = NodePath(".")
-focus_neighbour_bottom = NodePath(".")
-action_mode = 0
-texture_normal = ExtResource( 2 )
-stretch_mode = 3
-
-[node name="Shadow" type="TextureRect" parent="SectionRightContainer/SectionRight/ResetButton"]
-modulate = Color( 0, 0, 0, 0.184314 )
-show_behind_parent = true
-margin_top = 5.0
-margin_right = 62.0
-margin_bottom = 67.0
-mouse_filter = 2
-texture = ExtResource( 2 )
-
-[node name="Icon" type="TextureRect" parent="SectionRightContainer/SectionRight/ResetButton"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -23.5
-margin_top = -24.0
-margin_right = 23.5
-margin_bottom = 24.0
-mouse_filter = 2
-texture = ExtResource( 24 )
-
-[node name="Guide" type="Sprite" parent="SectionRightContainer/SectionRight/ResetButton"]
-visible = false
-position = Vector2( 53.5, 54 )
-texture = ExtResource( 18 )
-
-[node name="Selection" type="Control" parent="SectionRightContainer/SectionRight/ResetButton" groups=["Selection"]]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_right = -1.0
-margin_bottom = -1.0
-mouse_filter = 2
-
-[node name="UpLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/ResetButton/Selection"]
-margin_left = -5.0
-margin_top = -5.0
-margin_right = 35.0
-margin_bottom = 35.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="UpRight" type="TextureRect" parent="SectionRightContainer/SectionRight/ResetButton/Selection"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 3.0
-margin_top = -5.0
-margin_right = 43.0
-margin_bottom = 35.0
-rect_rotation = 90.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="DownRight" type="TextureRect" parent="SectionRightContainer/SectionRight/ResetButton/Selection"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 5.0
-margin_right = 43.0
-margin_bottom = 44.9999
-rect_rotation = 180.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="DownLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/ResetButton/Selection"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = -5.0
-margin_top = 5.0
-margin_right = 35.0
-margin_bottom = 44.9999
-rect_rotation = 270.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SectionRightContainer/SectionRight/ResetButton/Selection"]
-playback_speed = 1.25
-anims/RESET = SubResource( 28 )
-anims/idle = SubResource( 29 )
-
-[node name="CourseViewerButton" type="TextureButton" parent="SectionRightContainer/SectionRight" groups=["Button"]]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = -120.0
-margin_top = -83.0
-margin_right = -13.0
-margin_bottom = -16.0
-grow_horizontal = 2
-grow_vertical = 2
-rect_pivot_offset = Vector2( -10, 15 )
-focus_neighbour_left = NodePath("../../../SectionLeft/TimeButton")
-focus_neighbour_top = NodePath("../UndoButton")
-focus_neighbour_right = NodePath("../ResetButton")
-action_mode = 0
-texture_normal = ExtResource( 99 )
-stretch_mode = 3
-
-[node name="Shadow" type="TextureRect" parent="SectionRightContainer/SectionRight/CourseViewerButton"]
-modulate = Color( 0, 0, 0, 0.184314 )
-show_behind_parent = true
-margin_top = 5.0
-margin_right = 62.0
-margin_bottom = 67.0
-mouse_filter = 2
-texture = ExtResource( 99 )
-
-[node name="Icon" type="TextureRect" parent="SectionRightContainer/SectionRight/CourseViewerButton"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -28.5
-margin_top = -21.5
-margin_right = 28.5
-margin_bottom = 21.5
-mouse_filter = 2
-texture = ExtResource( 100 )
-
-[node name="Guide" type="Sprite" parent="SectionRightContainer/SectionRight/CourseViewerButton"]
-visible = false
-position = Vector2( 53.5, 54 )
-texture = ExtResource( 18 )
-
-[node name="Selection" type="Control" parent="SectionRightContainer/SectionRight/CourseViewerButton" groups=["Selection"]]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-
-[node name="UpLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/CourseViewerButton/Selection"]
-margin_left = -5.0
-margin_top = -5.0
-margin_right = 35.0
-margin_bottom = 35.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="UpRight" type="TextureRect" parent="SectionRightContainer/SectionRight/CourseViewerButton/Selection"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 3.0
-margin_top = -5.0
-margin_right = 43.0
-margin_bottom = 35.0
-rect_rotation = 90.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="DownRight" type="TextureRect" parent="SectionRightContainer/SectionRight/CourseViewerButton/Selection"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 5.0
-margin_right = 43.0
-margin_bottom = 44.9999
-rect_rotation = 180.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="DownLeft" type="TextureRect" parent="SectionRightContainer/SectionRight/CourseViewerButton/Selection"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = -5.0
-margin_top = 5.0
-margin_right = 35.0
-margin_bottom = 44.9999
-rect_rotation = 270.0
-mouse_filter = 2
-texture = ExtResource( 23 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="SectionRightContainer/SectionRight/CourseViewerButton/Selection"]
-playback_speed = 1.25
-anims/RESET = SubResource( 227 )
-anims/idle = SubResource( 228 )
-
-[node name="Tab" type="Sprite" parent="SectionRightContainer/SectionRight"]
-show_behind_parent = true
-position = Vector2( -1, 247 )
-rotation = 1.5708
-texture = ExtResource( 12 )
-
-[node name="CloseButtons" type="TextureButton" parent="SectionRightContainer/SectionRight"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = -16.0
-margin_top = -99.0
-margin_right = 19.0
-margin_bottom = -8.0
-
-[node name="SectionRight2" type="TextureRect" parent="SectionRightContainer"]
-visible = false
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 110.0
-margin_top = 116.0
-margin_right = 220.0
-margin_bottom = 720.0
-rect_scale = Vector2( -1, 1 )
-texture = ExtResource( 4 )
-
-[node name="SectionRight2" type="TextureRect" parent="."]
-visible = false
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = -110.0
-margin_top = 737.0
-margin_bottom = 754.0
-rect_scale = Vector2( 1, -1 )
-texture = ExtResource( 4 )
-expand = true
-stretch_mode = 2
-
-[node name="SectionRight" type="TextureRect" parent="SectionRight2"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 110.0
-margin_right = 220.0
-margin_bottom = 17.0
-rect_scale = Vector2( -1, 1 )
-texture = ExtResource( 4 )
-expand = true
-stretch_mode = 2
 
 [node name="GamepadCursorDefaultPosition" type="Control" parent="."]
 anchor_left = 0.5
@@ -15510,6 +15516,26 @@ anchor_bottom = 1.0
 [connection signal="mouse_exited" from="SectionTop/ObjectButton1" to="." method="_on_ObjectButton1_mouse_exited"]
 [connection signal="pressed" from="SectionTop/ObjectButton1" to="." method="_on_ObjectButton1_pressed"]
 [connection signal="pressed" from="SectionTop/CloseButtons" to="." method="_on_CloseButtons_pressed"]
+[connection signal="mouse_entered" from="SectionRightContainer/SectionRight/StartButton" to="." method="_on_StartButton_mouse_entered"]
+[connection signal="mouse_exited" from="SectionRightContainer/SectionRight/StartButton" to="." method="_on_StartButton_mouse_exited"]
+[connection signal="pressed" from="SectionRightContainer/SectionRight/StartButton" to="." method="_on_StartButton_pressed"]
+[connection signal="mouse_entered" from="SectionRightContainer/SectionRight/SavebotButton" to="." method="_on_SavebotButton_mouse_entered"]
+[connection signal="mouse_exited" from="SectionRightContainer/SectionRight/SavebotButton" to="." method="_on_SavebotButton_mouse_exited"]
+[connection signal="pressed" from="SectionRightContainer/SectionRight/SavebotButton" to="." method="_on_SavebotButton_pressed"]
+[connection signal="mouse_entered" from="SectionRightContainer/SectionRight/EraseButton" to="." method="_on_EraseButton_mouse_entered"]
+[connection signal="mouse_exited" from="SectionRightContainer/SectionRight/EraseButton" to="." method="_on_EraseButton_mouse_exited"]
+[connection signal="pressed" from="SectionRightContainer/SectionRight/EraseButton" to="." method="_on_EraseButton_pressed"]
+[connection signal="mouse_entered" from="SectionRightContainer/SectionRight/UndoButton" to="." method="_on_UndoButton_mouse_entered"]
+[connection signal="mouse_exited" from="SectionRightContainer/SectionRight/UndoButton" to="." method="_on_UndoButton_mouse_exited"]
+[connection signal="pressed" from="SectionRightContainer/SectionRight/UndoButton" to="." method="_on_UndoButton_pressed"]
+[connection signal="button_up" from="SectionRightContainer/SectionRight/ResetButton" to="." method="_on_ResetButton_button_up"]
+[connection signal="mouse_entered" from="SectionRightContainer/SectionRight/ResetButton" to="." method="_on_ResetButton_mouse_entered"]
+[connection signal="mouse_exited" from="SectionRightContainer/SectionRight/ResetButton" to="." method="_on_ResetButton_mouse_exited"]
+[connection signal="pressed" from="SectionRightContainer/SectionRight/ResetButton" to="." method="_on_ResetButton_pressed"]
+[connection signal="mouse_entered" from="SectionRightContainer/SectionRight/CourseViewerButton" to="." method="_on_CourseViewerButton_mouse_entered"]
+[connection signal="mouse_exited" from="SectionRightContainer/SectionRight/CourseViewerButton" to="." method="_on_CourseViewerButton_mouse_exited"]
+[connection signal="pressed" from="SectionRightContainer/SectionRight/CourseViewerButton" to="." method="_on_CourseViewerButton_pressed"]
+[connection signal="pressed" from="SectionRightContainer/SectionRight/CloseButtons" to="." method="_on_CloseButtons_pressed"]
 [connection signal="animation_finished" from="AppeareancesMenu/AnimationPlayer" to="." method="_on_AppeareancesMenuAnimationPlayer_animation_finished"]
 [connection signal="mouse_entered" from="AppeareancesMenu/SMBButton" to="." method="_on_SMBButton_mouse_entered"]
 [connection signal="mouse_exited" from="AppeareancesMenu/SMBButton" to="." method="_on_SMBButton_mouse_exited"]
@@ -15627,26 +15653,6 @@ anchor_bottom = 1.0
 [connection signal="mouse_exited" from="SectionLeft/MusicButton" to="." method="_on_MusicButton_mouse_exited"]
 [connection signal="pressed" from="SectionLeft/MusicButton" to="." method="_on_MusicButton_pressed"]
 [connection signal="pressed" from="SectionLeft/CloseButtons" to="." method="_on_CloseButtons_pressed"]
-[connection signal="mouse_entered" from="SectionRightContainer/SectionRight/StartButton" to="." method="_on_StartButton_mouse_entered"]
-[connection signal="mouse_exited" from="SectionRightContainer/SectionRight/StartButton" to="." method="_on_StartButton_mouse_exited"]
-[connection signal="pressed" from="SectionRightContainer/SectionRight/StartButton" to="." method="_on_StartButton_pressed"]
-[connection signal="mouse_entered" from="SectionRightContainer/SectionRight/SavebotButton" to="." method="_on_SavebotButton_mouse_entered"]
-[connection signal="mouse_exited" from="SectionRightContainer/SectionRight/SavebotButton" to="." method="_on_SavebotButton_mouse_exited"]
-[connection signal="pressed" from="SectionRightContainer/SectionRight/SavebotButton" to="." method="_on_SavebotButton_pressed"]
-[connection signal="mouse_entered" from="SectionRightContainer/SectionRight/EraseButton" to="." method="_on_EraseButton_mouse_entered"]
-[connection signal="mouse_exited" from="SectionRightContainer/SectionRight/EraseButton" to="." method="_on_EraseButton_mouse_exited"]
-[connection signal="pressed" from="SectionRightContainer/SectionRight/EraseButton" to="." method="_on_EraseButton_pressed"]
-[connection signal="mouse_entered" from="SectionRightContainer/SectionRight/UndoButton" to="." method="_on_UndoButton_mouse_entered"]
-[connection signal="mouse_exited" from="SectionRightContainer/SectionRight/UndoButton" to="." method="_on_UndoButton_mouse_exited"]
-[connection signal="pressed" from="SectionRightContainer/SectionRight/UndoButton" to="." method="_on_UndoButton_pressed"]
-[connection signal="button_up" from="SectionRightContainer/SectionRight/ResetButton" to="." method="_on_ResetButton_button_up"]
-[connection signal="mouse_entered" from="SectionRightContainer/SectionRight/ResetButton" to="." method="_on_ResetButton_mouse_entered"]
-[connection signal="mouse_exited" from="SectionRightContainer/SectionRight/ResetButton" to="." method="_on_ResetButton_mouse_exited"]
-[connection signal="pressed" from="SectionRightContainer/SectionRight/ResetButton" to="." method="_on_ResetButton_pressed"]
-[connection signal="mouse_entered" from="SectionRightContainer/SectionRight/CourseViewerButton" to="." method="_on_CourseViewerButton_mouse_entered"]
-[connection signal="mouse_exited" from="SectionRightContainer/SectionRight/CourseViewerButton" to="." method="_on_CourseViewerButton_mouse_exited"]
-[connection signal="pressed" from="SectionRightContainer/SectionRight/CourseViewerButton" to="." method="_on_CourseViewerButton_pressed"]
-[connection signal="pressed" from="SectionRightContainer/SectionRight/CloseButtons" to="." method="_on_CloseButtons_pressed"]
 [connection signal="animation_finished" from="Reset/AnimationPlayer" to="." method="_on_ResetAnimationPlayer_animation_finished"]
 [connection signal="mouse_entered" from="CourseViewer/Start" to="." method="_on_StartCourseViewerButton_mouse_entered"]
 [connection signal="mouse_exited" from="CourseViewer/Start" to="." method="_on_StartCourseViewerButton_mouse_exited"]
