@@ -12,6 +12,8 @@ var jump_h  = 0;
 var gravity = 0;
 var max_fall = 0;
 
+var additionalSpeed : Vector2 = Vector2(0, 0);
+
 var timer = 0.0;
 
 var nogravity = false;
@@ -90,6 +92,11 @@ func _ready():
 			motion.x = -max_speed;
 			if (nogravity):
 				motion.x = -max_speed*0.25;
+	
+	yield(get_tree(), "idle_frame");
+	
+	motion.x += additionalSpeed.x;
+	motion.y += additionalSpeed.y;
 
 func _process(_delta):
 	if (!get_node("../Editor").playing):

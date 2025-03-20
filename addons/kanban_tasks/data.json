@@ -48,7 +48,6 @@
     {
       "title": "Todo",
       "tasks": [
-        24,
         3,
         4,
         7,
@@ -67,12 +66,20 @@
     {
       "title": "Doing",
       "tasks": [
-        43
+        53,
+        51,
+        46,
+        52,
+        47,
+        48,
+        49,
+        50
       ]
     },
     {
       "title": "Done",
       "tasks": [
+        43,
         6,
         27,
         2,
@@ -86,6 +93,7 @@
     {
       "title": "Maybe",
       "tasks": [
+        24,
         18,
         17,
         16
@@ -335,7 +343,7 @@
     },
     {
       "category": 3,
-      "title": "1UP doesn't showing g hen getting 1up item in SMB",
+      "title": "1UP doesn't showing when getting 1up item in SMB",
       "details": ""
     },
     {
@@ -351,6 +359,46 @@
     {
       "category": 3,
       "title": "Can move stuff outside screen",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Check if shadows works correctly",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Some achievements",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Coursebot pages and animations",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Make options menu",
+      "details": "- Deactivate Snow Falling Particles\n- Can change the editor mario speed"
+    },
+    {
+      "category": 0,
+      "title": "Speed button in editor",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Get user name",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Welcome screen",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Switch keyboard",
       "details": ""
     }
   ]

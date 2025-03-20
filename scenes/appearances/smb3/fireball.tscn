@@ -134,7 +134,7 @@ light_mask = 4
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 5 )
 animation = "right"
-frame = 3
+frame = 2
 playing = true
 
 [node name="SpriteExplosion" type="AnimatedSprite" parent="."]

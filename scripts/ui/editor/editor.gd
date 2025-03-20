@@ -311,7 +311,7 @@ func _input(event):
 							get_parent().grid[togrid.x][togrid.y] = get_parent().grab_id;
 							get_parent().grid_node[togrid.x][togrid.y] = get_parent().grab_node;
 							get_parent().grab_node.position = get_parent().calculateGridPosition(togrid);
-							if (Global.isChainable(get_parent().grab_id)):
+							if (get_parent().grab_node.has_method("chainAnimation")):
 								get_parent().grab_node.chainAnimation();
 						else:
 							get_parent().grab_node.position = get_parent().calculateGridPosition(get_parent().grab_grid);

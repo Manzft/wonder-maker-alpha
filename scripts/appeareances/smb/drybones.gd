@@ -70,6 +70,8 @@ var chainMovingTimer = 0.0;
 var stopped : bool = false;
 
 func chainAnimation():
+	if (alreadydead):
+		return
 	var gr = get_parent().calculateGrid(position.x, position.y);
 	$AnimationPlayer.play("start");
 	if (Global.isChainable(get_parent().grid[gr.x][gr.y+1])):
@@ -158,7 +160,7 @@ func _process(_delta):
 				canChain = false;
 				motion.x = -max_walk_speed;
 		
-		if (canChain && !chained && !dead):
+		if (canChain && !chained && !dead && !alreadydead):
 			var gr = get_parent().calculateGrid(position.x, position.y);
 			if (Global.isChainable(get_parent().grid[gr.x][gr.y+1])):
 				chained = true;

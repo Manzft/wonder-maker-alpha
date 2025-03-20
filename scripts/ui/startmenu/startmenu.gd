@@ -112,11 +112,11 @@ func _process(_delta):
 			changeFocus();
 
 func getSplashText():
-	var i = str(round(rand_range(0, 7)));
+	var i = str(round(rand_range(0, 13)));
 	var text = "";
 	match (i):
 		"0":
-			text = "Feliz año nuevo 2025!";
+			text = "NSMBU en la Alpha v1.6?";
 		"1":
 			text = "Prueba también SMBWF!";
 		"2":
@@ -124,9 +124,25 @@ func getSplashText():
 		"3":
 			text = "Hecho con Godot :)";
 		"4":
-			text = "No me recupero de la papeada de leonel...";
+			text = "Que zoid";
 		"5":
 			text = "SMW en la Alpha 1.4?";
+		"6":
+			text = '"No durará ni 2 meses" decían...';
+		"7":
+			text = "¿Sabías que ahora puedes apilar enemigos?"
+		"8":
+			text = "¡Haz niveles divertidos!"
+		"9":
+			text = "La primera ver. de WM salió el 29/9/2024"
+		"10":
+			text = "Mañana agregamos Mario Odyssey"
+		"11":
+			text = "Llevamos ya 6 meses de desarrollo..."
+		"12":
+			text = "El juego es de código cerrado."
+		"13":
+			text = "Soporte para Texturas en la Alpha v1.5?"
 	return text;
 
 #General

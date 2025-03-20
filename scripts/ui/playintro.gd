@@ -3,7 +3,7 @@ extends CanvasLayer
 func _ready():
 	$Titlebar/CourseName.text = Global.currentCourseName;
 	$Titlebar/AuthorName.text = Global.courseGetUser(Global.currentlevel);
-	var app = Global.courseGetAppearance(Global.currentlevel);
+	var app = Global.courseGetAppeareance(Global.currentlevel);
 	Global.transition(self);
 	match (app):
 		Global.APP_SMB:

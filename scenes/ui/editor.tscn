@@ -8280,6 +8280,12 @@ visible = false
 position = Vector2( 62, 63.5 )
 texture = ExtResource( 140 )
 
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton12"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 11.0
+texture = ExtResource( 142 )
+
 [node name="Selection" type="Control" parent="SectionTop/ObjectButton12" groups=["Selection"]]
 visible = false
 anchor_right = 1.0
@@ -8334,12 +8340,6 @@ playback_speed = 1.25
 anims/RESET = SubResource( 50 )
 anims/idle = SubResource( 51 )
 
-[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton12"]
-modulate = Color( 1, 0.984314, 0, 1 )
-margin_right = 74.0
-margin_bottom = 6.0
-texture = ExtResource( 142 )
-
 [node name="ObjectButton11" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -8389,6 +8389,12 @@ anims/in = SubResource( 173 )
 visible = false
 position = Vector2( 62, 63.5 )
 texture = ExtResource( 140 )
+
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton11"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 11.0
+texture = ExtResource( 142 )
 
 [node name="Selection" type="Control" parent="SectionTop/ObjectButton11" groups=["Selection"]]
 visible = false
@@ -8444,12 +8450,6 @@ playback_speed = 1.25
 anims/RESET = SubResource( 52 )
 anims/idle = SubResource( 53 )
 
-[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton11"]
-modulate = Color( 1, 0.984314, 0, 1 )
-margin_right = 74.0
-margin_bottom = 6.0
-texture = ExtResource( 142 )
-
 [node name="ObjectButton10" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -8499,6 +8499,12 @@ anims/in = SubResource( 175 )
 visible = false
 position = Vector2( 62, 63.5 )
 texture = ExtResource( 140 )
+
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton10"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 11.0
+texture = ExtResource( 142 )
 
 [node name="Selection" type="Control" parent="SectionTop/ObjectButton10" groups=["Selection"]]
 visible = false
@@ -8554,12 +8560,6 @@ playback_speed = 1.25
 anims/RESET = SubResource( 54 )
 anims/idle = SubResource( 55 )
 
-[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton10"]
-modulate = Color( 1, 0.984314, 0, 1 )
-margin_right = 74.0
-margin_bottom = 6.0
-texture = ExtResource( 142 )
-
 [node name="ObjectButton9" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -8609,6 +8609,12 @@ anims/in = SubResource( 177 )
 visible = false
 position = Vector2( 62, 63.5 )
 texture = ExtResource( 140 )
+
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton9"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 11.0
+texture = ExtResource( 142 )
 
 [node name="Selection" type="Control" parent="SectionTop/ObjectButton9" groups=["Selection"]]
 visible = false
@@ -8664,12 +8670,6 @@ playback_speed = 1.25
 anims/RESET = SubResource( 56 )
 anims/idle = SubResource( 57 )
 
-[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton9"]
-modulate = Color( 1, 0.984314, 0, 1 )
-margin_right = 74.0
-margin_bottom = 6.0
-texture = ExtResource( 142 )
-
 [node name="ObjectButton8" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -8719,6 +8719,12 @@ anims/in = SubResource( 179 )
 visible = false
 position = Vector2( 62, 63.5 )
 texture = ExtResource( 140 )
+
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton8"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 11.0
+texture = ExtResource( 142 )
 
 [node name="Selection" type="Control" parent="SectionTop/ObjectButton8" groups=["Selection"]]
 visible = false
@@ -8774,12 +8780,6 @@ playback_speed = 1.25
 anims/RESET = SubResource( 58 )
 anims/idle = SubResource( 59 )
 
-[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton8"]
-modulate = Color( 1, 0.984314, 0, 1 )
-margin_right = 74.0
-margin_bottom = 6.0
-texture = ExtResource( 142 )
-
 [node name="ObjectButton7" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -8829,6 +8829,12 @@ anims/in = SubResource( 181 )
 visible = false
 position = Vector2( 62, 63.5 )
 texture = ExtResource( 140 )
+
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton7"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 11.0
+texture = ExtResource( 142 )
 
 [node name="Selection" type="Control" parent="SectionTop/ObjectButton7" groups=["Selection"]]
 visible = false
@@ -8884,12 +8890,6 @@ playback_speed = 1.25
 anims/RESET = SubResource( 60 )
 anims/idle = SubResource( 61 )
 
-[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton7"]
-modulate = Color( 1, 0.984314, 0, 1 )
-margin_right = 74.0
-margin_bottom = 6.0
-texture = ExtResource( 142 )
-
 [node name="ObjectButton6" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -8939,6 +8939,12 @@ anims/in = SubResource( 183 )
 visible = false
 position = Vector2( 62, 63.5 )
 texture = ExtResource( 140 )
+
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton6"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 11.0
+texture = ExtResource( 142 )
 
 [node name="Selection" type="Control" parent="SectionTop/ObjectButton6" groups=["Selection"]]
 visible = false
@@ -8994,12 +9000,6 @@ playback_speed = 1.25
 anims/RESET = SubResource( 62 )
 anims/idle = SubResource( 63 )
 
-[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton6"]
-modulate = Color( 1, 0.984314, 0, 1 )
-margin_right = 74.0
-margin_bottom = 6.0
-texture = ExtResource( 142 )
-
 [node name="ObjectButton5" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -9049,6 +9049,12 @@ anims/in = SubResource( 185 )
 visible = false
 position = Vector2( 62, 63.5 )
 texture = ExtResource( 140 )
+
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton5"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 11.0
+texture = ExtResource( 142 )
 
 [node name="Selection" type="Control" parent="SectionTop/ObjectButton5" groups=["Selection"]]
 visible = false
@@ -9104,12 +9110,6 @@ playback_speed = 1.25
 anims/RESET = SubResource( 64 )
 anims/idle = SubResource( 65 )
 
-[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton5"]
-modulate = Color( 1, 0.984314, 0, 1 )
-margin_right = 74.0
-margin_bottom = 6.0
-texture = ExtResource( 142 )
-
 [node name="ObjectButton4" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -9159,6 +9159,12 @@ anims/in = SubResource( 187 )
 visible = false
 position = Vector2( 62, 63.5 )
 texture = ExtResource( 140 )
+
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton4"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 11.0
+texture = ExtResource( 142 )
 
 [node name="Selection" type="Control" parent="SectionTop/ObjectButton4" groups=["Selection"]]
 visible = false
@@ -9214,12 +9220,6 @@ playback_speed = 1.25
 anims/RESET = SubResource( 66 )
 anims/idle = SubResource( 67 )
 
-[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton4"]
-modulate = Color( 1, 0.984314, 0, 1 )
-margin_right = 74.0
-margin_bottom = 6.0
-texture = ExtResource( 142 )
-
 [node name="ObjectButton3" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -9269,6 +9269,12 @@ anims/in = SubResource( 189 )
 visible = false
 position = Vector2( 62, 63.5 )
 texture = ExtResource( 140 )
+
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton3"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 11.0
+texture = ExtResource( 142 )
 
 [node name="Selection" type="Control" parent="SectionTop/ObjectButton3" groups=["Selection"]]
 visible = false
@@ -9325,12 +9331,6 @@ playback_speed = 1.25
 anims/RESET = SubResource( 68 )
 anims/idle = SubResource( 69 )
 
-[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton3"]
-modulate = Color( 1, 0.984314, 0, 1 )
-margin_right = 74.0
-margin_bottom = 6.0
-texture = ExtResource( 142 )
-
 [node name="ObjectButton2" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -9380,6 +9380,12 @@ anims/in = SubResource( 191 )
 visible = false
 position = Vector2( 62, 63.5 )
 texture = ExtResource( 140 )
+
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton2"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 11.0
+texture = ExtResource( 142 )
 
 [node name="Selection" type="Control" parent="SectionTop/ObjectButton2" groups=["Selection"]]
 visible = false
@@ -9436,12 +9442,6 @@ playback_speed = 1.25
 anims/RESET = SubResource( 70 )
 anims/idle = SubResource( 71 )
 
-[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton2"]
-modulate = Color( 1, 0.984314, 0, 1 )
-margin_right = 74.0
-margin_bottom = 6.0
-texture = ExtResource( 142 )
-
 [node name="ObjectButton1" type="TextureButton" parent="SectionTop" groups=["Button"]]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -9491,6 +9491,12 @@ anims/in = SubResource( 97 )
 visible = false
 position = Vector2( 62, 63.5 )
 texture = ExtResource( 140 )
+
+[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton1"]
+modulate = Color( 1, 0.984314, 0, 1 )
+margin_right = 74.0
+margin_bottom = 11.0
+texture = ExtResource( 142 )
 
 [node name="Selection" type="Control" parent="SectionTop/ObjectButton1" groups=["Selection"]]
 visible = false
@@ -9549,12 +9555,6 @@ texture = ExtResource( 23 )
 playback_speed = 1.25
 anims/RESET = SubResource( 72 )
 anims/idle = SubResource( 73 )
-
-[node name="Top" type="TextureRect" parent="SectionTop/ObjectButton1"]
-modulate = Color( 1, 0.984314, 0, 1 )
-margin_right = 74.0
-margin_bottom = 6.0
-texture = ExtResource( 142 )
 
 [node name="GamepadCursorGuideQuit" type="Control" parent="SectionTop"]
 anchor_left = 1.0
@@ -14575,7 +14575,6 @@ stream = ExtResource( 52 )
 visible = false
 
 [node name="SideMenu" parent="." instance=ExtResource( 58 )]
-visible = false
 margin_left = 0.0
 margin_right = 610.0
 

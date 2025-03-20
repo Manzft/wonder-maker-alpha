@@ -762,6 +762,9 @@ func isChainable(var objCode):
 		OBJ_GOOMBA: chainable = true;
 		OBJ_GOOMBRAT: chainable = true;
 		OBJ_DRYBONES: chainable = true;
+		OBJ_KOOPATROOPA: chainable = true;
+		OBJ_KOOPATROOPA_RED: chainable = true;
+		OBJ_SPINY: chainable = true;
 	
 	return chainable;
 

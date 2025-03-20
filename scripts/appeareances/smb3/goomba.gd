@@ -45,6 +45,15 @@ var canActive = false;
 var shadow : AnimatedSprite
 var dupsprite : AnimatedSprite
 
+var canChain : bool = true;
+var chained : bool = false;
+var chainObject : Node = null;
+var stopChainObject : bool = false;
+var chainMoving = "";
+var chainMovingTimer = 0.0;
+
+var stopped : bool = false;
+
 func render(group, forcerender = false, render_range = 60):
 	if (forcerender):
 		set_process(true);
@@ -111,13 +120,95 @@ func _ready():
 	startPos = position;
 	if (insided):
 		flip_h = false;
+	chainAnimation();
 
-func _process(_delta):
+func chainAnimation():
+	var gr = get_parent().calculateGrid(position.x, position.y);
+	$AnimationPlayer.play("start");
+	if (Global.isChainable(get_parent().grid[gr.x][gr.y+1])):
+		get_parent().grid_node[gr.x][gr.y+1].chainAnimation();
+
+func _process(delta):
 	if (get_node("../Editor").playing):
 		if (dead):
 			z_index = 2;
 		else:
 			z_index = 1;
+		
+		if (chained && chainObject != null):
+			if (chainObject.dead && chainObject.hitDead):
+				chained = false;
+				canChain = false;
+				motion.x = -max_walk_speed;
+		
+		if (canChain && !chained && !dead):
+			var gr = get_parent().calculateGrid(position.x, position.y);
+			if (Global.isChainable(get_parent().grid[gr.x][gr.y+1])):
+				chained = true;
+				chainObject = get_parent().grid_node[gr.x][gr.y+1];
+				arrived = true;
+			
+			var ir = round(rand_range(0, 1));
+			if (ir == 1):
+				chainMoving = "";
+			else:
+				chainMoving = "2"
+			
+		if (is_on_floor() || dead):
+			canChain = false;
+			
+		if (stopped && chained):
+			stopChainObject = true;
+		if (!stopped && !dead && chained):
+			stopChainObject = false;
+			if (chainObject != null):
+				chainObject.stopped = false;
+		
+		if (stopChainObject && chainObject != null):
+			chainObject.stopped = true;
+		
+		if (chained):
+			if (chainObject != null):
+				if ("inbones" in chainObject):
+					if (chainObject.inbones):
+						chained = false;
+						chainObject = null;
+				if ("inshell" in chainObject):
+					if (chainObject.inshell):
+						chained = false;
+						chainObject = null;
+				
+				if (chainObject.visible):
+					position.y = chainObject.position.y-51;
+					if (chainObject.stopped):
+						if (currentSprite.animation != "idle"):
+							currentSprite.animation = "idle";
+					else:
+						if (currentSprite.animation != "walk"):
+							currentSprite.animation = "walk";
+							#$AnimationPlayer.play("incolumn"+chainMoving);
+					
+					if (chainMoving == ""):
+						currentSprite.position.x = lerp(currentSprite.position.x, -4, 0.25);
+						if (currentSprite.position.x <= -3.9):
+							chainMoving = "2";
+					else:
+						currentSprite.position.x = lerp(currentSprite.position.x, 4, 0.25);
+						if (currentSprite.position.x >= 3.9):
+							chainMoving = "";
+						
+					motion.x = chainObject.motion.x;
+					
+					if (abs(position.x-chainObject.position.x) > 13):
+						motion.y = 0;
+						chained = false;
+						chainObject = null;
+			else:
+				chainObject = null;
+				chained = false;
+				
+		if (!chained && currentSprite.position.x != 0):
+			currentSprite.position.x = 0;
 		
 		currentSprite.speed_scale = 1;
 		if (currentSprite.scale.x > 3.25):
@@ -137,7 +228,7 @@ func _process(_delta):
 				get_node("../Character/SoundShellHit").play();
 		
 		#Wall Dead
-		if (!dead && position.y < 1600):
+		if (!dead && position.y < 1600 && position.y > 0):
 			var mygrid = get_parent().calculateGrid(position.x, position.y);
 			if (get_parent().grid_node[mygrid.x][mygrid.y] != null):
 				if (get_parent().grid_node[mygrid.x][mygrid.y].is_in_group("Solid") &&
@@ -160,6 +251,13 @@ func _process(_delta):
 			hitCharacter = false;
 			position = startPos;
 		
+		chainMoving = "";
+		chainMovingTimer = 0.0;
+		stopped = false;
+		stopChainObject = false;
+		chainObject = null;
+		canChain = true;
+		chained = false;
 		startPos = position;
 		arrived = false;
 		canActiveTimerStarted = false;
@@ -171,24 +269,24 @@ func _process(_delta):
 		currentSprite.rotation_degrees = 0;
 		$CollisionShape2D.disabled = false;
 		
-		if (get_parent().grab && get_parent().grab_node == self):
-			currentSprite.play("walk");
-			currentSprite.speed_scale = 2;
-			currentSprite.scale = Vector2(4, 4);
-			$SweatParticlesLeft.emitting = true;
-			$SweatParticlesRight.emitting = true;
-			$AnimationPlayer.play("draging");
-		else:
-			currentSprite.play("idle");
-			currentSprite.speed_scale = 0;
-			currentSprite.frame = 0;
-			if (currentSprite.scale.x > 3.25):
-				currentSprite.scale = Vector2(3.25, 3.25);
-			$SweatParticlesLeft.emitting = false;
-			$SweatParticlesRight.emitting = false;
-			$AnimationPlayer.play("RESET");
+		if ($AnimationPlayer.current_animation != "start"):
+			if (get_parent().grab && get_parent().grab_node == self):
+				currentSprite.play("walk");
+				currentSprite.speed_scale = 2;
+				currentSprite.scale = Vector2(4, 4);
+				$SweatParticlesLeft.emitting = true;
+				$SweatParticlesRight.emitting = true;
+				$AnimationPlayer.play("draging");
+			else:
+				currentSprite.play("idle");
+				currentSprite.speed_scale = 0;
+				currentSprite.frame = 0;
+				if (currentSprite.scale.x > 3.25):
+					currentSprite.scale = Vector2(3.25, 3.25);
+				$SweatParticlesLeft.emitting = false;
+				$SweatParticlesRight.emitting = false;
+				$AnimationPlayer.play("RESET");
 	
-	var position_difference = dupsprite.position.distance_to(currentSprite.global_position)
 	var pos = dupsprite.position.linear_interpolate(currentSprite.global_position, 0.35)
 	currentSprite.hide();
 	if (Global.playing && Global.PHYSICS_INTERPOLATION && Global.ENTITY_PHYSICS_SPEED < 100.0):
@@ -252,7 +350,7 @@ func _physics_process(delta):
 				motion.y += gravity*2.5;
 				if (motion.y > max_fall):
 					motion.y = max_fall;
-		if (!dead):
+		if (!dead && !chained && !stopped):
 			if (!arrived && is_on_floor() && canActive):
 				arrived = true;
 				
@@ -268,6 +366,15 @@ func _physics_process(delta):
 					currentSprite.play("jump");
 				else:
 					currentSprite.play("fall");
+		
+		if (stopped && !dead):
+			currentSprite.play("idle");
+			if (chained):
+				position.x = chainObject.position.x;
+			motion.x = 0;
+		
+		if (chained):
+			motion.y = 0;
 		
 		if (hitCharacter && visible && !dead):
 			if (!get_node("../Character").invincible && !get_node("../Character").died && !get_node("../Character").changingPowerup):
@@ -302,6 +409,10 @@ func hit(dir):
 		motion.y = jump_h*5;
 	
 	get_parent().enemyScore(position);
+	
+	if (chained && !hitDead):
+		stopChainObject = true;
+	chained = false;
 
 func jump():
 	motion.y = jump_h;
@@ -362,12 +473,26 @@ func _on_Area2D_body_entered(body):
 			else:
 				hit("right");
 			get_node("../Character/SoundShellHit").play();
+	if (canChain && !chained && !body.is_in_group("Character") && body.position.y > position.y):
+		if (Global.isChainable(Global.getObjectCode(body))):
+			if (!body.dead):
+				chained = true;
+				chainObject = body;
+				var ir = round(rand_range(0, 1));
+				if (ir == 1):
+					chainMoving = "";
+				else:
+					chainMoving = "2"
 
 func _on_Area2D_body_exited(body):
 	if (body.is_in_group("Character")):
 		hitCharacter = false;
 
 func _on_DeadTimer_timeout():
+	if (chainObject != null):
+		chainObject.stopped = false;
+	stopChainObject = false;
+	chainObject = null;
 	hide();
 
 func _on_Area2D2_body_entered(body):
@@ -394,6 +519,8 @@ func _on_Area2D2_body_entered(body):
 				
 				get_node("../Character").motion.y = get_node("../Character").jump_h;
 				get_node("../Character").jumping = true;
+				get_node("../Character").jump_timer = 0.0;
+				get_node("../Character").falling = false;
 
 func _on_CanActiveTimer_timeout():
 	canActive = true;
