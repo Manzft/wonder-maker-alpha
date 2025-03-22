@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=2]
+[gd_scene load_steps=80 format=2]
 
 [ext_resource path="res://scripts/ui/startmenu/FPS.gd" type="Script" id=1]
 [ext_resource path="res://wonder_title.png" type="Texture" id=2]
@@ -38,15 +38,16 @@
 [ext_resource path="res://sprites/ui/editor/square_big_button.png" type="Texture" id=36]
 [ext_resource path="res://sprites/ui/splashscreen/discord_icon.png" type="Texture" id=37]
 [ext_resource path="res://sprites/ui/splashscreen/youtube_icon.png" type="Texture" id=38]
+[ext_resource path="res://fonts/seguihis.ttf" type="DynamicFontData" id=39]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
 font_data = ExtResource( 5 )
 
 [sub_resource type="DynamicFont" id=3]
-size = 30
+size = 40
 outline_size = 1
-font_data = ExtResource( 5 )
+font_data = ExtResource( 39 )
 
 [sub_resource type="DynamicFont" id=4]
 size = 90
@@ -109,14 +110,14 @@ tracks/1/keys = {
 "values": [ Vector2( -27, 274 ), Vector2( -95, 296 ), Vector2( -27, 274 ) ]
 }
 
-[sub_resource type="DynamicFont" id=44]
+[sub_resource type="DynamicFont" id=47]
 size = 50
 outline_size = 1
-font_data = ExtResource( 5 )
+font_data = ExtResource( 3 )
 
-[sub_resource type="DynamicFont" id=2]
-size = 25
-font_data = ExtResource( 5 )
+[sub_resource type="DynamicFont" id=48]
+size = 30
+font_data = ExtResource( 39 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 30
@@ -1089,6 +1090,7 @@ texture = ExtResource( 11 )
 centered = false
 
 [node name="FPS" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 94.0
@@ -1103,10 +1105,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -179.0
-margin_top = -53.0
-margin_right = 179.0
-margin_bottom = -22.0
+margin_left = -207.5
+margin_top = -64.0
+margin_right = 207.5
+margin_bottom = -9.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 3 )
@@ -1120,10 +1122,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -179.0
-margin_top = -28.0
-margin_right = 179.0
-margin_bottom = 3.0
+margin_left = -207.5
+margin_top = -51.0
+margin_right = 207.5
+margin_bottom = 4.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 3 )
@@ -1313,12 +1315,12 @@ anchor_bottom = 1.0
 margin_left = -55.5
 margin_top = 221.0
 margin_right = 1368.5
-margin_bottom = 271.0
+margin_bottom = 278.0
 rect_rotation = -19.2639
 rect_scale = Vector2( 0.5, 0.5 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 44 )
+custom_fonts/font = SubResource( 47 )
 text = "SPLASH"
 align = 1
 
@@ -1331,7 +1333,7 @@ margin_top = 5.0
 margin_bottom = 5.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 44 )
+custom_fonts/font = SubResource( 47 )
 text = "SPLASH"
 align = 1
 
@@ -1356,10 +1358,10 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -150.5
-margin_top = -12.5
+margin_top = -22.5
 margin_right = 150.5
-margin_bottom = 12.5
-custom_fonts/font = SubResource( 2 )
+margin_bottom = 24.5
+custom_fonts/font = SubResource( 48 )
 text = "Alpha v1.3"
 align = 1
 
@@ -1383,26 +1385,29 @@ expand = true
 stretch_mode = 3
 
 [node name="StartButtonText" type="Label" parent="StartButton"]
+modulate = Color( 0.745098, 0.745098, 0.745098, 1 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -109.0
-margin_top = -17.5
-margin_right = 109.0
-margin_bottom = 17.5
-custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+margin_left = -104.5
+margin_top = -18.5
+margin_right = -6.5
+margin_bottom = 16.5
+custom_colors/font_color = Color( 0, 0, 0, 0.784314 )
 custom_fonts/font = SubResource( 5 )
-text = "Presiona"
+text = "Oprime"
 
 [node name="L+R" type="TextureRect" parent="StartButton/StartButtonText"]
+modulate = Color( 0, 0, 0, 0.784314 )
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = -88.0
-margin_top = -12.5
-margin_bottom = 12.5
+margin_left = 15.0
+margin_top = -10.5
+margin_right = 103.0
+margin_bottom = 14.5
 mouse_filter = 2
 texture = ExtResource( 6 )
 
@@ -1481,6 +1486,7 @@ mouse_filter = 2
 texture = ExtResource( 7 )
 
 [node name="DiscordButton" type="TextureButton" parent="." groups=["Button"]]
+visible = false
 margin_left = 26.0
 margin_top = 26.0
 margin_right = 100.0
@@ -1573,6 +1579,7 @@ mouse_filter = 2
 texture = ExtResource( 37 )
 
 [node name="YTButton" type="TextureButton" parent="." groups=["Button"]]
+visible = false
 margin_left = 24.0
 margin_top = 122.0
 margin_right = 98.0
@@ -1685,7 +1692,7 @@ anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -181.0
 margin_top = -310.0
-margin_right = -18.9991
+margin_right = -18.999
 margin_bottom = -184.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -1729,7 +1736,7 @@ text = "Crear"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -0.000915527
+margin_right = -0.000976563
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="ActionButtons/MakeButton/Selection"]

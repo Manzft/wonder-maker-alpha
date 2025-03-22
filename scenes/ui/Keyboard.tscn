@@ -1,0 +1,1899 @@
+[gd_scene load_steps=116 format=2]
+
+[ext_resource path="res://sprites/ui/keyboard/guide 2.png" type="Texture" id=1]
+[ext_resource path="res://fonts/NINTENDOSWITCHUI.TTF" type="DynamicFontData" id=2]
+[ext_resource path="res://sprites/ui/keyboard/backspace_icon.png" type="Texture" id=3]
+[ext_resource path="res://sprites/ui/keyboard/button_selected.png" type="Texture" id=4]
+[ext_resource path="res://sprites/ui/keyboard/button.png" type="Texture" id=5]
+[ext_resource path="res://sprites/ui/keyboard/done_button.png" type="Texture" id=6]
+[ext_resource path="res://sprites/ui/keyboard/done_button_selected.png" type="Texture" id=7]
+[ext_resource path="res://sprites/ui/keyboard/backspace_button_selected.png" type="Texture" id=8]
+[ext_resource path="res://sprites/ui/keyboard/backspace_button.png" type="Texture" id=9]
+[ext_resource path="res://sprites/ui/keyboard/type_base.png" type="Texture" id=10]
+[ext_resource path="res://sprites/ui/keyboard/shift_icon.png" type="Texture" id=11]
+[ext_resource path="res://sounds/ui/keyboard/key.wav" type="AudioStream" id=12]
+[ext_resource path="res://sounds/ui/keyboard/done.wav" type="AudioStream" id=13]
+[ext_resource path="res://scripts/ui/Keyboard.gd" type="Script" id=14]
+[ext_resource path="res://sounds/ui/keyboard/back.wav" type="AudioStream" id=15]
+
+[sub_resource type="InputEventKey" id=8]
+pressed = true
+scancode = 16777221
+
+[sub_resource type="ShortCut" id=9]
+shortcut = SubResource( 8 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 25
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="InputEventKey" id=10]
+pressed = true
+scancode = 16777220
+
+[sub_resource type="ShortCut" id=11]
+shortcut = SubResource( 10 )
+
+[sub_resource type="InputEventKey" id=12]
+pressed = true
+scancode = 32
+
+[sub_resource type="ShortCut" id=13]
+shortcut = SubResource( 12 )
+
+[sub_resource type="InputEventKey" id=105]
+pressed = true
+scancode = 16777217
+
+[sub_resource type="ShortCut" id=106]
+shortcut = SubResource( 105 )
+
+[sub_resource type="InputEventKey" id=14]
+pressed = true
+scancode = 16777237
+
+[sub_resource type="ShortCut" id=15]
+shortcut = SubResource( 14 )
+
+[sub_resource type="InputEventKey" id=16]
+pressed = true
+scancode = 45
+
+[sub_resource type="ShortCut" id=17]
+shortcut = SubResource( 16 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 35
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="InputEventKey" id=18]
+pressed = true
+scancode = 46
+
+[sub_resource type="ShortCut" id=19]
+shortcut = SubResource( 18 )
+
+[sub_resource type="InputEventKey" id=20]
+pressed = true
+scancode = 44
+
+[sub_resource type="ShortCut" id=21]
+shortcut = SubResource( 20 )
+
+[sub_resource type="InputEventKey" id=53]
+pressed = true
+scancode = 209
+
+[sub_resource type="ShortCut" id=52]
+shortcut = SubResource( 53 )
+
+[sub_resource type="DynamicFont" id=7]
+size = 30
+use_filter = true
+font_data = ExtResource( 2 )
+
+[sub_resource type="InputEventKey" id=24]
+pressed = true
+scancode = 65
+
+[sub_resource type="ShortCut" id=25]
+shortcut = SubResource( 24 )
+
+[sub_resource type="InputEventKey" id=26]
+pressed = true
+scancode = 83
+
+[sub_resource type="ShortCut" id=27]
+shortcut = SubResource( 26 )
+
+[sub_resource type="InputEventKey" id=28]
+pressed = true
+scancode = 68
+
+[sub_resource type="ShortCut" id=29]
+shortcut = SubResource( 28 )
+
+[sub_resource type="InputEventKey" id=30]
+pressed = true
+scancode = 70
+
+[sub_resource type="ShortCut" id=31]
+shortcut = SubResource( 30 )
+
+[sub_resource type="InputEventKey" id=32]
+pressed = true
+scancode = 71
+
+[sub_resource type="ShortCut" id=33]
+shortcut = SubResource( 32 )
+
+[sub_resource type="InputEventKey" id=49]
+pressed = true
+scancode = 72
+
+[sub_resource type="ShortCut" id=50]
+shortcut = SubResource( 49 )
+
+[sub_resource type="InputEventKey" id=37]
+pressed = true
+scancode = 74
+
+[sub_resource type="ShortCut" id=38]
+shortcut = SubResource( 37 )
+
+[sub_resource type="InputEventKey" id=40]
+pressed = true
+scancode = 75
+
+[sub_resource type="ShortCut" id=41]
+shortcut = SubResource( 40 )
+
+[sub_resource type="InputEventKey" id=42]
+pressed = true
+scancode = 76
+
+[sub_resource type="ShortCut" id=43]
+shortcut = SubResource( 42 )
+
+[sub_resource type="InputEventKey" id=39]
+pressed = true
+scancode = 90
+
+[sub_resource type="ShortCut" id=44]
+shortcut = SubResource( 39 )
+
+[sub_resource type="InputEventKey" id=45]
+pressed = true
+scancode = 88
+
+[sub_resource type="ShortCut" id=46]
+shortcut = SubResource( 45 )
+
+[sub_resource type="InputEventKey" id=47]
+pressed = true
+scancode = 67
+
+[sub_resource type="ShortCut" id=48]
+shortcut = SubResource( 47 )
+
+[sub_resource type="InputEventKey" id=54]
+pressed = true
+scancode = 86
+
+[sub_resource type="ShortCut" id=55]
+shortcut = SubResource( 54 )
+
+[sub_resource type="InputEventKey" id=56]
+pressed = true
+scancode = 66
+
+[sub_resource type="ShortCut" id=57]
+shortcut = SubResource( 56 )
+
+[sub_resource type="InputEventKey" id=58]
+pressed = true
+scancode = 78
+
+[sub_resource type="ShortCut" id=59]
+shortcut = SubResource( 58 )
+
+[sub_resource type="InputEventKey" id=60]
+pressed = true
+scancode = 77
+
+[sub_resource type="ShortCut" id=61]
+shortcut = SubResource( 60 )
+
+[sub_resource type="InputEventKey" id=62]
+pressed = true
+scancode = 81
+
+[sub_resource type="ShortCut" id=63]
+shortcut = SubResource( 62 )
+
+[sub_resource type="InputEventKey" id=64]
+pressed = true
+scancode = 87
+
+[sub_resource type="ShortCut" id=65]
+shortcut = SubResource( 64 )
+
+[sub_resource type="InputEventKey" id=66]
+pressed = true
+scancode = 69
+
+[sub_resource type="ShortCut" id=67]
+shortcut = SubResource( 66 )
+
+[sub_resource type="InputEventKey" id=68]
+pressed = true
+scancode = 82
+
+[sub_resource type="ShortCut" id=69]
+shortcut = SubResource( 68 )
+
+[sub_resource type="InputEventKey" id=70]
+pressed = true
+scancode = 84
+
+[sub_resource type="ShortCut" id=71]
+shortcut = SubResource( 70 )
+
+[sub_resource type="InputEventKey" id=72]
+pressed = true
+scancode = 89
+
+[sub_resource type="ShortCut" id=73]
+shortcut = SubResource( 72 )
+
+[sub_resource type="InputEventKey" id=74]
+pressed = true
+scancode = 85
+
+[sub_resource type="ShortCut" id=75]
+shortcut = SubResource( 74 )
+
+[sub_resource type="InputEventKey" id=76]
+pressed = true
+scancode = 73
+
+[sub_resource type="ShortCut" id=77]
+shortcut = SubResource( 76 )
+
+[sub_resource type="InputEventKey" id=78]
+pressed = true
+scancode = 79
+
+[sub_resource type="ShortCut" id=79]
+shortcut = SubResource( 78 )
+
+[sub_resource type="InputEventKey" id=80]
+pressed = true
+scancode = 80
+
+[sub_resource type="ShortCut" id=81]
+shortcut = SubResource( 80 )
+
+[sub_resource type="InputEventKey" id=82]
+pressed = true
+scancode = 49
+
+[sub_resource type="ShortCut" id=83]
+shortcut = SubResource( 82 )
+
+[sub_resource type="InputEventKey" id=84]
+pressed = true
+scancode = 50
+
+[sub_resource type="ShortCut" id=85]
+shortcut = SubResource( 84 )
+
+[sub_resource type="InputEventKey" id=86]
+pressed = true
+scancode = 51
+
+[sub_resource type="ShortCut" id=87]
+shortcut = SubResource( 86 )
+
+[sub_resource type="InputEventKey" id=88]
+pressed = true
+scancode = 52
+
+[sub_resource type="ShortCut" id=89]
+shortcut = SubResource( 88 )
+
+[sub_resource type="InputEventKey" id=90]
+pressed = true
+scancode = 53
+
+[sub_resource type="ShortCut" id=91]
+shortcut = SubResource( 90 )
+
+[sub_resource type="InputEventKey" id=92]
+pressed = true
+scancode = 54
+
+[sub_resource type="ShortCut" id=93]
+shortcut = SubResource( 92 )
+
+[sub_resource type="InputEventKey" id=94]
+pressed = true
+scancode = 55
+
+[sub_resource type="ShortCut" id=95]
+shortcut = SubResource( 94 )
+
+[sub_resource type="InputEventKey" id=96]
+pressed = true
+scancode = 56
+
+[sub_resource type="ShortCut" id=97]
+shortcut = SubResource( 96 )
+
+[sub_resource type="InputEventKey" id=98]
+pressed = true
+scancode = 57
+
+[sub_resource type="ShortCut" id=99]
+shortcut = SubResource( 98 )
+
+[sub_resource type="InputEventKey" id=100]
+pressed = true
+scancode = 48
+
+[sub_resource type="ShortCut" id=101]
+shortcut = SubResource( 100 )
+
+[sub_resource type="StyleBoxTexture" id=2]
+
+[sub_resource type="StyleBoxTexture" id=3]
+
+[sub_resource type="StyleBoxTexture" id=4]
+
+[sub_resource type="StyleBoxTexture" id=5]
+
+[sub_resource type="Animation" id=102]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("LabelGuide:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TextEdit:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("TypeBase:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("ColorRect:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=103]
+resource_name = "out"
+length = 1.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("LabelGuide:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TextEdit:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("TypeBase:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("ColorRect:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=104]
+resource_name = "start"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/path = NodePath("Background:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("LabelGuide:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("TextEdit:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("TypeBase:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("ColorRect:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 0.6, 0.7 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="Keyboard" type="CanvasLayer"]
+layer = 5
+script = ExtResource( 14 )
+
+[node name="Background" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.639216 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_top = 0.375
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -3.05176e-05
+
+[node name="Keys" type="Control" parent="ColorRect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+
+[node name="DoneButton" type="TextureButton" parent="ColorRect/Keys"]
+margin_left = 394.0
+margin_top = 51.0
+margin_right = 606.0
+margin_bottom = 175.0
+shortcut_in_tooltip = false
+action_mode = 0
+shortcut = SubResource( 9 )
+texture_normal = ExtResource( 6 )
+texture_pressed = ExtResource( 7 )
+texture_disabled = ExtResource( 5 )
+expand = true
+
+[node name="Label" type="Label" parent="ColorRect/Keys/DoneButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -34.0
+margin_top = -15.0
+margin_right = 45.0
+margin_bottom = 16.0
+custom_fonts/font = SubResource( 1 )
+text = "Listo"
+align = 1
+valign = 1
+
+[node name="EnterButton" type="TextureButton" parent="ColorRect/Keys"]
+margin_left = 394.0
+margin_top = -77.0
+margin_right = 606.0
+margin_bottom = 47.0
+disabled = true
+shortcut_in_tooltip = false
+action_mode = 0
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Label" type="Label" parent="ColorRect/Keys/EnterButton"]
+modulate = Color( 0, 0, 0, 0.317647 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -39.5
+margin_top = -15.5
+margin_right = 39.5
+margin_bottom = 15.5
+custom_fonts/font = SubResource( 1 )
+text = "Intro"
+align = 1
+valign = 1
+
+[node name="BackspaceButton" type="TextureButton" parent="ColorRect/Keys"]
+margin_left = 394.0
+margin_top = -141.0
+margin_right = 606.0
+margin_bottom = -81.0
+shortcut_in_tooltip = false
+action_mode = 0
+shortcut = SubResource( 11 )
+texture_normal = ExtResource( 9 )
+texture_pressed = ExtResource( 8 )
+texture_disabled = ExtResource( 5 )
+expand = true
+
+[node name="Icon" type="TextureRect" parent="ColorRect/Keys/BackspaceButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -21.0
+margin_top = -17.5
+margin_right = 21.0
+margin_bottom = 17.5
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 6
+
+[node name="SpaceButton" type="TextureButton" parent="ColorRect/Keys"]
+margin_left = -278.0
+margin_top = 115.0
+margin_right = 198.0
+margin_bottom = 174.0
+shortcut_in_tooltip = false
+action_mode = 0
+shortcut = SubResource( 13 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Label" type="Label" parent="ColorRect/Keys/SpaceButton"]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -15.5
+margin_right = 48.5
+margin_bottom = 15.5
+custom_fonts/font = SubResource( 1 )
+text = "Espacio "
+align = 1
+valign = 1
+
+[node name="BackButton" type="TextureButton" parent="ColorRect/Keys"]
+self_modulate = Color( 1, 0.419608, 0.419608, 1 )
+margin_left = 201.0
+margin_top = 115.0
+margin_right = 391.0
+margin_bottom = 174.0
+shortcut_in_tooltip = false
+action_mode = 0
+shortcut = SubResource( 106 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Label" type="Label" parent="ColorRect/Keys/BackButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -15.5
+margin_right = 48.5
+margin_bottom = 15.5
+custom_fonts/font = SubResource( 1 )
+text = "Volver"
+align = 1
+valign = 1
+
+[node name="ShiftButton" type="TextureButton" parent="ColorRect/Keys"]
+margin_left = -565.0
+margin_top = 115.0
+margin_right = -281.0
+margin_bottom = 174.0
+shortcut_in_tooltip = false
+action_mode = 0
+shortcut = SubResource( 15 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Icon" type="TextureRect" parent="ColorRect/Keys/ShiftButton"]
+modulate = Color( 0, 0, 0, 0.713726 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -21.0
+margin_top = -17.5
+margin_right = 21.0
+margin_bottom = 17.5
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 6
+
+[node name="RegularKeys" type="Control" parent="ColorRect/Keys"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="ExclamationButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = 298.0
+margin_top = 51.0
+margin_right = 391.0
+margin_bottom = 110.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 17 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/ExclamationButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 6 )
+text = "-"
+align = 1
+valign = 1
+
+[node name="DotButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = 201.0
+margin_top = 51.0
+margin_right = 294.0
+margin_bottom = 110.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 19 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/DotButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 6 )
+text = "."
+align = 1
+valign = 1
+
+[node name="CommaButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = 105.0
+margin_top = 51.0
+margin_right = 198.0
+margin_bottom = 110.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 21 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/CommaButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 6 )
+text = ","
+align = 1
+valign = 1
+
+[node name="EnieButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = 298.0
+margin_top = -12.0
+margin_right = 391.0
+margin_bottom = 47.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 52 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/EnieButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "ñ"
+align = 1
+valign = 1
+
+[node name="AButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -565.0
+margin_top = -12.0
+margin_right = -472.0
+margin_bottom = 47.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 25 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/AButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "a"
+align = 1
+valign = 1
+
+[node name="SButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -470.0
+margin_top = -12.0
+margin_right = -377.0
+margin_bottom = 47.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 27 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/SButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "s"
+align = 1
+valign = 1
+
+[node name="DButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -374.0
+margin_top = -12.0
+margin_right = -281.0
+margin_bottom = 47.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 29 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/DButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "d"
+align = 1
+valign = 1
+
+[node name="FButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -278.0
+margin_top = -12.0
+margin_right = -185.0
+margin_bottom = 47.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 31 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/FButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "f"
+align = 1
+valign = 1
+
+[node name="GButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -182.0
+margin_top = -12.0
+margin_right = -89.0
+margin_bottom = 47.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 33 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/GButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "g"
+align = 1
+valign = 1
+
+[node name="HButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -86.0
+margin_top = -12.0
+margin_right = 7.0
+margin_bottom = 47.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 50 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/HButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "h"
+align = 1
+valign = 1
+
+[node name="JButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = 10.0
+margin_top = -12.0
+margin_right = 103.0
+margin_bottom = 47.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 38 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/JButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "j"
+align = 1
+valign = 1
+
+[node name="KButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = 105.0
+margin_top = -12.0
+margin_right = 198.0
+margin_bottom = 47.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 41 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/KButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "k"
+align = 1
+valign = 1
+
+[node name="LButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = 201.0
+margin_top = -12.0
+margin_right = 294.0
+margin_bottom = 47.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 43 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/LButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "l"
+align = 1
+valign = 1
+
+[node name="ZButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -565.0
+margin_top = 51.0
+margin_right = -472.0
+margin_bottom = 110.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 44 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/ZButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "z"
+align = 1
+valign = 1
+
+[node name="XButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -470.0
+margin_top = 51.0
+margin_right = -377.0
+margin_bottom = 110.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 46 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/XButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "x"
+align = 1
+valign = 1
+
+[node name="CButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -374.0
+margin_top = 51.0
+margin_right = -281.0
+margin_bottom = 110.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 48 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/CButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "c"
+align = 1
+valign = 1
+
+[node name="VButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -278.0
+margin_top = 51.0
+margin_right = -185.0
+margin_bottom = 110.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 55 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/VButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "v"
+align = 1
+valign = 1
+
+[node name="BButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -182.0
+margin_top = 51.0
+margin_right = -89.0
+margin_bottom = 110.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 57 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/BButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "b"
+align = 1
+valign = 1
+
+[node name="NButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -86.0
+margin_top = 51.0
+margin_right = 7.0
+margin_bottom = 110.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 59 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/NButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "n"
+align = 1
+valign = 1
+
+[node name="MButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = 10.0
+margin_top = 51.0
+margin_right = 103.0
+margin_bottom = 110.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 61 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/MButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "m"
+align = 1
+valign = 1
+
+[node name="QButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -565.0
+margin_top = -77.0
+margin_right = -472.0
+margin_bottom = -18.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 63 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/QButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "q"
+align = 1
+valign = 1
+
+[node name="WButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -470.0
+margin_top = -77.0
+margin_right = -377.0
+margin_bottom = -18.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 65 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/WButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "w"
+align = 1
+valign = 1
+
+[node name="EButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -374.0
+margin_top = -77.0
+margin_right = -281.0
+margin_bottom = -18.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 67 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/EButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "e"
+align = 1
+valign = 1
+
+[node name="RButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -278.0
+margin_top = -77.0
+margin_right = -185.0
+margin_bottom = -18.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 69 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/RButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "r"
+align = 1
+valign = 1
+
+[node name="TButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -182.0
+margin_top = -77.0
+margin_right = -89.0
+margin_bottom = -18.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 71 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/TButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "t"
+align = 1
+valign = 1
+
+[node name="YButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -86.0
+margin_top = -77.0
+margin_right = 7.0
+margin_bottom = -18.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 73 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/YButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "y"
+align = 1
+valign = 1
+
+[node name="UButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = 10.0
+margin_top = -77.0
+margin_right = 103.0
+margin_bottom = -18.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 75 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/UButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "u"
+align = 1
+valign = 1
+
+[node name="IButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = 106.0
+margin_top = -77.0
+margin_right = 199.0
+margin_bottom = -18.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 77 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/IButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "i"
+align = 1
+valign = 1
+
+[node name="OButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = 202.0
+margin_top = -77.0
+margin_right = 295.0
+margin_bottom = -18.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 79 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/OButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "o"
+align = 1
+valign = 1
+
+[node name="PButton" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = 298.0
+margin_top = -77.0
+margin_right = 391.0
+margin_bottom = -18.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 81 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/PButton" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "p"
+align = 1
+valign = 1
+
+[node name="1Button" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -565.0
+margin_top = -141.0
+margin_right = -472.0
+margin_bottom = -82.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 83 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/1Button" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "1"
+align = 1
+valign = 1
+
+[node name="2Button" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -470.0
+margin_top = -141.0
+margin_right = -377.0
+margin_bottom = -82.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 85 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/2Button" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "2"
+align = 1
+valign = 1
+
+[node name="3Button" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -374.0
+margin_top = -141.0
+margin_right = -281.0
+margin_bottom = -82.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 87 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/3Button" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "3"
+align = 1
+valign = 1
+
+[node name="4Button" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -278.0
+margin_top = -141.0
+margin_right = -185.0
+margin_bottom = -82.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 89 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/4Button" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "4"
+align = 1
+valign = 1
+
+[node name="5Button" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -182.0
+margin_top = -141.0
+margin_right = -89.0
+margin_bottom = -82.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 91 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/5Button" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "5"
+align = 1
+valign = 1
+
+[node name="6Button" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = -86.0
+margin_top = -141.0
+margin_right = 7.0
+margin_bottom = -82.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 93 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/6Button" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "6"
+align = 1
+valign = 1
+
+[node name="7Button" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = 10.0
+margin_top = -141.0
+margin_right = 103.0
+margin_bottom = -82.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 95 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/7Button" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "7"
+align = 1
+valign = 1
+
+[node name="8Button" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = 106.0
+margin_top = -141.0
+margin_right = 199.0
+margin_bottom = -82.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 97 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/8Button" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "8"
+align = 1
+valign = 1
+
+[node name="9Button" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = 202.0
+margin_top = -141.0
+margin_right = 295.0
+margin_bottom = -82.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 99 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/9Button" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "9"
+align = 1
+valign = 1
+
+[node name="0Button" type="TextureButton" parent="ColorRect/Keys/RegularKeys"]
+margin_left = 298.0
+margin_top = -141.0
+margin_right = 391.0
+margin_bottom = -82.0
+shortcut_in_tooltip = false
+shortcut = SubResource( 101 )
+texture_normal = ExtResource( 5 )
+texture_pressed = ExtResource( 4 )
+expand = true
+
+[node name="Word" type="Label" parent="ColorRect/Keys/RegularKeys/0Button" groups=["Word"]]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -48.5
+margin_top = -18.0
+margin_right = 48.5
+margin_bottom = 18.0
+custom_fonts/font = SubResource( 7 )
+text = "0"
+align = 1
+valign = 1
+
+[node name="Label" type="Label" parent="ColorRect"]
+modulate = Color( 0, 0, 0, 0.737255 )
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -239.0
+margin_top = 16.0
+margin_right = 239.0
+margin_bottom = 47.0
+custom_fonts/font = SubResource( 1 )
+text = "Teclado Integrado de Wonder Maker"
+align = 1
+valign = 1
+
+[node name="TypeBase" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 127.0
+margin_top = -182.0
+margin_right = -127.0
+margin_bottom = -150.0
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 6
+
+[node name="LabelCharacters" type="Label" parent="TypeBase"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -107.0
+margin_top = -4.0
+margin_bottom = 27.0
+custom_colors/font_color = Color( 0.682353, 0.682353, 0.682353, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "0/32"
+align = 2
+valign = 1
+
+[node name="LabelGuide" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 129.0
+margin_top = 52.0
+margin_right = 1148.0
+margin_bottom = 83.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Introduce un texto."
+valign = 1
+
+[node name="TextEdit" type="TextEdit" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 132.0
+margin_top = -209.0
+margin_right = -132.0
+margin_bottom = -170.0
+mouse_filter = 2
+custom_fonts/font = SubResource( 1 )
+custom_styles/read_only = SubResource( 2 )
+custom_styles/focus = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+custom_styles/completion = SubResource( 5 )
+text = "Text Edit"
+virtual_keyboard_enabled = false
+caret_blink = true
+
+[node name="Guide" type="TextureRect" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0.556863 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 1 )
+expand = true
+stretch_mode = 6
+
+[node name="AudioKey" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+
+[node name="AudioSpace" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+pitch_scale = 0.8
+
+[node name="AudioBackspace" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 12 )
+pitch_scale = 1.2
+
+[node name="AudioDone" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+
+[node name="AudioShift" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 13 )
+pitch_scale = 0.8
+
+[node name="AudioBack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+
+[node name="TextBlinkTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[node name="CanEraseTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
+anims/RESET = SubResource( 102 )
+anims/out = SubResource( 103 )
+anims/start = SubResource( 104 )
+
+[connection signal="pressed" from="ColorRect/Keys/DoneButton" to="." method="_on_DoneButton_pressed"]
+[connection signal="pressed" from="ColorRect/Keys/BackspaceButton" to="." method="_on_BackspaceButton_pressed"]
+[connection signal="pressed" from="ColorRect/Keys/SpaceButton" to="." method="_on_SpaceButton_pressed"]
+[connection signal="pressed" from="ColorRect/Keys/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="pressed" from="ColorRect/Keys/ShiftButton" to="." method="_on_ShiftButton_pressed"]
+[connection signal="timeout" from="TextBlinkTimer" to="." method="_on_TextBlinkTimer_timeout"]
+[connection signal="timeout" from="CanEraseTimer" to="." method="_on_CanEraseTimer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

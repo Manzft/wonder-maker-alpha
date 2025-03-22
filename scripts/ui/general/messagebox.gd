@@ -9,6 +9,8 @@ var branchmenu = false;
 
 var realmenu = null;
 
+var type = "";
+
 func _input(event):
 	if (Global.CurrentInput == "Gamepad"):
 		updateFocusSprite();
@@ -55,7 +57,6 @@ func updateFocusSprite():
 func _ready():
 	if (get_parent().get_name() == "Editor"):
 		get_parent().editingText = true;
-	$AnimationPlayer.play("in");
 	changeInput();
 	
 	#Connect button focus signals
@@ -66,6 +67,9 @@ func _ready():
 	if (get_parent().get_name() == "Editor"):
 		if (get_parent().CurrentMenu == "SideMenu"):
 			rect_position.x += 610;
+			
+	yield(get_tree().create_timer(0.5), "timeout");
+	$AnimationPlayer.play("in");
 	
 func _process(delta):
 	if (!visible):
@@ -103,15 +107,19 @@ func _on_OkButton_mouse_exited():
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if (Backwards):
 		hide();
-		if (Global.CurrentInput == "Gamepad"):
-			if (realmenu == null):
-				if (get_parent().savedFocus != null):
-					get_parent().savedFocus.grab_focus();
-				get_parent().updateFocusSprite();
-			else:
-				if (realmenu.savedFocus != null):
-					realmenu.savedFocus.grab_focus();
-				realmenu.updateFocusSprite();
+		if ("savedFocus" in get_parent()):
+			if (Global.CurrentInput == "Gamepad"):
+				if (realmenu == null):
+					if (get_parent().savedFocus != null):
+						get_parent().savedFocus.grab_focus();
+					get_parent().updateFocusSprite();
+				else:
+					if (realmenu.savedFocus != null):
+						realmenu.savedFocus.grab_focus();
+					realmenu.updateFocusSprite();
+			get_parent().savedFocus = null;
 		if (get_parent().get_name() == "Editor"):
 			get_parent().editingText = false;
-		get_parent().savedFocus = null;
+		
+		if (get_parent().has_method("messageBoxFinished")):
+			get_parent().messageBoxFinished(type);

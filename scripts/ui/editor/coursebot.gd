@@ -324,13 +324,13 @@ func enterTextFinished(text, type):
 	if (type == "CourseName"):
 		var f = File.new();
 		
-		f.open(Global.currentlevel, File.READ);
+		f.open_encrypted_with_pass(Global.currentlevel, File.READ, Global.SECURITY_KEY);
 		var content = f.get_as_text();
 		f.close();
 		
 		var newpath = Global.get_game_dir()+"/Courses/"+text+".wom";
 		
-		f.open(newpath, File.WRITE);
+		f.open_encrypted_with_pass(newpath, File.WRITE, Global.SECURITY_KEY);
 		f.store_string(content);
 		f.close();
 		
@@ -401,6 +401,7 @@ func _on_EraseCourse_pressed():
 	var dir = Directory.new()
 	dir.remove(Global.currentlevel);
 	Global.currentlevel = "";
+	yield(get_tree(), "idle_frame");
 	setCourseName();
 	
 	savedFocus = getFocusNode();

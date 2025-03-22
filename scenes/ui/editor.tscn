@@ -7964,6 +7964,7 @@ __meta__ = {
 
 [node name="FPS" type="Label" parent="."]
 visible = false
+modulate = Color( 1, 1, 1, 0 )
 margin_left = 10.0
 margin_top = 10.0
 margin_right = 94.0
@@ -8117,10 +8118,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 1819.0
-margin_top = 1819.0
-margin_right = 1855.0
-margin_bottom = 1855.0
+margin_left = 1830.0
+margin_top = 1830.0
+margin_right = 1866.0
+margin_bottom = 1866.0
 texture = ExtResource( 36 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GamepadCursor/SprintGuide"]

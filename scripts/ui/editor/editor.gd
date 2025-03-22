@@ -2034,14 +2034,10 @@ func enterTextFinished(text, type):
 		var inst = Global.enterText("Ingresa la descripción del nivel:", "CourseDescription", self);
 	if (type == "CourseDescription"):
 		Global.currentCourseDescription = text;
-		savedFocus = getFocusNode();
-		var inst = Global.enterText("Ingresa tu nickname:", "CourseUser", self);
-	if (type == "CourseUser"):
-		Global.currentCourseUser = text;
+		Global.currentCourseUser = Global.USER_NAME;
 		Global.saveCourseData();
 		savedFocus = getFocusNode();
 		Global.showMessage("Nivel guardado correctamente.", self);
-		editingText = false;
 
 func _on_SaveNewCourse_pressed():
 	get_parent().objSelected = -50;

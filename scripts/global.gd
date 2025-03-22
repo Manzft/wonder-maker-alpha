@@ -90,6 +90,9 @@ var min_entity_physics_speed = 25.0;
 var max_entity_physics_speed = 100.0;
 var PHYSICS_INTERPOLATION = false;
 var SHADOWS = false;
+var USER_NAME = "";
+var SPLASH_SCREEN_FINISHED = false;
+var WELCOME_SCREEN = false;
 
 var CurrentInput = "Mouse";
 
@@ -406,6 +409,10 @@ func loadSettings():
 			if (ENTITY_PHYSICS_SPEED > max_entity_physics_speed): ENTITY_PHYSICS_SPEED = max_entity_physics_speed;
 			PHYSICS_INTERPOLATION = config.get_value(section, "Physics Interpolation", false);
 			SHADOWS = config.get_value(section, "Shadows (Experimental)", true);
+			SPLASH_SCREEN_FINISHED = config.get_value(section, "Splash Screen Finished", false);
+			WELCOME_SCREEN = config.get_value(section, "Welcome Screen Finished", false);
+		if (section == "User"):
+			USER_NAME = config.get_value(section, "Username", "");
 	
 	OS.vsync_enabled = VSYNC;
 	if (SCREEN_16_9):
@@ -424,6 +431,10 @@ func saveSettings():
 	config.set_value("General", "Entity Physics Speed (%)", ENTITY_PHYSICS_SPEED);
 	config.set_value("General", "Physics Interpolation", PHYSICS_INTERPOLATION);
 	config.set_value("General", "Shadows (Experimental)", SHADOWS);
+	config.set_value("General", "Splash Screen Finished", SPLASH_SCREEN_FINISHED);
+	config.set_value("General", "Welcome Screen Finished", WELCOME_SCREEN);
+	
+	config.set_value("User", "Username", USER_NAME);
 
 	config.save(get_game_dir()+"/config.ini");
 
@@ -632,15 +643,16 @@ func _process(delta):
 			changingToEditTimer = 0.0;
 			unrenderAll();
 
-func showMessage(text, tree, realtree = null):
+func showMessage(text, tree, realtree = null, type : String = ""):
 	var scene = preload("res://scenes/ui/messagebox.tscn");
 	var inst = scene.instance();
 	tree.add_child(inst);
 	inst.setText(text);
 	inst.realmenu = realtree;
+	inst.type = type;
 
 func enterText(guidetext, type, tree, realtree = null):
-	var scene = preload("res://scenes/ui/entertext.tscn");
+	var scene = preload("res://scenes/ui/Keyboard.tscn");
 	var inst = scene.instance();
 	tree.add_child(inst);
 	tree.editingText = true;
