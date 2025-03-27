@@ -140,6 +140,7 @@ func _process(_delta):
 	
 	shadowflag.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
 	shadowflag.scale = $SpriteGround.scale;
+	shadowflag.animation = currentSprite.animation;
 	shadowflag.rotation = currentSprite.rotation+$SpriteGround.rotation;
 	shadowbase.position = $SpriteGround.global_position+Vector2(3*3.25, 3*3.25);
 	shadowbase.scale = $SpriteGround.scale;

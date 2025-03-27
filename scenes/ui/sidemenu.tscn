@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://smm2menu.png" type="Texture" id=1]
 [ext_resource path="res://sprites/ui/startmenu/bg.png" type="Texture" id=2]
@@ -27,6 +27,10 @@
 [ext_resource path="res://sprites/ui/startmenu/notifications.png" type="Texture" id=25]
 [ext_resource path="res://sprites/ui/startmenu/settings.png" type="Texture" id=26]
 [ext_resource path="res://sounds/ui/menu_open.wav" type="AudioStream" id=27]
+[ext_resource path="res://sprites/ui/startmenu/newmanzftchallenge.png" type="Texture" id=28]
+[ext_resource path="res://sounds/ui/play_button.wav" type="AudioStream" id=29]
+[ext_resource path="res://sprites/ui/splashscreen/discord_icon.png" type="Texture" id=30]
+[ext_resource path="res://sprites/ui/splashscreen/youtube_icon.png" type="Texture" id=31]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -166,7 +170,7 @@ tracks/2/keys = {
 "values": [ Vector2( 543, 102 ), Vector2( 553, 112 ), Vector2( 543, 102 ) ]
 }
 
-[sub_resource type="Animation" id=13]
+[sub_resource type="Animation" id=25]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -190,10 +194,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 62, 62 ) ]
+"values": [ Vector2( 543, 102 ) ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=26]
 resource_name = "idle"
 loop = true
 tracks/0/type = "value"
@@ -222,7 +226,7 @@ tracks/1/keys = {
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:rect_size")
-tracks/2/interp = 2
+tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
@@ -230,7 +234,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
+"values": [ Vector2( 543, 102 ), Vector2( 553, 112 ), Vector2( 543, 102 ) ]
 }
 
 [sub_resource type="Animation" id=7]
@@ -298,6 +302,73 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 543, 102 ), Vector2( 553, 112 ), Vector2( 543, 102 ) ]
+}
+
+[sub_resource type="Animation" id=13]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ) ]
+}
+
+[sub_resource type="Animation" id=14]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -702,6 +773,140 @@ tracks/2/keys = {
 "values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
 }
 
+[sub_resource type="Animation" id=27]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ) ]
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
+}
+
+[sub_resource type="Animation" id=29]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ) ]
+}
+
+[sub_resource type="Animation" id=30]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
+}
+
 [sub_resource type="Animation" id=23]
 length = 0.001
 tracks/0/type = "value"
@@ -774,6 +979,7 @@ size = 40
 font_data = ExtResource( 3 )
 
 [node name="SideMenu" type="TextureRect" groups=["CurrentTree"]]
+self_modulate = Color( 0.984314, 0.415686, 1, 1 )
 anchor_left = 1.0
 anchor_right = 1.0
 margin_left = -1280.0
@@ -906,9 +1112,9 @@ stretch_mode = 3
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = 11.0
-margin_top = -40.5
-margin_right = 93.0
-margin_bottom = 41.5
+margin_top = -44.5
+margin_right = 94.0
+margin_bottom = 38.5
 mouse_filter = 2
 texture = ExtResource( 4 )
 
@@ -986,6 +1192,226 @@ anims/RESET = SubResource( 5 )
 anims/idle = SubResource( 6 )
 
 [node name="Shadow" type="TextureRect" parent="StoryMode"]
+modulate = Color( 0, 0, 0, 0.219608 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 5.0
+margin_bottom = 5.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="ManzftChallenge" type="TextureButton" parent="." groups=["Button"]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -271.5
+margin_top = -139.0
+margin_right = 271.5
+margin_bottom = -37.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath("../WorldMaker")
+focus_neighbour_right = NodePath("../Worldbot")
+focus_neighbour_bottom = NodePath("../CourseWorld")
+texture_normal = ExtResource( 5 )
+texture_disabled = ExtResource( 5 )
+stretch_mode = 3
+
+[node name="Text" type="Label" parent="ManzftChallenge"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -391.0
+margin_top = -18.0
+margin_right = -82.0
+margin_bottom = 18.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "Manzft Challenge"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ManzftChallenge"]
+
+[node name="Selection" type="Control" parent="ManzftChallenge" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -4.63017
+margin_top = -4.63017
+margin_right = -4.63019
+margin_bottom = -4.63017
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="ManzftChallenge/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="UpRight" type="TextureRect" parent="ManzftChallenge/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="DownRight" type="TextureRect" parent="ManzftChallenge/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="DownLeft" type="TextureRect" parent="ManzftChallenge/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ManzftChallenge/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 25 )
+anims/idle = SubResource( 26 )
+
+[node name="Shadow" type="TextureRect" parent="ManzftChallenge"]
+modulate = Color( 0, 0, 0, 0.219608 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 5.0
+margin_bottom = 5.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="Icon" type="TextureRect" parent="ManzftChallenge"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 13.0
+margin_top = -42.5
+margin_right = 96.0
+margin_bottom = 40.5
+mouse_filter = 2
+texture = ExtResource( 28 )
+expand = true
+stretch_mode = 6
+
+[node name="CourseWorld" type="TextureButton" parent="." groups=["Button"]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -271.5
+margin_top = -29.0
+margin_right = 271.5
+margin_bottom = 73.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath("../StoryMode")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath("../Notifications")
+texture_normal = ExtResource( 5 )
+texture_disabled = ExtResource( 5 )
+stretch_mode = 3
+
+[node name="Icon" type="TextureRect" parent="CourseWorld"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 14.0
+margin_top = -43.5
+margin_right = 96.0
+margin_bottom = 38.5
+mouse_filter = 2
+texture = ExtResource( 6 )
+
+[node name="Text" type="Label" parent="CourseWorld"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -395.0
+margin_top = -18.0
+margin_right = -74.0
+margin_bottom = 18.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "Niveles Mundiales"
+
+[node name="Selection" type="Control" parent="CourseWorld" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="CourseWorld/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="UpRight" type="TextureRect" parent="CourseWorld/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="DownRight" type="TextureRect" parent="CourseWorld/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="DownLeft" type="TextureRect" parent="CourseWorld/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CourseWorld/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 7 )
+anims/idle = SubResource( 8 )
+
+[node name="Shadow" type="TextureRect" parent="CourseWorld"]
 modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
 anchor_right = 1.0
@@ -1103,113 +1529,6 @@ margin_right = -36.0
 margin_bottom = -31.0
 mouse_filter = 2
 texture = ExtResource( 16 )
-
-[node name="CourseWorld" type="TextureButton" parent="." groups=["Button"]]
-visible = false
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -271.5
-margin_top = 82.0
-margin_right = 271.5
-margin_bottom = 184.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_neighbour_left = NodePath(".")
-focus_neighbour_top = NodePath("../StoryMode")
-focus_neighbour_right = NodePath(".")
-focus_neighbour_bottom = NodePath("../Notifications")
-texture_normal = ExtResource( 5 )
-texture_disabled = ExtResource( 5 )
-stretch_mode = 3
-
-[node name="Icon" type="TextureRect" parent="CourseWorld"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = 11.0
-margin_top = -40.5
-margin_right = 93.0
-margin_bottom = 41.5
-mouse_filter = 2
-texture = ExtResource( 6 )
-
-[node name="Text" type="Label" parent="CourseWorld"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -395.0
-margin_top = -18.0
-margin_right = -74.0
-margin_bottom = 18.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 4 )
-text = "Niveles Mundiales"
-
-[node name="Selection" type="Control" parent="CourseWorld" groups=["Selection"]]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-
-[node name="UpLeft" type="TextureRect" parent="CourseWorld/Selection"]
-margin_left = -5.0
-margin_top = -5.0
-margin_right = 35.0
-margin_bottom = 35.0
-mouse_filter = 2
-texture = ExtResource( 20 )
-
-[node name="UpRight" type="TextureRect" parent="CourseWorld/Selection"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 3.0
-margin_top = -5.0
-margin_right = 43.0
-margin_bottom = 35.0
-rect_rotation = 90.0
-mouse_filter = 2
-texture = ExtResource( 20 )
-
-[node name="DownRight" type="TextureRect" parent="CourseWorld/Selection"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 5.0
-margin_right = 43.0
-margin_bottom = 44.9999
-rect_rotation = 180.0
-mouse_filter = 2
-texture = ExtResource( 20 )
-
-[node name="DownLeft" type="TextureRect" parent="CourseWorld/Selection"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = -5.0
-margin_top = 5.0
-margin_right = 35.0
-margin_bottom = 44.9999
-rect_rotation = 270.0
-mouse_filter = 2
-texture = ExtResource( 20 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CourseWorld/Selection"]
-playback_speed = 1.25
-anims/RESET = SubResource( 7 )
-anims/idle = SubResource( 8 )
-
-[node name="Shadow" type="TextureRect" parent="CourseWorld"]
-modulate = Color( 0, 0, 0, 0.219608 )
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 5.0
-margin_bottom = 5.0
-mouse_filter = 2
-texture = ExtResource( 5 )
 
 [node name="CourseMaker" type="TextureButton" parent="." groups=["Button"]]
 anchor_left = 0.5
@@ -1754,7 +2073,6 @@ mouse_filter = 2
 texture = ExtResource( 16 )
 
 [node name="Settings" type="TextureButton" parent="." groups=["Button"]]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1853,6 +2171,228 @@ anims/RESET = SubResource( 21 )
 anims/idle = SubResource( 22 )
 
 [node name="Shadow" type="TextureRect" parent="Settings"]
+modulate = Color( 0, 0, 0, 0.219608 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 5.0
+margin_right = -36.0
+margin_bottom = -31.0
+mouse_filter = 2
+texture = ExtResource( 16 )
+
+[node name="Discord" type="TextureButton" parent="." groups=["Button"]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 44.0
+margin_top = 261.0
+margin_right = 106.0
+margin_bottom = 323.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbour_left = NodePath("../Notifications")
+focus_neighbour_top = NodePath("../CourseWorld")
+focus_neighbour_right = NodePath("../Controls")
+focus_neighbour_bottom = NodePath(".")
+texture_normal = ExtResource( 16 )
+stretch_mode = 3
+
+[node name="Icon" type="TextureRect" parent="Discord"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -26.0
+margin_top = -26.0
+margin_right = 26.0
+margin_bottom = 26.0
+mouse_filter = 2
+texture = ExtResource( 30 )
+expand = true
+stretch_mode = 6
+
+[node name="Text" type="Label" parent="Discord"]
+visible = false
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -308.0
+margin_top = -18.0
+margin_right = -62.0
+margin_bottom = 18.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "Crear un nivel"
+
+[node name="Selection" type="Control" parent="Discord" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="Discord/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="UpRight" type="TextureRect" parent="Discord/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="DownRight" type="TextureRect" parent="Discord/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="DownLeft" type="TextureRect" parent="Discord/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Discord/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 27 )
+anims/idle = SubResource( 28 )
+
+[node name="Shadow" type="TextureRect" parent="Discord"]
+modulate = Color( 0, 0, 0, 0.219608 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 5.0
+margin_right = -36.0
+margin_bottom = -31.0
+mouse_filter = 2
+texture = ExtResource( 16 )
+
+[node name="Youtube" type="TextureButton" parent="." groups=["Button"]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -107.0
+margin_top = 261.0
+margin_right = -45.0
+margin_bottom = 323.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbour_left = NodePath("../Notifications")
+focus_neighbour_top = NodePath("../CourseWorld")
+focus_neighbour_right = NodePath("../Controls")
+focus_neighbour_bottom = NodePath(".")
+texture_normal = ExtResource( 16 )
+stretch_mode = 3
+
+[node name="Icon" type="TextureRect" parent="Youtube"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -26.0
+margin_top = -27.0
+margin_right = 26.0
+margin_bottom = 25.0
+mouse_filter = 2
+texture = ExtResource( 31 )
+expand = true
+stretch_mode = 6
+
+[node name="Text" type="Label" parent="Youtube"]
+visible = false
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -308.0
+margin_top = -18.0
+margin_right = -62.0
+margin_bottom = 18.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "Crear un nivel"
+
+[node name="Selection" type="Control" parent="Youtube" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="Youtube/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="UpRight" type="TextureRect" parent="Youtube/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="DownRight" type="TextureRect" parent="Youtube/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="DownLeft" type="TextureRect" parent="Youtube/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Youtube/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 29 )
+anims/idle = SubResource( 30 )
+
+[node name="Shadow" type="TextureRect" parent="Youtube"]
 modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
 anchor_right = 1.0
@@ -2004,18 +2544,25 @@ volume_db = 15.0
 stream = ExtResource( 27 )
 volume_db = -5.0
 
+[node name="AudioPlayButton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 29 )
+volume_db = 15.0
+
 [connection signal="mouse_entered" from="Close" to="." method="_on_Close_mouse_entered"]
 [connection signal="mouse_exited" from="Close" to="." method="_on_Close_mouse_exited"]
 [connection signal="pressed" from="Close" to="." method="_on_Close_pressed"]
 [connection signal="mouse_entered" from="StoryMode" to="." method="_on_StoryMode_mouse_entered"]
 [connection signal="mouse_exited" from="StoryMode" to="." method="_on_StoryMode_mouse_exited"]
 [connection signal="pressed" from="StoryMode" to="." method="_on_StoryMode_pressed"]
-[connection signal="mouse_entered" from="Exit" to="." method="_on_Exit_mouse_entered"]
-[connection signal="mouse_exited" from="Exit" to="." method="_on_Exit_mouse_exited"]
-[connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
+[connection signal="mouse_entered" from="ManzftChallenge" to="." method="_on_ManzftChallenge_mouse_entered"]
+[connection signal="mouse_exited" from="ManzftChallenge" to="." method="_on_ManzftChallenge_mouse_exited"]
+[connection signal="pressed" from="ManzftChallenge" to="." method="_on_ManzftChallenge_pressed"]
 [connection signal="mouse_entered" from="CourseWorld" to="." method="_on_CourseWorld_mouse_entered"]
 [connection signal="mouse_exited" from="CourseWorld" to="." method="_on_CourseWorld_mouse_exited"]
 [connection signal="pressed" from="CourseWorld" to="." method="_on_CourseWorld_pressed"]
+[connection signal="mouse_entered" from="Exit" to="." method="_on_Exit_mouse_entered"]
+[connection signal="mouse_exited" from="Exit" to="." method="_on_Exit_mouse_exited"]
+[connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
 [connection signal="mouse_entered" from="CourseMaker" to="." method="_on_CourseMaker_mouse_entered"]
 [connection signal="mouse_exited" from="CourseMaker" to="." method="_on_CourseMaker_mouse_exited"]
 [connection signal="pressed" from="CourseMaker" to="." method="_on_CourseMaker_pressed"]
@@ -2034,6 +2581,12 @@ volume_db = -5.0
 [connection signal="mouse_entered" from="Settings" to="." method="_on_Settings_mouse_entered"]
 [connection signal="mouse_exited" from="Settings" to="." method="_on_Settings_mouse_exited"]
 [connection signal="pressed" from="Settings" to="." method="_on_Settings_pressed"]
+[connection signal="mouse_entered" from="Discord" to="." method="_on_Discord_mouse_entered"]
+[connection signal="mouse_exited" from="Discord" to="." method="_on_Discord_mouse_exited"]
+[connection signal="pressed" from="Discord" to="." method="_on_Discord_pressed"]
+[connection signal="mouse_entered" from="Youtube" to="." method="_on_Youtube_mouse_entered"]
+[connection signal="mouse_exited" from="Youtube" to="." method="_on_Youtube_mouse_exited"]
+[connection signal="pressed" from="Youtube" to="." method="_on_Youtube_pressed"]
 [connection signal="mouse_entered" from="Controls" to="." method="_on_Controls_mouse_entered"]
 [connection signal="mouse_exited" from="Controls" to="." method="_on_Controls_mouse_exited"]
 [connection signal="pressed" from="Controls" to="." method="_on_Controls_pressed"]

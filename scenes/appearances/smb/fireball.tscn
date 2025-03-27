@@ -121,7 +121,7 @@ tracks/0/keys = {
 radius = 15.0333
 
 [sub_resource type="CircleShape2D" id=13]
-radius = 16.1245
+radius = 20.0
 
 [node name="Fireball" type="KinematicBody2D"]
 z_index = 1
@@ -134,6 +134,7 @@ light_mask = 4
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 5 )
 animation = "right"
+frame = 2
 playing = true
 
 [node name="SpriteExplosion" type="AnimatedSprite" parent="."]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=343 format=2]
+[gd_scene load_steps=360 format=2]
 
 [ext_resource path="res://scripts/ui/startmenu/FPS.gd" type="Script" id=1]
 [ext_resource path="res://sprites/ui/editor/square_little_button.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://sprites/ui/editor/start_button_guide.png" type="Texture" id=9]
 [ext_resource path="res://sprites/ui/editor/menu_icon.png" type="Texture" id=10]
 [ext_resource path="res://sprites/ui/editor/guardabot_icon.png" type="Texture" id=11]
+[ext_resource path="res://fonts/seguihis.ttf" type="DynamicFontData" id=12]
 [ext_resource path="res://sounds/ui/button_start.ogg" type="AudioStream" id=13]
 [ext_resource path="res://sprites/ui/editor/circle_little_Button.png" type="Texture" id=14]
 [ext_resource path="res://sprites/ui/editor/eraser_icon.png" type="Texture" id=15]
@@ -144,6 +145,11 @@
 [ext_resource path="res://sprites/ui/new interface/editor/object_select_button.png" type="Texture" id=143]
 [ext_resource path="res://sprites/ui/new interface/editor/tab.png" type="Texture" id=144]
 [ext_resource path="res://sprites/ui/new interface/editor/panel_side_right.png" type="Texture" id=145]
+[ext_resource path="res://sprites/ui/loading.png" type="Texture" id=146]
+[ext_resource path="res://sprites/ui/editor/change_appeareance_icon.png" type="Texture" id=147]
+[ext_resource path="res://sprites/ui/controls/gamebutton.png" type="Texture" id=148]
+[ext_resource path="res://sprites/ui/controls/sprint_switch_symbol.png" type="Texture" id=149]
+[ext_resource path="res://sprites/ui/controls/gamebutton_activated.png" type="Texture" id=150]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -7930,6 +7936,200 @@ tracks/0/keys = {
 "values": [ Vector2( 16, 568 ), Vector2( -200, 568 ) ]
 }
 
+[sub_resource type="DynamicFont" id=285]
+size = 25
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 12 )
+
+[sub_resource type="Animation" id=286]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=287]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[sub_resource type="Animation" id=288]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=289]
+resource_name = "in"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=290]
+resource_name = "out"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=291]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=292]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[sub_resource type="Animation" id=293]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.66, 0.66 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=294]
+resource_name = "in"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.25, 0.25 ), Vector2( 0.66, 0.66 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=295]
+resource_name = "out"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0.66, 0.66 ), Vector2( 0.25, 0.25 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
 [node name="Editor" type="CanvasLayer" groups=["CurrentTree"]]
 pause_mode = 2
 script = ExtResource( 8 )
@@ -8118,10 +8318,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 1830.0
-margin_top = 1830.0
-margin_right = 1866.0
-margin_bottom = 1866.0
+margin_left = 1852.0
+margin_top = 1852.0
+margin_right = 1888.0
+margin_bottom = 1888.0
 texture = ExtResource( 36 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="GamepadCursor/SprintGuide"]
@@ -13686,7 +13886,6 @@ anims/idle = SubResource( 276 )
 [node name="ClockMan" type="AnimatedSprite" parent="TimeMenu/Buttons"]
 position = Vector2( 143, 174 )
 frames = SubResource( 253 )
-frame = 1
 speed_scale = 0.33
 playing = true
 
@@ -14301,10 +14500,10 @@ anims/idle = SubResource( 41 )
 [node name="MusicButton" type="TextureButton" parent="SectionLeft" groups=["Button"]]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 259.0
-margin_top = -104.0
-margin_right = 321.0
-margin_bottom = -42.0
+margin_left = 224.0
+margin_top = -137.0
+margin_right = 286.0
+margin_bottom = -75.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
@@ -14439,6 +14638,29 @@ margin_right = 112.0
 margin_bottom = -12.5
 rect_rotation = 90.0
 texture = ExtResource( 144 )
+
+[node name="SprintToggle" type="TextureButton" parent="SectionLeft"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -107.0
+margin_top = -138.0
+margin_right = 45.0
+margin_bottom = -10.0
+rect_scale = Vector2( 0.5, 0.5 )
+toggle_mode = true
+shortcut_in_tooltip = false
+texture_normal = ExtResource( 148 )
+texture_pressed = ExtResource( 150 )
+texture_disabled = ExtResource( 148 )
+expand = true
+stretch_mode = 5
+
+[node name="Sprite" type="Sprite" parent="SectionLeft/SprintToggle"]
+position = Vector2( 80, 66 )
+scale = Vector2( 0.75, 0.75 )
+texture = ExtResource( 149 )
 
 [node name="GamepadCursorDefaultPosition" type="Control" parent="."]
 anchor_left = 0.5
@@ -15472,6 +15694,176 @@ visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 
+[node name="AutoSavingTimer" type="Timer" parent="."]
+wait_time = 60.0
+autostart = true
+
+[node name="AutoSaving" type="Control" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -156.0
+margin_top = -129.0
+margin_right = -116.0
+margin_bottom = -89.0
+
+[node name="Label" type="Label" parent="AutoSaving"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -138.0
+margin_top = -27.0
+margin_right = 41.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 285 )
+text = "Guardando"
+align = 1
+valign = 1
+
+[node name="Node2D" type="Node2D" parent="AutoSaving"]
+position = Vector2( -113, 14 )
+scale = Vector2( 0.75, 0.75 )
+
+[node name="Sprite" type="Sprite" parent="AutoSaving/Node2D"]
+position = Vector2( 0, -16.0001 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 146 )
+
+[node name="Sprite9" type="Sprite" parent="AutoSaving/Node2D/Sprite"]
+self_modulate = Color( 0, 0, 0, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 146 )
+
+[node name="Sprite2" type="Sprite" parent="AutoSaving/Node2D"]
+position = Vector2( 16, 0 )
+rotation = 1.5708
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 146 )
+
+[node name="Sprite9" type="Sprite" parent="AutoSaving/Node2D/Sprite2"]
+self_modulate = Color( 0, 0, 0, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 146 )
+
+[node name="Sprite3" type="Sprite" parent="AutoSaving/Node2D"]
+position = Vector2( 0, 16 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 146 )
+
+[node name="Sprite9" type="Sprite" parent="AutoSaving/Node2D/Sprite3"]
+self_modulate = Color( 0, 0, 0, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 146 )
+
+[node name="Sprite4" type="Sprite" parent="AutoSaving/Node2D"]
+position = Vector2( -16, 0 )
+rotation = 1.5708
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 146 )
+
+[node name="Sprite9" type="Sprite" parent="AutoSaving/Node2D/Sprite4"]
+self_modulate = Color( 0, 0, 0, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 146 )
+
+[node name="Sprite5" type="Sprite" parent="AutoSaving/Node2D"]
+position = Vector2( -12, -12 )
+rotation = -0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 146 )
+
+[node name="Sprite9" type="Sprite" parent="AutoSaving/Node2D/Sprite5"]
+self_modulate = Color( 0, 0, 0, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 146 )
+
+[node name="Sprite6" type="Sprite" parent="AutoSaving/Node2D"]
+position = Vector2( 12, -12 )
+rotation = 0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 146 )
+
+[node name="Sprite9" type="Sprite" parent="AutoSaving/Node2D/Sprite6"]
+self_modulate = Color( 0, 0, 0, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 146 )
+
+[node name="Sprite7" type="Sprite" parent="AutoSaving/Node2D"]
+position = Vector2( 12, 12 )
+rotation = -0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 146 )
+
+[node name="Sprite9" type="Sprite" parent="AutoSaving/Node2D/Sprite7"]
+self_modulate = Color( 0, 0, 0, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 146 )
+
+[node name="Sprite8" type="Sprite" parent="AutoSaving/Node2D"]
+position = Vector2( -12, 12 )
+rotation = 0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 146 )
+
+[node name="Sprite9" type="Sprite" parent="AutoSaving/Node2D/Sprite8"]
+self_modulate = Color( 0, 0, 0, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 146 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AutoSaving/Node2D"]
+autoplay = "idle"
+playback_speed = 0.5
+anims/RESET = SubResource( 286 )
+anims/idle = SubResource( 287 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AutoSaving"]
+playback_speed = 3.0
+anims/RESET = SubResource( 288 )
+anims/in = SubResource( 289 )
+anims/out = SubResource( 290 )
+
+[node name="Screenshot" type="TextureRect" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+expand = true
+stretch_mode = 1
+flip_v = true
+
+[node name="AppeareanceChangeIcon" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+
+[node name="Sprite" type="Sprite" parent="AppeareanceChangeIcon"]
+scale = Vector2( 0.66, 0.66 )
+texture = ExtResource( 147 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AppeareanceChangeIcon/Sprite"]
+autoplay = "idle"
+playback_speed = 0.5
+anims/RESET = SubResource( 291 )
+anims/idle = SubResource( 292 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AppeareanceChangeIcon"]
+playback_speed = 5.0
+anims/RESET = SubResource( 293 )
+anims/in = SubResource( 294 )
+anims/out = SubResource( 295 )
+
 [connection signal="button_down" from="SeaLevelButton" to="." method="_on_SeaLevel_button_down"]
 [connection signal="button_up" from="SeaLevelButton" to="." method="_on_SeaLevel_button_up"]
 [connection signal="button_down" from="SeaLevelTopButton" to="." method="_on_SeaTopLevel_button_down"]
@@ -15653,6 +16045,7 @@ anchor_bottom = 1.0
 [connection signal="mouse_exited" from="SectionLeft/MusicButton" to="." method="_on_MusicButton_mouse_exited"]
 [connection signal="pressed" from="SectionLeft/MusicButton" to="." method="_on_MusicButton_pressed"]
 [connection signal="pressed" from="SectionLeft/CloseButtons" to="." method="_on_CloseButtons_pressed"]
+[connection signal="toggled" from="SectionLeft/SprintToggle" to="." method="_on_SprintToggle_toggled"]
 [connection signal="animation_finished" from="Reset/AnimationPlayer" to="." method="_on_ResetAnimationPlayer_animation_finished"]
 [connection signal="mouse_entered" from="CourseViewer/Start" to="." method="_on_StartCourseViewerButton_mouse_entered"]
 [connection signal="mouse_exited" from="CourseViewer/Start" to="." method="_on_StartCourseViewerButton_mouse_exited"]
@@ -15673,3 +16066,4 @@ anchor_bottom = 1.0
 [connection signal="pressed" from="Edit" to="." method="_on_Edit_pressed"]
 [connection signal="timeout" from="TypeMenuTimer" to="." method="_on_TypeMenuTimer_timeout"]
 [connection signal="timeout" from="CharTypeMenuTimer" to="." method="_on_CharTypeMenuTimer_timeout"]
+[connection signal="timeout" from="AutoSavingTimer" to="." method="_on_AutoSavingTimer_timeout"]

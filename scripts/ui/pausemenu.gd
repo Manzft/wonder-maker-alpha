@@ -62,10 +62,17 @@ func _ready():
 	$BaseContainer/AnimationPlayer.play("in");
 	$AudioPause.play();
 	
+	var user = Global.courseGetUser(Global.currentlevel);
+	
 	$Separator/Label2.text = Global.currentCourseName;
-	$Separator/Author.text = Global.courseGetUser(Global.currentlevel);
+	$Separator/Author.text = user;
 	
 	changeFocus();
+	
+	if (user != Global.USER_NAME):
+		$BaseContainer/Base/Reset.rect_position.y += 62;
+		$BaseContainer/Base/Exit.rect_position.y += 62;
+		$BaseContainer/Base/Edit.hide();
 
 func _process(_delta):
 	if (Input.is_action_just_pressed("start")):

@@ -83,7 +83,7 @@ func _on_Close_mouse_exited():
 func _on_StoryMode_pressed():
 	savedFocus = getFocusNode();
 	Global.showMessage("¡Aún estamos trabajando en esto!", get_parent(), self);
-	$AudioButton.play();
+	$AudioPlayButton.play();
 func _on_StoryMode_mouse_entered():
 	mouseFocus = "StoryMode"; button_mouse_entered(); changeFocus();
 func _on_StoryMode_mouse_exited():
@@ -100,7 +100,7 @@ func _on_Exit_mouse_exited():
 func _on_CourseWorld_pressed():
 	savedFocus = getFocusNode();
 	Global.showMessage("¡Aún estamos trabajando en esto!", get_parent(), self);
-	$AudioButton.play();
+	$AudioPlayButton.play();
 func _on_CourseWorld_mouse_entered():
 	mouseFocus = "CourseWorld"; button_mouse_entered(); changeFocus();
 func _on_CourseWorld_mouse_exited():
@@ -109,7 +109,7 @@ func _on_CourseWorld_mouse_exited():
 func _on_CourseMaker_pressed():
 	Global.currentlevel = "";
 	Global.changeScene("res://scenes/Level.tscn");
-	$AudioButton.play();
+	$AudioPlayButton.play();
 func _on_CourseMaker_mouse_entered():
 	mouseFocus = "CourseMaker"; button_mouse_entered(); changeFocus();
 func _on_CourseMaker_mouse_exited():
@@ -118,7 +118,7 @@ func _on_CourseMaker_mouse_exited():
 func _on_WorldMaker_pressed():
 	savedFocus = getFocusNode();
 	Global.showMessage("¡Aún estamos trabajando en esto!", get_parent(), self);
-	$AudioButton.play();
+	$AudioPlayButton.play();
 func _on_WorldMaker_mouse_entered():
 	mouseFocus = "WorldMaker"; button_mouse_entered(); changeFocus();
 func _on_WorldMaker_mouse_exited():
@@ -126,7 +126,7 @@ func _on_WorldMaker_mouse_exited():
 
 func _on_Coursebot_pressed():
 	Global.changeScene("res://scenes/ui/coursebot.tscn");
-	$AudioButton.play();
+	$AudioPlayButton.play();
 func _on_Coursebot_mouse_entered():
 	mouseFocus = "Coursebot"; button_mouse_entered(); changeFocus();
 func _on_Coursebot_mouse_exited():
@@ -135,7 +135,7 @@ func _on_Coursebot_mouse_exited():
 func _on_Worldbot_pressed():
 	savedFocus = getFocusNode();
 	Global.showMessage("¡Aún estamos trabajando en esto!", get_parent(), self);
-	$AudioButton.play();
+	$AudioPlayButton.play();
 func _on_Worldbot_mouse_entered():
 	mouseFocus = "Worldbot"; button_mouse_entered(); changeFocus();
 func _on_Worldbot_mouse_exited():
@@ -158,6 +158,15 @@ func _on_Settings_mouse_entered():
 	mouseFocus = "Settings"; button_mouse_entered(); changeFocus();
 func _on_Settings_mouse_exited():
 	button_mouse_exited(); mouseFocus = ""; changeFocus();
+	
+func _on_ManzftChallenge_pressed():
+	savedFocus = getFocusNode();
+	Global.showMessage("¡Aún estamos trabajando en esto!", get_parent(), self);
+	$AudioPlayButton.play();
+func _on_ManzftChallenge_mouse_entered():
+	mouseFocus = "ManzftChallenge"; button_mouse_entered(); changeFocus();
+func _on_ManzftChallenge_mouse_exited():
+	button_mouse_exited(); mouseFocus = ""; changeFocus();
 
 func _on_Controls_pressed():
 	savedFocus = getFocusNode();
@@ -168,3 +177,22 @@ func _on_Controls_mouse_entered():
 func _on_Controls_mouse_exited():
 	button_mouse_exited(); mouseFocus = ""; changeFocus();
 
+func _on_Discord_pressed():
+	savedFocus = getFocusNode();
+	Global.showMessage("Wonder Cave\nServidor de Discord Oficial del Fangame\n(Copiado al portapapeles)", get_parent(), self);
+	OS.set_clipboard("https://discord.gg/csGS3eKxvD");
+	$AudioButton.play();
+func _on_Discord_mouse_entered():
+	mouseFocus = "Discord"; button_mouse_entered(); changeFocus();
+func _on_Discord_mouse_exited():
+	button_mouse_exited(); mouseFocus = ""; changeFocus();
+
+func _on_Youtube_pressed():
+	savedFocus = getFocusNode();
+	Global.showMessage("@Manzft27\nCanal de YouTube del creador del Fangame\n(Copiado al portapapeles)", get_parent(), self);
+	OS.set_clipboard("https://youtube.com/@manzft27");
+	$AudioButton.play();
+func _on_Youtube_mouse_entered():
+	mouseFocus = "Youtube"; button_mouse_entered(); changeFocus();
+func _on_Youtube_mouse_exited():
+	button_mouse_exited(); mouseFocus = ""; changeFocus();

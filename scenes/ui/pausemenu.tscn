@@ -543,6 +543,7 @@ margin_left = -40.0
 margin_bottom = 40.0
 
 [node name="Base" type="TextureRect" parent="BaseContainer"]
+self_modulate = Color( 0.956863, 0.423529, 1, 1 )
 anchor_left = 1.0
 anchor_right = 1.0
 margin_right = 485.0

@@ -87,7 +87,8 @@ func _ready():
 	$ActionButtons/PlayButton/AnimationPlayer.play("RESET");
 	
 	yield(get_tree().create_timer(1.0), "timeout");
-	RichPresence.update_activity("MainMenu");
+	if (Global.DISCORD_PRESENCE):
+		RichPresence.update_activity("MainMenu");
 
 func _process(_delta):
 	match (CurrentMenu):
@@ -174,8 +175,22 @@ func _on_StartButton_mouse_exited():
 func _on_MakeButton_pressed():
 	getFocusNode().get_node("AnimationPlayer").play("start");
 	$AudioBigButton.play();
-	yield(get_tree().create_timer(0.5), "timeout");
-	Global.changeScene("res://scenes/Level.tscn");
+	yield(get_tree().create_timer(1.0), "timeout");
+	$AnimationPlayer.play("out");
+	#Global.changeScene("res://scenes/Level.tscn");
+	yield(get_tree().create_timer(1.0), "timeout");
+	get_node("../Level").startmenu = false;
+	get_node("../Level").editing = true;
+	Global.coursePlaying = false;
+	Global.toLoad = false;
+	get_node("../Level/Editor")._on_Edit_pressed();
+	get_node("../Level/Editor/UIBlocker").hide();
+	if (Global.DISCORD_PRESENCE):
+		RichPresence.update_activity("Editing");
+	yield(get_tree().create_timer(0.125), "timeout");
+	get_node("../Level/Editor").show();
+	get_node("../Level/Editor/SideMenu").show();
+	queue_free();
 func _on_MakeButton_mouse_entered():
 	mouseFocus = "ActionButtons/MakeButton"; button_mouse_entered(); changeFocus();
 func _on_MakeButton_mouse_exited():
@@ -212,7 +227,7 @@ func _on_PlayButton_mouse_exited():
 #Start Menu Play
 func _on_StoryMode_pressed():
 	savedFocus = getFocusNode();
-	Global.showMessage("¡Aún estamos trabajando en esto!", self);
+	Global.showMessage("¡Aún estamos trabajando en esto!", self, self);
 	$AudioPlayButton.play();
 func _on_StoryMode_mouse_entered():
 	mouseFocus = "PlayButtons/StoryMode"; button_mouse_entered(); changeFocus();
@@ -221,7 +236,7 @@ func _on_StoryMode_mouse_exited():
 
 func _on_CourseWorld_pressed():
 	savedFocus = getFocusNode();
-	Global.showMessage("¡Aún estamos trabajando en esto!", self);
+	Global.showMessage("¡Aún estamos trabajando en esto!", self, self);
 	$AudioPlayButton.play();
 func _on_CourseWorld_mouse_entered():
 	mouseFocus = "PlayButtons/CourseWorld"; button_mouse_entered(); changeFocus();
@@ -235,6 +250,15 @@ func _on_Coursebot_pressed():
 func _on_Coursebot_mouse_entered():
 	mouseFocus = "PlayButtons/Coursebot"; button_mouse_entered(); changeFocus();
 func _on_Coursebot_mouse_exited():
+	button_mouse_exited(); mouseFocus = ""; changeFocus();
+
+func _on_ManzftChallenge_pressed():
+	savedFocus = getFocusNode();
+	Global.showMessage("¡Aún estamos trabajando en esto!", self, self);
+	$AudioPlayButton.play();
+func _on_ManzftChallenge_mouse_entered():
+	mouseFocus = "PlayButtons/ManzftChallenge"; button_mouse_entered(); changeFocus();
+func _on_ManzftChallenge_mouse_exited():
 	button_mouse_exited(); mouseFocus = ""; changeFocus();
 
 func _on_BackButton2_pressed():

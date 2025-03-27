@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/developer_image.png-995facd906d6594a8f2d962a10eb94c1.stex"
+path="res://.import/manzftchallenge.png-3fe49924cfb5a6102c474b3a8684f64e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/ui/developer_image.png"
-dest_files=[ "res://.import/developer_image.png-995facd906d6594a8f2d962a10eb94c1.stex" ]
+source_file="res://sprites/ui/startmenu/manzftchallenge.png"
+dest_files=[ "res://.import/manzftchallenge.png-3fe49924cfb5a6102c474b3a8684f64e.stex" ]
 
 [params]
 

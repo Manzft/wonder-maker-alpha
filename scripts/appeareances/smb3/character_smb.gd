@@ -255,18 +255,18 @@ func _physics_process(delta):
 			else:
 				if (currentPowerup == "small" || motion.y <= 0):
 					if (current_sprite.animation != currentPowerup+"_jump"):
-						if  (falling || jumping):
+						if (falling || jumping):
 							if (!sneaking):
 								current_sprite.play(currentPowerup+"_jump");
 							else:
 								pass
 				else:
 					if (current_sprite.animation != currentPowerup+"_fall"):
-						if  (falling || jumping):
-							if (!sneaking):
-								current_sprite.play(currentPowerup+"_fall");
-							else:
-								pass
+						if (!sneaking):
+							current_sprite.play(currentPowerup+"_fall");
+						else:
+							pass
+				print("currentPowerup: ", currentPowerup, " | motion.y: ", motion.y);
 				
 			if (!koyoteFalling && motion.y >= 0 && !startedJumping):
 				koyoteTime = true;
@@ -545,6 +545,8 @@ func die():
 	currentRTFLevel = 0;
 	if ($SoundReadytofly.playing):
 		$SoundReadytofly.stop();
+	if ($SoundDrift.playing):
+		$SoundDrift.stop();
 	
 	$SoundDead.play();
 	
@@ -741,6 +743,8 @@ func _on_ChangingPowerup_timeout():
 	if (sneaking):
 		releaseSneak();
 	
+	falling = false;
+	jumping = true;
 	currentPowerup = currentChangingPowerup;
 	if (currentPowerup == "small"):
 		current_sprite.offset.y = 0;

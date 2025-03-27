@@ -226,7 +226,7 @@ text = "A_N"
 align = 2
 
 [node name="Icon" type="TextureRect" parent="Titlebar/AuthorName"]
-modulate = Color( 0.509804, 0.509804, 0.509804, 1 )
+modulate = Color( 0.235294, 0.235294, 0.235294, 1 )
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = -22.0

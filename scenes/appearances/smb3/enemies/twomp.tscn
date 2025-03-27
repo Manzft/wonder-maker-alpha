@@ -176,111 +176,6 @@ anims/RESET = SubResource( 19 )
 anims/draging = SubResource( 20 )
 anims/start = SubResource( 21 )
 
-[node name="RayCast" type="RayCast2D" parent="."]
-position = Vector2( -6, 83 )
-enabled = true
-cast_to = Vector2( 0, 5 )
-collision_mask = 3
-collide_with_areas = true
-
-[node name="RayCast2" type="RayCast2D" parent="."]
-position = Vector2( 58, 83 )
-enabled = true
-cast_to = Vector2( 0, 5 )
-collision_mask = 3
-collide_with_areas = true
-
-[node name="RayCast3" type="RayCast2D" parent="."]
-position = Vector2( 42, 83 )
-enabled = true
-cast_to = Vector2( 0, 5 )
-collision_mask = 3
-collide_with_areas = true
-
-[node name="RayCast4" type="RayCast2D" parent="."]
-position = Vector2( 10, 83 )
-enabled = true
-cast_to = Vector2( 0, 5 )
-collision_mask = 3
-collide_with_areas = true
-
-[node name="RayCast5" type="RayCast2D" parent="."]
-position = Vector2( 26, 83 )
-enabled = true
-cast_to = Vector2( 0, 5 )
-collision_mask = 3
-collide_with_areas = true
-
-[node name="RayCast6" type="RayCast2D" parent="."]
-position = Vector2( -20, -15 )
-enabled = true
-cast_to = Vector2( -5, 0 )
-collision_mask = 3
-collide_with_areas = true
-
-[node name="RayCast7" type="RayCast2D" parent="."]
-position = Vector2( -20, 5 )
-enabled = true
-cast_to = Vector2( -5, 0 )
-collision_mask = 3
-collide_with_areas = true
-
-[node name="RayCast8" type="RayCast2D" parent="."]
-position = Vector2( -20, 25 )
-enabled = true
-cast_to = Vector2( -5, 0 )
-collision_mask = 3
-collide_with_areas = true
-
-[node name="RayCast9" type="RayCast2D" parent="."]
-position = Vector2( -20, 45 )
-enabled = true
-cast_to = Vector2( -5, 0 )
-collision_mask = 3
-collide_with_areas = true
-
-[node name="RayCast10" type="RayCast2D" parent="."]
-position = Vector2( -20, 65 )
-enabled = true
-cast_to = Vector2( -5, 0 )
-collision_mask = 3
-collide_with_areas = true
-
-[node name="RayCast11" type="RayCast2D" parent="."]
-position = Vector2( 73, -15 )
-enabled = true
-cast_to = Vector2( 5, 0 )
-collision_mask = 3
-collide_with_areas = true
-
-[node name="RayCast12" type="RayCast2D" parent="."]
-position = Vector2( 73, 5 )
-enabled = true
-cast_to = Vector2( 5, 0 )
-collision_mask = 3
-collide_with_areas = true
-
-[node name="RayCast13" type="RayCast2D" parent="."]
-position = Vector2( 73, 25 )
-enabled = true
-cast_to = Vector2( 5, 0 )
-collision_mask = 3
-collide_with_areas = true
-
-[node name="RayCast14" type="RayCast2D" parent="."]
-position = Vector2( 73, 45 )
-enabled = true
-cast_to = Vector2( 5, 0 )
-collision_mask = 3
-collide_with_areas = true
-
-[node name="RayCast15" type="RayCast2D" parent="."]
-position = Vector2( 73, 65 )
-enabled = true
-cast_to = Vector2( 5, 0 )
-collision_mask = 3
-collide_with_areas = true
-
 [node name="DeadTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
@@ -395,6 +290,27 @@ texture = ExtResource( 7 )
 [node name="AudioGrabMove" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
 volume_db = 5.0
+
+[node name="RayCast" type="RayCast2D" parent="."]
+position = Vector2( -15, 83 )
+enabled = true
+cast_to = Vector2( 82, 0 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast2" type="RayCast2D" parent="."]
+position = Vector2( -20, -28 )
+enabled = true
+cast_to = Vector2( 0, 106 )
+collision_mask = 3
+collide_with_areas = true
+
+[node name="RayCast3" type="RayCast2D" parent="."]
+position = Vector2( 72, -28 )
+enabled = true
+cast_to = Vector2( 0, 106 )
+collision_mask = 3
+collide_with_areas = true
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_Area2D_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]

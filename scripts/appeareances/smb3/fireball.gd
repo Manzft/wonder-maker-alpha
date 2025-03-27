@@ -74,7 +74,7 @@ func _ready():
 			$Sprite.play("left");
 	
 	if (!nogravity):
-		max_speed += abs(get_node("../Character").motion.x);
+		max_speed += (get_node("../Character").motion.x/(Global.ENTITY_PHYSICS_SPEED*0.01))/2;
 	
 	if (nogravity):
 		match (vdirection):

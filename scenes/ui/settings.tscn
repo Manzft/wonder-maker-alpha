@@ -1,0 +1,1724 @@
+[gd_scene load_steps=53 format=2]
+
+[ext_resource path="res://fonts/NINTENDOSWITCHUI.TTF" type="DynamicFontData" id=1]
+[ext_resource path="res://sprites/ui/settings/settings_bg.png" type="Texture" id=2]
+[ext_resource path="res://scripts/ui/general/settings.gd" type="Script" id=3]
+[ext_resource path="res://sprites/ui/general/button.png" type="Texture" id=4]
+[ext_resource path="res://sounds/ui/button.wav" type="AudioStream" id=5]
+[ext_resource path="res://sounds/ui/select_button.wav" type="AudioStream" id=6]
+[ext_resource path="res://sprites/ui/settings/check.png" type="Texture" id=7]
+[ext_resource path="res://sprites/64x64.png" type="Texture" id=8]
+[ext_resource path="res://sprites/ui/startmenu/selection_corner.png" type="Texture" id=9]
+[ext_resource path="res://sprites/ui/settings/x.png" type="Texture" id=10]
+[ext_resource path="res://sprites/ui/settings/vsync_icon.png" type="Texture" id=11]
+[ext_resource path="res://sprites/ui/settings/fps_icon.png" type="Texture" id=12]
+[ext_resource path="res://sprites/ui/settings/force_169.png" type="Texture" id=13]
+[ext_resource path="res://sprites/ui/settings/showpausebutton.png" type="Texture" id=14]
+[ext_resource path="res://sprites/ui/settings/savechanges.png" type="Texture" id=15]
+[ext_resource path="res://sprites/ui/settings/nine_patch.png" type="Texture" id=16]
+[ext_resource path="res://sprites/ui/settings/scroll_bar_pressed.png" type="Texture" id=17]
+[ext_resource path="res://sprites/ui/settings/scroll.png" type="Texture" id=18]
+[ext_resource path="res://sprites/ui/settings/scroll_bar.png" type="Texture" id=19]
+[ext_resource path="res://sprites/ui/settings/scroll_bg.png" type="Texture" id=20]
+[ext_resource path="res://fonts/smm2_font.otf" type="DynamicFontData" id=21]
+[ext_resource path="res://sprites/ui/settings/autosave.png" type="Texture" id=22]
+[ext_resource path="res://sprites/ui/settings/snowparticles.png" type="Texture" id=23]
+[ext_resource path="res://sounds/ui/keyboard/key.wav" type="AudioStream" id=24]
+[ext_resource path="res://sprites/ui/settings/check_big.png" type="Texture" id=25]
+[ext_resource path="res://sprites/ui/settings/physicsinterpolation.png" type="Texture" id=26]
+
+[sub_resource type="DynamicFont" id=6]
+size = 35
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=16]
+size = 25
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 213, 49 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 213, 49 ), Vector2( 223, 59 ), Vector2( 213, 49 ) ]
+}
+
+[sub_resource type="DynamicFont" id=7]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=8]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 300, 50 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 300, 50 ), Vector2( 310, 60 ), Vector2( 300, 50 ) ]
+}
+
+[sub_resource type="Animation" id=17]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 300, 50 ) ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 300, 50 ), Vector2( 310, 60 ), Vector2( 300, 50 ) ]
+}
+
+[sub_resource type="Animation" id=19]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 300, 50 ) ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 300, 50 ), Vector2( 310, 60 ), Vector2( 300, 50 ) ]
+}
+
+[sub_resource type="Animation" id=21]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 300, 50 ) ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 300, 50 ), Vector2( 310, 60 ), Vector2( 300, 50 ) ]
+}
+
+[sub_resource type="Animation" id=28]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 300, 50 ) ]
+}
+
+[sub_resource type="Animation" id=29]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 300, 50 ), Vector2( 310, 60 ), Vector2( 300, 50 ) ]
+}
+
+[sub_resource type="Animation" id=30]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 300, 50 ) ]
+}
+
+[sub_resource type="Animation" id=31]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 300, 50 ), Vector2( 310, 60 ), Vector2( 300, 50 ) ]
+}
+
+[sub_resource type="Animation" id=32]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 300, 50 ) ]
+}
+
+[sub_resource type="Animation" id=33]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 300, 50 ), Vector2( 310, 60 ), Vector2( 300, 50 ) ]
+}
+
+[sub_resource type="StyleBoxTexture" id=23]
+texture = ExtResource( 18 )
+region_rect = Rect2( 0, 0, 100, 13 )
+margin_left = 7.79911
+margin_right = 5.59268
+margin_top = 5.36155
+margin_bottom = 5.36155
+
+[sub_resource type="StyleBoxTexture" id=24]
+texture = ExtResource( 18 )
+region_rect = Rect2( 0, 0, 100, 13 )
+margin_left = 6.71605
+margin_right = 5.92593
+margin_top = 4.93827
+margin_bottom = 5.92593
+
+[sub_resource type="StyleBoxTexture" id=25]
+content_margin_right = 90.0
+texture = ExtResource( 20 )
+region_rect = Rect2( 0, 0, 100, 13 )
+margin_left = 8.0
+margin_right = 11.0
+margin_top = 5.1358
+margin_bottom = 4.93827
+
+[sub_resource type="Theme" id=26]
+HSlider/icons/grabber = ExtResource( 19 )
+HSlider/icons/grabber_highlight = ExtResource( 17 )
+HSlider/styles/grabber_area = SubResource( 23 )
+HSlider/styles/grabber_area_highlight = SubResource( 24 )
+HSlider/styles/slider = SubResource( 25 )
+
+[sub_resource type="DynamicFont" id=27]
+size = 25
+font_data = ExtResource( 21 )
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "in"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="Settings" type="TextureRect" groups=["CurrentTree"]]
+modulate = Color( 1, 1, 1, 0 )
+self_modulate = Color( 1, 1, 1, 0.815686 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -378.5
+margin_top = -295.0
+margin_right = 378.5
+margin_bottom = 295.0
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color( 0, 0, 0, 0.215686 )
+show_behind_parent = true
+margin_left = -4110.0
+margin_top = -2418.0
+margin_right = 5285.0
+margin_bottom = 3167.0
+focus_mode = 2
+texture = ExtResource( 8 )
+expand = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Title" type="Label" parent="."]
+margin_left = 20.0
+margin_top = 16.0
+margin_right = 739.0
+margin_bottom = 63.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 6 )
+text = "Ajustes"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="OkButton" type="TextureButton" parent="." groups=["Button"]]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -106.5
+margin_top = -65.0
+margin_right = 106.5
+margin_bottom = -16.0
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath(".")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+texture_normal = ExtResource( 15 )
+texture_disabled = ExtResource( 4 )
+stretch_mode = 3
+
+[node name="Text" type="Label" parent="OkButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -89.5
+margin_top = -15.5
+margin_right = 89.5
+margin_bottom = 15.5
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 16 )
+text = "Listo"
+align = 1
+valign = 1
+
+[node name="Shadow" type="TextureRect" parent="OkButton"]
+modulate = Color( 0, 0, 0, 0.294118 )
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -106.5
+margin_top = -21.5
+margin_right = 106.5
+margin_bottom = 28.5
+texture = ExtResource( 15 )
+
+[node name="Selection" type="Control" parent="OkButton" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="OkButton/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="UpRight" type="TextureRect" parent="OkButton/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownRight" type="TextureRect" parent="OkButton/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownLeft" type="TextureRect" parent="OkButton/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="OkButton/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 4 )
+anims/idle = SubResource( 5 )
+
+[node name="VSync" type="TextureButton" parent="." groups=["Button"]]
+margin_left = 36.0
+margin_top = 91.0
+margin_right = 336.0
+margin_bottom = 141.0
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath(".")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+texture_normal = ExtResource( 7 )
+texture_disabled = ExtResource( 4 )
+expand = true
+stretch_mode = 3
+
+[node name="Text" type="Label" parent="VSync"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -68.0
+margin_top = -15.5
+margin_right = 149.0
+margin_bottom = 15.5
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "VSync"
+align = 1
+valign = 1
+
+[node name="StateIcon" type="TextureRect" parent="VSync"]
+margin_left = 17.0
+margin_top = 14.0
+margin_right = 39.0
+margin_bottom = 35.0
+texture = ExtResource( 10 )
+
+[node name="Icon" type="TextureRect" parent="VSync"]
+modulate = Color( 0.215686, 0.215686, 0.215686, 1 )
+margin_left = 65.5
+margin_top = 10.0
+margin_right = 95.5
+margin_bottom = 40.0
+texture = ExtResource( 11 )
+expand = true
+stretch_mode = 6
+
+[node name="Shadow" type="TextureRect" parent="VSync"]
+modulate = Color( 0, 0, 0, 0.294118 )
+show_behind_parent = true
+margin_top = 3.0
+margin_right = 300.0
+margin_bottom = 53.0
+texture = ExtResource( 7 )
+
+[node name="Selection" type="Control" parent="VSync" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="VSync/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="UpRight" type="TextureRect" parent="VSync/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownRight" type="TextureRect" parent="VSync/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownLeft" type="TextureRect" parent="VSync/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VSync/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 8 )
+anims/idle = SubResource( 9 )
+
+[node name="Force169" type="TextureButton" parent="." groups=["Button"]]
+margin_left = 36.0
+margin_top = 160.0
+margin_right = 336.0
+margin_bottom = 210.0
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath(".")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+texture_normal = ExtResource( 7 )
+texture_disabled = ExtResource( 4 )
+expand = true
+stretch_mode = 3
+
+[node name="Text" type="Label" parent="Force169"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -68.0
+margin_top = -15.5
+margin_right = 149.0
+margin_bottom = 15.5
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "Forzar 16:9"
+align = 1
+valign = 1
+
+[node name="StateIcon" type="TextureRect" parent="Force169"]
+margin_left = 17.0
+margin_top = 14.0
+margin_right = 39.0
+margin_bottom = 35.0
+texture = ExtResource( 10 )
+
+[node name="Icon" type="TextureRect" parent="Force169"]
+modulate = Color( 0.215686, 0.215686, 0.215686, 1 )
+margin_left = 65.5
+margin_top = 10.0
+margin_right = 95.5
+margin_bottom = 40.0
+texture = ExtResource( 13 )
+expand = true
+stretch_mode = 6
+
+[node name="Shadow" type="TextureRect" parent="Force169"]
+modulate = Color( 0, 0, 0, 0.294118 )
+show_behind_parent = true
+margin_top = 3.0
+margin_right = 300.0
+margin_bottom = 53.0
+texture = ExtResource( 7 )
+
+[node name="Selection" type="Control" parent="Force169" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="Force169/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="UpRight" type="TextureRect" parent="Force169/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownRight" type="TextureRect" parent="Force169/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownLeft" type="TextureRect" parent="Force169/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Force169/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 17 )
+anims/idle = SubResource( 18 )
+
+[node name="ShowPauseButton" type="TextureButton" parent="." groups=["Button"]]
+margin_left = 421.5
+margin_top = 160.0
+margin_right = 721.5
+margin_bottom = 210.0
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath(".")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+texture_normal = ExtResource( 7 )
+texture_disabled = ExtResource( 4 )
+expand = true
+stretch_mode = 3
+
+[node name="Text" type="Label" parent="ShowPauseButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -68.0
+margin_top = -15.5
+margin_right = 149.0
+margin_bottom = 15.5
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "Botón de Pausa"
+align = 1
+valign = 1
+
+[node name="StateIcon" type="TextureRect" parent="ShowPauseButton"]
+margin_left = 17.0
+margin_top = 14.0
+margin_right = 39.0
+margin_bottom = 35.0
+texture = ExtResource( 10 )
+
+[node name="Icon" type="TextureRect" parent="ShowPauseButton"]
+modulate = Color( 0.215686, 0.215686, 0.215686, 1 )
+margin_left = 65.5
+margin_top = 10.0
+margin_right = 95.5
+margin_bottom = 40.0
+texture = ExtResource( 14 )
+expand = true
+stretch_mode = 6
+
+[node name="Shadow" type="TextureRect" parent="ShowPauseButton"]
+modulate = Color( 0, 0, 0, 0.294118 )
+show_behind_parent = true
+margin_top = 3.0
+margin_right = 300.0
+margin_bottom = 53.0
+texture = ExtResource( 7 )
+
+[node name="Selection" type="Control" parent="ShowPauseButton" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="ShowPauseButton/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="UpRight" type="TextureRect" parent="ShowPauseButton/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownRight" type="TextureRect" parent="ShowPauseButton/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownLeft" type="TextureRect" parent="ShowPauseButton/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ShowPauseButton/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 19 )
+anims/idle = SubResource( 20 )
+
+[node name="ShowFPS" type="TextureButton" parent="." groups=["Button"]]
+margin_left = 422.0
+margin_top = 91.0
+margin_right = 722.0
+margin_bottom = 141.0
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath(".")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+texture_normal = ExtResource( 7 )
+texture_disabled = ExtResource( 4 )
+expand = true
+stretch_mode = 3
+
+[node name="Text" type="Label" parent="ShowFPS"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -68.0
+margin_top = -15.5
+margin_right = 149.0
+margin_bottom = 15.5
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "Mostrar FPS"
+align = 1
+valign = 1
+
+[node name="StateIcon" type="TextureRect" parent="ShowFPS"]
+margin_left = 17.0
+margin_top = 14.0
+margin_right = 39.0
+margin_bottom = 35.0
+texture = ExtResource( 10 )
+
+[node name="Icon" type="TextureRect" parent="ShowFPS"]
+modulate = Color( 0.215686, 0.215686, 0.215686, 1 )
+margin_left = 65.5
+margin_top = 10.0
+margin_right = 95.5
+margin_bottom = 40.0
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 6
+
+[node name="Shadow" type="TextureRect" parent="ShowFPS"]
+modulate = Color( 0, 0, 0, 0.294118 )
+show_behind_parent = true
+margin_top = 3.0
+margin_right = 300.0
+margin_bottom = 53.0
+texture = ExtResource( 7 )
+
+[node name="Selection" type="Control" parent="ShowFPS" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="ShowFPS/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="UpRight" type="TextureRect" parent="ShowFPS/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownRight" type="TextureRect" parent="ShowFPS/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownLeft" type="TextureRect" parent="ShowFPS/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ShowFPS/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 21 )
+anims/idle = SubResource( 22 )
+
+[node name="AutoSaving" type="TextureButton" parent="." groups=["Button"]]
+margin_left = 36.0
+margin_top = 230.0
+margin_right = 336.0
+margin_bottom = 280.0
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath(".")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+texture_normal = ExtResource( 7 )
+texture_disabled = ExtResource( 4 )
+expand = true
+stretch_mode = 3
+
+[node name="Text" type="Label" parent="AutoSaving"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -61.0
+margin_top = -15.5
+margin_right = 156.0
+margin_bottom = 15.5
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "Auto-Guardado"
+align = 1
+valign = 1
+
+[node name="StateIcon" type="TextureRect" parent="AutoSaving"]
+margin_left = 17.0
+margin_top = 14.0
+margin_right = 39.0
+margin_bottom = 35.0
+texture = ExtResource( 10 )
+
+[node name="Icon" type="TextureRect" parent="AutoSaving"]
+modulate = Color( 0.215686, 0.215686, 0.215686, 1 )
+margin_left = 66.0
+margin_top = 10.0
+margin_right = 97.0
+margin_bottom = 40.0
+texture = ExtResource( 22 )
+expand = true
+stretch_mode = 6
+
+[node name="Shadow" type="TextureRect" parent="AutoSaving"]
+modulate = Color( 0, 0, 0, 0.294118 )
+show_behind_parent = true
+margin_top = 3.0
+margin_right = 300.0
+margin_bottom = 53.0
+texture = ExtResource( 7 )
+
+[node name="Selection" type="Control" parent="AutoSaving" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="AutoSaving/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="UpRight" type="TextureRect" parent="AutoSaving/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownRight" type="TextureRect" parent="AutoSaving/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownLeft" type="TextureRect" parent="AutoSaving/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AutoSaving/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 28 )
+anims/idle = SubResource( 29 )
+
+[node name="SnowParticles" type="TextureButton" parent="." groups=["Button"]]
+margin_left = 423.5
+margin_top = 230.0
+margin_right = 723.5
+margin_bottom = 280.0
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath(".")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+texture_normal = ExtResource( 7 )
+texture_disabled = ExtResource( 4 )
+expand = true
+stretch_mode = 3
+
+[node name="Text" type="Label" parent="SnowParticles"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -76.0
+margin_top = -15.5
+margin_right = 141.0
+margin_bottom = 15.5
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "Nieve"
+align = 1
+valign = 1
+
+[node name="StateIcon" type="TextureRect" parent="SnowParticles"]
+margin_left = 17.0
+margin_top = 14.0
+margin_right = 39.0
+margin_bottom = 35.0
+texture = ExtResource( 10 )
+
+[node name="Icon" type="TextureRect" parent="SnowParticles"]
+modulate = Color( 0.215686, 0.215686, 0.215686, 1 )
+margin_left = 64.0
+margin_top = 10.0
+margin_right = 95.0
+margin_bottom = 40.0
+texture = ExtResource( 23 )
+expand = true
+stretch_mode = 6
+
+[node name="Shadow" type="TextureRect" parent="SnowParticles"]
+modulate = Color( 0, 0, 0, 0.294118 )
+show_behind_parent = true
+margin_top = 3.0
+margin_right = 300.0
+margin_bottom = 53.0
+texture = ExtResource( 7 )
+
+[node name="Selection" type="Control" parent="SnowParticles" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="SnowParticles/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="UpRight" type="TextureRect" parent="SnowParticles/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownRight" type="TextureRect" parent="SnowParticles/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownLeft" type="TextureRect" parent="SnowParticles/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SnowParticles/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 30 )
+anims/idle = SubResource( 31 )
+
+[node name="PhysicsInterpolation" type="TextureButton" parent="." groups=["Button"]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -150.0
+margin_top = 5.0
+margin_right = 150.0
+margin_bottom = 55.0
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath(".")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+texture_normal = ExtResource( 25 )
+texture_disabled = ExtResource( 4 )
+expand = true
+stretch_mode = 3
+
+[node name="Text" type="Label" parent="PhysicsInterpolation"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -82.0
+margin_top = -15.5
+margin_right = 152.0
+margin_bottom = 15.5
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "Interpolación de Físicas"
+align = 1
+valign = 1
+
+[node name="StateIcon" type="TextureRect" parent="PhysicsInterpolation"]
+margin_left = -57.0
+margin_top = 14.0
+margin_right = -35.0
+margin_bottom = 35.0
+texture = ExtResource( 10 )
+
+[node name="Icon" type="TextureRect" parent="PhysicsInterpolation"]
+modulate = Color( 0.215686, 0.215686, 0.215686, 1 )
+margin_left = -13.0
+margin_top = 10.0
+margin_right = 18.0
+margin_bottom = 40.0
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+
+[node name="Shadow" type="TextureRect" parent="PhysicsInterpolation"]
+modulate = Color( 0, 0, 0, 0.294118 )
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -225.0
+margin_top = -22.0
+margin_right = 225.0
+margin_bottom = 28.0
+texture = ExtResource( 25 )
+
+[node name="Selection" type="Control" parent="PhysicsInterpolation" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="PhysicsInterpolation/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="UpRight" type="TextureRect" parent="PhysicsInterpolation/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownRight" type="TextureRect" parent="PhysicsInterpolation/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownLeft" type="TextureRect" parent="PhysicsInterpolation/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PhysicsInterpolation/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 32 )
+anims/idle = SubResource( 33 )
+
+[node name="ControlsTransparency" type="NinePatchRect" parent="."]
+margin_left = 37.0
+margin_top = 371.0
+margin_right = 337.0
+margin_bottom = 503.0
+texture = ExtResource( 16 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 9
+
+[node name="Text" type="Label" parent="ControlsTransparency"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -111.0
+margin_top = 14.0
+margin_right = 111.0
+margin_bottom = 59.0
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "Transparencia de los Controles Táctiles"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="HSlider" type="HSlider" parent="ControlsTransparency"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -104.5
+margin_top = 2.0
+margin_right = 104.5
+margin_bottom = 34.0
+focus_mode = 0
+theme = SubResource( 26 )
+step = 5.0
+
+[node name="Text" type="Label" parent="ControlsTransparency/HSlider"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -29.0
+margin_top = -5.0
+margin_right = 29.0
+margin_bottom = 24.0
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 27 )
+text = "100%"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Shadow" type="NinePatchRect" parent="ControlsTransparency"]
+modulate = Color( 0, 0, 0, 0.294118 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 3.0
+margin_bottom = 3.0
+texture = ExtResource( 16 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 9
+
+[node name="PhysicsSpeed" type="NinePatchRect" parent="."]
+margin_left = 419.5
+margin_top = 371.0
+margin_right = 719.5
+margin_bottom = 503.0
+texture = ExtResource( 16 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 9
+
+[node name="Text" type="Label" parent="PhysicsSpeed"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -111.0
+margin_top = 14.0
+margin_right = 111.0
+margin_bottom = 59.0
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 7 )
+text = "Velocidad de las Físicas"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="HSlider" type="HSlider" parent="PhysicsSpeed"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -104.5
+margin_top = 2.0
+margin_right = 104.5
+margin_bottom = 34.0
+focus_mode = 0
+theme = SubResource( 26 )
+step = 5.0
+
+[node name="Text" type="Label" parent="PhysicsSpeed/HSlider"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -29.0
+margin_top = -5.0
+margin_right = 29.0
+margin_bottom = 24.0
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 27 )
+text = "100%"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Shadow" type="NinePatchRect" parent="PhysicsSpeed"]
+modulate = Color( 0, 0, 0, 0.294118 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 3.0
+margin_bottom = 3.0
+texture = ExtResource( 16 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 9
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 2.0
+anims/RESET = SubResource( 3 )
+anims/in = SubResource( 2 )
+
+[node name="AudioSelectButton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = 15.0
+
+[node name="AudioButton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = 15.0
+
+[node name="AudioKey" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 24 )
+
+[connection signal="mouse_entered" from="OkButton" to="." method="_on_OkButton_mouse_entered"]
+[connection signal="mouse_exited" from="OkButton" to="." method="_on_OkButton_mouse_exited"]
+[connection signal="pressed" from="OkButton" to="." method="_on_OkButton_pressed"]
+[connection signal="mouse_entered" from="VSync" to="." method="_on_VSync_mouse_entered"]
+[connection signal="mouse_exited" from="VSync" to="." method="_on_VSync_mouse_exited"]
+[connection signal="pressed" from="VSync" to="." method="_on_VSync_pressed"]
+[connection signal="value_changed" from="ControlsTransparency/HSlider" to="." method="_on_HSlider_value_changed"]
+[connection signal="value_changed" from="PhysicsSpeed/HSlider" to="." method="_on_HSlider_value_changed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

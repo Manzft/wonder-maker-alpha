@@ -94,6 +94,7 @@ volume_db = 15.0
 
 [node name="Pause" type="TextureButton" parent="." groups=["Button"]]
 visible = false
+self_modulate = Color( 0.996078, 1, 0.466667, 1 )
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -31.0

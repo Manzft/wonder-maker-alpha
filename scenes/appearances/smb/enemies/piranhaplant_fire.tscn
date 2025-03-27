@@ -136,7 +136,6 @@ position = Vector2( 0, -12.5 )
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 17 )
 animation = "up"
-frame = 1
 playing = true
 
 [node name="Area2D" type="Area2D" parent="."]
@@ -198,4 +197,3 @@ angle_curve = SubResource( 12 )
 [connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
 [connection signal="body_entered" from="Area2D2" to="." method="_on_Area2D2_body_entered"]
 [connection signal="timeout" from="DeadTimer" to="." method="_on_DeadTimer_timeout"]
-[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

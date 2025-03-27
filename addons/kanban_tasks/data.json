@@ -48,85 +48,96 @@
     {
       "title": "Todo",
       "tasks": [
-        3,
         4,
         7,
-        9,
-        1,
-        5,
-        8,
-        13,
-        14,
-        10,
-        11,
-        12,
-        15
+        60,
+        59,
+        17,
+        63
       ]
     },
     {
       "title": "Doing",
       "tasks": [
-        47,
-        48,
-        49,
-        50
+        48
       ]
     },
     {
       "title": "Done",
       "tasks": [
-        52,
-        46,
+        61,
+        47,
+        49,
+        1,
+        8,
         51,
-        53,
-        43,
+        45,
+        50,
+        42,
         6,
-        27,
+        26,
         2,
         0,
-        21,
         20,
-        28,
-        19
+        19,
+        27,
+        18
       ]
     },
     {
       "title": "Maybe",
       "tasks": [
-        24,
-        18,
-        17,
-        16
+        3,
+        23,
+        5,
+        9,
+        10,
+        11,
+        14,
+        12,
+        13,
+        16,
+        15,
+        46
       ]
     },
     {
       "title": "Bugs",
       "tasks": [
-        45
+
       ]
     },
     {
       "title": "Bugs Fixed",
       "tasks": [
+        62,
+        58,
+        55,
+        57,
+        56,
+        54,
+        53,
+        52,
         44,
-        41,
+        43,
         40,
-        42,
         39,
+        41,
         38,
         37,
-        35,
-        25,
-        23,
-        22,
-        26,
-        32,
-        31,
-        29,
         36,
-        33,
         34,
-        30
+        24,
+        22,
+        21,
+        25,
+        31,
+        30,
+        28,
+        35,
+        32,
+        33,
+        29
       ]
     }
   ],
@@ -169,11 +180,6 @@
     {
       "category": 0,
       "title": "Working pipes",
-      "details": ""
-    },
-    {
-      "category": 1,
-      "title": "Options menu",
       "details": ""
     },
     {
@@ -223,7 +229,7 @@
     },
     {
       "category": 0,
-      "title": "Mario World Teaser",
+      "title": "Mario World",
       "details": ""
     },
     {
@@ -379,7 +385,7 @@
     {
       "category": 0,
       "title": "Make options menu",
-      "details": "- Deactivate Snow Falling Particles\n- Can change the editor mario speed"
+      "details": "- Deactivate Snow Falling Particles\n- Autosaving"
     },
     {
       "category": 0,
@@ -397,8 +403,63 @@
       "details": ""
     },
     {
+      "category": 3,
+      "title": "Mario fall sprite with previous powerup when getting powerup",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Column enemies stays on air when chainObject dies (goomba and variants)",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Infinite drift sound loop when dying",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Mario fireballs doesn't has momentum with physics interpolation",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Checkpoint shadow doesn't update to got sprite",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "SMB3 Fall animation doesn't work properly",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Entities dusprite appears on pos 0,0",
+      "details": ""
+    },
+    {
       "category": 0,
-      "title": "Switch keyboard",
+      "title": "Online",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Manzft Challenge",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Downloaded levels page, and automatically detected",
+      "details": ""
+    },
+    {
+      "category": 3,
+      "title": "Spiny picking up coins when just walking",
+      "details": ""
+    },
+    {
+      "category": 2,
+      "title": "More pipe colors",
       "details": ""
     }
   ]

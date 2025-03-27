@@ -36,7 +36,7 @@ func _process(delta):
 	var nodes = get_tree().get_nodes_in_group("Word");
 	for node in nodes:
 		if (!button_pressed[node.text.to_lower()] && node.get_parent().pressed):
-			if ($TextEdit.text.length()-1 < 32):
+			if ($TextEdit.text.length()-1 < 64):
 				$TextEdit.text[$TextEdit.text.length()-1] = "";
 				button_pressed[node.text.to_lower()] = true;
 				$AudioKey.play();
@@ -67,7 +67,7 @@ func _process(delta):
 		$ColorRect/Keys/DoneButton.disabled = true;
 		$ColorRect/Keys/BackspaceButton.disabled = true;
 	
-	$TypeBase/LabelCharacters.text = str($TextEdit.text.length()-1)+"/32";
+	$TypeBase/LabelCharacters.text = str($TextEdit.text.length()-1)+"/64";
 	
 	if (!$ColorRect/Keys/BackspaceButton.pressed && canErase):
 		canErase = false;
@@ -119,7 +119,7 @@ func _on_ShiftButton_pressed():
 	switchShiftState();
 
 func _on_SpaceButton_pressed():
-	if ($TextEdit.text.length()-1 < 32):
+	if ($TextEdit.text.length()-1 < 64):
 		$TextEdit.text[$TextEdit.text.length()-1] = "";
 		$AudioSpace.play();
 		$TextEdit.text += " ";

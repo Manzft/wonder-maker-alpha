@@ -90,6 +90,7 @@ func _process(_delta):
 				node.currentSprite.frame = currentSprite.frame;
 	else:
 		if (insided):
+			eraseShadow();
 			queue_free();
 		
 		if (active || !visible):

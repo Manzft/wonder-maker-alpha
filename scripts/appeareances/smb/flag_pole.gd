@@ -20,6 +20,7 @@ func _ready():
 	castleflagshadow.texture = $CastleFlag.texture;
 	castleleftshadow.texture = $CastleLeft.texture;
 	castlerightshadow.texture = $CastleRight.texture;
+	castlerightshadow.flip_h = $CastleRight.flip_h;
 	castledoorshadow.texture = $CastleDoor.texture;
 	
 	shadow.scale = scale;
@@ -95,3 +96,11 @@ func _on_DoorArea_body_entered(body):
 	if (body.is_in_group("Character")):
 		if (body.course_clear):
 			body.deactivateSubPixelSprite();
+
+func _on_FlagPole_tree_exiting():
+	shadow.queue_free();
+	flagshadow.queue_free();
+	castleflagshadow.queue_free();
+	castleleftshadow.queue_free();
+	castlerightshadow.queue_free();
+	castledoorshadow.queue_free();

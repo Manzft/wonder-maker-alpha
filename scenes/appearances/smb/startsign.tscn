@@ -17,3 +17,5 @@ offset = Vector2( 0, -21.5 )
 visible = false
 texture = ExtResource( 3 )
 offset = Vector2( 0, -22 )
+
+[connection signal="tree_exiting" from="." to="." method="_on_StartSign_tree_exiting"]

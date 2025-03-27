@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=2]
+[gd_scene load_steps=73 format=2]
 
 [ext_resource path="res://scripts/level.gd" type="Script" id=1]
 [ext_resource path="res://sprites/ui/editor/grid.png" type="Texture" id=2]
@@ -42,6 +42,7 @@
 [ext_resource path="res://sprites/appeareances/smb3/background/ghostforest.png" type="Texture" id=40]
 [ext_resource path="res://music/appeareances/smb3/ghostforest.mp3" type="AudioStream" id=41]
 [ext_resource path="res://sprites/appeareances/smb3/snow_particle.png" type="Texture" id=42]
+[ext_resource path="res://sprites/ui/loading.png" type="Texture" id=43]
 
 [sub_resource type="Shader" id=20]
 code = "shader_type canvas_item;
@@ -1049,6 +1050,118 @@ tracks/9/keys = {
 "values": [ 0, 3 ]
 }
 
+[sub_resource type="Animation" id=25]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=26]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[sub_resource type="Animation" id=27]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Control:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "in"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Control:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[sub_resource type="Animation" id=29]
+resource_name = "out"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../Control:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
 [sub_resource type="TileSet" id=1]
 0/name = "grid.png 0"
 0/texture = ExtResource( 2 )
@@ -1064,6 +1177,51 @@ tracks/9/keys = {
 0/shape_one_way_margin = 0.0
 0/shapes = [  ]
 0/z_index = 0
+
+[sub_resource type="Animation" id=22]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "in"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "out"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
 
 [node name="Level" type="Node2D" groups=["Level"]]
 pause_mode = 1
@@ -1849,6 +2007,88 @@ anims/idle = SubResource( 17 )
 
 [node name="Editor" parent="." instance=ExtResource( 11 )]
 
+[node name="LoadingLayer" type="CanvasLayer" parent="."]
+pause_mode = 2
+layer = 11
+
+[node name="Loading" type="Control" parent="LoadingLayer"]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -98.0
+margin_top = -93.0
+margin_right = -58.0
+margin_bottom = -53.0
+
+[node name="Node2D" type="Node2D" parent="LoadingLayer/Loading"]
+position = Vector2( 18, 19 )
+scale = Vector2( 1.75, 1.75 )
+
+[node name="Sprite" type="Sprite" parent="LoadingLayer/Loading/Node2D"]
+position = Vector2( 0, -16.0001 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 43 )
+
+[node name="Sprite2" type="Sprite" parent="LoadingLayer/Loading/Node2D"]
+position = Vector2( 16, 0 )
+rotation = 1.5708
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 43 )
+
+[node name="Sprite3" type="Sprite" parent="LoadingLayer/Loading/Node2D"]
+position = Vector2( 0, 16 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 43 )
+
+[node name="Sprite4" type="Sprite" parent="LoadingLayer/Loading/Node2D"]
+position = Vector2( -16, 0 )
+rotation = 1.5708
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 43 )
+
+[node name="Sprite5" type="Sprite" parent="LoadingLayer/Loading/Node2D"]
+position = Vector2( -12, -12 )
+rotation = -0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 43 )
+
+[node name="Sprite6" type="Sprite" parent="LoadingLayer/Loading/Node2D"]
+position = Vector2( 12, -12 )
+rotation = 0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 43 )
+
+[node name="Sprite7" type="Sprite" parent="LoadingLayer/Loading/Node2D"]
+position = Vector2( 12, 12 )
+rotation = -0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 43 )
+
+[node name="Sprite8" type="Sprite" parent="LoadingLayer/Loading/Node2D"]
+position = Vector2( -12, 12 )
+rotation = 0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 43 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LoadingLayer/Loading/Node2D"]
+autoplay = "idle"
+playback_speed = 0.5
+anims/RESET = SubResource( 25 )
+anims/idle = SubResource( 26 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LoadingLayer/Loading"]
+playback_speed = 3.0
+anims/RESET = SubResource( 27 )
+anims/in = SubResource( 28 )
+anims/out = SubResource( 29 )
+
+[node name="Control" type="Control" parent="LoadingLayer"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
 [node name="TileMap" type="TileMap" parent="."]
 modulate = Color( 0, 0, 0, 0.462745 )
 tile_set = SubResource( 1 )
@@ -1941,3 +2181,15 @@ volume_db = -15.0
 [node name="Ghostforest" type="AudioStreamPlayer" parent="GameMusic/SMB3" groups=["Music"]]
 stream = ExtResource( 41 )
 volume_db = -7.0
+
+[node name="Transition" type="Sprite" parent="."]
+modulate = Color( 0, 0, 0, 0 )
+scale = Vector2( 50, 50 )
+z_index = 50
+texture = ExtResource( 25 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Transition"]
+playback_speed = 2.0
+anims/RESET = SubResource( 22 )
+anims/in = SubResource( 23 )
+anims/out = SubResource( 24 )

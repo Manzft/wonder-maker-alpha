@@ -1,6 +1,9 @@
 extends Node
 
-var thread : Thread = Thread.new();
+var thread : Thread;
+var render_thread : Thread;
+var can_render = true;
+var first_render = true;
 
 var transition = preload("res://scenes/ui/transition.tscn");
 var transition_out = preload("res://scenes/ui/transition_out.tscn");
@@ -79,7 +82,7 @@ var CurrentMusic = "true";
 var FPS = false;
 
 var SHOW_FPS = false;
-var VSYNC = false;
+var VSYNC = true;
 var SCREEN_16_9 = false;
 var SHOW_PAUSE_BUTTON = true;
 var CONTROLS_TRANSPARENCY = 100.0;
@@ -89,10 +92,12 @@ var ENTITY_PHYSICS_SPEED = 100.0;
 var min_entity_physics_speed = 25.0;
 var max_entity_physics_speed = 100.0;
 var PHYSICS_INTERPOLATION = false;
-var SHADOWS = false;
+var SHADOWS = true;
 var USER_NAME = "";
 var SPLASH_SCREEN_FINISHED = false;
 var WELCOME_SCREEN = false;
+var AUTO_SAVING = false;
+var SNOW_FALLING_PARTICLES = true;
 
 var CurrentInput = "Mouse";
 
@@ -129,6 +134,10 @@ var level_data = {}
 var object_data = []
 
 var SECURITY_KEY = "27102021"
+
+var DISCORD_PRESENCE = true;
+
+var CURRENT_THUMBNAIL = null;
 
 func getObjectCode(node: Node):
 	var obj : int = -1;
@@ -219,6 +228,23 @@ func courseGetVersion(filedir):
 	f.close();
 	return data.version;
 
+func courseGetThumbnail(filedir):
+	var f = File.new()
+	f.open_encrypted_with_pass(filedir, File.READ, SECURITY_KEY);
+	var content = f.get_as_text();
+	var json = JSON.parse(content)
+	var data = json.result;
+	f.close();
+	var returndata = null;
+	if ("thumbnail" in data):
+		var bytes_png = str2var(data.thumbnail)
+		var img = Image.new();
+		img.load_png_from_buffer(bytes_png);
+		var texture = ImageTexture.new();
+		texture.create_from_image(img);
+		returndata = texture;
+	return returndata;
+
 func get_game_dir():
 	var todir = "";
 	if (OS.get_name() == "Android"):
@@ -235,6 +261,35 @@ func get_game_dir():
 	return todir;
 
 func saveCourseData(ingame = true):
+	if (ingame):
+		var editor : Node;
+		for node in get_tree().get_nodes_in_group("CurrentTree"):
+			if (node.name == "Editor"):
+				editor = node;
+		editor.hide();
+		editor.get_parent().get_node("TileMap").hide();
+		editor.get_parent().get_node("LevelFloor").hide();
+		editor.get_parent().get_node("EndFloor").hide();
+		editor.get_parent().get_node("CharacterEditor").hide();
+		$FPS.hide();
+		var cmpos : Vector2 = editor.get_parent().get_node("Camera2D").position;
+		editor.get_parent().get_node("Camera2D").position = Vector2(0, 840);
+		yield(get_tree(), "idle_frame");
+		yield(get_tree(), "idle_frame");
+		var img = get_viewport().get_texture().get_data();
+		img.flip_y();
+		img.crop(img.get_height()*1.77, img.get_height());
+		#img.resize(404, 228);
+		CURRENT_THUMBNAIL = img.save_png_to_buffer()
+		editor.show();
+		editor.get_parent().get_node("TileMap").show();
+		editor.get_parent().get_node("LevelFloor").show();
+		editor.get_parent().get_node("EndFloor").show();
+		editor.get_parent().get_node("CharacterEditor").show();
+		editor.get_parent().get_node("Camera2D").position = cmpos;
+		if (SHOW_FPS):
+			$FPS.show();
+	
 	var f = File.new()
 	f.open_encrypted_with_pass(currentlevel, File.WRITE, SECURITY_KEY);
 	
@@ -257,6 +312,9 @@ func saveCourseData(ingame = true):
 		
 		"objects": object_data
 	}
+	
+	if (CURRENT_THUMBNAIL != null):
+		level_data["thumbnail"] = var2str(CURRENT_THUMBNAIL);
 	
 	f.store_string(JSON.print(level_data));
 	
@@ -284,6 +342,11 @@ func loadCourseData(ingame = true):
 	CurrentSpeed = level_data.speed;
 	CurrentTime = int(level_data.time);
 	CurrentMusic = level_data.music;
+	
+	if ("thumbnail" in level_data):
+		CURRENT_THUMBNAIL = str2var(level_data.thumbnail);
+	else:
+		CURRENT_THUMBNAIL = null;
 	
 	object_data = level_data.objects;
 
@@ -338,9 +401,9 @@ func loadLevelInfo():
 	nodes = get_tree().get_nodes_in_group("Level");
 	for node in nodes:
 		level = node;
-	loadObjects(level);
-	#thread.start(self, "loadObjects", level)
-	#thread.wait_to_finish()
+	#loadObjects(level);
+	thread = Thread.new();
+	thread.start(self, "loadObjects", level)
 
 func saveObjects():
 	var nodes = get_tree().get_nodes_in_group("Obj");
@@ -397,7 +460,7 @@ func loadSettings():
 
 	for section in config.get_sections():
 		if (section == "General"):
-			VSYNC = config.get_value(section, "VSync", false);
+			VSYNC = config.get_value(section, "VSync", true);
 			SCREEN_16_9 = config.get_value(section, "Force 16:9", false);
 			SHOW_FPS = config.get_value(section, "Show FPS", false);
 			SHOW_PAUSE_BUTTON = config.get_value(section, "Show Pause Button (Only PC)", true);
@@ -411,6 +474,8 @@ func loadSettings():
 			SHADOWS = config.get_value(section, "Shadows (Experimental)", true);
 			SPLASH_SCREEN_FINISHED = config.get_value(section, "Splash Screen Finished", false);
 			WELCOME_SCREEN = config.get_value(section, "Welcome Screen Finished", false);
+			SNOW_FALLING_PARTICLES = config.get_value(section, "Snow Falling Particles", true);
+			AUTO_SAVING = config.get_value(section, "Auto-Saving", false);
 		if (section == "User"):
 			USER_NAME = config.get_value(section, "Username", "");
 	
@@ -433,6 +498,8 @@ func saveSettings():
 	config.set_value("General", "Shadows (Experimental)", SHADOWS);
 	config.set_value("General", "Splash Screen Finished", SPLASH_SCREEN_FINISHED);
 	config.set_value("General", "Welcome Screen Finished", WELCOME_SCREEN);
+	config.set_value("General", "Auto-Saving", AUTO_SAVING);
+	config.set_value("General", "Snow Falling Particles", SNOW_FALLING_PARTICLES);
 	
 	config.set_value("User", "Username", USER_NAME);
 
@@ -451,6 +518,8 @@ func _ready() -> void:
 	checkSettingsFile();
 	loadSettings();
 	saveSettings();
+	
+	pause_mode = PAUSE_MODE_PROCESS;
 	
 	var inst = load("res://scenes/ui/FPS.tscn").instance();
 	add_child(inst);
@@ -590,9 +659,112 @@ func renderAll():
 func unrenderAll():
 	pass
 
+func renderize():
+	var nodes = get_tree().get_nodes_in_group("Obj");
+	for node in nodes:
+		var scrwidth = OS.get_window_size().x;
+		var scrheight = OS.get_window_size().y;
+		var multiplier = 720/scrheight;
+		var finalscrwidth = scrwidth * multiplier;
+		var distance = abs(node.position.x-Global.campos.x);
+		if (distance-(finalscrwidth/2) > finalscrwidth*(70*0.01)):
+			set_process(false);
+			set_physics_process(false);
+		else:
+			set_process(true);
+			set_physics_process(true);
+	
+	can_render = true;
+
+func startAppearanceChange(app, start = false, editor : Node = null):
+	thread = Thread.new();
+	thread.start(self, "appearanceChange", [app, start, editor])
+
+func appearanceChange(userdata):
+	var app = userdata[0];
+	var start = userdata[1];
+	var editor = userdata[2];
+	if (editor == null):
+		return
+	if (app == CurrentAppeareance && !start):
+		return
+	
+	get_tree().paused = true;
+	
+	if (!playing):
+		editor.editorMusic(false, false);
+	var last_app = CurrentAppeareance;
+	CurrentAppeareance = app;
+	editor.updateObjectButtons();
+	
+	if (!playing):
+		editor.editorMusic(true, false);
+	
+	if (!start):
+#		Global.emit_signal("changeStyle");
+		editor.get_node("AppeareanceChangeIcon/AnimationPlayer").play("in");
+		editor.get_node("UIBlocker").show();
+		$FPS.hide();
+		var itex = ImageTexture.new()
+		itex.create_from_image(get_viewport().get_texture().get_data())
+		editor.get_node("Screenshot").texture = itex;
+		editor.get_node("Screenshot").show();
+		var nodes = get_tree().get_nodes_in_group("Obj");
+		for node in nodes:
+			if (!node.is_in_group("FalseFloor")):
+				var obj = getObjectCode(node);
+				var pos = node.position;
+				var inst = Global.object[Global.CurrentAppeareance][obj][Global.OP_SCENE].instance();
+				if (obj == Global.OBJ_FLOOR):
+					inst.decorationType = node.decorationType;
+					if (Global.CurrentAppeareance != Global.APP_SMB && last_app != Global.APP_SMB):
+						inst.defaultFrameCoords = node.defaultFrameCoords;
+						inst.defaultFalseUp = node.defaultFalseUp;
+						inst.defaultFalseUp2 = node.defaultFalseUp2;
+						inst.defaultFalseCenter = node.defaultFalseCenter;
+						inst.defaultFalseCenter2 = node.defaultFalseCenter2;
+				
+				if (node.is_in_group("Insideable")):
+					inst.objectInside = node.objectInside;
+					inst.objectAttribute = node.objectAttribute;
+				
+				if (obj == Global.OBJ_BURNER || obj == Global.OBJ_TWOMP || obj == Global.OBJ_CHECKPOINT
+				|| obj == Global.OBJ_ARROW || obj == Global.OBJ_PIPE):
+					inst.seldirection = node.seldirection;
+				
+				if (obj == Global.OBJ_DRYBONES || obj == Global.OBJ_SPINY):
+					inst.alreadydead = node.alreadydead;
+				
+				if (obj == Global.OBJ_PIPE):
+					inst.grid_origin = node.grid_origin;
+					inst.grid_end = node.grid_end;
+				
+				editor.get_parent().eraseObject(pos, false, false, false);
+				editor.get_parent().placeObject(pos, false, obj, false, false, inst);
+	get_tree().paused = false;
+	editor.emit_signal("appearanceChanged", app);
+	yield(get_tree(), "idle_frame");
+	editor.styleChange(CurrentStyle, true, true);
+	editor.get_node("Screenshot").hide();
+	editor.get_node("AppeareanceChangeIcon/AnimationPlayer").play("out");
+	editor.get_node("UIBlocker").hide();
+	if (SHOW_FPS):
+		$FPS.show();
+	
+	print("Appearance Changed Successfully");
+	thread.wait_to_finish();
+
 func _process(delta):
 	if (!changingToEditMode && !OS.window_minimized):
 		emit_signal("render", "", false, 70);
+#		if (can_render):
+#			can_render = false;
+#			if (!first_render):
+#				render_thread.wait_to_finish();
+#			render_thread = Thread.new();
+#			render_thread.start(self, "renderize");
+#			first_render = false;
+
 	#Render System
 #	if (alternRender && !changingToEditMode):
 #		var nodes = get_tree().get_nodes_in_group("Obj");
@@ -667,7 +839,7 @@ func _input(event):
 			CurrentInput = "Mouse";
 			var nodes = get_tree().get_nodes_in_group("CurrentTree");
 			for node in nodes:
-				if (node.visible):
+				if (node.visible && node.has_method("changeInput")):
 					node.changeInput();
 			print("Input was changed to "+CurrentInput);
 	if (event is InputEventJoypadButton || event is InputEventJoypadMotion):
@@ -675,7 +847,7 @@ func _input(event):
 			CurrentInput = "Gamepad";
 			var nodes = get_tree().get_nodes_in_group("CurrentTree");
 			for node in nodes:
-				if (node.visible):
+				if (node.visible && node.has_method("changeInput")):
 					node.changeInput();
 			print("Input was changed to "+CurrentInput);
 

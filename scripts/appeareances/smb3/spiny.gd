@@ -154,7 +154,7 @@ func _process(_delta):
 			z_index = 1;
 			
 		if (chained && chainObject != null):
-			if (chainObject.dead && chainObject.hitDead):
+			if (chainObject.dead):
 				chained = false;
 				canChain = false;
 				motion.x = -max_walk_speed;
@@ -385,6 +385,10 @@ func _process(_delta):
 		dupsprite.position = pos;
 	else:
 		dupsprite.position = currentSprite.global_position;
+		
+	if (!dupsprite.visible):
+		dupsprite.position = currentSprite.global_position;
+		dupsprite.show();
 	
 	dupsprite.frame = currentSprite.frame;
 	dupsprite.animation = currentSprite.animation;
@@ -611,6 +615,7 @@ func styleChanged():
 	dupsprite.animation = currentSprite.animation;
 	dupsprite.scale = currentSprite.scale;
 	dupsprite.position = position;
+	dupsprite.hide();
 	dupsprite.add_to_group("SpriteClone");
 	get_parent().add_child(dupsprite);
 
@@ -645,7 +650,7 @@ func _on_Area2D_body_entered(body):
 
 func _on_Area2D_area_entered(area):
 	if (area.is_in_group("Coin") && area.visible):
-		if (!dead && visible && !exiting && active):
+		if (!dead && visible && !exiting && active && inShell && moving):
 			get_node("../Character/SoundCoin").play();
 			get_parent().get_node("Editor").Coins += 1;
 			get_node("../Editor").Score += 200;

@@ -159,6 +159,7 @@ func _process(delta):
 						chara.get_node("SoundShellHit").play();
 	else:
 		if (insided):
+			eraseShadow()
 			queue_free();
 		
 		if (active || !visible):

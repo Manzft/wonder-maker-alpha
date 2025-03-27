@@ -50,12 +50,14 @@ tracks/0/keys = {
 }
 
 [node name="TransitionOut" type="CanvasLayer" groups=["Transition"]]
+pause_mode = 1
 layer = 10
 scale = Vector2( 50, 50 )
 transform = Transform2D( 50, 0, 0, 50, 0, 0 )
 script = ExtResource( 2 )
 
 [node name="TransitionOut" type="Sprite" parent="."]
+pause_mode = 1
 modulate = Color( 0, 0, 0, 1 )
 scale = Vector2( 50, 50 )
 z_index = 50

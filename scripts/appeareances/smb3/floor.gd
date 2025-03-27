@@ -84,8 +84,7 @@ func _ready():
 	get_node("../LevelFloor").connect("levelFloorChanged", self, "levelFloorChanged");
 	get_node("../EndFloor").connect("endFloorChanged", self, "endFloorChanged");
 	yield(get_tree(), "idle_frame");
-	if (get_parent().editing && !floorlevel && !endlevel):
-		$AnimationPlayer.play("start");
+	
 	mygrid = get_parent().calculateGrid(position.x, position.y);
 	
 	styleChanged();
@@ -94,6 +93,10 @@ func _ready():
 		spawnDecoration();
 	else:
 		setDecoration()
+	
+	yield(get_tree(), "idle_frame");
+	
+	styleChanged();
 	editPlaced = true;
 
 func spawnDecoration():

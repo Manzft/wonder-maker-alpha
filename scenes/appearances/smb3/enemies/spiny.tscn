@@ -220,7 +220,6 @@ shape = SubResource( 32 )
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 8 )
 animation = "walk"
-frame = 1
 playing = true
 flip_h = true
 

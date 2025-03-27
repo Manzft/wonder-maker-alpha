@@ -224,7 +224,7 @@ func _process(delta):
 		get_node("Camera2D/"+app+"/Water").offset.y = seaLevelOffset;
 		currentSeaLevelOffset = 0;	
 	
-	if ($Editor.playing):
+	if ($Editor.playing && get_node("Character") != null):
 		$GameUI.show();
 		
 		get_node("Camera2D/SMB/Water").offset.y = seaLevelOffset-currentSeaLevelOffset;

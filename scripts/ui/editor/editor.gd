@@ -2,7 +2,7 @@ extends CanvasLayer
 
 signal appearanceChanged
 
-#var thread = Thread.new();
+var thread : Thread;
 
 var timer = 0.0;
 
@@ -40,6 +40,8 @@ var changingTopLevel = false;
 var currentTypeMenuObject = null;
 
 var externalButton = false;
+
+var sprint = false;
 
 func checkSO(grid, code):
 	var socheck = false;
@@ -528,10 +530,10 @@ func _ready():
 	
 	yield(get_tree().create_timer(0.1), "timeout");
 	
-	if (Global.coursePlaying):
+	if (Global.coursePlaying && Global.DISCORD_PRESENCE):
 		RichPresence.update_activity("PlayingCoursebot")
 	
-	if (!get_parent().startmenu && !Global.coursePlaying):
+	if (!get_parent().startmenu && !Global.coursePlaying && Global.DISCORD_PRESENCE):
 		#editorMusic(true);
 		RichPresence.update_activity("Editing");
 	
@@ -567,25 +569,36 @@ func _ready():
 	
 func prepareLoad():
 	if (Global.toLoad):
+		get_tree().paused = true;
 		Global.loadCourseData();
 		if (!get_parent().startmenu):
 			Global.toLoad = false;
 		#savedFocus = getFocusNode();
 		#Global.showMessage("Nivel cargado correctamente.", self);
-		appearanceChange(Global.CurrentAppeareance, true);
-		styleChange(Global.CurrentStyle, true);
+		get_node("../LoadingLayer/Loading/AnimationPlayer").play("in");
 	else:
-		pass
+		get_tree().paused = true;
 		Global.currentlevel = "res://title level.wom"
 		Global.currentCourseName = "Title Level";
 		Global.loadCourseData();
 		appearanceChange(Global.CurrentAppeareance, true);
+		get_node("../LoadingLayer/Loading/AnimationPlayer").play("in");
 
 func gameLoaded():
-	yield(get_tree().create_timer(0.125), "timeout");
+	get_node("../LoadingLayer/Loading/AnimationPlayer").play("out");
+	yield(get_tree().create_timer(1.0), "timeout");
+	get_tree().paused = false;
+	appearanceChange(Global.CurrentAppeareance, true);
+	#styleChange(Global.CurrentStyle, true);
+	Global.thread.wait_to_finish();
+	
 	if (Global.coursePlaying || get_parent().startmenu):
 		_on_Play_pressed();
 		get_parent().editing = false;
+		if (get_parent().startmenu):
+			get_node("../../StartMenu/MusicTitleScreen").play();
+			editorMusic(false, false)
+			get_parent().gameMusic(false);
 
 func toggle_gamepadCursor(closeMenus = true):
 	if (!gamepadCursor):
@@ -801,7 +814,7 @@ func _process(delta):
 		Global.APP_SMB3:
 			node = get_node("GameplayUI/SMB3");
 	
-	if (playing):
+	if (playing && get_node("../Character") != null):
 		if (Global.CurrentAppeareance == Global.APP_SMB):
 			if (Coins > 99):
 				get_node("../Character").get_node("1up").play();
@@ -989,10 +1002,10 @@ func _process(delta):
 		
 		var cam_speed = camera_speed;
 		
-		if (Input.is_action_pressed("y") || Input.is_action_pressed("x") || Input.is_action_pressed("r")):
+		if (sprint || Input.is_action_pressed("y") || Input.is_action_pressed("x") || Input.is_action_pressed("r")):
 			cam_speed *= 2;
 		
-		if (Global.CurrentInput != "Gamepad"):
+		if (Global.CurrentInput != "Gamepad" && !get_tree().paused):
 			if (Input.is_action_pressed("right")):
 				get_parent().get_node("CharacterEditor").position.x += cam_speed*delta;
 				moveCamToChar = true;
@@ -1718,6 +1731,10 @@ func _on_AppeareancesMenuCloseButton_mouse_exited():
 	button_mouse_exited(); mouseFocus = ""; changeFocus();
 
 func appearanceChange(app, start = false):
+	var withthread = false;
+	if (thread != null):
+		withthread = true;
+	
 	if (app == Global.CurrentAppeareance && !start):
 		return
 	
@@ -1730,16 +1747,18 @@ func appearanceChange(app, start = false):
 	if (!playing):
 		editorMusic(true, false);
 	
-	for node in get_node("../ShadowViewport").get_children():
-		if (!node.is_in_group("CharacterEditorShadow")):
+	if (!start):
+		for node in get_node("../ShadowViewport").get_children():
+			if (!node.is_in_group("CharacterEditorShadow")):
+				node.queue_free();
+		var nodes = get_tree().get_nodes_in_group("SpriteClone");
+		for node in nodes:
 			node.queue_free();
-	var nodes = get_tree().get_nodes_in_group("SpriteClone");
-	for node in nodes:
-		node.queue_free();
 	
 	if (!start):
 #		Global.emit_signal("changeStyle");
-		nodes = get_tree().get_nodes_in_group("Obj");
+		$AppeareanceChangeIcon/AnimationPlayer.play("in");
+		var nodes = get_tree().get_nodes_in_group("Obj");
 		for node in nodes:
 			if (!node.is_in_group("FalseFloor")):
 				var obj = Global.getObjectCode(node);
@@ -1771,28 +1790,31 @@ func appearanceChange(app, start = false):
 				
 				get_parent().eraseObject(pos, false, false, false);
 				get_parent().placeObject(pos, false, obj, false, false, inst);
+		$AppeareanceChangeIcon/AnimationPlayer.play("out");
 	emit_signal("appearanceChanged", app);
 	yield(get_tree(), "idle_frame");
 	styleChange(Global.CurrentStyle, true, true);
 
-	#thread.wait_to_finish();
+	if (withthread):
+		Global.thread.wait_to_finish();
+		Global.thread = null;
 	print("Appearance Changed Successfully");
 
 func _on_SMBButton_pressed():
-	appearanceChange(Global.APP_SMB);
-	yield(get_tree(), "idle_frame");
 	$AudioBigButton.play();
 	closeMenus();
+	yield(get_tree().create_timer(0.5), "timeout");
+	Global.startAppearanceChange(Global.APP_SMB, false, self);
 func _on_SMBButton_mouse_entered():
 	mouseFocus = "AppeareancesMenu/SMBButton"; button_mouse_entered(); changeFocus();
 func _on_SMBButton_mouse_exited():
 	button_mouse_exited(); mouseFocus = ""; changeFocus();
 
 func _on_SMB3Button_pressed():
-	appearanceChange(Global.APP_SMB3);
-	yield(get_tree(), "idle_frame");
 	$AudioBigButton.play();
 	closeMenus();
+	yield(get_tree().create_timer(0.5), "timeout");
+	Global.startAppearanceChange(Global.APP_SMB3, false, self);
 func _on_SMB3Button_mouse_entered():
 	mouseFocus = "AppeareancesMenu/SMB3Button"; button_mouse_entered(); changeFocus();
 func _on_SMB3Button_mouse_exited():
@@ -2035,16 +2057,26 @@ func enterTextFinished(text, type):
 	if (type == "CourseDescription"):
 		Global.currentCourseDescription = text;
 		Global.currentCourseUser = Global.USER_NAME;
+		
 		Global.saveCourseData();
 		savedFocus = getFocusNode();
 		Global.showMessage("Nivel guardado correctamente.", self);
 
 func _on_SaveNewCourse_pressed():
-	get_parent().objSelected = -50;
-	updateObjectButtons();
 	$AudioCoursebotSelect.play();
-	savedFocus = getFocusNode();
-	var inst = Global.enterText("Ingresa el nombre del nivel:", "CourseName", self);
+	if (Global.currentlevel == "" || Global.currentlevel == "res://title level.wom"):
+		get_parent().objSelected = -50;
+		updateObjectButtons();
+		savedFocus = getFocusNode();
+		var inst = Global.enterText("Ingresa el nombre del nivel:", "CourseName", self);
+	elif (Global.courseGetUser(Global.currentlevel) == Global.USER_NAME):
+		get_parent().objSelected = -50;
+		updateObjectButtons();
+		savedFocus = getFocusNode();
+		var inst = Global.enterText("Ingresa el nombre del nivel:", "CourseName", self);
+	else:
+		savedFocus = getFocusNode();
+		Global.showMessage("Este nivel no es tuyo.", self);
 	#Global.changeScene("res://scenes/Level.tscn");
 func _on_SaveNewCourse_mouse_entered():
 	mouseFocus = "CoursebotMenuContainer/CoursebotMenu/SaveNewCourse"; button_mouse_entered(); changeFocus();
@@ -2055,13 +2087,17 @@ func _on_SaveChanges_pressed():
 	get_parent().objSelected = -50;
 	updateObjectButtons();
 	$AudioCoursebotSelect.play();
-	if (Global.currentlevel == ""):
+	if (Global.currentlevel == "" || Global.currentlevel == "res://title level.wom"):
 		savedFocus = getFocusNode();
 		Global.showMessage("No hay ningún nivel cargado.", self);
 	else:
-		Global.saveCourseData();
-		savedFocus = getFocusNode();
-		Global.showMessage("Nivel guardado correctamente.", self);
+		if (Global.courseGetUser(Global.currentlevel) == Global.USER_NAME):
+			Global.saveCourseData();
+			savedFocus = getFocusNode();
+			Global.showMessage("Nivel guardado correctamente.", self);
+		else:
+			savedFocus = getFocusNode();
+			Global.showMessage("Este nivel no es tuyo.", self);
 	#Global.changeScene("res://scenes/Level.tscn");
 func _on_SaveChanges_mouse_entered():
 	mouseFocus = "CoursebotMenuContainer/CoursebotMenu/SaveChanges"; button_mouse_entered(); changeFocus();
@@ -2255,7 +2291,6 @@ func _on_Play_pressed():
 		#Global.renderAll();
 		if (eraseMode): toggle_eraseMode();
 		closeMenus();
-		playing = true;
 		get_parent().get_node("TileMap").hide();
 		get_parent().get_node("LevelFloor").hide();
 		get_parent().get_node("EndFloor").hide();
@@ -2265,15 +2300,20 @@ func _on_Play_pressed():
 		
 		get_node("../CharacterEditor").hide();
 		
+		if (get_node("../Character") != null):
+			get_node("../Character").queue_free();
+		
 		match Global.CurrentAppeareance:
 			Global.APP_SMB:
 				get_node("GameplayUI/SMB").visible = true;
 				var inst = load("res://scenes/appearances/smb/character_smb.tscn").instance();
+				inst.name = "Character";
 				get_parent().add_child(inst);
 				inst.position = get_node("../CharacterEditor").position;
 			Global.APP_SMB3:
 				get_node("GameplayUI/SMB3").visible = true;
 				var inst = load("res://scenes/appearances/smb3/character_smb3.tscn").instance();
+				inst.name = "Character";
 				get_parent().add_child(inst);
 				inst.position = get_node("../CharacterEditor").position;
 		
@@ -2288,6 +2328,8 @@ func _on_Play_pressed():
 			$AudioMario.play();
 			$AnimationPlayer.play("out");
 			$Play/AnimationPlayer.play("out");
+		
+		playing = true;
 		
 		yield(get_tree(), "idle_frame");
 		
@@ -2321,20 +2363,22 @@ func _on_Edit_pressed():
 	if (get_parent().startmenu):
 		Global.changeScene("res://scenes/ui/MainMenu.tscn");
 		Global.toLoad = true;
-	if (Global.coursePlaying):
-		Global.changeScene("res://scenes/Level.tscn", get_parent());
-		Global.toLoad = true;
-	if (playing && !get_parent().startmenu && !Global.coursePlaying):
-		playing = false;
+	if (playing && !get_parent().startmenu):
+		if (!Global.coursePlaying):
+			playing = false;
+			Global.changingToEditMode = true;
+			get_node("../Character").queue_free();
 		changeInput();
-		get_parent().get_node("TileMap").show();
-		get_parent().get_node("LevelFloor").show();
-		get_parent().get_node("EndFloor").show();
-		editorMusic(true, false);
 		
-		$SectionRightContainer/SectionRight/CourseViewerButton.show();
+		if (!Global.coursePlaying):
+			editorMusic(true, false);
+			get_parent().get_node("TileMap").show();
+			get_parent().get_node("LevelFloor").show();
+			get_parent().get_node("EndFloor").show();
 		
-		moveCamToChar = true;
+			$SectionRightContainer/SectionRight/CourseViewerButton.show();
+		
+			moveCamToChar = true;
 		
 		var nodes = get_tree().get_nodes_in_group("FlagPole");
 		for node in nodes:
@@ -2346,19 +2390,29 @@ func _on_Edit_pressed():
 		for node in nodes:
 			node.queue_free();
 		
-		$AnimationPlayer.play("in");
+		if (!Global.coursePlaying):
+			$AnimationPlayer.play("in");
 		
-		Global.changingToEditMode = true;
+		if (!Global.coursePlaying):
+			get_node("../CharacterEditor").show();
+			
+			get_parent().gameMusic(false);
 		
-		get_node("../CharacterEditor").show();
-		get_node("../Character").queue_free();
+			$Play/AnimationPlayer.play("in");
+			$Edit/AnimationPlayer.play("out");
+			
+			$AudioBigButton.play();
 		
-		get_parent().gameMusic(false);
-		
-		$Play/AnimationPlayer.play("in");
-		$Edit/AnimationPlayer.play("out");
-		
-		$AudioBigButton.play();
+		if (Global.coursePlaying):
+			get_node("../Transition/AnimationPlayer").play("in");
+			yield(get_tree().create_timer(1), "timeout");
+			playing = false;
+			get_node("../Character").queue_free();
+			Global.changingToEditMode = true;
+			yield(get_tree().create_timer(0.5), "timeout");
+			get_node("../Transition/AnimationPlayer").play("out");
+			_on_Play_pressed();
+
 func _on_Edit_mouse_entered():
 	mouseFocus = "Edit"; button_mouse_entered(); changeFocus();
 func _on_Edit_mouse_exited():
@@ -2530,13 +2584,20 @@ func _on_CharTypeMenuTimer_timeout():
 			$TypeMenu.rect_position.y = pos.y-26-100-10;
 			$TypeMenu.rect_position.x = pos.x-($TypeMenu.rect_size.x/2)
 
-func _exit_tree():
-	pass
-#	if (!thread.is_alive()):
-#		thread.wait_to_finish();
-#		print("thread disposed")
-
 
 func _on_Play_AnimationPlayer_animation_finished(anim_name):
 	if (anim_name == "out"):
 		$UIBlocker.hide();
+
+func _on_AutoSavingTimer_timeout():
+	if (Global.currentlevel != "" && !get_tree().paused && !playing && Global.currentlevel != "res://title level.wom" && Global.AUTO_SAVING):
+		print(Global.currentlevel);
+		Global.saveCourseData();
+		$AutoSaving/AnimationPlayer.play("in");
+		yield(get_tree().create_timer(6.0), "timeout");
+		$AutoSaving/AnimationPlayer.play("out");
+
+func _on_SprintToggle_toggled(button_pressed):
+	sprint = button_pressed;
+
+

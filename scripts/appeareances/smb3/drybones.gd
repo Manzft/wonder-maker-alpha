@@ -159,7 +159,7 @@ func _process(_delta):
 			z_index = 1;
 		
 		if (chained && chainObject != null):
-			if (chainObject.dead && chainObject.hitDead):
+			if (chainObject.dead):
 				chained = false;
 				canChain = false;
 				motion.x = -max_walk_speed;
@@ -317,6 +317,7 @@ func _process(_delta):
 					get_node("../Character/SoundShellHit").play();
 	else:
 		if (insided):
+			eraseShadow();
 			queue_free();
 		
 		if (!visible):
@@ -389,6 +390,10 @@ func _process(_delta):
 		dupsprite.position = pos;
 	else:
 		dupsprite.position = currentSprite.global_position;
+	
+	if (!dupsprite.visible):
+		dupsprite.position = currentSprite.global_position;
+		dupsprite.show();
 	
 	dupsprite.frame = currentSprite.frame;
 	dupsprite.animation = currentSprite.animation;
@@ -622,6 +627,7 @@ func styleChanged():
 	dupsprite.animation = currentSprite.animation;
 	dupsprite.scale = currentSprite.scale;
 	dupsprite.position = position;
+	dupsprite.hide();
 	dupsprite.add_to_group("SpriteClone");
 	get_parent().add_child(dupsprite);
 

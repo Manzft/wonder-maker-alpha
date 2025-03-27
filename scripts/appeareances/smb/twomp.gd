@@ -21,18 +21,6 @@ onready var currentSprite = get_node("SpriteGround");
 onready var rcd1 = get_node("RayCast");
 onready var rcd2 = get_node("RayCast2");
 onready var rcd3 = get_node("RayCast3");
-onready var rcd4 = get_node("RayCast4");
-onready var rcd5 = get_node("RayCast5");
-onready var rcd6 = get_node("RayCast6");
-onready var rcd7 = get_node("RayCast7");
-onready var rcd8 = get_node("RayCast8");
-onready var rcd9 = get_node("RayCast9");
-onready var rcd10 = get_node("RayCast10");
-onready var rcd11 = get_node("RayCast11");
-onready var rcd12 = get_node("RayCast12");
-onready var rcd13 = get_node("RayCast13");
-onready var rcd14 = get_node("RayCast14");
-onready var rcd15 = get_node("RayCast15");
 
 var motion = Vector2();
 
@@ -283,6 +271,10 @@ func _process(_delta):
 		dupsprite.position = pos;
 	else:
 		dupsprite.position = currentSprite.global_position;
+		
+	if (!dupsprite.visible):
+		dupsprite.position = currentSprite.global_position;
+		dupsprite.show();
 	
 	dupsprite.frame = currentSprite.frame;
 	dupsprite.animation = currentSprite.animation;
@@ -309,22 +301,10 @@ func _physics_process(delta):
 	if (!dead):
 		if (seldirection == "down"):
 			if (rcd1.is_colliding()): areaCollide(rcd1);
-			if (rcd2.is_colliding()): areaCollide(rcd2);
-			if (rcd3.is_colliding()): areaCollide(rcd3);
-			if (rcd4.is_colliding()): areaCollide(rcd4);
-			if (rcd5.is_colliding()): areaCollide(rcd5);
 		if (seldirection == "left"):
-			if (rcd6.is_colliding()): areaCollide(rcd6);
-			if (rcd7.is_colliding()): areaCollide(rcd7);
-			if (rcd8.is_colliding()): areaCollide(rcd8);
-			if (rcd9.is_colliding()): areaCollide(rcd9);
-			if (rcd10.is_colliding()): areaCollide(rcd10);
+			if (rcd2.is_colliding()): areaCollide(rcd2);
 		if (seldirection == "right"):
-			if (rcd11.is_colliding()): areaCollide(rcd11);
-			if (rcd12.is_colliding()): areaCollide(rcd12);
-			if (rcd13.is_colliding()): areaCollide(rcd13);
-			if (rcd14.is_colliding()): areaCollide(rcd14);
-			if (rcd15.is_colliding()): areaCollide(rcd15);
+			if (rcd3.is_colliding()): areaCollide(rcd3);
 	
 	if (!active && !exiting):
 		active = true;
@@ -519,12 +499,21 @@ func styleChanged():
 	dupsprite.animation = currentSprite.animation;
 	dupsprite.scale = currentSprite.scale;
 	dupsprite.position = position;
+	dupsprite.hide();
 	dupsprite.add_to_group("SpriteClone");
 	get_parent().add_child(dupsprite);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character") && visible && !exiting && active):
 		hitCharacter = true;
+	if (body.is_in_group("Enemy") && !body.is_in_group("Solid") && visible && !exiting && active):
+		if (motion.x != 0 || motion.y != 0 && attacking):
+			body.hitDead = true;
+			if (position.x < body.position.x):
+				body.hit("right");
+			else:
+				body.hit("left");
+			get_node("../Character/SoundShellHit").play();
 
 func _on_Area2D_body_exited(body):
 	if (body.is_in_group("Character")):

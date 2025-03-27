@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=2]
+[gd_scene load_steps=90 format=2]
 
 [ext_resource path="res://scripts/ui/startmenu/FPS.gd" type="Script" id=1]
 [ext_resource path="res://wonder_title.png" type="Texture" id=2]
@@ -39,6 +39,9 @@
 [ext_resource path="res://sprites/ui/splashscreen/discord_icon.png" type="Texture" id=37]
 [ext_resource path="res://sprites/ui/splashscreen/youtube_icon.png" type="Texture" id=38]
 [ext_resource path="res://fonts/seguihis.ttf" type="DynamicFontData" id=39]
+[ext_resource path="res://sprites/ui/startmenu/newmanzftchallenge.png" type="Texture" id=40]
+[ext_resource path="res://titlehd_dropshadow_glow.png" type="Texture" id=41]
+[ext_resource path="res://titlehd_dropshadow.png" type="Texture" id=42]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -46,7 +49,7 @@ font_data = ExtResource( 5 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 40
-outline_size = 1
+outline_size = 2
 font_data = ExtResource( 39 )
 
 [sub_resource type="DynamicFont" id=4]
@@ -79,7 +82,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -27, 274 ) ]
+"values": [ Vector2( 115.5, 224 ) ]
 }
 
 [sub_resource type="Animation" id=46]
@@ -107,16 +110,49 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( -27, 274 ), Vector2( -95, 296 ), Vector2( -27, 274 ) ]
+"values": [ Vector2( 115.5, 224 ), Vector2( 77.5, 234 ), Vector2( 115.5, 224 ) ]
 }
 
 [sub_resource type="DynamicFont" id=47]
 size = 50
-outline_size = 1
 font_data = ExtResource( 3 )
+
+[sub_resource type="Animation" id=52]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Glow:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=53]
+resource_name = "idle"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Glow:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7, 1.2, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
 
 [sub_resource type="DynamicFont" id=48]
 size = 30
+outline_size = 2
+outline_color = Color( 0.0745098, 0.0745098, 0.0745098, 1 )
 font_data = ExtResource( 39 )
 
 [sub_resource type="DynamicFont" id=5]
@@ -179,7 +215,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 367, 46 ) ]
+"values": [ Vector2( 248, 45 ) ]
 }
 
 [sub_resource type="Animation" id=31]
@@ -219,7 +255,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 367, 46 ), Vector2( 377, 56 ), Vector2( 367, 46 ) ]
+"values": [ Vector2( 248, 45 ), Vector2( 258, 55 ), Vector2( 248, 45 ) ]
 }
 
 [sub_resource type="Animation" id=40]
@@ -786,6 +822,77 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="DynamicFont" id=49]
+size = 35
+font_data = ExtResource( 5 )
+
+[sub_resource type="Animation" id=50]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 543, 102 ) ]
+}
+
+[sub_resource type="Animation" id=51]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 543, 102 ), Vector2( 553, 112 ), Vector2( 543, 102 ) ]
+}
+
 [sub_resource type="DynamicFont" id=9]
 size = 35
 font_data = ExtResource( 5 )
@@ -1077,6 +1184,61 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="Animation" id=55]
+length = 0.001
+
+[sub_resource type="Animation" id=54]
+resource_name = "out"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/path = NodePath("ActionButtons:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Developer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("VersionBg:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("WonderTitle:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
 [node name="StartMenu" type="CanvasLayer" groups=["CurrentTree"]]
 pause_mode = 2
 layer = 10
@@ -1109,8 +1271,8 @@ margin_left = -207.5
 margin_top = -64.0
 margin_right = 207.5
 margin_bottom = -9.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 1 )
 custom_fonts/font = SubResource( 3 )
 text = "2024 - 2025 | Manzft27"
 align = 1
@@ -1231,77 +1393,36 @@ custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 4 )
 text = "MAKER"
 
-[node name="WonderTitle" type="Label" parent="."]
+[node name="WonderTitle" type="TextureRect" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -175.5
-margin_top = 83.0
-margin_right = 175.5
-margin_bottom = 185.0
-custom_colors/font_color = Color( 1, 0.407843, 0.862745, 1 )
-custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 4 )
-text = "WONDER"
-align = 1
+margin_left = -213.5
+margin_top = 79.0
+margin_right = 213.5
+margin_bottom = 310.0
+texture = ExtResource( 42 )
+expand = true
+stretch_mode = 6
 
-[node name="TitleBottom2" type="Label" parent="WonderTitle"]
-modulate = Color( 1, 1, 1, 0.392157 )
-show_behind_parent = true
+[node name="Glow" type="TextureRect" parent="WonderTitle"]
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -175.5
-margin_top = -46.0
-margin_right = 175.5
-margin_bottom = 56.0
-custom_colors/font_color = Color( 1, 0.380392, 0.913725, 1 )
-custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 4 )
-text = "WONDER"
-align = 1
-
-[node name="MakerTitle" type="Label" parent="WonderTitle"]
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -140.0
-margin_top = -12.0
-margin_right = 140.0
-margin_bottom = 90.0
-custom_colors/font_color = Color( 0.952941, 1, 0.168627, 1 )
-custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 4 )
-text = "MAKER"
-align = 1
-
-[node name="TitleBottom2" type="Label" parent="WonderTitle/MakerTitle"]
-modulate = Color( 1, 1, 1, 0.392157 )
-show_behind_parent = true
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -140.0
-margin_top = -46.0
-margin_right = 140.0
-margin_bottom = 56.0
-custom_colors/font_color = Color( 1, 0.380392, 0.913725, 1 )
-custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 4 )
-text = "MAKER"
-align = 1
+margin_left = -213.5
+margin_right = 213.5
+margin_bottom = 231.0
+texture = ExtResource( 41 )
+expand = true
+stretch_mode = 6
 
 [node name="SplashContainer" type="Control" parent="WonderTitle"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -177.0
-margin_top = -55.0
-margin_right = -120.0
-margin_bottom = -2.0
+margin_left = -163.0
+margin_top = -111.5
+margin_right = -106.0
+margin_bottom = -58.5
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="WonderTitle/SplashContainer"]
 anims/RESET = SubResource( 45 )
@@ -1312,17 +1433,19 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -55.5
-margin_top = 221.0
-margin_right = 1368.5
-margin_bottom = 278.0
+margin_left = 87.0
+margin_top = 171.0
+margin_right = 866.0
+margin_bottom = 300.0
 rect_rotation = -19.2639
 rect_scale = Vector2( 0.5, 0.5 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 47 )
-text = "SPLASH"
+text = "SPLASH TEXT"
 align = 1
+autowrap = true
+clip_text = true
 
 [node name="Shadow" type="Label" parent="WonderTitle/SplashContainer/Splash"]
 modulate = Color( 0, 0, 0, 0.294118 )
@@ -1334,15 +1457,23 @@ margin_bottom = 5.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 47 )
-text = "SPLASH"
+text = "SPLASH TEXT"
 align = 1
+autowrap = true
+clip_text = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="WonderTitle"]
+autoplay = "idle"
+anims/RESET = SubResource( 52 )
+anims/idle = SubResource( 53 )
 
 [node name="VersionBg" type="NinePatchRect" parent="."]
+self_modulate = Color( 1, 1, 1, 0.631373 )
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -202.0
+margin_left = -172.0
 margin_top = -59.0
 margin_right = -10.0
 margin_bottom = -10.0
@@ -1366,13 +1497,14 @@ text = "Alpha v1.3"
 align = 1
 
 [node name="StartButton" type="TextureButton" parent="." groups=["Button"]]
+self_modulate = Color( 1, 0.501961, 0.898039, 1 )
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -183.0
+margin_left = -124.0
 margin_top = -161.0
-margin_right = 182.0
+margin_right = 124.0
 margin_bottom = -116.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -1390,9 +1522,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -104.5
+margin_left = -100.5
 margin_top = -18.5
-margin_right = -6.5
+margin_right = -2.5
 margin_bottom = 16.5
 custom_colors/font_color = Color( 0, 0, 0, 0.784314 )
 custom_fonts/font = SubResource( 5 )
@@ -1419,8 +1551,10 @@ anims/inout = SubResource( 7 )
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 2.0
-margin_bottom = 1.0
+margin_left = -4.99064
+margin_top = -4.99064
+margin_right = -4.99065
+margin_bottom = -4.99064
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="StartButton/Selection"]
@@ -1478,9 +1612,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -182.5
+margin_left = -124.0
 margin_top = -17.5
-margin_right = 182.5
+margin_right = 124.0
 margin_bottom = 26.5
 mouse_filter = 2
 texture = ExtResource( 7 )
@@ -2002,6 +2136,120 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
+[node name="ManzftChallenge" type="TextureButton" parent="PlayButtons" groups=["Button"]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -271.5
+margin_top = -50.0
+margin_right = 271.5
+margin_bottom = 52.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath("../WorldMaker")
+focus_neighbour_right = NodePath("../Worldbot")
+focus_neighbour_bottom = NodePath("../CourseWorld")
+texture_normal = ExtResource( 16 )
+texture_disabled = ExtResource( 16 )
+stretch_mode = 3
+
+[node name="Icon" type="TextureRect" parent="PlayButtons/ManzftChallenge"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 13.0
+margin_top = -42.5
+margin_right = 96.0
+margin_bottom = 40.5
+mouse_filter = 2
+texture = ExtResource( 40 )
+expand = true
+stretch_mode = 6
+
+[node name="Text" type="Label" parent="PlayButtons/ManzftChallenge"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -391.0
+margin_top = -18.0
+margin_right = -82.0
+margin_bottom = 18.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 49 )
+text = "Manzft Challenge"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayButtons/ManzftChallenge"]
+
+[node name="Selection" type="Control" parent="PlayButtons/ManzftChallenge" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -4.63017
+margin_top = -4.63017
+margin_right = -4.63019
+margin_bottom = -4.63017
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="PlayButtons/ManzftChallenge/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="UpRight" type="TextureRect" parent="PlayButtons/ManzftChallenge/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="DownRight" type="TextureRect" parent="PlayButtons/ManzftChallenge/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="DownLeft" type="TextureRect" parent="PlayButtons/ManzftChallenge/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 23 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PlayButtons/ManzftChallenge/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 50 )
+anims/idle = SubResource( 51 )
+
+[node name="Shadow" type="TextureRect" parent="PlayButtons/ManzftChallenge"]
+modulate = Color( 0, 0, 0, 0.219608 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 5.0
+margin_bottom = 5.0
+mouse_filter = 2
+texture = ExtResource( 16 )
+
 [node name="StoryMode" type="TextureButton" parent="PlayButtons" groups=["Button"]]
 visible = false
 anchor_left = 0.5
@@ -2120,7 +2368,6 @@ mouse_filter = 2
 texture = ExtResource( 16 )
 
 [node name="CourseWorld" type="TextureButton" parent="PlayButtons" groups=["Button"]]
-visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -2142,9 +2389,9 @@ stretch_mode = 3
 [node name="Icon" type="TextureRect" parent="PlayButtons/CourseWorld"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 11.0
+margin_left = 16.0
 margin_top = -40.5
-margin_right = 93.0
+margin_right = 98.0
 margin_bottom = 41.5
 mouse_filter = 2
 texture = ExtResource( 15 )
@@ -2239,9 +2486,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -271.5
-margin_top = -299.0
+margin_top = -188.0
 margin_right = 271.5
-margin_bottom = -197.0
+margin_bottom = -86.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_neighbour_left = NodePath("../BackButton")
@@ -2273,9 +2520,9 @@ texture = ExtResource( 16 )
 [node name="Icon" type="TextureRect" parent="PlayButtons/Coursebot"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 11.0
+margin_left = 17.0
 margin_top = -40.5
-margin_right = 91.0
+margin_right = 97.0
 margin_bottom = 40.5
 mouse_filter = 2
 texture = ExtResource( 18 )
@@ -2463,7 +2710,6 @@ pitch_scale = 0.8
 [node name="MusicTitleScreen" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 35 )
 volume_db = -10.0
-autoplay = true
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false
@@ -2471,6 +2717,10 @@ position = Vector2( 874, 192 )
 texture = ExtResource( 34 )
 hframes = 7
 frame = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/RESET = SubResource( 55 )
+anims/out = SubResource( 54 )
 
 [connection signal="mouse_entered" from="StartButton" to="." method="_on_StartButton_mouse_entered"]
 [connection signal="mouse_exited" from="StartButton" to="." method="_on_StartButton_mouse_exited"]
@@ -2490,6 +2740,9 @@ frame = 6
 [connection signal="mouse_entered" from="ActionButtons/BackButton" to="." method="_on_BackButton_mouse_entered"]
 [connection signal="mouse_exited" from="ActionButtons/BackButton" to="." method="_on_BackButton_mouse_exited"]
 [connection signal="pressed" from="ActionButtons/BackButton" to="." method="_on_BackButton_pressed"]
+[connection signal="mouse_entered" from="PlayButtons/ManzftChallenge" to="." method="_on_ManzftChallenge_mouse_entered"]
+[connection signal="mouse_exited" from="PlayButtons/ManzftChallenge" to="." method="_on_ManzftChallenge_mouse_exited"]
+[connection signal="pressed" from="PlayButtons/ManzftChallenge" to="." method="_on_ManzftChallenge_pressed"]
 [connection signal="mouse_entered" from="PlayButtons/StoryMode" to="." method="_on_StoryMode_mouse_entered"]
 [connection signal="mouse_exited" from="PlayButtons/StoryMode" to="." method="_on_StoryMode_mouse_exited"]
 [connection signal="pressed" from="PlayButtons/StoryMode" to="." method="_on_StoryMode_pressed"]

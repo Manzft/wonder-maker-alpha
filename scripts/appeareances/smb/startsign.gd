@@ -8,7 +8,7 @@ func _ready():
 	styleChanged();
 
 func _process(delta):
-		shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
 
 func styleChanged():
 	match (Global.CurrentStyle):
@@ -29,3 +29,7 @@ func styleChanged():
 	shadow.scale = scale
 	shadow.offset = currentSprite.offset;
 	get_node("../ShadowViewport").add_child(shadow);
+
+
+func _on_StartSign_tree_exiting():
+	shadow.queue_free();

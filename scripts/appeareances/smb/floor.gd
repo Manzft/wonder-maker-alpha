@@ -75,12 +75,16 @@ func _ready():
 	yield(get_tree(), "idle_frame");
 	
 	mygrid = get_parent().calculateGrid(position.x, position.y);
-	updateNearFloors();
+
 	styleChanged();
+	updateNearFloors();
 	if (editPlaced):
 		spawnDecoration();
 	else:
 		setDecoration()
+	
+	yield(get_tree(), "idle_frame");
+	styleChanged();
 	editPlaced = false;
 
 func _process(delta):
@@ -299,6 +303,9 @@ func styleChanged():
 	shadowdecoration = Sprite.new();
 	shadowdecoration.scale = currentSprite.scale;
 	get_node("../ShadowViewport").add_child(shadowdecoration);
+	
+	if (!currentSprite.visible):
+		print("Im ", currentSprite, " and im not visible");
 
 func levelFloorChanged(levelFloorGrid):
 	if (mygrid.x == levelFloorGrid.x+1):

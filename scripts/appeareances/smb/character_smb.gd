@@ -51,7 +51,7 @@ var attacks = 0;
 
 var star = false;
 
-onready var current_sprite = get_node("Mario");
+onready var current_sprite = get_node("Manzft");
 
 var currentPowerup = "small";
 var lastCurrentPowerup = currentPowerup;
@@ -618,8 +618,11 @@ func _on_ChangingPowerup_timeout():
 	
 	if (sneaking):
 		releaseSneak();
-	
+		
+	falling = false;
+	jumping = true;
 	currentPowerup = currentChangingPowerup;
+	current_sprite.animation = currentPowerup+current_sprite.animation.trim_prefix(currentPowerup).trim_prefix(changingPowerup);
 	if (currentPowerup == "small"):
 		current_sprite.offset.y = 0;
 	else:
@@ -689,7 +692,7 @@ func _on_SoundPButton_finished():
 			node.release();
 
 func deactivateSubPixelSprite():
-	$Mario.position.y = -3;
+	current_sprite.position.y = -3;
 
 func _on_Character_tree_exiting():
 	eraseShadow();

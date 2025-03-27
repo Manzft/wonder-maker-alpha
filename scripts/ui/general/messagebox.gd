@@ -64,11 +64,11 @@ func _ready():
 	for node in nodes:
 		node.connect("focus_entered", self, "focus_change");
 	
-	if (get_parent().get_name() == "Editor"):
+	if ("CurrentMenu" in get_parent()):
 		if (get_parent().CurrentMenu == "SideMenu"):
 			rect_position.x += 610;
 			
-	yield(get_tree().create_timer(0.5), "timeout");
+	yield(get_tree().create_timer(0.125), "timeout");
 	$AnimationPlayer.play("in");
 	
 func _process(delta):

@@ -121,6 +121,10 @@ func _process(_delta):
 		dupsprite.position = pos;
 	else:
 		dupsprite.position = currentSprite.global_position;
+		
+	if (!dupsprite.visible):
+		dupsprite.position = currentSprite.global_position;
+		dupsprite.show();
 	
 	dupsprite.rotation_degrees = currentSprite.rotation_degrees+rotation_degrees;
 	dupsprite.visible = visible;
@@ -206,6 +210,7 @@ func styleChanged():
 	dupsprite.texture = currentSprite.texture;
 	dupsprite.scale = currentSprite.scale;
 	dupsprite.position = position;
+	dupsprite.hide();
 	dupsprite.add_to_group("SpriteClone");
 	get_parent().add_child(dupsprite);
 
