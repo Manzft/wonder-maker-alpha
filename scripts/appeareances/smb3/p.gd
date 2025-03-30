@@ -96,6 +96,8 @@ func _ready():
 	canSyncAnim = true;
 
 func _process(delta):
+	gravity = def_gravity/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	max_h_speed = def_max_h_speed/(Global.ENTITY_PHYSICS_SPEED*0.01);
 	if (get_node("../Editor").playing):
 		canPickTimer += delta;
 		if (canPickTimer >= 0.5):

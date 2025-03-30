@@ -29,12 +29,15 @@ var shadow : AnimatedSprite
 var explosionshadow : AnimatedSprite
 var dupsprite : AnimatedSprite
 
+var limit_time = 0.0;
+
 func eraseShadow():
 	dupsprite.queue_free();
 	shadow.queue_free();
 	explosionshadow.queue_free();
 
 func _ready():
+	limit_time = Global.ENTITY_PHYSICS_SPEED*0.01;
 	max_speed = def_max_speed/(Global.ENTITY_PHYSICS_SPEED*0.01);
 	jump_h  = def_jump_h/(Global.ENTITY_PHYSICS_SPEED*0.01);
 	gravity = def_gravity/(Global.ENTITY_PHYSICS_SPEED*0.01);
@@ -74,7 +77,7 @@ func _ready():
 			$Sprite.play("left");
 	
 	if (!nogravity):
-		max_speed += (get_node("../Character").motion.x/(Global.ENTITY_PHYSICS_SPEED*0.01))/2;
+		max_speed += abs(get_node("../Character").motion.x/(Global.ENTITY_PHYSICS_SPEED*0.01))/2;
 	
 	if (nogravity):
 		match (vdirection):
@@ -147,7 +150,7 @@ func _physics_process(delta):
 		queue_free();
 	
 	timer += delta
-	if (timer >= delta/(Global.ENTITY_PHYSICS_SPEED*0.01)):
+	if (timer >= delta/limit_time):
 		timer = 0.0
 		motion = move_and_slide(motion, Vector2(0, -1));
 

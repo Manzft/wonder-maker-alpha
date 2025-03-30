@@ -151,8 +151,9 @@ func _on_Notifications_mouse_exited():
 	button_mouse_exited(); mouseFocus = ""; changeFocus();
 
 func _on_Settings_pressed():
-	savedFocus = getFocusNode();
-	Global.showMessage("¡Aún estamos trabajando en esto!", get_parent(), self);
+#	savedFocus = getFocusNode();
+#	Global.showMessage("¡Aún estamos trabajando en esto!", get_parent(), self);
+	Global.spawnSettings(get_parent(), self);
 	$AudioButton.play();
 func _on_Settings_mouse_entered():
 	mouseFocus = "Settings"; button_mouse_entered(); changeFocus();
@@ -161,7 +162,7 @@ func _on_Settings_mouse_exited():
 	
 func _on_ManzftChallenge_pressed():
 	savedFocus = getFocusNode();
-	Global.showMessage("¡Aún estamos trabajando en esto!", get_parent(), self);
+	Global.showMessage("El Manzft Challenge aún está en desarrollo, vendrá en la Alpha v1.3 Fix.", get_parent(), self);
 	$AudioPlayButton.play();
 func _on_ManzftChallenge_mouse_entered():
 	mouseFocus = "ManzftChallenge"; button_mouse_entered(); changeFocus();

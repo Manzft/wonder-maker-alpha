@@ -254,7 +254,7 @@ func _on_Coursebot_mouse_exited():
 
 func _on_ManzftChallenge_pressed():
 	savedFocus = getFocusNode();
-	Global.showMessage("¡Aún estamos trabajando en esto!", self, self);
+	Global.showMessage("El Manzft Challenge aún está en desarrollo, vendrá en la Alpha v1.3 Fix.", self, self);
 	$AudioPlayButton.play();
 func _on_ManzftChallenge_mouse_entered():
 	mouseFocus = "PlayButtons/ManzftChallenge"; button_mouse_entered(); changeFocus();

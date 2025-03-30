@@ -55,6 +55,11 @@ func updateFocusSprite():
 			node.get_node("Selection/AnimationPlayer").play("RESET");
 
 func _ready():
+	for node in get_tree().get_nodes_in_group("Option"):
+		node.connect("pressed", self, "_on_"+node.name+"_pressed")
+		node.connect("mouse_entered", self, "_on_"+node.name+"_mouse_entered")
+		node.connect("mouse_exited", self, "_on_"+node.name+"_mouse_exited")
+	
 	if (get_parent().get_name() == "Editor"):
 		get_parent().editingText = true;
 	changeInput();
@@ -163,15 +168,64 @@ func _on_VSync_mouse_exited():
 
 func _on_Force169_pressed():
 	$AudioButton.play()
-	Global.VSYNC = not Global.VSYNC
-	OS.vsync_enabled = Global.VSYNC;
+	Global.SCREEN_16_9 = not Global.SCREEN_16_9
 func _on_Force169_mouse_entered():
 	if (!Backwards):
 		mouseFocus = "Force169"; button_mouse_entered(); changeFocus();
 func _on_Force169_mouse_exited():
 	if (!Backwards):
 		button_mouse_exited(); mouseFocus = ""; changeFocus();
-	
+		
+func _on_ShowPauseButton_pressed():
+	$AudioButton.play()
+	Global.SHOW_PAUSE_BUTTON = not Global.SHOW_PAUSE_BUTTON
+func _on_ShowPauseButton_mouse_entered():
+	if (!Backwards):
+		mouseFocus = "ShowPauseButton"; button_mouse_entered(); changeFocus();
+func _on_ShowPauseButton_mouse_exited():
+	if (!Backwards):
+		button_mouse_exited(); mouseFocus = ""; changeFocus();
+
+func _on_ShowFPS_pressed():
+	$AudioButton.play()
+	Global.SHOW_FPS = not Global.SHOW_FPS
+	Global.get_node("FPS").visible = Global.SHOW_FPS;
+func _on_ShowFPS_mouse_entered():
+	if (!Backwards):
+		mouseFocus = "ShowFPS"; button_mouse_entered(); changeFocus();
+func _on_ShowFPS_mouse_exited():
+	if (!Backwards):
+		button_mouse_exited(); mouseFocus = ""; changeFocus();
+
+func _on_AutoSaving_pressed():
+	$AudioButton.play()
+	Global.AUTO_SAVING = not Global.AUTO_SAVING
+func _on_AutoSaving_mouse_entered():
+	if (!Backwards):
+		mouseFocus = "AutoSaving"; button_mouse_entered(); changeFocus();
+func _on_AutoSaving_mouse_exited():
+	if (!Backwards):
+		button_mouse_exited(); mouseFocus = ""; changeFocus();
+
+func _on_SnowParticles_pressed():
+	$AudioButton.play()
+	Global.SNOW_FALLING_PARTICLES = not Global.SNOW_FALLING_PARTICLES
+func _on_SnowParticles_mouse_entered():
+	if (!Backwards):
+		mouseFocus = "SnowParticles"; button_mouse_entered(); changeFocus();
+func _on_SnowParticles_mouse_exited():
+	if (!Backwards):
+		button_mouse_exited(); mouseFocus = ""; changeFocus();
+		
+func _on_PhysicsInterpolation_pressed():
+	$AudioButton.play()
+	Global.PHYSICS_INTERPOLATION = not Global.PHYSICS_INTERPOLATION
+func _on_PhysicsInterpolation_mouse_entered():
+	if (!Backwards):
+		mouseFocus = "PhysicsInterpolation"; button_mouse_entered(); changeFocus();
+func _on_PhysicsInterpolation_mouse_exited():
+	if (!Backwards):
+		button_mouse_exited(); mouseFocus = ""; changeFocus();
 
 func _on_HSlider_value_changed(value):
 	$AudioKey.play();

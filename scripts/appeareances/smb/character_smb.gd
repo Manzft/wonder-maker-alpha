@@ -51,7 +51,7 @@ var attacks = 0;
 
 var star = false;
 
-onready var current_sprite = get_node("Manzft");
+onready var current_sprite = get_node("Mario");
 
 var currentPowerup = "small";
 var lastCurrentPowerup = currentPowerup;
@@ -73,6 +73,12 @@ var jump_timer = 0.0;
 
 var koyoteFalling = false;
 var startedJumping = false;
+
+var enteringPipe : bool = false
+var exitingPipe : bool = false
+var enteringPipeDirection : String = ""
+var exitingPipeDirection : String = ""
+var exitPipePosition : Vector2 = Vector2(0, 0)
 
 func eraseShadow():
 	shadow.queue_free();
@@ -129,7 +135,7 @@ func _physics_process(delta):
 	if (!$MushCollision.disabled): $UpArea.position.y = -42;
 	
 	#Gravity
-	if (!deadwait && !changingPowerup):
+	if (!deadwait && !changingPowerup && !enteringPipe && !exitingPipe && enteringPipeDirection == ""):
 		motion.y += gravity;
 	var friction = false;
 	
@@ -155,7 +161,7 @@ func _physics_process(delta):
 		if (!get_node("../../StartMenu/StartButton").visible):
 			startmenucheck = false;
 	
-	if (!died && !in_flag_pole && !changingPowerup):
+	if (!died && !in_flag_pole && !changingPowerup && !enteringPipe && !exitingPipe && enteringPipeDirection == ""):
 		#Fireflower attack
 		if (Input.is_action_just_pressed("y") || Input.is_action_just_pressed("x")):
 			if (currentPowerup == "fireflower" && !attacking && canAttack && !sneaking):
@@ -389,7 +395,8 @@ func _physics_process(delta):
 		#	if (!died): die();
 		
 	#Global Movement Controller
-	motion = move_and_slide(motion, Vector2(0, -1));
+	if (!enteringPipe && !exitingPipe && enteringPipeDirection == ""):
+		motion = move_and_slide(motion, Vector2(0, -1));
 
 func sneak():
 	sneaking = true;
@@ -433,12 +440,10 @@ func die():
 	$SoundStar.stop();
 	
 	#Online Dead Signal
-#	var inst = load("res://scenes/appearances/OnlineDeath.tscn").instance();
-#	get_parent().add_child(inst);
-#	inst.get_node("AnimationPlayer").play("start");
-#	inst.position = position;
-#	if (inst.position.y > 1545):
-#		inst.position.y = 1545;
+	if (Global.coursePlaying):
+		var inst = load("res://scenes/appearances/OnlineDeath.tscn").instance();
+		get_parent().add_child(inst);
+		inst.position = position;
 	
 	yield(get_tree().create_timer(0.8), "timeout");
 	
@@ -450,7 +455,7 @@ func die():
 	$MushCollision.disabled = true;
 	motion.y = -1000;
 
-func _process(_delta):
+func _process(delta):
 	if (Global.playing):
 		Global.charpos = position;
 	#Shadow Animation Sync Controller
@@ -461,6 +466,7 @@ func _process(_delta):
 	shadow.offset = current_sprite.offset;
 	shadow.flip_h = current_sprite.flip_h;
 	shadow.flip_v = current_sprite.flip_v;
+	shadow.visible = visible
 	
 	#Fall Dead
 	if (position.y >= 1600 && !course_clear):
@@ -475,6 +481,21 @@ func _process(_delta):
 		
 		if (!died):
 			die();
+	
+	var moveSpeed = 50*delta
+	if (enteringPipe):
+		match (enteringPipeDirection):
+			"up": current_sprite.offset.y += moveSpeed
+			"down": current_sprite.offset.y -= moveSpeed
+			"left": current_sprite.offset.x += moveSpeed
+			"right": current_sprite.offset.x -= moveSpeed
+	
+	if (exitingPipe):
+		match (exitingPipeDirection):
+			"up": current_sprite.offset.y -= moveSpeed
+			"down": current_sprite.offset.y += moveSpeed
+			"left": current_sprite.offset.x -= moveSpeed
+			"right": current_sprite.offset.x += moveSpeed
 	
 	#Wall Dead
 	if (!died && position.y < get_parent().calculateGridPosition(Vector2(0, get_parent().grid_size.y-1)).y):
@@ -494,7 +515,8 @@ func _on_KoyoteTimer_timeout():
 	koyoteTime = false;
 
 func _on_DeadTimer_timeout():
-	get_node("../Editor")._on_Edit_pressed();
+	if (!get_parent().startmenu):
+		get_node("../Editor")._on_Edit_pressed();
 
 func upAreaCollide(var rc):
 	var body = rc.get_collider();
@@ -696,3 +718,125 @@ func deactivateSubPixelSprite():
 
 func _on_Character_tree_exiting():
 	eraseShadow();
+
+func enterPipe(direction : String, pipeNode : Node, code : int):
+	if (enteringPipe || died || changingPowerup):
+		return
+	if (sneaking):
+		releaseSneak()
+	
+	for node in get_tree().get_nodes_in_group("Pipe"):
+		if (node != pipeNode):
+			if (node.pipe_code == code):
+				pause_mode = PAUSE_MODE_PROCESS; get_tree().paused = true;
+				enteringPipe = true
+				$SoundEnterPipe.play()
+				#$AnimationPlayer.play("enter_pipe")
+				z_index = -1
+				match (direction):
+					"up":
+						position.x = pipeNode.position.x+26
+						current_sprite.play(currentPowerup+"_idle");
+					"left":
+						position.y = pipeNode.position.y+26+18
+						current_sprite.play(currentPowerup+"_walk");
+						if (currentPowerup != "small"):
+							current_sprite.scale.y = (3.25)*0.85
+					"right":
+						position.y = pipeNode.position.y+26+18
+						current_sprite.play(currentPowerup+"_walk");
+						if (currentPowerup != "small"):
+							current_sprite.scale.y = (3.25)*0.85
+					"down":
+						position.x = pipeNode.position.x+26
+						current_sprite.play(currentPowerup+"_idle");
+				$EnterPipeTimer.start()
+				enteringPipeDirection = direction
+				exitingPipeDirection = node.seldirection
+				exitPipePosition = node.position
+				motion = Vector2(0, 0)
+
+func _on_EnterPipeTimer_timeout():
+	get_parent().get_node("CircleTransition/Transition/AnimationPlayer").play("in")
+	enteringPipe = false
+	hide()
+	match (exitingPipeDirection):
+		"up":
+			position.x = exitPipePosition.x+26
+			position.y = exitPipePosition.y-52
+			current_sprite.play(currentPowerup+"_idle");
+		"left":
+			position.x = exitPipePosition.x-52
+			position.y = exitPipePosition.y+26+18
+			current_sprite.play(currentPowerup+"_walk");
+			current_sprite.flip_h = true
+		"right":
+			position.x = exitPipePosition.x+52+52
+			position.y = exitPipePosition.y+26+18
+			current_sprite.play(currentPowerup+"_walk");
+			current_sprite.flip_h = false
+		"down":
+			position.x = exitPipePosition.x+26
+			position.y = exitPipePosition.y+52+52
+			if (currentPowerup != "small"):
+				position.y += 52
+			current_sprite.play(currentPowerup+"_idle");
+	$ExitPipeTimer.start()
+	get_tree().paused = false; pause_mode = PAUSE_MODE_INHERIT;
+
+func _on_ExitPipeTimer_timeout():
+	current_sprite.scale.y = 3.25
+	match (exitingPipeDirection):
+		"up":
+			current_sprite.offset = Vector2(0, 25);
+		"left":
+			current_sprite.offset = Vector2(25, 0);
+			if (currentPowerup != "small"):
+				current_sprite.scale.y = (3.25)*0.85
+		"right":
+			current_sprite.offset = Vector2(-25, 0);
+			if (currentPowerup != "small"):
+				current_sprite.scale.y = (3.25)*0.85
+		"down":
+			current_sprite.offset = Vector2(0, -25);
+	
+	if (currentPowerup != "small"):
+		current_sprite.offset.y -= 8;
+	
+	var campos = Vector2(get_node("../Editor/GamepadCursorDefaultPosition").rect_position.x, get_node("../Editor/GamepadCursorDefaultPosition").rect_position.y);
+	get_node("../Camera2D").position.x = position.x-campos.x;
+	
+	if (get_parent().freecam):
+		get_node("../Camera2D").position.y = position.y-campos.y;
+	else:
+		get_node("../Camera2D").position.y = 840;
+		
+	if (get_node("../Camera2D").position.y < 0): get_node("../Camera2D").position.y = 0;
+	if (get_node("../Camera2D").position.x < 0): get_node("../Camera2D").position.x = 0;
+	if (get_node("../Camera2D").position.y > 840): get_node("../Camera2D").position.y = 840;
+	var px = get_node("../EndFloor").position.x+(52*9)-26-get_node("../Editor/SectionTop").rect_size.x;
+	if (get_node("../Camera2D").position.x > px): get_node("../Camera2D").position.x = px;
+	
+	get_parent().get_node("CircleTransition/Circle").material.set_shader_param("screen_width", get_parent().get_node("CircleTransition/Circle").rect_size.x)
+	get_parent().get_node("CircleTransition/Circle").material.set_shader_param("screen_height", get_parent().get_node("CircleTransition/Circle").rect_size.y)
+	get_parent().get_node("CircleTransition/Circle").material.set_shader_param("offset_x", 0.0)
+	get_parent().get_node("CircleTransition/Circle").material.set_shader_param("offset_y", 0.0)
+	get_parent().get_node("CircleTransition/Transition/AnimationPlayer").play("RESET")
+	get_parent().get_node("CircleTransition/AnimationPlayer").play("out")
+	yield(get_tree().create_timer(0.5), "timeout")
+	$FinishPipeTimer.start()
+	exitingPipe = true
+	$SoundEnterPipe.play()
+	show()
+
+func _on_FinishPipeTimer_timeout():
+	current_sprite.scale.y = 3.25
+	exitingPipe = false
+	enteringPipeDirection = ""
+	exitingPipeDirection = ""
+	z_index = 2
+	current_sprite.offset.x = 0
+	if (currentPowerup == "small"):
+		current_sprite.offset.y = 0;
+	else:
+		current_sprite.offset.y = -8;

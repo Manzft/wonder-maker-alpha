@@ -551,8 +551,8 @@ func _ready():
 	selected_objects[7] = Global.OBJ_GOOMBA;
 	selected_objects[8] = Global.OBJ_PIRANHAPLANT;
 	selected_objects[9] = Global.OBJ_KOOPATROOPA;
-	selected_objects[10] = Global.OBJ_10COIN;
-	selected_objects[11] = Global.OBJ_ONOFFSWITCH2;
+	selected_objects[10] = Global.OBJ_SEMISOLID;
+	selected_objects[11] = Global.OBJ_PIPE_CONNECTOR;
 	
 	updateObjectButtons();
 	
@@ -2404,14 +2404,14 @@ func _on_Edit_pressed():
 			$AudioBigButton.play();
 		
 		if (Global.coursePlaying):
-			get_node("../Transition/AnimationPlayer").play("in");
+			get_node("../CircleTransition/Transition/AnimationPlayer").play("in");
 			yield(get_tree().create_timer(1), "timeout");
-			playing = false;
 			get_node("../Character").queue_free();
 			Global.changingToEditMode = true;
 			yield(get_tree().create_timer(0.5), "timeout");
-			get_node("../Transition/AnimationPlayer").play("out");
+			playing = false;
 			_on_Play_pressed();
+			get_node("../CircleTransition/Transition/AnimationPlayer").play("out");
 
 func _on_Edit_mouse_entered():
 	mouseFocus = "Edit"; button_mouse_entered(); changeFocus();
@@ -2512,6 +2512,69 @@ func _on_TypeMenuTimer_timeout():
 					else:
 						button.type = "drybonesalive";
 					button.setup();
+				Global.OBJ_10COIN:
+					cont = true;
+					var button = addTypeMenuButton();
+					button.type = "30COIN";
+					button.setup();
+					button = addTypeMenuButton();
+					button.type = "50COIN";
+					button.setup();
+				Global.OBJ_30COIN:
+					cont = true;
+					var button = addTypeMenuButton();
+					button.type = "10COIN";
+					button.setup();
+					button = addTypeMenuButton();
+					button.type = "50COIN";
+					button.setup();
+				Global.OBJ_50COIN:
+					cont = true;
+					var button = addTypeMenuButton();
+					button.type = "10COIN";
+					button.setup();
+					button = addTypeMenuButton();
+					button.type = "30COIN";
+					button.setup();
+				Global.OBJ_ONOFFSWITCH:
+					cont = true;
+					var button = addTypeMenuButton();
+					button.type = "ONOFFSWITCH2";
+					button.setup();
+				Global.OBJ_ONBLOCK:
+					cont = true;
+					var button = addTypeMenuButton();
+					button.type = "ONBLOCK2";
+					button.setup();
+				Global.OBJ_OFFBLOCK:
+					cont = true;
+					var button = addTypeMenuButton();
+					button.type = "OFFBLOCK2";
+					button.setup();
+				Global.OBJ_ONOFFSWITCH2:
+					cont = true;
+					var button = addTypeMenuButton();
+					button.type = "ONOFFSWITCH";
+					button.setup();
+				Global.OBJ_ONBLOCK2:
+					cont = true;
+					var button = addTypeMenuButton();
+					button.type = "ONBLOCK";
+					button.setup();
+				Global.OBJ_OFFBLOCK2:
+					cont = true;
+					var button = addTypeMenuButton();
+					button.type = "OFFBLOCK";
+					button.setup();
+				Global.OBJ_PIPE:
+					var node = get_parent().grab_node
+					if (node.pipe_code == -1):
+						if (node.grid_origin == node.grid_origin_def &&
+						node.grid_end == node.grid_end_def):
+							cont = true;
+							var button = addTypeMenuButton();
+							button.type = "pipe_transport";
+							button.setup();
 			
 			if (!cont): return;
 		
@@ -2592,7 +2655,7 @@ func _on_Play_AnimationPlayer_animation_finished(anim_name):
 func _on_AutoSavingTimer_timeout():
 	if (Global.currentlevel != "" && !get_tree().paused && !playing && Global.currentlevel != "res://title level.wom" && Global.AUTO_SAVING):
 		print(Global.currentlevel);
-		Global.saveCourseData();
+		Global.saveCourseData(true, true);
 		$AutoSaving/AnimationPlayer.play("in");
 		yield(get_tree().create_timer(6.0), "timeout");
 		$AutoSaving/AnimationPlayer.play("out");

@@ -26,7 +26,7 @@ var OP_NAME = 1;
 var OP_ICON = 2;
 var object = [];
 
-var Objects = 38;
+var Objects = 40;
 var Appeareances = 2;
 var Styles = 1;
 
@@ -68,6 +68,8 @@ var OBJ_ONOFFSWITCH2 = 34;
 var OBJ_ONBLOCK2 = 35;
 var OBJ_OFFBLOCK2 = 36;
 var OBJ_PIPE = 37;
+var OBJ_SEMISOLID = 38;
+var OBJ_PIPE_CONNECTOR = 39;
 
 var objects_count = []
 
@@ -142,11 +144,10 @@ var CURRENT_THUMBNAIL = null;
 func getObjectCode(node: Node):
 	var obj : int = -1;
 	for group in node.get_groups():
-#		print(group, " | ", node.get_name())
-#		print("-------------");
 		if (group[0] in "0123456789"):
-			obj = int(group);
-			break
+			if !(group[group.length()-1] in "aAbBcCdDeEfFgGhHjJkKlLmMnNñÑoOpPqQrRsStTuUvVwWxXyYzZ"):
+				obj = int(group);
+				break
 	return obj
 
 func to_dict(node: Node):
@@ -177,9 +178,13 @@ func to_dict(node: Node):
 	if (obj == OBJ_DRYBONES || obj == OBJ_SPINY):
 		data["alreadydead"] = var2str(node.alreadydead);
 	
-	if (obj == OBJ_PIPE):
+	if (obj == OBJ_PIPE || obj == OBJ_SEMISOLID || obj == OBJ_PIPE_CONNECTOR):
 		data["grid_origin"] = var2str(node.grid_origin);
 		data["grid_end"] = var2str(node.grid_end);
+		if (obj == OBJ_PIPE):
+			data["pipe_code"] = str(node.pipe_code)
+		if (obj == OBJ_SEMISOLID):
+			data["visual_grid_end"] = var2str(node.visual_grid_end)
 	
 	return data
 
@@ -260,8 +265,8 @@ func get_game_dir():
 	
 	return todir;
 
-func saveCourseData(ingame = true):
-	if (ingame):
+func saveCourseData(ingame : bool = true, autosave : bool = false):
+	if (ingame && !autosave):
 		var editor : Node;
 		for node in get_tree().get_nodes_in_group("CurrentTree"):
 			if (node.name == "Editor"):
@@ -443,9 +448,14 @@ func loadObjects(level):
 		if (int(obj.object) == OBJ_DRYBONES || int(obj.object) == OBJ_SPINY):
 			inst.alreadydead = str2var(obj.alreadydead)
 		
-		if (int(obj.object) == OBJ_PIPE):
+		if (int(obj.object) == OBJ_PIPE || int(obj.object) == OBJ_SEMISOLID || int(obj.object) == OBJ_PIPE_CONNECTOR):
 			inst.grid_origin = str2var(obj.grid_origin);
 			inst.grid_end = str2var(obj.grid_end);
+			if (int(obj.object) == OBJ_PIPE):
+				if ("pipe_code" in obj):
+					inst.pipe_code = int(obj.pipe_code)
+			if (int(obj.object) == OBJ_SEMISOLID):
+				inst.visual_grid_end = str2var(obj.visual_grid_end)
 	
 	emit_signal("gameLoaded");
 
@@ -534,7 +544,7 @@ func _ready() -> void:
 	
 	#Super Mario Bros
 	#Terrain
-	configObject(APP_SMB, OBJ_FLOOR, load("res://scenes/appearances/smb/blocks/floor.tscn"), "Piso", load("res://sprites/appeareances/smb/icons/terrain/floor.png"));
+	configObject(APP_SMB, OBJ_FLOOR, load("res://scenes/appearances/smb/blocks/floor.tscn"), "Suelo", load("res://sprites/appeareances/smb/icons/terrain/floor.png"));
 	configObject(APP_SMB, OBJ_BLOCK, load("res://scenes/appearances/smb/blocks/block.tscn"), "Bloque", load("res://sprites/appeareances/smb/icons/terrain/block.png"));
 	configObject(APP_SMB, OBJ_BRICK, load("res://scenes/appearances/smb/blocks/brick.tscn"), "Ladrillo", load("res://sprites/appeareances/smb/icons/terrain/brick.png"));
 	configObject(APP_SMB, OBJ_LUCKYBLOCK, load("res://scenes/appearances/smb/blocks/luckyblock.tscn"), "Bloque ?", load("res://sprites/appeareances/smb/icons/terrain/luckyblock.png"));
@@ -543,6 +553,8 @@ func _ready() -> void:
 	configObject(APP_SMB, OBJ_DONUT, load("res://scenes/appearances/smb/blocks/donut.tscn"), "Dona", load("res://sprites/appeareances/smb/icons/terrain/donut.png"));
 	configObject(APP_SMB, OBJ_SPIKE, load("res://scenes/appearances/smb/blocks/spike.tscn"), "Bloque de Pinchos", load("res://sprites/appeareances/smb/icons/terrain/spike.png"));
 	configObject(APP_SMB, OBJ_PIPE, load("res://scenes/appearances/smb/blocks/pipe.tscn"), "Tubería", load("res://sprites/appeareances/smb/icons/terrain/pipe.png"));
+	configObject(APP_SMB, OBJ_SEMISOLID, load("res://scenes/appearances/smb/blocks/semisolid.tscn"), "Plataforma", load("res://sprites/appeareances/smb/icons/terrain/semisolid.png"));
+	configObject(APP_SMB, OBJ_PIPE_CONNECTOR, load("res://scenes/appearances/smb/blocks/pipe_connector.tscn"), "Conector de Tubería", load("res://sprites/appeareances/smb/icons/terrain/pipe_connector.png"));
 	
 	#Items
 	configObject(APP_SMB, OBJ_COIN, load("res://scenes/appearances/smb/items/coin.tscn"), "Moneda", load("res://sprites/appeareances/smb/icons/items/coin.png"));
@@ -581,7 +593,7 @@ func _ready() -> void:
 	
 	#Super Mario Bros 3
 	#Terrain
-	configObject(APP_SMB3, OBJ_FLOOR, load("res://scenes/appearances/smb3/blocks/floor.tscn"), "Piso", load("res://sprites/appeareances/smb3/icons/terrain/floor.png"));
+	configObject(APP_SMB3, OBJ_FLOOR, load("res://scenes/appearances/smb3/blocks/floor.tscn"), "Suelo", load("res://sprites/appeareances/smb3/icons/terrain/floor.png"));
 	configObject(APP_SMB3, OBJ_BLOCK, load("res://scenes/appearances/smb3/blocks/block.tscn"), "Bloque", load("res://sprites/appeareances/smb3/icons/terrain/block.png"));
 	configObject(APP_SMB3, OBJ_BRICK, load("res://scenes/appearances/smb3/blocks/brick.tscn"), "Ladrillo", load("res://sprites/appeareances/smb3/icons/terrain/brick.png"));
 	configObject(APP_SMB3, OBJ_LUCKYBLOCK, load("res://scenes/appearances/smb3/blocks/luckyblock.tscn"), "Bloque ?", load("res://sprites/appeareances/smb3/icons/terrain/luckyblock.png"));
@@ -590,6 +602,8 @@ func _ready() -> void:
 	configObject(APP_SMB3, OBJ_DONUT, load("res://scenes/appearances/smb3/blocks/donut.tscn"), "Dona", load("res://sprites/appeareances/smb3/icons/terrain/donut.png"));
 	configObject(APP_SMB3, OBJ_SPIKE, load("res://scenes/appearances/smb3/blocks/spike.tscn"), "Bloque de Pinchos", load("res://sprites/appeareances/smb3/icons/terrain/spike.png"));
 	configObject(APP_SMB3, OBJ_PIPE, load("res://scenes/appearances/smb3/blocks/pipe.tscn"), "Tubería", load("res://sprites/appeareances/smb3/icons/terrain/pipe.png"));
+	configObject(APP_SMB3, OBJ_SEMISOLID, load("res://scenes/appearances/smb3/blocks/semisolid.tscn"), "Plataforma", load("res://sprites/appeareances/smb3/icons/terrain/semisolid.png"));
+	configObject(APP_SMB3, OBJ_PIPE_CONNECTOR, load("res://scenes/appearances/smb3/blocks/pipe_connector.tscn"), "Conector de Tubería", load("res://sprites/appeareances/smb3/icons/terrain/pipe_connector.png"));
 	
 	#Items
 	configObject(APP_SMB3, OBJ_COIN, load("res://scenes/appearances/smb3/items/coin.tscn"), "Moneda", load("res://sprites/appeareances/smb3/icons/items/coin.png"));
@@ -713,6 +727,7 @@ func appearanceChange(userdata):
 		for node in nodes:
 			if (!node.is_in_group("FalseFloor")):
 				var obj = getObjectCode(node);
+				#print(obj)
 				var pos = node.position;
 				var inst = Global.object[Global.CurrentAppeareance][obj][Global.OP_SCENE].instance();
 				if (obj == Global.OBJ_FLOOR):
@@ -728,16 +743,20 @@ func appearanceChange(userdata):
 					inst.objectInside = node.objectInside;
 					inst.objectAttribute = node.objectAttribute;
 				
-				if (obj == Global.OBJ_BURNER || obj == Global.OBJ_TWOMP || obj == Global.OBJ_CHECKPOINT
-				|| obj == Global.OBJ_ARROW || obj == Global.OBJ_PIPE):
+				if (obj == OBJ_BURNER || obj == OBJ_TWOMP || obj == OBJ_CHECKPOINT
+				|| obj == OBJ_ARROW || obj == OBJ_PIPE):
 					inst.seldirection = node.seldirection;
 				
-				if (obj == Global.OBJ_DRYBONES || obj == Global.OBJ_SPINY):
+				if (obj == OBJ_DRYBONES || obj == OBJ_SPINY):
 					inst.alreadydead = node.alreadydead;
 				
-				if (obj == Global.OBJ_PIPE):
+				if (obj == OBJ_PIPE || obj == OBJ_SEMISOLID || obj == OBJ_PIPE_CONNECTOR):
 					inst.grid_origin = node.grid_origin;
 					inst.grid_end = node.grid_end;
+					if (obj == OBJ_PIPE):
+						inst.pipe_code = node.pipe_code
+					if (obj == OBJ_SEMISOLID):
+						inst.visual_grid_end = node.visual_grid_end
 				
 				editor.get_parent().eraseObject(pos, false, false, false);
 				editor.get_parent().placeObject(pos, false, obj, false, false, inst);
@@ -752,6 +771,7 @@ func appearanceChange(userdata):
 		$FPS.show();
 	
 	print("Appearance Changed Successfully");
+	
 	thread.wait_to_finish();
 
 func _process(delta):
@@ -823,6 +843,12 @@ func showMessage(text, tree, realtree = null, type : String = ""):
 	inst.realmenu = realtree;
 	inst.type = type;
 
+func spawnSettings(tree, realtree = null):
+	var scene = preload("res://scenes/ui/settings.tscn");
+	var inst = scene.instance();
+	tree.add_child(inst);
+	inst.realmenu = realtree;
+
 func enterText(guidetext, type, tree, realtree = null):
 	var scene = preload("res://scenes/ui/Keyboard.tscn");
 	var inst = scene.instance();
@@ -887,6 +913,8 @@ func getCategory(var objCode):
 		OBJ_DONUT: category = "Terrain"
 		OBJ_SPIKE: category = "Terrain"
 		OBJ_PIPE: category = "Terrain"
+		OBJ_SEMISOLID: category = "Terrain"
+		OBJ_PIPE_CONNECTOR: category = "Terrain"
 		#Items
 		OBJ_COIN: category = "Items"
 		OBJ_10COIN: category = "Items"
@@ -927,6 +955,15 @@ func hasVariants(var objCode):
 	match (objCode):
 		#Items
 		OBJ_FIREFLOWER: variants = true;
+		OBJ_ONBLOCK: variants = true;
+		OBJ_OFFBLOCK: variants = true;
+		OBJ_ONBLOCK2: variants = true;
+		OBJ_OFFBLOCK2: variants = true;
+		OBJ_ONOFFSWITCH: variants = true;
+		OBJ_ONOFFSWITCH2: variants = true;
+		OBJ_10COIN: variants = true;
+		OBJ_30COIN: variants = true;
+		OBJ_50COIN: variants = true;
 		
 		#Enemies
 		OBJ_PIRANHAPLANT: variants = true;

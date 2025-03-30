@@ -73,6 +73,15 @@ func _ready():
 	if (get_parent().editing):
 		$AnimationPlayer.play("start");
 	canSyncAnim = true;
+	match (seldirection):
+		"right":
+			currentSprite.rotation = deg2rad(90.0);
+		"left":
+			currentSprite.rotation = deg2rad(270.0);
+		"down":
+			currentSprite.rotation = deg2rad(180.0);
+		"up":
+			currentSprite.rotation = deg2rad(0.0);
 
 func _process(_delta):
 	$DirectionButton/ArrowLeft.hide();

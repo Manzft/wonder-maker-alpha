@@ -533,7 +533,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 300, 50 ) ]
+"values": [ Vector2( 449, 50 ) ]
 }
 
 [sub_resource type="Animation" id=33]
@@ -573,7 +573,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 300, 50 ), Vector2( 310, 60 ), Vector2( 300, 50 ) ]
+"values": [ Vector2( 449, 50 ), Vector2( 459, 60 ), Vector2( 449, 50 ) ]
 }
 
 [sub_resource type="StyleBoxTexture" id=23]
@@ -784,7 +784,7 @@ playback_speed = 1.25
 anims/RESET = SubResource( 4 )
 anims/idle = SubResource( 5 )
 
-[node name="VSync" type="TextureButton" parent="." groups=["Button"]]
+[node name="VSync" type="TextureButton" parent="." groups=["Button", "Option"]]
 margin_left = 36.0
 margin_top = 91.0
 margin_right = 336.0
@@ -894,7 +894,7 @@ playback_speed = 1.25
 anims/RESET = SubResource( 8 )
 anims/idle = SubResource( 9 )
 
-[node name="Force169" type="TextureButton" parent="." groups=["Button"]]
+[node name="Force169" type="TextureButton" parent="." groups=["Button", "Option"]]
 margin_left = 36.0
 margin_top = 160.0
 margin_right = 336.0
@@ -1004,7 +1004,7 @@ playback_speed = 1.25
 anims/RESET = SubResource( 17 )
 anims/idle = SubResource( 18 )
 
-[node name="ShowPauseButton" type="TextureButton" parent="." groups=["Button"]]
+[node name="ShowPauseButton" type="TextureButton" parent="." groups=["Button", "Option"]]
 margin_left = 421.5
 margin_top = 160.0
 margin_right = 721.5
@@ -1114,7 +1114,7 @@ playback_speed = 1.25
 anims/RESET = SubResource( 19 )
 anims/idle = SubResource( 20 )
 
-[node name="ShowFPS" type="TextureButton" parent="." groups=["Button"]]
+[node name="ShowFPS" type="TextureButton" parent="." groups=["Button", "Option"]]
 margin_left = 422.0
 margin_top = 91.0
 margin_right = 722.0
@@ -1224,7 +1224,7 @@ playback_speed = 1.25
 anims/RESET = SubResource( 21 )
 anims/idle = SubResource( 22 )
 
-[node name="AutoSaving" type="TextureButton" parent="." groups=["Button"]]
+[node name="AutoSaving" type="TextureButton" parent="." groups=["Button", "Option"]]
 margin_left = 36.0
 margin_top = 230.0
 margin_right = 336.0
@@ -1334,7 +1334,7 @@ playback_speed = 1.25
 anims/RESET = SubResource( 28 )
 anims/idle = SubResource( 29 )
 
-[node name="SnowParticles" type="TextureButton" parent="." groups=["Button"]]
+[node name="SnowParticles" type="TextureButton" parent="." groups=["Button", "Option"]]
 margin_left = 423.5
 margin_top = 230.0
 margin_right = 723.5
@@ -1444,15 +1444,15 @@ playback_speed = 1.25
 anims/RESET = SubResource( 30 )
 anims/idle = SubResource( 31 )
 
-[node name="PhysicsInterpolation" type="TextureButton" parent="." groups=["Button"]]
+[node name="PhysicsInterpolation" type="TextureButton" parent="." groups=["Button", "Option"]]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -150.0
-margin_top = 5.0
-margin_right = 150.0
-margin_bottom = 55.0
+margin_left = -224.5
+margin_top = 7.0
+margin_right = 224.5
+margin_bottom = 57.0
 focus_neighbour_left = NodePath(".")
 focus_neighbour_top = NodePath(".")
 focus_neighbour_right = NodePath(".")
@@ -1480,18 +1480,18 @@ align = 1
 valign = 1
 
 [node name="StateIcon" type="TextureRect" parent="PhysicsInterpolation"]
-margin_left = -57.0
-margin_top = 14.0
-margin_right = -35.0
-margin_bottom = 35.0
+margin_left = 18.0
+margin_top = 15.0
+margin_right = 40.0
+margin_bottom = 36.0
 texture = ExtResource( 10 )
 
 [node name="Icon" type="TextureRect" parent="PhysicsInterpolation"]
 modulate = Color( 0.215686, 0.215686, 0.215686, 1 )
-margin_left = -13.0
-margin_top = 10.0
-margin_right = 18.0
-margin_bottom = 40.0
+margin_left = 61.0
+margin_top = 11.0
+margin_right = 92.0
+margin_bottom = 41.0
 texture = ExtResource( 26 )
 expand = true
 stretch_mode = 6
@@ -1716,9 +1716,6 @@ stream = ExtResource( 24 )
 [connection signal="mouse_entered" from="OkButton" to="." method="_on_OkButton_mouse_entered"]
 [connection signal="mouse_exited" from="OkButton" to="." method="_on_OkButton_mouse_exited"]
 [connection signal="pressed" from="OkButton" to="." method="_on_OkButton_pressed"]
-[connection signal="mouse_entered" from="VSync" to="." method="_on_VSync_mouse_entered"]
-[connection signal="mouse_exited" from="VSync" to="." method="_on_VSync_mouse_exited"]
-[connection signal="pressed" from="VSync" to="." method="_on_VSync_pressed"]
 [connection signal="value_changed" from="ControlsTransparency/HSlider" to="." method="_on_HSlider_value_changed"]
 [connection signal="value_changed" from="PhysicsSpeed/HSlider" to="." method="_on_HSlider_value_changed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

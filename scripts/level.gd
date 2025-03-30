@@ -207,6 +207,9 @@ func setCameraGrid(var start = false):
 		camera_last_pos = campos;
 
 func _process(delta):
+	$Camera2D/SMB3/Snow/ParallaxLayer/SMB3SnowParticles.visible = Global.SNOW_FALLING_PARTICLES;
+	$Camera2D/SMB/Snow/ParallaxLayer/SMBSnowParticles.visible = Global.SNOW_FALLING_PARTICLES;
+	
 	$ShadowLayer.visible = Global.SHADOWS;
 	syncSMBSprites(delta);
 	syncSMB3Sprites(delta);
@@ -223,57 +226,56 @@ func _process(delta):
 		get_node("Camera2D/"+app+"/Water").show();
 		get_node("Camera2D/"+app+"/Water").offset.y = seaLevelOffset;
 		currentSeaLevelOffset = 0;	
-	
+	Global.campos = get_node("Camera2D").position;
 	if ($Editor.playing && get_node("Character") != null):
-		$GameUI.show();
-		
-		get_node("Camera2D/SMB/Water").offset.y = seaLevelOffset-currentSeaLevelOffset;
-		
-		#InGame Character Camera
-		var charpos = get_node("Character").position-get_node("Camera2D").position;
-		
-		var campos = Vector2($Editor/GamepadCursorDefaultPosition.rect_position.x, $Editor/GamepadCursorDefaultPosition.rect_position.y);
-		if (Global.CurrentSpeed == "None"):
-			get_node("Camera2D").position.x = lerp(get_node("Camera2D").position.x, get_node("Character").position.x-campos.x, 0.25);
-		else:
-			match (Global.CurrentSpeed):
-				"Slow":
-					get_node("Camera2D").position.x += 78.125*delta;
-				"Normal":
-					get_node("Camera2D").position.x += 156.25*delta;
-				"Fast":
-					get_node("Camera2D").position.x += 218.75*delta;
-					
-			if (get_node("Character").position.x-20 < get_node("Camera2D").position.x):
-				get_node("Character").position.x = get_node("Camera2D").position.x+20;
-				#get_node("Character").motion.x = 0;
+		if (get_node("Character").exitingPipeDirection == ""):
+			$GameUI.show();
+			get_node("Camera2D/SMB/Water").offset.y = seaLevelOffset-currentSeaLevelOffset;
 			
-		
-		#if (get_node("Character").position.y < 840-52-52):
-		if (freecam):
-			get_node("Camera2D").position.y = lerp(get_node("Camera2D").position.y, get_node("Character").position.y-campos.y, 0.0625);
-		else:
-			get_node("Camera2D").position.y = lerp(get_node("Camera2D").position.y, 840, 0.0625);
-		
-		if (get_node("Camera2D").position.y < 0): get_node("Camera2D").position.y = 0;
-		if (get_node("Camera2D").position.x < 0): get_node("Camera2D").position.x = 0;
-		if (get_node("Camera2D").position.y > 840): get_node("Camera2D").position.y = 840;
-		var px = get_node("EndFloor").position.x+(52*9)-26-get_node("Editor/SectionTop").rect_size.x;
-		if (get_node("Camera2D").position.x > px): get_node("Camera2D").position.x = px;
-		
-		if (get_node("Character").position.x-24 < 0):
-			get_node("Character").position.x = 24;
-			get_node("Character").motion.x = 0;
+			#InGame Character Camera
+			var charpos = get_node("Character").position-get_node("Camera2D").position;
 			
-		if (get_node("Character").position.x > get_node("EndFloor").position.x+(52*9)-52 && !get_node("Character").course_clear):
-			get_node("Character").position.x = get_node("EndFloor").position.x+(52*9)-52;
-			get_node("Character").motion.x = 0;
+			var campos = Vector2($Editor/GamepadCursorDefaultPosition.rect_position.x, $Editor/GamepadCursorDefaultPosition.rect_position.y);
+			if (Global.CurrentSpeed == "None"):
+				get_node("Camera2D").position.x = lerp(get_node("Camera2D").position.x, get_node("Character").position.x-campos.x, 0.25);
+			else:
+				match (Global.CurrentSpeed):
+					"Slow":
+						get_node("Camera2D").position.x += 78.125*delta;
+					"Normal":
+						get_node("Camera2D").position.x += 156.25*delta;
+					"Fast":
+						get_node("Camera2D").position.x += 218.75*delta;
+						
+				if (get_node("Character").position.x-20 < get_node("Camera2D").position.x):
+					get_node("Character").position.x = get_node("Camera2D").position.x+20;
+					#get_node("Character").motion.x = 0;
+				
+			
+			#if (get_node("Character").position.y < 840-52-52):
+			if (freecam):
+				get_node("Camera2D").position.y = lerp(get_node("Camera2D").position.y, get_node("Character").position.y-campos.y, 0.0625);
+			else:
+				get_node("Camera2D").position.y = lerp(get_node("Camera2D").position.y, 840, 0.0625);
+			
+			if (get_node("Camera2D").position.y < 0): get_node("Camera2D").position.y = 0;
+			if (get_node("Camera2D").position.x < 0): get_node("Camera2D").position.x = 0;
+			if (get_node("Camera2D").position.y > 840): get_node("Camera2D").position.y = 840;
+			var px = get_node("EndFloor").position.x+(52*9)-26-get_node("Editor/SectionTop").rect_size.x;
+			if (get_node("Camera2D").position.x > px): get_node("Camera2D").position.x = px;
+			
+			if (get_node("Character").position.x-24 < 0):
+				get_node("Character").position.x = 24;
+				get_node("Character").motion.x = 0;
+				
+			if (get_node("Character").position.x > get_node("EndFloor").position.x+(52*9)-52 && !get_node("Character").course_clear):
+				get_node("Character").position.x = get_node("EndFloor").position.x+(52*9)-52;
+				get_node("Character").motion.x = 0;
 	else:
 		$GameUI.hide();
 		
 		setCameraGrid();
 		$Camera2D.offset.x = abs($Editor.offset.x);
-	Global.campos = get_node("Camera2D").position;
 		
 	#Pause Menu
 	if (Global.coursePlaying):
@@ -364,7 +366,10 @@ func placeObject(mousepos, pressed = false, customObj = -1, sound : bool = true,
 						if (grid_node[nodegrid.x][nodegrid.y+3].decorationType == "Tall"):
 							grid_node[nodegrid.x][nodegrid.y+3].quitAllDecoration();
 					
-					add_child(inst);
+					if (obj == Global.OBJ_SEMISOLID):
+						$Semisolids.add_child(inst);
+					else:
+						add_child(inst);
 					inst.position = pos;
 					inst.add_to_group(str(obj))
 					if (obj == Global.OBJ_FLOOR && inEditor):
@@ -475,6 +480,12 @@ func eraseObject(mousepos, sound = true, hide = false, editMode: bool =  true):
 					
 					if (isfloor):
 						node.updateNearFloors();
+					
+					if (node.is_in_group("Pipe") && editMode):
+						for pipe_node in get_tree().get_nodes_in_group("Pipe"):
+							if (pipe_node != node):
+								if (pipe_node.pipe_code == node.pipe_code && pipe_node.pipe_code != -1):
+									eraseObject(pipe_node.position, false)
 					
 					node.queue_free();
 				

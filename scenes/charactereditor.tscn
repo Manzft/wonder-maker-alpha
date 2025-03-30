@@ -386,15 +386,15 @@ scale = Vector2( 3.25, 3.25 )
 z_index = 9
 script = ExtResource( 2 )
 
-[node name="SMBMario" type="AnimatedSprite" parent="."]
-visible = false
+[node name="SMB" type="AnimatedSprite" parent="."]
 show_behind_parent = true
 light_mask = 3
 frames = SubResource( 5 )
 animation = "small_idle"
 playing = true
 
-[node name="SMB" type="AnimatedSprite" parent="."]
+[node name="SMBManzft" type="AnimatedSprite" parent="."]
+visible = false
 show_behind_parent = true
 light_mask = 3
 frames = SubResource( 42 )

@@ -1223,7 +1223,7 @@ visible = false
 position = Vector2( 80.5023, 80.7114 )
 texture = ExtResource( 25 )
 
-[node name="7" type="TextureRect" parent="Select/Outline/0terrain" groups=["object"]]
+[node name="38" type="TextureRect" parent="Select/Outline/0terrain" groups=["object"]]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1234,7 +1234,7 @@ margin_right = 296.0
 margin_bottom = 45.0
 texture = ExtResource( 15 )
 
-[node name="icon" type="TextureRect" parent="Select/Outline/0terrain/7"]
+[node name="icon" type="TextureRect" parent="Select/Outline/0terrain/38"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 3.5
@@ -1244,7 +1244,7 @@ margin_bottom = -3.5
 texture = ExtResource( 15 )
 expand = true
 
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0terrain/7"]
+[node name="HasVariants" type="Sprite" parent="Select/Outline/0terrain/38"]
 visible = false
 position = Vector2( 80.5023, 80.7114 )
 texture = ExtResource( 25 )
@@ -1280,7 +1280,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 
-[node name="5" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
+[node name="39" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1291,7 +1291,7 @@ margin_right = 45.0
 margin_bottom = -214.37
 texture = ExtResource( 15 )
 
-[node name="icon" type="TextureRect" parent="Select/Outline/1terrain/5"]
+[node name="icon" type="TextureRect" parent="Select/Outline/1terrain/39"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1303,12 +1303,64 @@ margin_bottom = 41.5
 texture = ExtResource( 15 )
 expand = true
 
-[node name="HasVariants" type="Sprite" parent="Select/Outline/1terrain/5"]
+[node name="HasVariants" type="Sprite" parent="Select/Outline/1terrain/39"]
 visible = false
 position = Vector2( 80, 80 )
 texture = ExtResource( 25 )
 
-[node name="82" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
+[node name="7" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -235.0
+margin_top = -235.0
+margin_right = -145.0
+margin_bottom = -145.0
+texture = ExtResource( 15 )
+
+[node name="icon" type="TextureRect" parent="Select/Outline/1terrain/7"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.5
+margin_top = 3.5
+margin_right = -3.5
+margin_bottom = -3.5
+texture = ExtResource( 15 )
+expand = true
+
+[node name="HasVariants" type="Sprite" parent="Select/Outline/1terrain/7"]
+visible = false
+position = Vector2( 80.5023, 80.7114 )
+texture = ExtResource( 25 )
+
+[node name="5" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -305.0
+margin_top = -45.0
+margin_right = -215.0
+margin_bottom = 45.0
+texture = ExtResource( 15 )
+
+[node name="icon" type="TextureRect" parent="Select/Outline/1terrain/5"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.5
+margin_top = 3.5
+margin_right = -3.5
+margin_bottom = -3.5
+texture = ExtResource( 15 )
+expand = true
+
+[node name="HasVariants" type="Sprite" parent="Select/Outline/1terrain/5"]
+visible = false
+position = Vector2( 80.5023, 80.7114 )
+texture = ExtResource( 25 )
+
+[node name="91" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1319,7 +1371,22 @@ margin_right = -145.0
 margin_bottom = 226.0
 texture = ExtResource( 15 )
 
-[node name="83" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
+[node name="icon" type="TextureRect" parent="Select/Outline/1terrain/91"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.5
+margin_top = 3.5
+margin_right = -3.5
+margin_bottom = -3.5
+texture = ExtResource( 15 )
+expand = true
+
+[node name="HasVariants" type="Sprite" parent="Select/Outline/1terrain/91"]
+visible = false
+position = Vector2( 80.5023, 80.7114 )
+texture = ExtResource( 25 )
+
+[node name="92" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1330,7 +1397,22 @@ margin_right = 45.0
 margin_bottom = 300.49
 texture = ExtResource( 15 )
 
-[node name="84" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
+[node name="icon" type="TextureRect" parent="Select/Outline/1terrain/92"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.5
+margin_top = 3.5
+margin_right = -3.5
+margin_bottom = -3.5
+texture = ExtResource( 15 )
+expand = true
+
+[node name="HasVariants" type="Sprite" parent="Select/Outline/1terrain/92"]
+visible = false
+position = Vector2( 80.5023, 80.7114 )
+texture = ExtResource( 25 )
+
+[node name="93" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1341,7 +1423,22 @@ margin_right = 226.0
 margin_bottom = 226.0
 texture = ExtResource( 15 )
 
-[node name="85" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
+[node name="icon" type="TextureRect" parent="Select/Outline/1terrain/93"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.5
+margin_top = 3.5
+margin_right = -3.5
+margin_bottom = -3.5
+texture = ExtResource( 15 )
+expand = true
+
+[node name="HasVariants" type="Sprite" parent="Select/Outline/1terrain/93"]
+visible = false
+position = Vector2( 80.5023, 80.7114 )
+texture = ExtResource( 25 )
+
+[node name="94" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1352,7 +1449,22 @@ margin_right = 296.0
 margin_bottom = 45.0
 texture = ExtResource( 15 )
 
-[node name="86" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
+[node name="icon" type="TextureRect" parent="Select/Outline/1terrain/94"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.5
+margin_top = 3.5
+margin_right = -3.5
+margin_bottom = -3.5
+texture = ExtResource( 15 )
+expand = true
+
+[node name="HasVariants" type="Sprite" parent="Select/Outline/1terrain/94"]
+visible = false
+position = Vector2( 80.5023, 80.7114 )
+texture = ExtResource( 25 )
+
+[node name="95" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1363,27 +1475,20 @@ margin_right = 226.0
 margin_bottom = -148.0
 texture = ExtResource( 15 )
 
-[node name="87" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 136.0
-margin_top = -238.0
-margin_right = 226.0
-margin_bottom = -148.0
+[node name="icon" type="TextureRect" parent="Select/Outline/1terrain/95"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.5
+margin_top = 3.5
+margin_right = -3.5
+margin_bottom = -3.5
 texture = ExtResource( 15 )
+expand = true
 
-[node name="88" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 136.0
-margin_top = -238.0
-margin_right = 226.0
-margin_bottom = -148.0
-texture = ExtResource( 15 )
+[node name="HasVariants" type="Sprite" parent="Select/Outline/1terrain/95"]
+visible = false
+position = Vector2( 80.5023, 80.7114 )
+texture = ExtResource( 25 )
 
 [node name="0items" type="Control" parent="Select/Outline" groups=["objects"]]
 anchor_right = 1.0
@@ -1442,7 +1547,7 @@ visible = false
 position = Vector2( 80.5023, 80.7114 )
 texture = ExtResource( 25 )
 
-[node name="10" type="TextureRect" parent="Select/Outline/0items" groups=["object"]]
+[node name="12" type="TextureRect" parent="Select/Outline/0items" groups=["object"]]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1451,58 +1556,6 @@ margin_left = -305.0
 margin_top = -45.0
 margin_right = -215.0
 margin_bottom = 45.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0items/10"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0items/10"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="11" type="TextureRect" parent="Select/Outline/0items" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -235.0
-margin_top = 136.0
-margin_right = -145.0
-margin_bottom = 226.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0items/11"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0items/11"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="12" type="TextureRect" parent="Select/Outline/0items" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -45.0
-margin_top = 210.49
-margin_right = 45.0
-margin_bottom = 300.49
 texture = ExtResource( 15 )
 
 [node name="icon" type="TextureRect" parent="Select/Outline/0items/12"]
@@ -1525,9 +1578,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 136.0
+margin_left = -235.0
 margin_top = 136.0
-margin_right = 226.0
+margin_right = -145.0
 margin_bottom = 226.0
 texture = ExtResource( 15 )
 
@@ -1551,10 +1604,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 206.0
-margin_top = -45.0
-margin_right = 296.0
-margin_bottom = 45.0
+margin_left = -45.0
+margin_top = 210.49
+margin_right = 45.0
+margin_bottom = 300.49
 texture = ExtResource( 15 )
 
 [node name="icon" type="TextureRect" parent="Select/Outline/0items/14"]
@@ -1578,9 +1631,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = 136.0
-margin_top = -238.0
+margin_top = 136.0
 margin_right = 226.0
-margin_bottom = -148.0
+margin_bottom = 226.0
 texture = ExtResource( 15 )
 
 [node name="icon" type="TextureRect" parent="Select/Outline/0items/15"]
@@ -1594,6 +1647,58 @@ texture = ExtResource( 15 )
 expand = true
 
 [node name="HasVariants" type="Sprite" parent="Select/Outline/0items/15"]
+visible = false
+position = Vector2( 80.5023, 80.7114 )
+texture = ExtResource( 25 )
+
+[node name="90" type="TextureRect" parent="Select/Outline/0items" groups=["object"]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 206.0
+margin_top = -45.0
+margin_right = 296.0
+margin_bottom = 45.0
+texture = ExtResource( 15 )
+
+[node name="icon" type="TextureRect" parent="Select/Outline/0items/90"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.5
+margin_top = 3.5
+margin_right = -3.5
+margin_bottom = -3.5
+texture = ExtResource( 15 )
+expand = true
+
+[node name="HasVariants" type="Sprite" parent="Select/Outline/0items/90"]
+visible = false
+position = Vector2( 80.5023, 80.7114 )
+texture = ExtResource( 25 )
+
+[node name="91" type="TextureRect" parent="Select/Outline/0items" groups=["object"]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 136.0
+margin_top = -238.0
+margin_right = 226.0
+margin_bottom = -148.0
+texture = ExtResource( 15 )
+
+[node name="icon" type="TextureRect" parent="Select/Outline/0items/91"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.5
+margin_top = 3.5
+margin_right = -3.5
+margin_bottom = -3.5
+texture = ExtResource( 15 )
+expand = true
+
+[node name="HasVariants" type="Sprite" parent="Select/Outline/0items/91"]
 visible = false
 position = Vector2( 80.5023, 80.7114 )
 texture = ExtResource( 25 )
@@ -2149,6 +2254,7 @@ texture = ExtResource( 15 )
 
 [node name="Selected" type="TextureRect" parent="Select/Outline" groups=["object"]]
 visible = false
+self_modulate = Color( 0.886275, 0.886275, 0.886275, 1 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

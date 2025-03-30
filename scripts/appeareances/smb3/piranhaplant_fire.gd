@@ -124,6 +124,10 @@ func _ready():
 	chainAnimation();
 
 func _process(delta):
+	max_walk_speed = def_max_walk_speed/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	jump_h  = def_jump_h/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	gravity = def_gravity/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	max_fall = def_max_fall/(Global.ENTITY_PHYSICS_SPEED*0.01);
 	if (!preAttack && !posAttack):
 		currentSprite.frame = floor(get_parent().syncanim.smb.piranhaplant);
 	if (preAttack):
@@ -372,15 +376,16 @@ func _physics_process(delta):
 					motion.y = max_fall;
 				
 				#Controller
-				if (get_node("../Character").position.y <= position.y+16):
-					currentSprite.animation = "up";
-				else:
-					currentSprite.animation = "down";
-				
-				if (get_node("../Character").position.x < position.x):
-					currentSprite.flip_h = false;
-				else:
-					currentSprite.flip_h = true;
+				if (get_node("../Character") != null):
+					if (get_node("../Character").position.y <= position.y+16):
+						currentSprite.animation = "up";
+					else:
+						currentSprite.animation = "down";
+					
+					if (get_node("../Character").position.x < position.x):
+						currentSprite.flip_h = false;
+					else:
+						currentSprite.flip_h = true;
 			else:
 				motion.y += gravity*2.5;
 				if (motion.y > max_fall):

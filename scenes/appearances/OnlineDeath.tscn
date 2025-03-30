@@ -58,6 +58,7 @@ tracks/1/keys = {
 }
 
 [node name="OnlineDeath" type="Sprite" groups=["OnlineDeath"]]
+pause_mode = 2
 modulate = Color( 1, 1, 1, 0 )
 z_index = 20
 texture = ExtResource( 1 )
@@ -72,5 +73,6 @@ texture = ExtResource( 1 )
 offset = Vector2( -1, -33 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
 anims/RESET = SubResource( 1 )
 anims/start = SubResource( 2 )

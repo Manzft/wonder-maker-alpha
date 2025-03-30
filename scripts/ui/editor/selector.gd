@@ -241,7 +241,7 @@ func switch_right():
 		"enemies":
 			maxpage = 0;
 		"gizmos":
-			maxpage = 1;
+			maxpage = 0;
 	if (current_page < maxpage):
 		current_page += 1;
 		hide_objects();
@@ -270,9 +270,7 @@ func switch_left():
 		match (current_tab):
 			"gizmos": goingto = "enemies";
 			"enemies": goingto = "items";
-			"items":
-				goingto = "terrain";
-				current_page = 1;
+			"items": goingto = "terrain";
 		if (current_tab != goingto && goingto != ""):
 			$Tabs/AnimationPlayer.play_backwards(current_tab);
 			backwards = true;
@@ -353,7 +351,11 @@ func _on_TabsAnimationPlayer_animation_finished(anim_name):
 		backwards = false;
 	if (!backwards && goingto != ""):
 		current_tab = goingto;
-		current_page = 0;
+		match (current_tab):
+			"gizmos": current_page = 0
+			"enemies": current_page = 0
+			"items": current_page = 0
+			"terrain": current_page = 1
 		goingto = "";
 		set_max_page();
 		get_node("Select/Outline/"+str(current_page)+current_tab).show();

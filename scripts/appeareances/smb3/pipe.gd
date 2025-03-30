@@ -24,13 +24,17 @@ var resizing : bool = false
 var currentGrid : Vector2 = Vector2(0, 0);
 var toGrid : Vector2 = Vector2(0, 0);
 
+var pipe_code = -1
+
+var charishere : bool = false
+
 func setupExtensionGrids(start = false):
 	var a = true;
 	var mygrid = get_parent().calculateGrid(position.x, position.y)+grid_origin;
 	for i in range(grid_end.x+1+(abs(grid_origin.x))):
 		for j in range(grid_end.y+1+(abs(grid_origin.y))):
 			if (Vector2(i, j) != grid_origin*-1):
-				if (get_parent().grid_node[mygrid.x+i][mygrid.y+j] != null && start):
+				if (get_parent().grid[mygrid.x+i][mygrid.y+j] != null && start):
 					a = false;
 					bye = true;
 	return a;
@@ -118,7 +122,24 @@ func _ready():
 	if (get_parent().editing):
 		$AnimationPlayer.play("start");
 	updateShape();
-	yield(get_tree().create_timer(0.25), "timeout");
+	yield(get_tree().create_timer(0.125), "timeout");
+	match (seldirection):
+		"right":
+			currentSprite.rotation = deg2rad(90.0);
+			currentSprite.flip_h = false;
+			currentSprite.get_node("Body").flip_h = false;
+		"left":
+			currentSprite.rotation = deg2rad(270.0);
+			currentSprite.flip_h = false;
+			currentSprite.get_node("Body").flip_h = true;
+		"down":
+			currentSprite.rotation = deg2rad(180.0);
+			currentSprite.flip_h = false;
+			currentSprite.get_node("Body").flip_h = true;
+		"up":
+			currentSprite.rotation = deg2rad(0.0);
+			currentSprite.flip_h = false;
+			currentSprite.get_node("Body").flip_h = false;
 	setBodySprites();
 
 func _process(_delta):
@@ -169,11 +190,15 @@ func _process(_delta):
 		$ResizeContainer/ResizeButton.hide();
 		$DirectionButton.hide();
 		$Arrows.hide();
+		$EntryButton.hide()
 	else:
 		$DirectionButton.visible = (grid_end == grid_end_def && grid_origin == grid_origin_def && !resizing);
 		$ResizeContainer/ResizeButton.show();
 		$Arrows.visible = resizing;
-		
+		if (pipe_code != -1):
+			$EntryButton.show()
+		else:
+			$EntryButton.hide()
 	shadowtop.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
 	shadowtop.scale = currentSprite.scale;
 	shadowtop.rotation_degrees = currentSprite.rotation_degrees;
@@ -202,6 +227,30 @@ func _process(_delta):
 	shadowbody.rotation_degrees = currentSprite.rotation_degrees;
 	
 	$ResizeContainer.rotation_degrees = shadowtop.rotation_degrees
+	$EntryButton.rect_rotation = $ResizeContainer.rotation_degrees
+	
+	if (grid_end == grid_end_def && grid_origin == grid_origin_def):
+		$EntryButton.rect_position = Vector2(40, 43)
+		$EntryButton.rect_pivot_offset = Vector2(-14, -17)
+	else:
+		$EntryButton.rect_position = Vector2(9, 9)
+		$EntryButton.rect_pivot_offset = Vector2(17, 17)
+	
+	if (get_node("../Character") != null):
+		var chara = get_node("../Character")
+		var inputcheck : bool = false
+		match (seldirection):
+			"up":
+				inputcheck = Input.is_action_just_pressed("down")
+			"right":
+				inputcheck = Input.is_action_just_pressed("left") && chara.is_on_floor()
+			"left":
+				inputcheck = Input.is_action_just_pressed("right") && chara.is_on_floor()
+			"down":
+				inputcheck = Input.is_action_just_pressed("up")
+		if (inputcheck && charishere && pipe_code != -1):
+			if (!chara.died):
+				chara.enterPipe(seldirection, self, pipe_code)
 
 func styleChanged():
 	match (Global.CurrentStyle):
@@ -269,7 +318,7 @@ func updateShape():
 func setBodySprites():
 	#Erase all body sprites
 	for node in currentSprite.get_children():
-		if (node.name != "Body"):
+		if (node.name != "Body" && node.name != "Area2D"):
 			node.queue_free();
 	
 	if (grid_end != grid_end_def):
@@ -341,6 +390,8 @@ func _input(event):
 				get_node("../Editor").gamepadReleaseGrab();
 			var eventpos = Vector2(event.position.x, event.position.y);
 			var thisToGrid = get_parent().calculateGrid(eventpos.x+get_parent().get_node("Camera2D").position.x, eventpos.y+get_parent().get_node("Camera2D").position.y);
+			if (thisToGrid.y < 0 || thisToGrid.y > 29 || thisToGrid.x < 0):
+				return
 			if (currentGrid != thisToGrid && thisToGrid != toGrid):
 				toGrid = thisToGrid;
 				match (seldirection):
@@ -483,3 +534,33 @@ func _input(event):
 
 func _on_Pipe_tree_exiting():
 	get_node("../Editor").externalButton = false;
+
+func _on_Area2D_body_entered(body):
+	if (body.is_in_group("Character")):
+		charishere = true
+
+func _on_Area2D_body_exited(body):
+	if (body.is_in_group("Character")):
+		charishere = false
+
+func _on_EntryButton_pressed():
+	if (pipe_code == -1):
+		return
+	var chara = get_node("../CharacterEditor")
+	for node in get_tree().get_nodes_in_group("Pipe"):
+		if (node != self):
+			if (node.pipe_code == pipe_code):
+				match (node.seldirection):
+					"up":
+						chara.position.x = node.position.x+26
+						chara.position.y = node.position.y-52
+					"left":
+						chara.position.y = node.position.y+26+18
+						chara.position.x = node.position.x-52
+					"right":
+						chara.position.y = node.position.y+26+18
+						chara.position.x = node.position.x+52+52
+					"down":
+						chara.position.x = node.position.x+26
+						chara.position.y = node.position.y+52+52
+				$SoundEnterPipe.play()

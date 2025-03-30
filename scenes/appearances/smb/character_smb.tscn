@@ -1,4 +1,4 @@
-[gd_scene load_steps=112 format=2]
+[gd_scene load_steps=114 format=2]
 
 [ext_resource path="res://sprites/appeareances/smb/mario/small/drift.png" type="Texture" id=1]
 [ext_resource path="res://sprites/appeareances/smb/mario/small/dead.png" type="Texture" id=2]
@@ -59,6 +59,7 @@
 [ext_resource path="res://sprites/appeareances/smb/manzft/fireflower/drift.png" type="Texture" id=57]
 [ext_resource path="res://sprites/appeareances/smb/manzft/fireflower/climb.png" type="Texture" id=58]
 [ext_resource path="res://sprites/appeareances/smb/manzft/fireflower/attack.png" type="Texture" id=59]
+[ext_resource path="res://sounds/appeareances/smb/enter_pipe.wav" type="AudioStream" id=60]
 
 [sub_resource type="RectangleShape2D" id=26]
 extents = Vector2( 20, 46.5 )
@@ -508,6 +509,21 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
+[sub_resource type="Animation" id=63]
+resource_name = "enter_pipe"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Mario:offset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 38.5 ) ]
+}
+
 [sub_resource type="Animation" id=27]
 resource_name = "invincible"
 length = 0.8
@@ -548,18 +564,15 @@ collision_mask = 5
 script = ExtResource( 22 )
 
 [node name="MushCollision" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, -23.5 )
 shape = SubResource( 26 )
 disabled = true
 
 [node name="SmallCollision" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, 0.5 )
 shape = SubResource( 6 )
 
 [node name="SneakCollision" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( 0, 5.5 )
 shape = SubResource( 7 )
 disabled = true
@@ -607,7 +620,6 @@ collision_mask = 3
 collide_with_areas = true
 
 [node name="Mario" type="AnimatedSprite" parent="."]
-visible = false
 show_behind_parent = true
 light_mask = 3
 position = Vector2( 0, -2.38419e-07 )
@@ -616,6 +628,7 @@ frames = SubResource( 5 )
 animation = "small_idle"
 
 [node name="Manzft" type="AnimatedSprite" parent="."]
+visible = false
 show_behind_parent = true
 light_mask = 3
 position = Vector2( 0, -2.38419e-07 )
@@ -625,8 +638,20 @@ animation = "small_idle"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 19 )
+anims/enter_pipe = SubResource( 63 )
 anims/invincible = SubResource( 27 )
 anims/star = SubResource( 20 )
+
+[node name="EnterPipeTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="ExitPipeTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="FinishPipeTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
 
 [node name="KoyoteTimer" type="Timer" parent="."]
 wait_time = 0.1
@@ -689,6 +714,10 @@ volume_db = -10.0
 stream = ExtResource( 28 )
 volume_db = -2.5
 
+[node name="SoundEnterPipe" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 60 )
+volume_db = -2.5
+
 [node name="PowerupOut" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 37 )
 volume_db = -2.5
@@ -729,6 +758,9 @@ __meta__ = {
 }
 
 [connection signal="tree_exiting" from="." to="." method="_on_Character_tree_exiting"]
+[connection signal="timeout" from="EnterPipeTimer" to="." method="_on_EnterPipeTimer_timeout"]
+[connection signal="timeout" from="ExitPipeTimer" to="." method="_on_ExitPipeTimer_timeout"]
+[connection signal="timeout" from="FinishPipeTimer" to="." method="_on_FinishPipeTimer_timeout"]
 [connection signal="timeout" from="KoyoteTimer" to="." method="_on_KoyoteTimer_timeout"]
 [connection signal="timeout" from="DeadTimer" to="." method="_on_DeadTimer_timeout"]
 [connection signal="timeout" from="InvincibleTimer" to="." method="_on_InvincibleTimer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=2]
+[gd_scene load_steps=42 format=2]
 
 [ext_resource path="res://scripts/ui/pausemenu.gd" type="Script" id=1]
 [ext_resource path="res://sprites/64x64.png" type="Texture" id=2]
@@ -18,81 +18,12 @@
 [ext_resource path="res://sprites/ui/pausemenu/conditionicon.png" type="Texture" id=16]
 [ext_resource path="res://sprites/ui/pausemenu/authoricon.png" type="Texture" id=17]
 [ext_resource path="res://sounds/ui/pause.wav" type="AudioStream" id=18]
+[ext_resource path="res://sprites/ui/splashscreen/youtube_icon.png" type="Texture" id=19]
+[ext_resource path="res://sprites/ui/splashscreen/discord_icon.png" type="Texture" id=20]
 
 [sub_resource type="DynamicFont" id=1]
 size = 40
 font_data = ExtResource( 11 )
-
-[sub_resource type="DynamicFont" id=2]
-size = 35
-font_data = ExtResource( 4 )
-
-[sub_resource type="Animation" id=3]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 62, 62 ) ]
-}
-
-[sub_resource type="Animation" id=4]
-resource_name = "idle"
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:rect_size")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
-}
 
 [sub_resource type="Animation" id=5]
 length = 0.001
@@ -366,6 +297,211 @@ tracks/2/keys = {
 "values": [ Vector2( 410, 78 ), Vector2( 420, 88 ), Vector2( 410, 78 ) ]
 }
 
+[sub_resource type="DynamicFont" id=18]
+size = 35
+font_data = ExtResource( 4 )
+
+[sub_resource type="Animation" id=19]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ) ]
+}
+
+[sub_resource type="Animation" id=20]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
+}
+
+[sub_resource type="Animation" id=21]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ) ]
+}
+
+[sub_resource type="Animation" id=22]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
+}
+
+[sub_resource type="Animation" id=23]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ) ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
+}
+
 [sub_resource type="Animation" id=7]
 length = 0.001
 tracks/0/type = "value"
@@ -543,7 +679,6 @@ margin_left = -40.0
 margin_bottom = 40.0
 
 [node name="Base" type="TextureRect" parent="BaseContainer"]
-self_modulate = Color( 0.956863, 0.423529, 1, 1 )
 anchor_left = 1.0
 anchor_right = 1.0
 margin_right = 485.0
@@ -562,116 +697,6 @@ margin_bottom = 63.0
 custom_fonts/font = SubResource( 1 )
 text = "Menú de Pausa"
 align = 1
-
-[node name="Settings" type="TextureButton" parent="BaseContainer/Base" groups=["Button"]]
-visible = false
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -31.0
-margin_top = 261.0
-margin_right = 31.0
-margin_bottom = 323.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_neighbour_left = NodePath(".")
-focus_neighbour_top = NodePath("../Edit")
-focus_neighbour_right = NodePath(".")
-focus_neighbour_bottom = NodePath(".")
-texture_normal = ExtResource( 10 )
-stretch_mode = 3
-
-[node name="Icon" type="TextureRect" parent="BaseContainer/Base/Settings"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -20.0
-margin_top = -19.5
-margin_right = 20.0
-margin_bottom = 19.5
-mouse_filter = 2
-texture = ExtResource( 5 )
-
-[node name="Text" type="Label" parent="BaseContainer/Base/Settings"]
-visible = false
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -308.0
-margin_top = -18.0
-margin_right = -62.0
-margin_bottom = 18.0
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_fonts/font = SubResource( 2 )
-text = "Crear un nivel"
-
-[node name="Selection" type="Control" parent="BaseContainer/Base/Settings" groups=["Selection"]]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-
-[node name="UpLeft" type="TextureRect" parent="BaseContainer/Base/Settings/Selection"]
-margin_left = -5.0
-margin_top = -5.0
-margin_right = 35.0
-margin_bottom = 35.0
-mouse_filter = 2
-texture = ExtResource( 8 )
-
-[node name="UpRight" type="TextureRect" parent="BaseContainer/Base/Settings/Selection"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 3.0
-margin_top = -5.0
-margin_right = 43.0
-margin_bottom = 35.0
-rect_rotation = 90.0
-mouse_filter = 2
-texture = ExtResource( 8 )
-
-[node name="DownRight" type="TextureRect" parent="BaseContainer/Base/Settings/Selection"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 5.0
-margin_right = 43.0
-margin_bottom = 44.9999
-rect_rotation = 180.0
-mouse_filter = 2
-texture = ExtResource( 8 )
-
-[node name="DownLeft" type="TextureRect" parent="BaseContainer/Base/Settings/Selection"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = -5.0
-margin_top = 5.0
-margin_right = 35.0
-margin_bottom = 44.9999
-rect_rotation = 270.0
-mouse_filter = 2
-texture = ExtResource( 8 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="BaseContainer/Base/Settings/Selection"]
-playback_speed = 1.25
-anims/RESET = SubResource( 3 )
-anims/idle = SubResource( 4 )
-
-[node name="Shadow" type="TextureRect" parent="BaseContainer/Base/Settings"]
-modulate = Color( 0, 0, 0, 0.219608 )
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 5.0
-margin_right = -36.0
-margin_bottom = -31.0
-mouse_filter = 2
-texture = ExtResource( 10 )
 
 [node name="Close" type="TextureButton" parent="BaseContainer/Base" groups=["Button"]]
 anchor_left = 1.0
@@ -965,7 +990,6 @@ rect_pivot_offset = Vector2( -10, 15 )
 focus_neighbour_left = NodePath(".")
 focus_neighbour_top = NodePath("../Exit")
 focus_neighbour_right = NodePath(".")
-focus_neighbour_bottom = NodePath("../Settings")
 texture_normal = ExtResource( 13 )
 
 [node name="Shadow" type="TextureRect" parent="BaseContainer/Base/Edit"]
@@ -1046,6 +1070,337 @@ custom_colors/font_color = Color( 0.317647, 0.317647, 0.317647, 1 )
 custom_fonts/font = SubResource( 12 )
 text = "Editar el nivel"
 align = 1
+
+[node name="Settings" type="TextureButton" parent="BaseContainer/Base" groups=["Button"]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -31.0
+margin_top = 261.0
+margin_right = 31.0
+margin_bottom = 323.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbour_left = NodePath("../Notifications")
+focus_neighbour_top = NodePath("../CourseWorld")
+focus_neighbour_right = NodePath("../Controls")
+focus_neighbour_bottom = NodePath(".")
+texture_normal = ExtResource( 10 )
+stretch_mode = 3
+
+[node name="Icon" type="TextureRect" parent="BaseContainer/Base/Settings"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -19.5
+margin_right = 20.0
+margin_bottom = 19.5
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="Text" type="Label" parent="BaseContainer/Base/Settings"]
+visible = false
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -308.0
+margin_top = -18.0
+margin_right = -62.0
+margin_bottom = 18.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 18 )
+text = "Crear un nivel"
+
+[node name="Selection" type="Control" parent="BaseContainer/Base/Settings" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="BaseContainer/Base/Settings/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="UpRight" type="TextureRect" parent="BaseContainer/Base/Settings/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="DownRight" type="TextureRect" parent="BaseContainer/Base/Settings/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="DownLeft" type="TextureRect" parent="BaseContainer/Base/Settings/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BaseContainer/Base/Settings/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 19 )
+anims/idle = SubResource( 20 )
+
+[node name="Shadow" type="TextureRect" parent="BaseContainer/Base/Settings"]
+modulate = Color( 0, 0, 0, 0.219608 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 5.0
+margin_right = -36.0
+margin_bottom = -31.0
+mouse_filter = 2
+texture = ExtResource( 10 )
+
+[node name="Discord" type="TextureButton" parent="BaseContainer/Base" groups=["Button"]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 44.0
+margin_top = 261.0
+margin_right = 106.0
+margin_bottom = 323.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbour_left = NodePath("../Notifications")
+focus_neighbour_top = NodePath("../CourseWorld")
+focus_neighbour_right = NodePath("../Controls")
+focus_neighbour_bottom = NodePath(".")
+texture_normal = ExtResource( 10 )
+stretch_mode = 3
+
+[node name="Icon" type="TextureRect" parent="BaseContainer/Base/Discord"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -26.0
+margin_top = -26.0
+margin_right = 26.0
+margin_bottom = 26.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+expand = true
+stretch_mode = 6
+
+[node name="Text" type="Label" parent="BaseContainer/Base/Discord"]
+visible = false
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -308.0
+margin_top = -18.0
+margin_right = -62.0
+margin_bottom = 18.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 18 )
+text = "Crear un nivel"
+
+[node name="Selection" type="Control" parent="BaseContainer/Base/Discord" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="BaseContainer/Base/Discord/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="UpRight" type="TextureRect" parent="BaseContainer/Base/Discord/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="DownRight" type="TextureRect" parent="BaseContainer/Base/Discord/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="DownLeft" type="TextureRect" parent="BaseContainer/Base/Discord/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BaseContainer/Base/Discord/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 21 )
+anims/idle = SubResource( 22 )
+
+[node name="Shadow" type="TextureRect" parent="BaseContainer/Base/Discord"]
+modulate = Color( 0, 0, 0, 0.219608 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 5.0
+margin_right = -36.0
+margin_bottom = -31.0
+mouse_filter = 2
+texture = ExtResource( 10 )
+
+[node name="Youtube" type="TextureButton" parent="BaseContainer/Base" groups=["Button"]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -107.0
+margin_top = 261.0
+margin_right = -45.0
+margin_bottom = 323.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbour_left = NodePath("../Notifications")
+focus_neighbour_top = NodePath("../CourseWorld")
+focus_neighbour_right = NodePath("../Controls")
+focus_neighbour_bottom = NodePath(".")
+texture_normal = ExtResource( 10 )
+stretch_mode = 3
+
+[node name="Icon" type="TextureRect" parent="BaseContainer/Base/Youtube"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -26.0
+margin_top = -27.0
+margin_right = 26.0
+margin_bottom = 25.0
+mouse_filter = 2
+texture = ExtResource( 19 )
+expand = true
+stretch_mode = 6
+
+[node name="Text" type="Label" parent="BaseContainer/Base/Youtube"]
+visible = false
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -308.0
+margin_top = -18.0
+margin_right = -62.0
+margin_bottom = 18.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_fonts/font = SubResource( 18 )
+text = "Crear un nivel"
+
+[node name="Selection" type="Control" parent="BaseContainer/Base/Youtube" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="BaseContainer/Base/Youtube/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="UpRight" type="TextureRect" parent="BaseContainer/Base/Youtube/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="DownRight" type="TextureRect" parent="BaseContainer/Base/Youtube/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="DownLeft" type="TextureRect" parent="BaseContainer/Base/Youtube/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BaseContainer/Base/Youtube/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 23 )
+anims/idle = SubResource( 24 )
+
+[node name="Shadow" type="TextureRect" parent="BaseContainer/Base/Youtube"]
+modulate = Color( 0, 0, 0, 0.219608 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 5.0
+margin_right = -36.0
+margin_bottom = -31.0
+mouse_filter = 2
+texture = ExtResource( 10 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BaseContainer"]
 anims/RESET = SubResource( 7 )
@@ -1162,4 +1517,13 @@ text = "Sin condición especial."
 [connection signal="mouse_entered" from="BaseContainer/Base/Edit" to="." method="_on_Edit_mouse_entered"]
 [connection signal="mouse_exited" from="BaseContainer/Base/Edit" to="." method="_on_Edit_mouse_exited"]
 [connection signal="pressed" from="BaseContainer/Base/Edit" to="." method="_on_Edit_pressed"]
+[connection signal="mouse_entered" from="BaseContainer/Base/Settings" to="." method="_on_Settings_mouse_entered"]
+[connection signal="mouse_exited" from="BaseContainer/Base/Settings" to="." method="_on_Settings_mouse_exited"]
+[connection signal="pressed" from="BaseContainer/Base/Settings" to="." method="_on_Settings_pressed"]
+[connection signal="mouse_entered" from="BaseContainer/Base/Discord" to="." method="_on_Discord_mouse_entered"]
+[connection signal="mouse_exited" from="BaseContainer/Base/Discord" to="." method="_on_Discord_mouse_exited"]
+[connection signal="pressed" from="BaseContainer/Base/Discord" to="." method="_on_Discord_pressed"]
+[connection signal="mouse_entered" from="BaseContainer/Base/Youtube" to="." method="_on_Youtube_mouse_entered"]
+[connection signal="mouse_exited" from="BaseContainer/Base/Youtube" to="." method="_on_Youtube_mouse_exited"]
+[connection signal="pressed" from="BaseContainer/Base/Youtube" to="." method="_on_Youtube_pressed"]
 [connection signal="animation_finished" from="BaseContainer/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

@@ -83,7 +83,6 @@ func _ready():
 	Global.connect("floorErase", self, "floorErase");
 	Global.connect("changeStyle", self, "changeStyle");
 	Global.connect("erase", self, "erase");
-	hide();
 	styleChanged();
 	yield(get_tree(), "idle_frame");
 	if (get_parent().editing):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=2]
+[gd_scene load_steps=78 format=2]
 
 [ext_resource path="res://scripts/level.gd" type="Script" id=1]
 [ext_resource path="res://sprites/ui/editor/grid.png" type="Texture" id=2]
@@ -1050,6 +1050,158 @@ tracks/9/keys = {
 "values": [ 0, 3 ]
 }
 
+[sub_resource type="Shader" id=30]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform float circle_size : hint_range(0.0, 5.0);
+uniform float screen_width;
+uniform float screen_height;
+uniform float offset_x : hint_range(-0.5, 0.5) = 0.0;
+uniform float offset_y : hint_range(-0.5, 0.5) = 0.0;
+
+void fragment() {
+    float ratio = screen_width / screen_height;
+    
+    // Calculate adjusted center position with offset
+    vec2 center = vec2(
+        mix(0.5, 0.5 + offset_x, ratio),  // X component with aspect ratio correction
+        0.5 + offset_y                    // Y component
+    );
+    
+    // Calculate adjusted UV coordinates
+    vec2 adjusted_uv = vec2(
+        mix(0.5, UV.x, ratio),  // Aspect ratio-corrected X
+        UV.y                     // Original Y
+    );
+    
+    float dist = distance(center, adjusted_uv);
+    COLOR.a = step(circle_size, dist);
+}"
+
+[sub_resource type="ShaderMaterial" id=31]
+shader = SubResource( 30 )
+shader_param/circle_size = 0.0
+shader_param/screen_width = 1280.0
+shader_param/screen_height = 720.0
+shader_param/offset_x = 0.0
+shader_param/offset_y = 0.0
+
+[sub_resource type="Animation" id=32]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Circle:material:shader_param/circle_size")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Circle:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=33]
+resource_name = "out"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Circle:material:shader_param/circle_size")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 1.1 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Circle:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=22]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "in"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+
+[sub_resource type="Animation" id=24]
+resource_name = "out"
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=34]
+resource_name = "pipe_in"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
+}
+
 [sub_resource type="Animation" id=25]
 length = 0.001
 tracks/0/type = "value"
@@ -1178,51 +1330,6 @@ tracks/1/keys = {
 0/shapes = [  ]
 0/z_index = 0
 
-[sub_resource type="Animation" id=22]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 0, 0, 0, 0 ) ]
-}
-
-[sub_resource type="Animation" id=23]
-resource_name = "in"
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 0, 0, 0, 0 ), Color( 0, 0, 0, 1 ) ]
-}
-
-[sub_resource type="Animation" id=24]
-resource_name = "out"
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Color( 0, 0, 0, 1 ), Color( 0, 0, 0, 0 ) ]
-}
-
 [node name="Level" type="Node2D" groups=["Level"]]
 pause_mode = 1
 script = ExtResource( 1 )
@@ -1239,6 +1346,9 @@ material = SubResource( 21 )
 z_index = -3
 texture = SubResource( 19 )
 centered = false
+
+[node name="Semisolids" type="YSort" parent="."]
+z_index = -2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 0, 840 )
@@ -1731,7 +1841,7 @@ playback_speed = 0.13
 anims/RESET = SubResource( 12 )
 anims/start = SubResource( 13 )
 
-[node name="SMBSnowParticles" type="CPUParticles2D" parent="Camera2D/SMB3/Snow/ParallaxLayer"]
+[node name="SMB3SnowParticles" type="CPUParticles2D" parent="Camera2D/SMB3/Snow/ParallaxLayer"]
 position = Vector2( 960, 0 )
 amount = 200
 lifetime = 10.0
@@ -2003,6 +2113,40 @@ playback_speed = 2.0
 anims/RESET = SubResource( 16 )
 anims/idle = SubResource( 17 )
 
+[node name="CircleTransition" type="CanvasLayer" parent="."]
+pause_mode = 2
+layer = 0
+
+[node name="Circle" type="TextureRect" parent="CircleTransition"]
+visible = false
+modulate = Color( 0, 0, 0, 1 )
+material = SubResource( 31 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 25 )
+expand = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CircleTransition"]
+anims/RESET = SubResource( 32 )
+anims/out = SubResource( 33 )
+
+[node name="Transition" type="TextureRect" parent="CircleTransition"]
+pause_mode = 2
+modulate = Color( 0, 0, 0, 0 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+texture = ExtResource( 25 )
+expand = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CircleTransition/Transition"]
+playback_speed = 2.0
+anims/RESET = SubResource( 22 )
+anims/in = SubResource( 23 )
+anims/out = SubResource( 24 )
+anims/pipe_in = SubResource( 34 )
+
 [node name="GameUI" parent="." instance=ExtResource( 16 )]
 
 [node name="Editor" parent="." instance=ExtResource( 11 )]
@@ -2181,15 +2325,3 @@ volume_db = -15.0
 [node name="Ghostforest" type="AudioStreamPlayer" parent="GameMusic/SMB3" groups=["Music"]]
 stream = ExtResource( 41 )
 volume_db = -7.0
-
-[node name="Transition" type="Sprite" parent="."]
-modulate = Color( 0, 0, 0, 0 )
-scale = Vector2( 50, 50 )
-z_index = 50
-texture = ExtResource( 25 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Transition"]
-playback_speed = 2.0
-anims/RESET = SubResource( 22 )
-anims/in = SubResource( 23 )
-anims/out = SubResource( 24 )

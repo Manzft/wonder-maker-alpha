@@ -1,8 +1,13 @@
 extends CanvasLayer
 
 func _ready():
+	setButtonsTransparency()
+	
+func _process(_delta):
+	setButtonsTransparency()
+
+func setButtonsTransparency():
 	var a = Global.CONTROLS_TRANSPARENCY/100.0;
-	print(a);
 	$RightDown.modulate.a = a;
 	$LeftDown.modulate.a = a;
 

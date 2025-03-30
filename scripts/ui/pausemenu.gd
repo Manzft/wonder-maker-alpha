@@ -143,3 +143,31 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if (anim_name == "out"):
 		get_tree().paused = false;
 		queue_free();
+
+func _on_Settings_pressed():
+	Global.spawnSettings(self);
+	$AudioButton.play();
+func _on_Settings_mouse_entered():
+	mouseFocus = "BaseContainer/Base/Settings"; button_mouse_entered(); changeFocus();
+func _on_Settings_mouse_exited():
+	button_mouse_exited(); mouseFocus = ""; changeFocus();
+
+func _on_Discord_pressed():
+	savedFocus = getFocusNode();
+	Global.showMessage("Wonder Cave\nServidor de Discord Oficial del Fangame\n(Copiado al portapapeles)", self);
+	OS.set_clipboard("https://discord.gg/csGS3eKxvD");
+	$AudioButton.play();
+func _on_Discord_mouse_entered():
+	mouseFocus = "BaseContainer/Base/Discord"; button_mouse_entered(); changeFocus();
+func _on_Discord_mouse_exited():
+	button_mouse_exited(); mouseFocus = ""; changeFocus();
+
+func _on_Youtube_pressed():
+	savedFocus = getFocusNode();
+	Global.showMessage("@Manzft27\nCanal de YouTube del creador del Fangame\n(Copiado al portapapeles)", self);
+	OS.set_clipboard("https://youtube.com/@manzft27");
+	$AudioButton.play();
+func _on_Youtube_mouse_entered():
+	mouseFocus = "BaseContainer/Base/Youtube"; button_mouse_entered(); changeFocus();
+func _on_Youtube_mouse_exited():
+	button_mouse_exited(); mouseFocus = ""; changeFocus();

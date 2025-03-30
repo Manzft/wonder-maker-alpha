@@ -1468,7 +1468,6 @@ anims/RESET = SubResource( 52 )
 anims/idle = SubResource( 53 )
 
 [node name="VersionBg" type="NinePatchRect" parent="."]
-self_modulate = Color( 1, 1, 1, 0.631373 )
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -2142,9 +2141,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -271.5
-margin_top = -50.0
+margin_top = 8.0
 margin_right = 271.5
-margin_bottom = 52.0
+margin_bottom = 110.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_neighbour_left = NodePath(".")
@@ -2368,6 +2367,7 @@ mouse_filter = 2
 texture = ExtResource( 16 )
 
 [node name="CourseWorld" type="TextureButton" parent="PlayButtons" groups=["Button"]]
+visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -2486,9 +2486,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -271.5
-margin_top = -188.0
+margin_top = -246.0
 margin_right = 271.5
-margin_bottom = -86.0
+margin_bottom = -144.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_neighbour_left = NodePath("../BackButton")

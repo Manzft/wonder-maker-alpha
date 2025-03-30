@@ -77,6 +77,10 @@ func button_mouse_exited():
 	changeFocus();
 
 func _on_Pause_pressed():
+	var character = get_node("../Character");
+	if (character != null):
+		if (character.died):
+			return
 	$AudioButton.play();
 	var inst = load("res://scenes/ui/pausemenu.tscn").instance();
 	get_parent().add_child(inst);

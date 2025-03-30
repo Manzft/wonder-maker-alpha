@@ -142,6 +142,10 @@ func _ready():
 	chainAnimation();
 
 func _process(_delta):
+	max_walk_speed = def_max_walk_speed/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	jump_h  = def_jump_h/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	gravity = def_gravity/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	max_fall = def_max_fall/(Global.ENTITY_PHYSICS_SPEED*0.01);
 	if (get_node("../Editor").playing):
 		if (dead || carrying):
 			z_index = 2;

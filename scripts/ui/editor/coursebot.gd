@@ -97,6 +97,7 @@ func updateFocusSprite():
 			node.get_node("Selection/AnimationPlayer").play("RESET");
 
 func _ready():
+	Global.toLoad = false;
 	if (Global.DISCORD_PRESENCE):
 		RichPresence.update_activity("Coursebot");
 	
