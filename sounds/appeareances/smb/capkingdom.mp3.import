@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/capkingdom.mp3-dc4a8af0b8bcd61ea5685772432b970c.mp3str"
+
+[deps]
+
+source_file="res://sounds/appeareances/smb/capkingdom.mp3"
+dest_files=[ "res://.import/capkingdom.mp3-dc4a8af0b8bcd61ea5685772432b970c.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

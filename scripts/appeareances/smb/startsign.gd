@@ -28,7 +28,7 @@ func styleChanged():
 	shadow.texture = currentSprite.texture;
 	shadow.scale = scale
 	shadow.offset = currentSprite.offset;
-	get_node("../ShadowViewport").add_child(shadow);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 
 
 func _on_StartSign_tree_exiting():

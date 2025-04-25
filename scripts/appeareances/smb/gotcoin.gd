@@ -45,7 +45,7 @@ func _ready():
 	shadow = AnimatedSprite.new();
 	shadow.frames = currentSprite.frames;
 	shadow.scale = currentSprite.scale;
-	get_node("../ShadowViewport").add_child(shadow);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 
 func _process(delta):
 	var nodes = get_children();

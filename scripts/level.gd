@@ -43,6 +43,11 @@ var seaLevelOffset = 0;
 var seaTopLevelOffset = 0;
 var currentSeaLevelOffset = 0;
 
+export var max_shake: float = 10.0
+export var shake_fade: float = 10.0
+
+var _shake_strength: float = 0.0
+
 #Sync Animation
 var syncanim = {
 	smb = {
@@ -58,6 +63,9 @@ var syncanim = {
 		"attackTimer": 0.0
 	}
 }
+
+func trigger_shake():
+	_shake_strength = max_shake
 
 func _ready():
 	for i in range(grid_size.x): 
@@ -206,7 +214,16 @@ func setCameraGrid(var start = false):
 		
 		camera_last_pos = campos;
 
-func _process(delta):
+func _process(delta: float):
+	#Shake Camera
+	if (_shake_strength > 0):
+		_shake_strength = lerp(_shake_strength, 0.0, shake_fade * delta)
+		var randff: float = rand_range(-_shake_strength, _shake_strength)
+		$Camera2D.offset = Vector2(-randff, randff)
+	
+	$ShadowLayer.position.x = $Camera2D.position.x;
+	$ViewportShadow/Shadows.position.x = $ShadowLayer.position.x*-1;
+	
 	$Camera2D/SMB3/Snow/ParallaxLayer/SMB3SnowParticles.visible = Global.SNOW_FALLING_PARTICLES;
 	$Camera2D/SMB/Snow/ParallaxLayer/SMBSnowParticles.visible = Global.SNOW_FALLING_PARTICLES;
 	

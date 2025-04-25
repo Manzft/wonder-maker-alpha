@@ -32,12 +32,12 @@ func _ready():
 	
 	shadow.offset = offset;
 	
-	get_node("../ShadowViewport").add_child(shadow);
-	get_node("../ShadowViewport").add_child(flagshadow);
-	get_node("../ShadowViewport").add_child(castleflagshadow);
-	get_node("../ShadowViewport").add_child(castleleftshadow);
-	get_node("../ShadowViewport").add_child(castlerightshadow);
-	get_node("../ShadowViewport").add_child(castledoorshadow);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
+	get_node("../ViewportShadow/Shadows").add_child(flagshadow);
+	get_node("../ViewportShadow/Shadows").add_child(castleflagshadow);
+	get_node("../ViewportShadow/Shadows").add_child(castleleftshadow);
+	get_node("../ViewportShadow/Shadows").add_child(castlerightshadow);
+	get_node("../ViewportShadow/Shadows").add_child(castledoorshadow);
 
 func _process(_delta):
 	shadow.position = global_position+Vector2(3*3.25, 3*3.25);

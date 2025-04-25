@@ -19,7 +19,7 @@ func _on_StartTimer_timeout():
 func _on_WonderMaker_AnimationPlayer_animation_finished(anim_name):
 	if (anim_name == "start"):
 		$Loading/AnimationPlayer.play("in");
-		yield(get_tree().create_timer(5.0), "timeout");
+		yield(get_tree().create_timer(2.0), "timeout");
 		$Loading/AnimationPlayer.play("out");
 		yield(get_tree().create_timer(1.0), "timeout");
 		$WonderMaker/AnimationPlayer.play("out");

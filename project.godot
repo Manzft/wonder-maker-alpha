@@ -93,6 +93,11 @@ _global_script_classes=[ {
 "class": "Member",
 "language": "GDScript",
 "path": "res://addons/discord_game_sdk/example/lobby/member.gd"
+}, {
+"base": "",
+"class": "StreamPeerUnix",
+"language": "NativeScript",
+"path": "res://addons/godot-unix-socket/unix-socket.gdns"
 } ]
 _global_script_class_icons={
 "ChatMessage": "",
@@ -111,13 +116,14 @@ _global_script_class_icons={
 "DiscordResult": "",
 "DiscordUser": "",
 "GameState": "",
-"Member": ""
+"Member": "",
+"StreamPeerUnix": ""
 }
 
 [application]
 
 config/name="Wonder Maker"
-run/main_scene="res://scenes/ui/SplashScreen.tscn"
+run/main_scene="res://scenes/ui/MainMenu.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="Wonder Maker"
 boot_splash/show_image=false
@@ -379,7 +385,7 @@ common/physics_interpolation=true
 
 [rendering]
 
-quality/driver/driver_name="GLES2"
+quality/driver/fallback_to_gles2=true
 2d/snapping/use_gpu_pixel_snap=true
 threads/thread_safe_bvh=true
 vram_compression/import_etc=true

@@ -117,12 +117,9 @@ func _ready():
 	Global.connect("changeStyle", self, "changeStyle");
 	Global.connect("erase", self, "erase");
 	styleChanged();
-	
-	yield(get_tree(), "idle_frame");
 	if (get_parent().editing):
 		$AnimationPlayer.play("start");
-	updateShape();
-	yield(get_tree().create_timer(0.125), "timeout");
+	yield(get_tree(), "idle_frame");
 	match (seldirection):
 		"right":
 			currentSprite.rotation = deg2rad(90.0);
@@ -141,8 +138,9 @@ func _ready():
 			currentSprite.flip_h = false;
 			currentSprite.get_node("Body").flip_h = false;
 	setBodySprites();
+	updateShape()
 
-func _process(_delta):
+func _process(delta: float):
 	if (bye):
 		eraseShadow();
 		queue_free();
@@ -155,7 +153,7 @@ func _process(_delta):
 		"right":
 			$DirectionButton/ArrowRight.show();
 			#currentSprite.rotation_degrees = 90;
-			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(90.0), 0.25);
+			currentSprite.rotation_degrees = rad2deg(lerp_angle(currentSprite.rotation, deg2rad(90.0), 16.0*delta))
 			currentSprite.flip_h = false;
 			currentSprite.get_node("Body").flip_h = false;
 			$Arrows.position = Vector2(52, 26);
@@ -163,7 +161,7 @@ func _process(_delta):
 		"left":
 			$DirectionButton/ArrowLeft.show();
 			#currentSprite.rotation_degrees = 270;
-			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(270.0), 0.25);
+			currentSprite.rotation_degrees = rad2deg(lerp_angle(currentSprite.rotation, deg2rad(270.0), 16.0*delta))
 			currentSprite.flip_h = true;
 			currentSprite.get_node("Body").flip_h = true;
 			$Arrows.position = Vector2(-17, 26);
@@ -171,7 +169,7 @@ func _process(_delta):
 		"down":
 			$DirectionButton/ArrowDown.show();
 			#currentSprite.rotation_degrees = 180;
-			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(180.0), 0.25);
+			currentSprite.rotation_degrees = rad2deg(lerp_angle(currentSprite.rotation, deg2rad(180.0), 16.0*delta))
 			currentSprite.flip_h = true;
 			currentSprite.get_node("Body").flip_h = true;
 			$Arrows.position = Vector2(26, 69);
@@ -179,7 +177,7 @@ func _process(_delta):
 		"up":
 			$DirectionButton/ArrowUp.show();
 			#currentSprite.rotation_degrees = 0;
-			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(0.0), 0.25);
+			currentSprite.rotation_degrees = rad2deg(lerp_angle(currentSprite.rotation, deg2rad(0.0), 16.0*delta))
 			currentSprite.flip_h = false;
 			currentSprite.get_node("Body").flip_h = false;
 			$Arrows.position = Vector2(26, 0);
@@ -263,7 +261,7 @@ func styleChanged():
 	shadowtop = Sprite.new();
 	shadowtop.texture = currentSprite.texture;
 	shadowtop.scale = currentSprite.scale
-	get_node("../ShadowViewport").add_child(shadowtop);
+	get_node("../ViewportShadow/Shadows").add_child(shadowtop);
 	if (shadowbody == null):
 		pass
 	else:
@@ -273,7 +271,7 @@ func styleChanged():
 	shadowbody.vframes = currentSprite.get_node("Body").vframes;
 	shadowbody.frame = currentSprite.get_node("Body").frame;
 	shadowbody.scale = currentSprite.scale
-	get_node("../ShadowViewport").add_child(shadowbody);
+	get_node("../ViewportShadow/Shadows").add_child(shadowbody);
 
 func _on_DirectionButton_pressed():
 	match (seldirection):
@@ -295,8 +293,9 @@ func _on_DirectionButton_mouse_entered():
 	get_node("../Editor").externalButton = true;
 
 func _on_DirectionButton_mouse_exited():
-	get_node("../Editor").externalButton = false;
-	resizing = false;
+	if (!resizing):
+		get_node("../Editor").externalButton = false;
+		resizing = false;
 
 func _on_ResizeButton_mouse_exited():
 	if (!resizing):

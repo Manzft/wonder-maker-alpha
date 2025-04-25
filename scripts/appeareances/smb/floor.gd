@@ -295,14 +295,14 @@ func styleChanged():
 	shadow = Sprite.new();
 	shadow.texture = currentSprite.texture;
 	shadow.scale = currentSprite.scale
-	get_node("../ShadowViewport").add_child(shadow);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 	if (shadowdecoration == null):
 		pass
 	else:
 		shadowdecoration.queue_free();
 	shadowdecoration = Sprite.new();
 	shadowdecoration.scale = currentSprite.scale;
-	get_node("../ShadowViewport").add_child(shadowdecoration);
+	get_node("../ViewportShadow/Shadows").add_child(shadowdecoration);
 	
 	if (!currentSprite.visible):
 		print("Im ", currentSprite, " and im not visible");

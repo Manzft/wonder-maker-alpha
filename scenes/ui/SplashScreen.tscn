@@ -259,7 +259,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
 }
 
-[node name="NewSplashScreen" type="CanvasLayer" groups=["CurrentTree"]]
+[node name=" NewSplashScreen" type="CanvasLayer" groups=["CurrentTree"]]
 script = ExtResource( 1 )
 
 [node name="Bg" type="TextureRect" parent="."]

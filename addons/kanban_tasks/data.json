@@ -48,13 +48,14 @@
     {
       "title": "Todo",
       "tasks": [
-
+        59,
+        60
       ]
     },
     {
       "title": "Doing",
       "tasks": [
-        60
+        64
       ]
     },
     {
@@ -85,7 +86,6 @@
     {
       "title": "Maybe",
       "tasks": [
-        59,
         63,
         17,
         3,
@@ -461,6 +461,11 @@
     {
       "category": 2,
       "title": "More pipe colors",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Fix shadow system",
       "details": ""
     }
   ]

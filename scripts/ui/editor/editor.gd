@@ -575,22 +575,23 @@ func prepareLoad():
 			Global.toLoad = false;
 		#savedFocus = getFocusNode();
 		#Global.showMessage("Nivel cargado correctamente.", self);
-		get_node("../LoadingLayer/Loading/AnimationPlayer").play("in");
+		#get_node("../LoadingLayer/Loading/AnimationPlayer").play("in");
 	else:
 		get_tree().paused = true;
 		Global.currentlevel = "res://title level.wom"
 		Global.currentCourseName = "Title Level";
 		Global.loadCourseData();
 		appearanceChange(Global.CurrentAppeareance, true);
-		get_node("../LoadingLayer/Loading/AnimationPlayer").play("in");
+		#get_node("../LoadingLayer/Loading/AnimationPlayer").play("in");
 
 func gameLoaded():
-	get_node("../LoadingLayer/Loading/AnimationPlayer").play("out");
-	yield(get_tree().create_timer(1.0), "timeout");
+	#get_node("../LoadingLayer/Loading/AnimationPlayer").play("out");
+	#yield(get_tree().create_timer(1.0), "timeout");
 	get_tree().paused = false;
 	appearanceChange(Global.CurrentAppeareance, true);
 	#styleChange(Global.CurrentStyle, true);
-	Global.thread.wait_to_finish();
+	
+	#Global.thread.wait_to_finish();
 	
 	if (Global.coursePlaying || get_parent().startmenu):
 		_on_Play_pressed();
@@ -2355,6 +2356,8 @@ func _on_Play_mouse_exited():
 func _on_Edit_pressed():
 	get_tree().paused = false;
 	$Controls.hide();
+	$"../CircleTransition/AnimationPlayer".play("RESET")
+	$"../CircleTransition/Transition/AnimationPlayer".play("RESET")
 	match Global.CurrentAppeareance:
 		Global.APP_SMB:
 			get_node("GameplayUI/SMB").visible = false;
@@ -2404,12 +2407,18 @@ func _on_Edit_pressed():
 			$AudioBigButton.play();
 		
 		if (Global.coursePlaying):
+			#if (Online.playing_online):
+			#	Online.add_death()
+			
+			yield(get_tree().create_timer(0.5), "timeout")
 			get_node("../CircleTransition/Transition/AnimationPlayer").play("in");
-			yield(get_tree().create_timer(1), "timeout");
+			yield(get_tree().create_timer(1.125), "timeout")
 			get_node("../Character").queue_free();
-			Global.changingToEditMode = true;
-			yield(get_tree().create_timer(0.5), "timeout");
-			playing = false;
+			Global.changingToEditMode = true
+			playing = false
+			Global.playing = false
+			yield(get_tree().create_timer(0.25), "timeout")
+			Global.changingToEditMode = false
 			_on_Play_pressed();
 			get_node("../CircleTransition/Transition/AnimationPlayer").play("out");
 

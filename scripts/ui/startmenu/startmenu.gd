@@ -65,6 +65,24 @@ func updateFocusSprite():
 			node.get_node("Selection/AnimationPlayer").play("RESET");
 
 func _ready():
+	#Fix Selection Corners
+	for node in get_tree().get_nodes_in_group("Selection"):
+		node.get_node("UpRight").rect_rotation = 90.0
+		node.get_node("DownRight").rect_rotation = 180.0
+		node.get_node("DownLeft").rect_rotation = 270.0
+		
+		node.get_node("UpLeft").rect_scale = Vector2(0.5, 0.5)
+		node.get_node("UpRight").rect_scale = Vector2(0.5, 0.5)
+		node.get_node("DownRight").rect_scale = Vector2(0.5, 0.5)
+		node.get_node("DownLeft").rect_scale = Vector2(0.5, 0.5)
+		
+		node.get_node("UpLeft").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.get_node("UpRight").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.get_node("DownRight").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.get_node("DownLeft").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		
+		node.get_node("AnimationPlayer").playback_speed = 1.0
+	
 	#Transition
 	Global.transition();
 	
@@ -113,50 +131,54 @@ func _process(_delta):
 			changeFocus();
 
 func getSplashText():
-	var i = str(round(rand_range(0, 13)));
+	var i = str(round(rand_range(0, 6)));
 	var text = "";
 	match (i):
 		"0":
-			text = "NSMBU en la Alpha v1.6?";
-		"1":
 			text = "Prueba también SMBWF!";
-		"2":
+		"1":
 			text = "Hecho en Wonder Cave";
-		"3":
+		"2":
 			text = "Hecho con Godot :)";
-		"4":
-			text = "Que zoid";
-		"5":
-			text = "SMW en la Alpha 1.4?";
-		"6":
-			text = '"No durará ni 2 meses" decían...';
-		"7":
-			text = "¿Sabías que ahora puedes apilar enemigos?"
-		"8":
+		"3":
 			text = "¡Haz niveles divertidos!"
-		"9":
-			text = "La primera ver. de WM salió el 29/9/2024"
-		"10":
-			text = "Mañana agregamos Mario Odyssey"
-		"11":
-			text = "Llevamos ya 6 meses de desarrollo..."
-		"12":
-			text = "El juego es de código cerrado."
-		"13":
-			text = "Soporte para Texturas en la Alpha v1.5?"
+		"4":
+			text = "La primera versión de WM salió el 29/9/2024"
+		"5":
+			text = "Wonder Maker lleva 7 meses de desarrollo."
+		"6":
+			text = "El juego es de código cerrado!"
 	return text;
 
 #General
 func button_mouse_entered():
-	$AudioSelectButton.play();
-	get_node(mouseFocus+"/Selection/AnimationPlayer").play("idle");
-	changeFocus();
+	#$AudioSelectButton.pitch_scale = randf_range(0.9, 1.1)
+	$AudioSelectButton.play()
+	get_node(mouseFocus+"/Selection/AnimationPlayer").play("idle")
+	changeFocus()
+	#Input.set_custom_mouse_cursor(load("res://sprites/ui/cursor.png"))
+	get_node(mouseFocus).rect_pivot_offset.x = get_node(mouseFocus).rect_size.x/2
+	get_node(mouseFocus).rect_pivot_offset.y = get_node(mouseFocus).rect_size.y/2
+	var scale: Vector2 = Vector2(0, 0)
+	if (get_node(mouseFocus).editor_description == ""):
+		scale = get_node(mouseFocus).rect_scale
+	else:
+		scale = str2var(get_node(mouseFocus).editor_description)
+	get_node(mouseFocus).editor_description = var2str(scale)
+	var tween = get_tree().create_tween()
+	tween.tween_property(get_node(mouseFocus), "rect_scale", Vector2(scale.x*1.05, scale.y*1.05), 0.0625)
 
 func button_mouse_exited():
 	$FPS.grab_focus();
 	if (mouseFocus != ""):
 		get_node(mouseFocus+"/Selection/AnimationPlayer").play("RESET");
+		get_node(mouseFocus).rect_pivot_offset.x = get_node(mouseFocus).rect_size.x/2;
+		get_node(mouseFocus).rect_pivot_offset.y = get_node(mouseFocus).rect_size.y/2;
+		var tween = get_tree().create_tween();
+		var scale: Vector2 = str2var(get_node(mouseFocus).editor_description);
+		tween.tween_property(get_node(mouseFocus), "rect_scale", scale, 0.0625);
 	changeFocus();
+	#Input.set_custom_mouse_cursor(load("res://sprites/ui/cursor_editor.png"));
 
 #Start Menu
 func _on_StartButton_pressed():

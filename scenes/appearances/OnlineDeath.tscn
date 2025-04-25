@@ -31,7 +31,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id=2]
 resource_name = "start"
-length = 0.3
+length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 2
@@ -46,12 +46,12 @@ tracks/0/keys = {
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath(".:scale")
-tracks/1/interp = 1
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3 ),
+"times": PoolRealArray( 0, 0.2, 0.4 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 1, 1 ), Vector2( 1, 0.8 ), Vector2( 1, 1 ) ]
@@ -65,7 +65,7 @@ texture = ExtResource( 1 )
 offset = Vector2( -1, -33 )
 
 [node name="Shadow" type="Sprite" parent="."]
-modulate = Color( 0, 0, 0, 0.294118 )
+modulate = Color( 0, 0, 0, 0.392157 )
 position = Vector2( 6, 6 )
 z_index = -3
 z_as_relative = false

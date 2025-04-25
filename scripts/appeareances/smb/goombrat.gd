@@ -460,7 +460,7 @@ func styleChanged():
 	shadow.frames = currentSprite.frames;
 	shadow.animation = currentSprite.animation;
 	shadow.scale = currentSprite.scale;
-	get_node("../ShadowViewport").add_child(shadow);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 	
 	if (dupsprite == null):
 		pass

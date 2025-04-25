@@ -69,7 +69,9 @@ var lastScore = 0;
 
 var shadow : AnimatedSprite;
 
-var jump_timer = 0.0;
+var jump_timer: float = 0.0;
+var max_jump_timer_def: float = 0.3;
+var max_jump_timer: float = max_jump_timer_def;
 
 var koyoteFalling = false;
 var startedJumping = false;
@@ -79,6 +81,10 @@ var exitingPipe : bool = false
 var enteringPipeDirection : String = ""
 var exitingPipeDirection : String = ""
 var exitPipePosition : Vector2 = Vector2(0, 0)
+var enterPipePosition : Vector2 = Vector2(0, 0)
+var canEnterPipe: bool = true
+var recentlyPipeExited: bool = false
+var lastPipeNode: Node
 
 func eraseShadow():
 	shadow.queue_free();
@@ -88,7 +94,7 @@ func _ready():
 	shadow.frames = current_sprite.frames;
 	shadow.animation = current_sprite.animation;
 	shadow.scale = current_sprite.scale;
-	get_node("../ShadowViewport").add_child(shadow);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 	
 	yield(get_tree(), "idle_frame");
 	

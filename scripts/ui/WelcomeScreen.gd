@@ -73,12 +73,13 @@ func messageBoxFinished(type : String):
 		Global.showMessage("Esta versión trae bastantes cambios en comparación con la anterior, así que diviertete probando todo lo nuevo.", self, null, "WelcomeMsg2");
 	if (type == "WelcomeMsg2"):
 		Global.showMessage("Cualquier pregunta que tengas puedes preguntar en el servidor de Discord del juego. Si necesitas el link de invitación puedes buscarlo en YouTube.", self, null, "WelcomeMsg3");
+#	if (type == "WelcomeMsg3"):
+#		Global.showMessage("Ahora, vamos a verificar algo.", self, null, "WelcomeMsg4");
+#	if (type == "WelcomeMsg4"):
+#		$Bg2.show();
+#		$Bg2/AnimationPlayer.play("in");
+	#if (type == "ShadowsFalse" || type == "ShadowsTrue"):
 	if (type == "WelcomeMsg3"):
-		Global.showMessage("Ahora, vamos a verificar algo.", self, null, "WelcomeMsg4");
-	if (type == "WelcomeMsg4"):
-		$Bg2.show();
-		$Bg2/AnimationPlayer.play("in");
-	if (type == "ShadowsFalse" || type == "ShadowsTrue"):
 		Global.showMessage("Disfruta del juego, crea niveles y juega los de la comunidad.", self, null, "WelcomeMsg5");
 	if (type == "WelcomeMsg5"):
 		Global.WELCOME_SCREEN = true;
@@ -101,28 +102,3 @@ func button_mouse_exited():
 	$Bg.grab_focus();
 	get_node(mouseFocus+"/Selection/AnimationPlayer").play("RESET");
 	changeFocus();
-
-func _on_YesButton_pressed():
-	Global.SHADOWS = true;
-	Global.saveSettings();
-	$AudioButton.play();
-	changeFocus();
-	Global.showMessage("Perfecto, todo está listo.", self, null, "ShadowsTrue");
-	$Bg2/AnimationPlayer.play("out");
-func _on_YesButton_mouse_entered():
-	mouseFocus = "Bg2/YesButton"; button_mouse_entered(); changeFocus();
-func _on_YesButton_mouse_exited():
-	button_mouse_exited(); mouseFocus = ""; changeFocus();
-
-func _on_NoButton_pressed():
-	Global.SHADOWS = false;
-	Global.saveSettings();
-	$AudioButton.play();
-	changeFocus();
-	Global.showMessage("Las sombras no funcionan bien en dispositivos antigüos, así que se han desactivado para que tengas una mejor experiencia.", self, null, "ShadowsFalse");
-	$Bg2/AnimationPlayer.play("out");
-func _on_NoButton_mouse_entered():
-	mouseFocus = "Bg2/NoButton"; button_mouse_entered(); changeFocus();
-func _on_NoButton_mouse_exited():
-	button_mouse_exited(); mouseFocus = ""; changeFocus();
-

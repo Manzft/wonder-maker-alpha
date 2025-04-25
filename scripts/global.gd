@@ -406,9 +406,9 @@ func loadLevelInfo():
 	nodes = get_tree().get_nodes_in_group("Level");
 	for node in nodes:
 		level = node;
-	#loadObjects(level);
-	thread = Thread.new();
-	thread.start(self, "loadObjects", level)
+	loadObjects(level);
+#	thread = Thread.new();
+#	thread.start(self, "loadObjects", level)
 
 func saveObjects():
 	var nodes = get_tree().get_nodes_in_group("Obj");
@@ -691,8 +691,9 @@ func renderize():
 	can_render = true;
 
 func startAppearanceChange(app, start = false, editor : Node = null):
-	thread = Thread.new();
-	thread.start(self, "appearanceChange", [app, start, editor])
+	#thread = Thread.new();
+	#thread.start(self, "appearanceChange", [app, start, editor])
+	appearanceChange([app, start, editor])
 
 func appearanceChange(userdata):
 	var app = userdata[0];
@@ -772,7 +773,7 @@ func appearanceChange(userdata):
 	
 	print("Appearance Changed Successfully");
 	
-	thread.wait_to_finish();
+	#thread.wait_to_finish();
 
 func _process(delta):
 	if (!changingToEditMode && !OS.window_minimized):

@@ -1,56 +1,58 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://fonts/NINTENDOSWITCHUI.TTF" type="DynamicFontData" id=1]
+[ext_resource path="res://fonts/arial.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://scripts/ui/FPS.gd" type="Script" id=2]
+[ext_resource path="res://fonts/seguihis.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="DynamicFont" id=1]
-size = 30
+size = 35
 outline_size = 1
-outline_color = Color( 0, 0, 0, 1 )
+outline_color = Color( 0.14902, 0.14902, 0.14902, 1 )
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
-size = 20
+size = 25
 outline_size = 1
-outline_color = Color( 0, 0, 0, 1 )
-font_data = ExtResource( 1 )
+outline_color = Color( 0.141176, 0.141176, 0.141176, 1 )
+font_data = ExtResource( 3 )
 
 [node name="FPS" type="CanvasLayer"]
 pause_mode = 2
 layer = 20
 script = ExtResource( 2 )
 
-[node name="OGL" type="Label" parent="."]
+[node name="API" type="Label" parent="."]
+self_modulate = Color( 0.737255, 0.737255, 0.737255, 1 )
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 87.0
+margin_right = 8.0
 margin_bottom = 49.0
-custom_colors/font_color = Color( 0.627451, 0.627451, 0.627451, 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 1 )
-text = "GLES2"
+text = "API"
 
-[node name="FPS" type="Label" parent="OGL"]
+[node name="FPS" type="Label" parent="API"]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 27.0
+margin_left = 14.0
 margin_top = -20.5
-margin_right = 79.0
+margin_right = 48.0
 margin_bottom = 20.5
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 1 )
 text = "60"
 
-[node name="FPSText" type="Label" parent="OGL/FPS"]
+[node name="FPSText" type="Label" parent="API/FPS"]
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-margin_left = 9.0
-margin_top = -20.5
-margin_right = 44.0
-margin_bottom = 0.5
-custom_colors/font_color = Color( 1, 1, 1, 1 )
+margin_left = 8.0
+margin_top = -23.5
+margin_right = 47.0
+margin_bottom = 10.5
+custom_colors/font_color = Color( 0.996078, 0.415686, 1, 1 )
 custom_fonts/font = SubResource( 2 )
 text = "FPS"
