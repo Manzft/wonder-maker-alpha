@@ -25,6 +25,7 @@ func add_shadow(ref):
 	sprite.frames = ref.frames;
 	sprite.animation = ref.animation;
 	sprite.add_to_group("CharacterEditorShadow");
+	sprite.position = ref.global_position+Vector2(3*3.25, 3*3.25)
 	get_node("../ViewportShadow/Shadows").add_child(sprite);
 	return sprite
 

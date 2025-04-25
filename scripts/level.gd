@@ -1,4 +1,4 @@
-extends Node2D
+extends YSort
 
 var editing = true;
 
@@ -353,6 +353,9 @@ func placeObject(mousepos, pressed = false, customObj = -1, sound : bool = true,
 					var scene = Global.object[Global.CurrentAppeareance][obj][Global.OP_SCENE];
 					if (inst == null):
 						inst = scene.instance();
+						
+					inst.position = pos;
+					inst.add_to_group(str(obj))
 					
 					#Remove Wide Decoration
 					var nodegrid = cgrid;
@@ -387,8 +390,6 @@ func placeObject(mousepos, pressed = false, customObj = -1, sound : bool = true,
 						$Semisolids.add_child(inst);
 					else:
 						add_child(inst);
-					inst.position = pos;
-					inst.add_to_group(str(obj))
 					if (obj == Global.OBJ_FLOOR && inEditor):
 						inst.editPlaced = true;
 					

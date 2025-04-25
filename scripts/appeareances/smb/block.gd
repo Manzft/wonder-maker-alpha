@@ -12,12 +12,9 @@ func render(group, forcerender = false, render_range = 60):
 	if (group != ""):
 		if (!is_in_group(group)):
 			return
-	var scrwidth = OS.get_window_size().x;
-	var scrheight = OS.get_window_size().y;
-	var multiplier = 720/scrheight;
-	var finalscrwidth = scrwidth * multiplier;
+	var scrwidth = get_node("../Editor/BlackScreen").rect_size.x;
 	var distance = abs(position.x-Global.campos.x);
-	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+	if (distance-(scrwidth/2) > scrwidth*(render_range*0.01)):
 		set_process(false);
 		set_physics_process(false);
 	else:
@@ -60,9 +57,6 @@ func _ready():
 	Global.connect("changeStyle", self, "changeStyle");
 	Global.connect("erase", self, "erase");
 	styleChanged();
-	yield(get_tree(), "idle_frame");
-	if (get_parent().editing):
-		$AnimationPlayer.play("start");
 
 func _process(_delta):
 	$SpriteUnderground.scale = $SpriteGround.scale;
@@ -102,4 +96,5 @@ func styleChanged():
 	shadow = Sprite.new();
 	shadow.texture = currentSprite.texture;
 	shadow.scale = currentSprite.scale
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
 	get_node("../ViewportShadow/Shadows").add_child(shadow);

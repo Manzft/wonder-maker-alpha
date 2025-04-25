@@ -1438,10 +1438,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 87.0
-margin_top = 171.0
-margin_right = 866.0
-margin_bottom = 300.0
+margin_left = 115.5
+margin_top = 224.0
+margin_right = 894.5
+margin_bottom = 353.0
 rect_rotation = -19.2639
 rect_scale = Vector2( 0.5, 0.5 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
@@ -1570,8 +1570,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -4.99064
 margin_top = -4.99064
-margin_right = -4.99065
-margin_bottom = -4.99064
+margin_right = 243.009
+margin_bottom = 40.0094
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="StartButton/Selection"]
@@ -1872,8 +1872,8 @@ text = "Crear"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = -0.00561523
-margin_bottom = 0.000610352
+margin_right = 162.0
+margin_bottom = 126.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="ActionButtons/MakeButton/Selection"]
@@ -1989,7 +1989,8 @@ text = "Jugar"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_bottom = 0.00012207
+margin_right = 162.0
+margin_bottom = 126.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="ActionButtons/PlayButton/Selection"]
@@ -2203,8 +2204,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -4.63017
 margin_top = -4.63017
-margin_right = 0.369812
-margin_bottom = -0.630173
+margin_right = 538.37
+margin_bottom = 97.3698
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="PlayButtons/ManzftChallenge/Selection"]
@@ -2319,8 +2320,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -4.63017
 margin_top = -4.63017
-margin_right = -4.63019
-margin_bottom = -4.63017
+margin_right = 538.37
+margin_bottom = 97.3698
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="PlayButtons/StoryMode/Selection"]
@@ -2432,8 +2433,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -4.63017
 margin_top = -4.63017
-margin_right = 0.369812
-margin_bottom = -0.630173
+margin_right = 538.37
+margin_bottom = 97.3698
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="PlayButtons/CourseWorld/Selection"]
@@ -2547,8 +2548,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -4.63017
 margin_top = -4.63017
-margin_right = 0.369812
-margin_bottom = -0.630173
+margin_right = 538.37
+margin_bottom = 97.3698
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="PlayButtons/Coursebot/Selection"]

@@ -159,7 +159,7 @@ func styleChanged():
 	shadow = Sprite.new();
 	shadow.texture = currentSprite.texture;
 	shadow.scale = currentSprite.scale
-	get_node("../ShadowViewport").add_child(shadow);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 
 func hit(var shell = false):
 	if ($AnimationPlayer.current_animation != "hit" && visible):

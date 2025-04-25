@@ -643,14 +643,19 @@ anims/invincible = SubResource( 27 )
 anims/star = SubResource( 20 )
 
 [node name="EnterPipeTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.6
+one_shot = true
+
+[node name="RecentlyPipeExitedTimer" type="Timer" parent="."]
+wait_time = 2.0
 one_shot = true
 
 [node name="ExitPipeTimer" type="Timer" parent="."]
+wait_time = 1.25
 one_shot = true
 
 [node name="FinishPipeTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.75
 one_shot = true
 
 [node name="KoyoteTimer" type="Timer" parent="."]
@@ -759,6 +764,7 @@ __meta__ = {
 
 [connection signal="tree_exiting" from="." to="." method="_on_Character_tree_exiting"]
 [connection signal="timeout" from="EnterPipeTimer" to="." method="_on_EnterPipeTimer_timeout"]
+[connection signal="timeout" from="RecentlyPipeExitedTimer" to="." method="_on_RecentlyPipeExitedTimer_timeout"]
 [connection signal="timeout" from="ExitPipeTimer" to="." method="_on_ExitPipeTimer_timeout"]
 [connection signal="timeout" from="FinishPipeTimer" to="." method="_on_FinishPipeTimer_timeout"]
 [connection signal="timeout" from="KoyoteTimer" to="." method="_on_KoyoteTimer_timeout"]

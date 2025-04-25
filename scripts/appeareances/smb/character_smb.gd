@@ -268,7 +268,7 @@ func _physics_process(delta):
 					current_sprite.flip_h = false;
 					drifting = false;
 			
-				if (motion.x < 0 && abs(motion.x) > max_run_speed*0.8):
+				if (motion.x < 0 && abs(motion.x) > max_run_speed*0.9):
 					drifting = true;
 				
 				if (motion.x > 0 && drifting):
@@ -286,7 +286,7 @@ func _physics_process(delta):
 				if (is_on_floor()):
 					motion.x += acc;
 				else:
-					motion.x += acc/1.25;
+					motion.x += acc/2;
 			else:
 				motion.x -= acc/2;
 		elif (inpchckl && sneakchck && !course_clear && startmenucheck):
@@ -296,7 +296,7 @@ func _physics_process(delta):
 					current_sprite.flip_h = true;
 					drifting = false;
 				
-				if (motion.x > 0 && abs(motion.x) > max_run_speed*0.8):
+				if (motion.x > 0 && abs(motion.x) > max_run_speed*0.9):
 					drifting = true;
 					
 				if (motion.x < 0 && drifting):
@@ -315,7 +315,7 @@ func _physics_process(delta):
 				if (is_on_floor()):
 					motion.x -= acc;
 				else:
-					motion.x -= acc/1.25;
+					motion.x -= acc/2;
 			else:
 				motion.x += acc/2;
 		else:
@@ -344,17 +344,20 @@ func _physics_process(delta):
 					drifting = false;
 					jumping = true;
 					jump_timer = 0.0;
-					#if (abs(motion.x) >= max_run_speed):
+					if (abs(motion.x) >= max_run_speed*0.9):
+						max_jump_timer = max_jump_timer_def*1.25;
+					else:
+						max_jump_timer = max_jump_timer_def;
 					motion.y = jump_h;
 					detectSingleGrid();
 					startedJumping = true;
 			if (friction):
-				motion.x = lerp(motion.x, 0, 0.0625);
+				motion.x = lerp(motion.x, 0.0, 0.0625);
 		else:
 			if (friction):
-				motion.x = lerp(motion.x, 0, 0.01);
+				motion.x = lerp(motion.x, 0.0, 0.02);
 		var a = Input.is_action_pressed("a") || Input.is_action_pressed("b");
-		if (jumping && jump_timer < 0.3 && a && motion.y < 0):
+		if (jumping && jump_timer < max_jump_timer && a && motion.y < 0):
 			motion.y = jump_h;
 			jump_timer += delta;
 		else:
@@ -491,31 +494,68 @@ func _process(delta):
 	var moveSpeed = 50*delta
 	if (enteringPipe):
 		match (enteringPipeDirection):
-			"up": current_sprite.offset.y += moveSpeed
-			"down": current_sprite.offset.y -= moveSpeed
-			"left": current_sprite.offset.x += moveSpeed
-			"right": current_sprite.offset.x -= moveSpeed
+			"up":
+				current_sprite.offset.y += moveSpeed
+				position.x = lerp(position.x, enterPipePosition.x+26, 12*delta)
+			"down":
+				current_sprite.offset.y -= moveSpeed
+				position.x = lerp(position.x, enterPipePosition.x+26, 12*delta)
+			"left":
+				current_sprite.offset.x += moveSpeed
+				position.y = lerp(position.y, enterPipePosition.y+26, 12*delta)
+			"right":
+				current_sprite.offset.x -= moveSpeed
+				position.y = lerp(position.y, enterPipePosition.y+26, 12*delta)
 	
 	if (exitingPipe):
+		var yoffset = 0
+		var xoffset = 0
+		if (currentPowerup != "small"):
+			yoffset = -8
+		
 		match (exitingPipeDirection):
-			"up": current_sprite.offset.y -= moveSpeed
-			"down": current_sprite.offset.y += moveSpeed
-			"left": current_sprite.offset.x -= moveSpeed
-			"right": current_sprite.offset.x += moveSpeed
+			"up":
+				current_sprite.offset.y -= moveSpeed
+				if (current_sprite.offset.y < yoffset):
+					current_sprite.offset.y = yoffset
+			"down":
+				current_sprite.offset.y += moveSpeed*0.8
+				if (current_sprite.offset.y > yoffset):
+					current_sprite.offset.y = yoffset
+			"left":
+				current_sprite.offset.x -= moveSpeed*0.7
+				if (current_sprite.offset.x < xoffset):
+					current_sprite.offset.x = xoffset
+			"right":
+				current_sprite.offset.x += moveSpeed*0.7
+				if (current_sprite.offset.x > xoffset):
+					current_sprite.offset.x = xoffset
 	
 	#Wall Dead
 	if (!died && position.y < get_parent().calculateGridPosition(Vector2(0, get_parent().grid_size.y-1)).y):
-		var mygrid = get_parent().calculateGrid(position.x, position.y+12);
-		var node = get_parent().grid_node[mygrid.x][mygrid.y];
-		if (node != null):
-			if (!node.is_in_group("OffBlock2") &&
-			!node.is_in_group("OnBlock2") &&
-			!node.is_in_group("OffBlock") &&
-			!node.is_in_group("OnBlock") &&
-			node.is_in_group("Solid") &&
-			!node.get_node("CollisionShape2D").disabled &&
-			node.position == get_parent().calculateGridPosition(mygrid)):
-				die();
+		var mygrid = get_parent().calculateGrid(position.x, position.y)
+		var node = get_parent().grid_node[mygrid.x][mygrid.y]
+		checkWallDead(node, mygrid)
+		if (currentPowerup != "small"):
+			mygrid = get_parent().calculateGrid(position.x, position.y-52)
+			checkWallDead(node, mygrid)
+
+func checkWallDead(node: Node, mygrid: Vector2):
+	if (node != null):
+		if (!node.is_in_group("OffBlock2") &&
+		!node.is_in_group("OnBlock2") &&
+		!node.is_in_group("OffBlock") &&
+		!node.is_in_group("OnBlock") &&
+		node.is_in_group("Solid") &&
+		!node.get_node("CollisionShape2D").disabled &&
+		node.position == get_parent().calculateGridPosition(mygrid)):
+			if (exitingPipe):
+				hide()
+			if (canEnterPipe):
+				if (!recentlyPipeExited):
+					die();
+				else:
+					enterPipe(lastPipeNode.seldirection, lastPipeNode, lastPipeNode.pipe_code)
 
 func _on_KoyoteTimer_timeout():
 	koyoteTime = false;
@@ -726,10 +766,12 @@ func _on_Character_tree_exiting():
 	eraseShadow();
 
 func enterPipe(direction : String, pipeNode : Node, code : int):
-	if (enteringPipe || died || changingPowerup):
+	if (enteringPipe || died || changingPowerup || !canEnterPipe):
 		return
 	if (sneaking):
 		releaseSneak()
+	
+	canEnterPipe = false
 	
 	for node in get_tree().get_nodes_in_group("Pipe"):
 		if (node != pipeNode):
@@ -739,9 +781,11 @@ func enterPipe(direction : String, pipeNode : Node, code : int):
 				$SoundEnterPipe.play()
 				#$AnimationPlayer.play("enter_pipe")
 				z_index = -1
+				lastPipeNode = node
+				enterPipePosition = pipeNode.position
 				match (direction):
 					"up":
-						position.x = pipeNode.position.x+26
+						#position.x = pipeNode.position.x+26
 						current_sprite.play(currentPowerup+"_idle");
 					"left":
 						position.y = pipeNode.position.y+26+18
@@ -769,7 +813,7 @@ func _on_EnterPipeTimer_timeout():
 	match (exitingPipeDirection):
 		"up":
 			position.x = exitPipePosition.x+26
-			position.y = exitPipePosition.y-52
+			position.y = exitPipePosition.y-52+1
 			current_sprite.play(currentPowerup+"_idle");
 		"left":
 			position.x = exitPipePosition.x-52
@@ -794,7 +838,7 @@ func _on_ExitPipeTimer_timeout():
 	current_sprite.scale.y = 3.25
 	match (exitingPipeDirection):
 		"up":
-			current_sprite.offset = Vector2(0, 25);
+			current_sprite.offset = Vector2(0, 32);
 		"left":
 			current_sprite.offset = Vector2(25, 0);
 			if (currentPowerup != "small"):
@@ -804,7 +848,7 @@ func _on_ExitPipeTimer_timeout():
 			if (currentPowerup != "small"):
 				current_sprite.scale.y = (3.25)*0.85
 		"down":
-			current_sprite.offset = Vector2(0, -25);
+			current_sprite.offset = Vector2(0, -32);
 	
 	if (currentPowerup != "small"):
 		current_sprite.offset.y -= 8;
@@ -846,3 +890,9 @@ func _on_FinishPipeTimer_timeout():
 		current_sprite.offset.y = 0;
 	else:
 		current_sprite.offset.y = -8;
+	canEnterPipe = true
+	recentlyPipeExited = true
+	$RecentlyPipeExitedTimer.start()
+
+func _on_RecentlyPipeExitedTimer_timeout() -> void:
+	recentlyPipeExited = false

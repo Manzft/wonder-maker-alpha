@@ -3,6 +3,8 @@ extends StaticBody2D
 var floorlevel = false;
 var endlevel = false;
 
+export var deco_spawn_speed: float = 0.5;
+
 onready var currentSprite = get_node("SpriteGround");
 
 var shadow : Sprite = null
@@ -22,12 +24,9 @@ func render(group, forcerender = false, render_range = 60):
 	if (group != ""):
 		if (!is_in_group(group)):
 			return
-	var scrwidth = OS.get_window_size().x;
-	var scrheight = OS.get_window_size().y;
-	var multiplier = 720/scrheight;
-	var finalscrwidth = scrwidth * multiplier;
+	var scrwidth = get_node("../Editor/BlackScreen").rect_size.x;
 	var distance = abs(position.x-Global.campos.x);
-	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+	if (distance-(scrwidth/2) > scrwidth*(render_range*0.01)):
 		set_process(false);
 		set_physics_process(false);
 	else:
@@ -76,14 +75,12 @@ func _ready():
 	
 	mygrid = get_parent().calculateGrid(position.x, position.y);
 
-	styleChanged();
 	updateNearFloors();
 	if (editPlaced):
 		spawnDecoration();
 	else:
 		setDecoration()
 	
-	yield(get_tree(), "idle_frame");
 	styleChanged();
 	editPlaced = false;
 
@@ -124,6 +121,9 @@ func spawnDecoration():
 				hasDecoration = true;
 				if (editPlaced):
 					$SoundSpawnDecoration.play();
+					var tween = get_tree().create_tween();
+					get_node(Global.CurrentStyle+"/Decoration"+decorationType).scale.y = 2;
+					tween.tween_property(get_node(Global.CurrentStyle+"/Decoration"+decorationType), "scale", Vector2(3.25, 3.25), deco_spawn_speed);
 		"1":
 			var mygrid = get_parent().calculateGrid(position.x, position.y);
 			if (isNotSolidOrDoesntExists(Vector2(mygrid.x, mygrid.y-1)) && isNotSolidOrDoesntExists(Vector2(mygrid.x, mygrid.y-2))):
@@ -132,6 +132,9 @@ func spawnDecoration():
 				hasDecoration = true;
 				if (editPlaced):
 					$SoundSpawnDecoration.play();
+					var tween = get_tree().create_tween();
+					get_node(Global.CurrentStyle+"/Decoration"+decorationType).scale.y = 2;
+					tween.tween_property(get_node(Global.CurrentStyle+"/Decoration"+decorationType), "scale", Vector2(3.25, 3.25), deco_spawn_speed);
 		"2":
 			var mygrid = get_parent().calculateGrid(position.x, position.y);
 			if (isNotSolidOrDoesntExists(Vector2(mygrid.x, mygrid.y-1)) && isNotSolidOrDoesntExists(Vector2(mygrid.x-1, mygrid.y-1)) && isNotSolidOrDoesntExists(Vector2(mygrid.x-2, mygrid.y-1))):
@@ -142,6 +145,9 @@ func spawnDecoration():
 						hasDecoration = true;
 						if (editPlaced):
 							$SoundSpawnDecoration.play();
+							var tween = get_tree().create_tween();
+							get_node(Global.CurrentStyle+"/Decoration"+decorationType).scale.y = 2;
+							tween.tween_property(get_node(Global.CurrentStyle+"/Decoration"+decorationType), "scale", Vector2(3.25, 3.25), deco_spawn_speed);
 
 func setDecoration():
 	match (decorationType):

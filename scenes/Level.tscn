@@ -1330,7 +1330,7 @@ tracks/1/keys = {
 0/shapes = [  ]
 0/z_index = 0
 
-[node name="Level" type="Node2D" groups=["Level"]]
+[node name="Level" type="YSort" groups=["Level"]]
 pause_mode = 1
 script = ExtResource( 1 )
 
