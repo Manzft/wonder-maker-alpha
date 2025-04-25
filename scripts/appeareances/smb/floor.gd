@@ -92,6 +92,7 @@ func _process(delta):
 		var node = Global.CurrentStyle+"/Decoration"+decorationType;
 		shadowdecoration.position = get_node(node).global_position+Vector2(3*3.25, 3*3.25);
 		shadowdecoration.texture = get_node(node).texture;
+		shadowdecoration.scale = get_node(node).scale;
 	elif (shadowdecoration != null):
 		shadowdecoration.hide();
 
@@ -123,7 +124,7 @@ func spawnDecoration():
 					$SoundSpawnDecoration.play();
 					var tween = get_tree().create_tween();
 					get_node(Global.CurrentStyle+"/Decoration"+decorationType).scale.y = 2;
-					tween.tween_property(get_node(Global.CurrentStyle+"/Decoration"+decorationType), "scale", Vector2(3.25, 3.25), deco_spawn_speed);
+					tween.tween_property(get_node(Global.CurrentStyle+"/Decoration"+decorationType), "scale", Vector2(3.25, 3.25), deco_spawn_speed)
 		"1":
 			var mygrid = get_parent().calculateGrid(position.x, position.y);
 			if (isNotSolidOrDoesntExists(Vector2(mygrid.x, mygrid.y-1)) && isNotSolidOrDoesntExists(Vector2(mygrid.x, mygrid.y-2))):
@@ -223,7 +224,6 @@ func checkFloor(x, y):
 	return check;
 
 func styleChanged():
-	swapDecorationStyle(currentSprite.get_name().trim_prefix("Sprite").trim_suffix("Variant").trim_suffix("Top"));
 	match (Global.CurrentStyle):
 		"Underground":
 			currentSprite.hide();
@@ -301,14 +301,22 @@ func styleChanged():
 	shadow = Sprite.new();
 	shadow.texture = currentSprite.texture;
 	shadow.scale = currentSprite.scale
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25)
 	get_node("../ViewportShadow/Shadows").add_child(shadow);
 	if (shadowdecoration == null):
 		pass
 	else:
 		shadowdecoration.queue_free();
+
 	shadowdecoration = Sprite.new();
-	shadowdecoration.scale = currentSprite.scale;
-	get_node("../ViewportShadow/Shadows").add_child(shadowdecoration);
+	shadowdecoration.scale = currentSprite.scale
+	if (decorationType != ""):
+		shadowdecoration.position = get_node("Ground/Decoration"+decorationType).global_position+Vector2(3*3.25, 3*3.25)
+		shadowdecoration.offset = get_node("Ground/Decoration"+decorationType).offset
+	get_node("../ViewportShadow/Shadows").add_child(shadowdecoration)
+	
+	if (!editPlaced):
+		swapDecorationStyle(currentSprite.get_name().trim_prefix("Sprite").trim_suffix("Variant").trim_suffix("Top"));
 	
 	if (!currentSprite.visible):
 		print("Im ", currentSprite, " and im not visible");
