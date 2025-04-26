@@ -59,10 +59,9 @@ func _ready():
 	styleChanged();
 
 func _process(_delta):
-	$SpriteUnderground.scale = $SpriteGround.scale;
-	$SpriteUnderground.position = $SpriteGround.position;
-	$SpriteGhostforest.scale = $SpriteGround.scale;
-	$SpriteGhostforest.position = $SpriteGround.position;
+	if (currentSprite != get_node("SpriteGround")):
+		currentSprite.scale = $SpriteGround.scale;
+		currentSprite.position = $SpriteGround.position;
 	
 	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
 	shadow.scale = currentSprite.scale;

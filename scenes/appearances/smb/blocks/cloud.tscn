@@ -69,6 +69,7 @@ texture = ExtResource( 5 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
 playback_speed = 10.0
 anims/RESET = SubResource( 2 )
 anims/start = SubResource( 3 )

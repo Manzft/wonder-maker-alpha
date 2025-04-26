@@ -92,7 +92,7 @@ func _process(delta):
 		var node = Global.CurrentStyle+"/Decoration"+decorationType;
 		shadowdecoration.position = get_node(node).global_position+Vector2(3*3.25, 3*3.25);
 		shadowdecoration.texture = get_node(node).texture;
-		shadowdecoration.scale = get_node(node).scale;
+		shadowdecoration.scale = get_node(node).scale
 	elif (shadowdecoration != null):
 		shadowdecoration.hide();
 
@@ -195,9 +195,10 @@ func swapDecorationStyle(previousStyle):
 	get_node(Global.CurrentStyle+"/DecorationShort").visible = vis2;
 	get_node(Global.CurrentStyle+"/DecorationWide").visible = vis3;
 	
-	if (vis1): shadowdecoration.texture = get_node(Global.CurrentStyle+"/DecorationTall").texture;
-	if (vis2): shadowdecoration.texture = get_node(Global.CurrentStyle+"/DecorationShort").texture;
-	if (vis3): shadowdecoration.texture = get_node(Global.CurrentStyle+"/DecorationWide").texture;
+	if (shadowdecoration != null):
+		if (vis1): shadowdecoration.texture = get_node(Global.CurrentStyle+"/DecorationTall").texture;
+		if (vis2): shadowdecoration.texture = get_node(Global.CurrentStyle+"/DecorationShort").texture;
+		if (vis3): shadowdecoration.texture = get_node(Global.CurrentStyle+"/DecorationWide").texture;
 
 func checkFloor(x, y):
 	var grid = Vector2(x, y);
@@ -224,6 +225,8 @@ func checkFloor(x, y):
 	return check;
 
 func styleChanged():
+	if (!editPlaced):
+		swapDecorationStyle(currentSprite.get_name().trim_prefix("Sprite").trim_suffix("Variant").trim_suffix("Top"));
 	match (Global.CurrentStyle):
 		"Underground":
 			currentSprite.hide();
@@ -310,13 +313,12 @@ func styleChanged():
 
 	shadowdecoration = Sprite.new();
 	shadowdecoration.scale = currentSprite.scale
+	if (editPlaced):
+		shadowdecoration.scale.y = 2
 	if (decorationType != ""):
 		shadowdecoration.position = get_node("Ground/Decoration"+decorationType).global_position+Vector2(3*3.25, 3*3.25)
 		shadowdecoration.offset = get_node("Ground/Decoration"+decorationType).offset
 	get_node("../ViewportShadow/Shadows").add_child(shadowdecoration)
-	
-	if (!editPlaced):
-		swapDecorationStyle(currentSprite.get_name().trim_prefix("Sprite").trim_suffix("Variant").trim_suffix("Top"));
 	
 	if (!currentSprite.visible):
 		print("Im ", currentSprite, " and im not visible");
