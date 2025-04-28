@@ -141,6 +141,10 @@ var DISCORD_PRESENCE = true;
 
 var CURRENT_THUMBNAIL = null;
 
+var activity
+var assets
+var timestamps
+
 func getObjectCode(node: Node):
 	var obj : int = -1;
 	for group in node.get_groups():
@@ -525,6 +529,12 @@ func rendering(node):
 	return
 
 func _ready() -> void:
+	if (DISCORD_PRESENCE):
+		activity = Discord.Activity.new()
+		assets = activity.get_assets()
+		
+		setDiscordState("start")
+	
 	checkSettingsFile();
 	loadSettings();
 	saveSettings();
@@ -990,3 +1000,78 @@ func isChainable(var objCode):
 	
 	return chainable;
 
+func setDiscordState(state: String):
+	if (state == "start"):
+		activity.set_type(Discord.ActivityType.Playing)
+		
+		timestamps = activity.get_timestamps()
+		timestamps.set_start(OS.get_unix_time())
+		
+		activity.set_details("Iniciando Wonder Maker")
+		activity.set_state("")
+		assets.set_large_image("deficon")
+		assets.set_large_text("WM")
+		assets.set_small_image("")
+		assets.set_small_text("")
+	else:
+		yield(get_tree(), "idle_frame")
+		match (state):
+			"startmenu":
+				activity.set_details("En el menú de inicio")
+				activity.set_state("")
+				assets.set_small_image("")
+				assets.set_small_text("")
+				assets.set_large_image("deficon")
+				assets.set_large_text("WM")
+			"editor":
+				activity.set_details("Creando un Nivel");
+				if (Global.currentCourseName != ""):
+					activity.set_state("Nivel: "+Global.currentCourseName);
+				else:
+					activity.set_state("")
+				assets.set_small_image("cursor_editor")
+				assets.set_small_text("Cursor")
+				assets.set_large_image("deficon")
+				assets.set_large_text("WM")
+			"playing_coursebot":
+				activity.set_details("Jugando un nivel del Guardabot");
+				if (Global.currentCourseName != ""):
+					activity.set_state("Nivel: "+currentCourseName);
+				else:
+					activity.set_state("")
+				assets.set_small_image("playing")
+				assets.set_small_text("Joycon")
+				assets.set_large_image("deficon")
+				assets.set_large_text("WM")
+			"playing_courseworld":
+				activity.set_details("Jugando un nivel online");
+				activity.set_state("Nivel: "+currentCourseName);
+				assets.set_small_image("courseworld")
+				assets.set_small_text("Niveles Mundiales")
+				assets.set_large_image("deficon")
+				assets.set_large_text("WM")
+			"courseworld":
+				activity.set_details("Niveles Mundiales");
+				activity.set_state("");
+				assets.set_small_image("courseworld")
+				assets.set_small_text("Niveles Mundiales")
+				assets.set_large_image("deficon")
+				assets.set_large_text("WM")
+			"login":
+				activity.set_details("Iniciando Sesión");
+				activity.set_state("");
+				assets.set_small_image("courseworld")
+				assets.set_small_text("Niveles Mundiales")
+				assets.set_large_image("deficon")
+				assets.set_large_text("WM")
+			"coursebot":
+				activity.set_details("En el guardabot");
+				activity.set_state("")
+				assets.set_small_image("coursebot")
+				assets.set_small_text("Guardabot")
+				assets.set_large_image("deficon")
+				assets.set_large_text("WM")
+	
+	var result = yield(Discord.activity_manager.update_activity(activity), "result").result
+	if result != Discord.Result.Ok:
+		push_error(str(result))

@@ -99,7 +99,7 @@ func updateFocusSprite():
 func _ready():
 	Global.toLoad = false;
 	if (Global.DISCORD_PRESENCE):
-		RichPresence.update_activity("Coursebot");
+		Global.setDiscordState("coursebot")
 	
 	#Restart Checkpoint
 	Global.CheckpointGrid = Vector2(0, 0);

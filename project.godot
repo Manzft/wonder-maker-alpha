@@ -9,10 +9,25 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "AuthTask",
+"language": "GDScript",
+"path": "res://addons/supabase/Auth/auth_task.gd"
+}, {
+"base": "EditorPlugin",
+"class": "BeautifierAPI",
+"language": "GDScript",
+"path": "res://addons/godot_beautifier/src/apis.gd"
+}, {
 "base": "Resource",
 "class": "ChatMessage",
 "language": "GDScript",
 "path": "res://addons/discord_game_sdk/example/lobby/chat_message.gd"
+}, {
+"base": "Reference",
+"class": "DatabaseTask",
+"language": "GDScript",
+"path": "res://addons/supabase/Database/database_task.gd"
 }, {
 "base": "",
 "class": "DiscordActivity",
@@ -74,6 +89,21 @@ _global_script_classes=[ {
 "language": "NativeScript",
 "path": "res://addons/discord_game_sdk/discord_party_size.gdns"
 }, {
+"base": "Node",
+"class": "DiscordRPC",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/DiscordRPC.gd"
+}, {
+"base": "Reference",
+"class": "DiscordRPCEnum",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/DiscordRPCEnum.gd"
+}, {
+"base": "Reference",
+"class": "DiscordRPCUtil",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/RPC.gd"
+}, {
 "base": "",
 "class": "DiscordResult",
 "language": "NativeScript",
@@ -89,18 +119,121 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/discord_game_sdk/example/lobby/game_state.gd"
 }, {
+"base": "Reference",
+"class": "IPCUtil",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/util/IPCUtil.gd"
+}, {
 "base": "Resource",
 "class": "Member",
 "language": "GDScript",
 "path": "res://addons/discord_game_sdk/example/lobby/member.gd"
 }, {
+"base": "Reference",
+"class": "RealtimeChannel",
+"language": "GDScript",
+"path": "res://addons/supabase/Realtime/realtime_channel.gd"
+}, {
+"base": "Node",
+"class": "RealtimeClient",
+"language": "GDScript",
+"path": "res://addons/supabase/Realtime/realtime_client.gd"
+}, {
+"base": "Reference",
+"class": "RichPresence",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/RichPresence.gd"
+}, {
+"base": "Reference",
+"class": "RichPresenceButton",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/RichPresenceButton.gd"
+}, {
+"base": "",
+"class": "RichPresenceModule",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/RichPreseneModule.gd"
+}, {
+"base": "Node",
+"class": "StorageBucket",
+"language": "GDScript",
+"path": "res://addons/supabase/Storage/storage_bucket.gd"
+}, {
+"base": "Reference",
+"class": "StorageTask",
+"language": "GDScript",
+"path": "res://addons/supabase/Storage/storage_task.gd"
+}, {
 "base": "",
 "class": "StreamPeerUnix",
 "language": "NativeScript",
 "path": "res://addons/godot-unix-socket/unix-socket.gdns"
+}, {
+"base": "Node",
+"class": "SupabaseAuth",
+"language": "GDScript",
+"path": "res://addons/supabase/Auth/auth.gd"
+}, {
+"base": "Reference",
+"class": "SupabaseAuthError",
+"language": "GDScript",
+"path": "res://addons/supabase/Auth/auth_error.gd"
+}, {
+"base": "Node",
+"class": "SupabaseDatabase",
+"language": "GDScript",
+"path": "res://addons/supabase/Database/database.gd"
+}, {
+"base": "Reference",
+"class": "SupabaseDatabaseError",
+"language": "GDScript",
+"path": "res://addons/supabase/Database/database_error.gd"
+}, {
+"base": "Reference",
+"class": "SupabaseQuery",
+"language": "GDScript",
+"path": "res://addons/supabase/Database/query.gd"
+}, {
+"base": "Node",
+"class": "SupabaseRealtime",
+"language": "GDScript",
+"path": "res://addons/supabase/Realtime/realtime.gd"
+}, {
+"base": "Node",
+"class": "SupabaseStorage",
+"language": "GDScript",
+"path": "res://addons/supabase/Storage/storage.gd"
+}, {
+"base": "Reference",
+"class": "SupabaseStorageError",
+"language": "GDScript",
+"path": "res://addons/supabase/Storage/storage_error.gd"
+}, {
+"base": "Reference",
+"class": "SupabaseUser",
+"language": "GDScript",
+"path": "res://addons/supabase/Auth/user.gd"
+}, {
+"base": "Reference",
+"class": "URLUtil",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/util/URLUtil.gd"
+}, {
+"base": "Reference",
+"class": "UUID",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/util/UUID.gd"
+}, {
+"base": "",
+"class": "UpdateRichPresencePayload",
+"language": "GDScript",
+"path": "res://addons/godot_editor_discord_presence/Discord RPC/ipc/module/rich presence/UpdateRichPresencePayload.gd"
 } ]
 _global_script_class_icons={
+"AuthTask": "",
+"BeautifierAPI": "",
 "ChatMessage": "",
+"DatabaseTask": "",
 "DiscordActivity": "",
 "DiscordActivityAssets": "",
 "DiscordActivityManager": "",
@@ -113,11 +246,34 @@ _global_script_class_icons={
 "DiscordLobbyTransaction": "",
 "DiscordOverlayManager": "",
 "DiscordPartySize": "",
+"DiscordRPC": "",
+"DiscordRPCEnum": "",
+"DiscordRPCUtil": "",
 "DiscordResult": "",
 "DiscordUser": "",
 "GameState": "",
+"IPCUtil": "",
 "Member": "",
-"StreamPeerUnix": ""
+"RealtimeChannel": "",
+"RealtimeClient": "",
+"RichPresence": "",
+"RichPresenceButton": "",
+"RichPresenceModule": "",
+"StorageBucket": "",
+"StorageTask": "",
+"StreamPeerUnix": "",
+"SupabaseAuth": "",
+"SupabaseAuthError": "",
+"SupabaseDatabase": "",
+"SupabaseDatabaseError": "",
+"SupabaseQuery": "",
+"SupabaseRealtime": "",
+"SupabaseStorage": "",
+"SupabaseStorageError": "",
+"SupabaseUser": "",
+"URLUtil": "",
+"UUID": "",
+"UpdateRichPresencePayload": ""
 }
 
 [application]
@@ -135,9 +291,10 @@ config/windows_native_icon="res://deficon_icon.ico"
 
 [autoload]
 
-Global="*res://scripts/global.gd"
 Discord="*res://addons/discord_game_sdk/discord.gd"
-RichPresence="*res://addons/discord_game_sdk/example/rich_presence/rich_presence.gd"
+Global="*res://scripts/global.gd"
+Online="*res://scripts/online.gd"
+SupabaseClient="*res://scripts/supabaseclient.gd"
 
 [display]
 
@@ -153,7 +310,7 @@ window/stretch/aspect="keep_height"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg", "res://addons/nv.file_system/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addons/godot_editor_discord_presence/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg" )
 
 [global]
 
@@ -335,12 +492,12 @@ down={
 }
 leftclick={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"doubleclick":false,"script":null)
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 rightclick={
 "deadzone": 0.5,
-"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"canceled":false,"pressed":false,"doubleclick":false,"script":null)
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":2,"pressed":false,"doubleclick":false,"script":null)
  ]
 }
 back={

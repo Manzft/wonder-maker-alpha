@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Miaow.mp3-5b427461f5abd9c91335d46ad5f1a0e4.mp3str"
+
+[deps]
+
+source_file="res://addons/godot_beautifier/themes/Piolin/startup_sounds/Miaow.mp3"
+dest_files=[ "res://.import/Miaow.mp3-5b427461f5abd9c91335d46ad5f1a0e4.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

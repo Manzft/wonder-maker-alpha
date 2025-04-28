@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Steins;Gate.mp3-20a1d381a7d0931b44512305b4a62a58.mp3str"
+
+[deps]
+
+source_file="res://addons/godot_beautifier/themes/Piolin/startup_sounds/Steins;Gate.mp3"
+dest_files=[ "res://.import/Steins;Gate.mp3-20a1d381a7d0931b44512305b4a62a58.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

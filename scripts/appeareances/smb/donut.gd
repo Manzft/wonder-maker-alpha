@@ -69,41 +69,41 @@ func _ready():
 
 func _process(delta):
 	if (currentSprite != get_node("SpriteGround")):
-		currentSprite.scale = $SpriteGround.scale;
-		currentSprite.position = $SpriteGround.position;
+		currentSprite.scale = $SpriteGround.scale
+		currentSprite.position = $SpriteGround.position
 		
 	if (get_node("../Editor").playing):
 		if (get_node("../Character").position.y <= position.y-49):
-			$CollisionShape2D.disabled = false;
+			$CollisionShape2D.disabled = false
 		else:
-			$CollisionShape2D.disabled = true;
+			$CollisionShape2D.disabled = true
 		
 		if (get_node("../Character").currentPowerup == "small"):
-			$Area2D/CollisionShape2D.position.y = -49;
+			$Area2D/CollisionShape2D.position.y = -49
 		else:
-			$Area2D/CollisionShape2D.position.y = -49-20;
+			$Area2D/CollisionShape2D.position.y = -49-20
 	else:
 		if (down || !$ToFallTimer.is_stopped() || !$FallTimer.is_stopped() || currentSprite.frame == 1):
 			currentSprite.frame = 0;
-			$AnimationPlayer.play("RESET");
-			down = false;
-			$ToFallTimer.stop();
-			$FallTimer.stop();
-			position = startPos;
-			downVelocity = 0.0;
-			moveCharacter = false;
-		startPos = position;
+			$AnimationPlayer.play("RESET")
+			down = false
+			$ToFallTimer.stop()
+			$FallTimer.stop()
+			position = startPos
+			downVelocity = 0.0
+			moveCharacter = false
+		startPos = position
 	
 	if (down):
-		position.y += (5+downVelocity)/0.016*delta;
+		position.y += (5+downVelocity)/0.016*delta
 		if (moveCharacter && get_node("../Character").donuts > 0 && get_node("../Character").clouds <= 0):
-			get_node("../Character").position.y += (5+downVelocity)/0.016*delta/get_node("../Character").donuts;
-		downVelocity += (0.125/0.016)*delta;
+			get_node("../Character").position.y += (5+downVelocity)/0.016*delta/get_node("../Character").donuts
+		downVelocity += (0.125/0.016)*delta
 	
-	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
-	shadow.animation = currentSprite.animation;
-	shadow.frame = currentSprite.frame;
-	shadow.scale = currentSprite.scale;
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25)
+	shadow.animation = currentSprite.animation
+	shadow.frame = currentSprite.frame
+	shadow.scale = currentSprite.scale
 
 func styleChanged():
 	match (Global.CurrentStyle):

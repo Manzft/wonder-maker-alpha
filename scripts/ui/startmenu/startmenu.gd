@@ -103,10 +103,6 @@ func _ready():
 		
 	$ActionButtons/MakeButton/AnimationPlayer.play("RESET");
 	$ActionButtons/PlayButton/AnimationPlayer.play("RESET");
-	
-	yield(get_tree().create_timer(1.0), "timeout");
-	if (Global.DISCORD_PRESENCE):
-		RichPresence.update_activity("MainMenu");
 
 func _process(_delta):
 	match (CurrentMenu):
@@ -208,7 +204,7 @@ func _on_MakeButton_pressed():
 	get_node("../Level/Editor")._on_Edit_pressed();
 	get_node("../Level/Editor/UIBlocker").hide();
 	if (Global.DISCORD_PRESENCE):
-		RichPresence.update_activity("Editing");
+		Global.setDiscordState("editor")
 	yield(get_tree().create_timer(0.125), "timeout");
 	get_node("../Level/Editor").show();
 	get_node("../Level/Editor/SideMenu").show();

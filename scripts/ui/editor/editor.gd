@@ -530,13 +530,6 @@ func _ready():
 	
 	yield(get_tree().create_timer(0.1), "timeout");
 	
-	if (Global.coursePlaying && Global.DISCORD_PRESENCE):
-		RichPresence.update_activity("PlayingCoursebot")
-	
-	if (!get_parent().startmenu && !Global.coursePlaying && Global.DISCORD_PRESENCE):
-		#editorMusic(true);
-		RichPresence.update_activity("Editing");
-	
 	for i in range(12): 
 		selected_objects.append([]);
 		selected_objects[i] = -50;
@@ -564,6 +557,18 @@ func _ready():
 		node.connect("focus_entered", self, "focus_change");
 	
 	yield(get_tree().create_timer(0.125), "timeout");
+	
+	if (Global.DISCORD_PRESENCE):
+		if (get_parent().startmenu):
+			Global.setDiscordState("startmenu")
+		elif (Global.coursePlaying && Online.playing_online):
+			Global.setDiscordState("playing_courseworld")
+			if (Online.logged):
+				Online.set_played()
+		elif (Global.coursePlaying):
+			Global.setDiscordState("playing_coursebot")
+		else:
+			Global.setDiscordState("editor")
 	
 	prepareLoad();
 	
@@ -744,17 +749,19 @@ func updateObjectButtons():
 			var a = "";
 			a = str(i+1);
 			get_node("SectionTop/ObjectButton"+a+"/Icon").texture = null;
-			get_node("SectionTop/ObjectButton"+a).texture_normal = load("res://sprites/ui/editor/pick_object.png");
+			get_node("SectionTop/ObjectButton"+a).texture_normal = load("res://sprites/ui/editor_definitive/pick_object.png");
 		else:
 			var a = "";
 			a = str(i+1);
 			get_node("SectionTop/ObjectButton"+a+"/Icon").texture = Global.object[Global.CurrentAppeareance][selected_objects[i]][Global.OP_ICON];
 			
+			#get_node("SectionTop/ObjectButton"+a+"/Icon/AnimationPlayer").speed_scale = 10.0;
+			
 			if (selected_objects[i] == get_parent().objSelected):
-				get_node("SectionTop/ObjectButton"+a).texture_normal = load("res://sprites/ui/new interface/editor/object_select_button_selected.png");
+				get_node("SectionTop/ObjectButton"+a).texture_normal = load("res://sprites/ui/new interface/editor_definitive/object_select_button_selected.png");
 				get_node("SectionTop/ObjectButton"+a+"/Icon/AnimationPlayer").play("in");
 			else:
-				get_node("SectionTop/ObjectButton"+a).texture_normal = load("res://sprites/ui/new interface/editor/object_select_button.png");
+				get_node("SectionTop/ObjectButton"+a).texture_normal = load("res://sprites/ui/new interface/editor_definitive/object_select_button.png");
 				get_node("SectionTop/ObjectButton"+a+"/Icon/AnimationPlayer").play("RESET");
 			
 			get_node("SectionTop/ObjectButton"+a+"/HasVariants").visible = Global.hasVariants(selected_objects[i]);
@@ -762,13 +769,13 @@ func updateObjectButtons():
 			var category = Global.getCategory(selected_objects[i]);
 			match (category):
 				"Terrain":
-					get_node("SectionTop/ObjectButton"+a+"/Top").modulate = Color("#3accff");
+					get_node("SectionTop/ObjectButton"+a+"/Top").modulate = Color("#0087ff");
 				"Items":
-					get_node("SectionTop/ObjectButton"+a+"/Top").modulate = Color("#fe84ff");
+					get_node("SectionTop/ObjectButton"+a+"/Top").modulate = Color("#fd2dff");
 				"Enemies":
-					get_node("SectionTop/ObjectButton"+a+"/Top").modulate = Color("#62ff64");
+					get_node("SectionTop/ObjectButton"+a+"/Top").modulate = Color("#04f619");
 				"Gizmos":
-					get_node("SectionTop/ObjectButton"+a+"/Top").modulate = Color("#fffc4b");
+					get_node("SectionTop/ObjectButton"+a+"/Top").modulate = Color("#fdff00");
 
 var moveCamToChar = false;
 
@@ -1353,16 +1360,31 @@ func sidemenu():
 
 #General
 func button_mouse_entered():
-	$AudioSelectButton.pitch_scale = rand_range(0.9, 1.1);
-	$AudioSelectButton.play();
-	get_node(mouseFocus+"/Selection/AnimationPlayer").play("idle");
-	changeFocus();
-	#Input.set_custom_mouse_cursor(load("res://sprites/ui/cursor.png"));
+	#$AudioSelectButton.pitch_scale = randf_range(0.9, 1.1)
+	$AudioSelectButton.play()
+	get_node(mouseFocus+"/Selection/AnimationPlayer").play("idle")
+	changeFocus()
+	#Input.set_custom_mouse_cursor(load("res://sprites/ui/cursor.png"))
+	get_node(mouseFocus).rect_pivot_offset.x = get_node(mouseFocus).rect_size.x/2
+	get_node(mouseFocus).rect_pivot_offset.y = get_node(mouseFocus).rect_size.y/2
+	var scale: Vector2 = Vector2(0, 0)
+	if (get_node(mouseFocus).editor_description == ""):
+		scale = get_node(mouseFocus).rect_scale
+	else:
+		scale = str2var(get_node(mouseFocus).editor_description)
+	get_node(mouseFocus).editor_description = var2str(scale)
+	var tween = get_tree().create_tween()
+	tween.tween_property(get_node(mouseFocus), "rect_scale", Vector2(scale.x*1.05, scale.y*1.05), 0.0625)
 
 func button_mouse_exited():
 	$FPS.grab_focus();
 	if (mouseFocus != ""):
 		get_node(mouseFocus+"/Selection/AnimationPlayer").play("RESET");
+		get_node(mouseFocus).rect_pivot_offset.x = get_node(mouseFocus).rect_size.x/2;
+		get_node(mouseFocus).rect_pivot_offset.y = get_node(mouseFocus).rect_size.y/2;
+		var tween = get_tree().create_tween();
+		var scale: Vector2 = str2var(get_node(mouseFocus).editor_description);
+		tween.tween_property(get_node(mouseFocus), "rect_scale", scale, 0.0625);
 	changeFocus();
 	#Input.set_custom_mouse_cursor(load("res://sprites/ui/cursor_editor.png"));
 
@@ -2421,7 +2443,6 @@ func _on_Edit_pressed():
 			Global.changingToEditMode = false
 			_on_Play_pressed();
 			get_node("../CircleTransition/Transition/AnimationPlayer").play("out");
-
 func _on_Edit_mouse_entered():
 	mouseFocus = "Edit"; button_mouse_entered(); changeFocus();
 func _on_Edit_mouse_exited():
@@ -2587,8 +2608,12 @@ func _on_TypeMenuTimer_timeout():
 			
 			if (!cont): return;
 		
+			$TypeMenu.rect_pivot_offset = Vector2($TypeMenu.rect_size.x/2, $TypeMenu.rect_size.y);
+			$TypeMenu.rect_scale = Vector2(0.2, 0.2);
+			var tween = get_tree().create_tween();
+			tween.tween_property($TypeMenu, "rect_scale", Vector2(1, 1), 0.125);
 			$TypeMenu.show();
-			$TypeMenu/AnimationPlayer.play("in");
+			
 			if (Global.CurrentInput == "Gamepad" || OS.get_name() == "Android"):
 				gamepadReleaseGrab();
 				
@@ -2639,8 +2664,12 @@ func _on_CharTypeMenuTimer_timeout():
 			
 			if (!cont): return;
 		
+			$TypeMenu.rect_pivot_offset = Vector2($TypeMenu.rect_size.x/2, $TypeMenu.rect_size.y);
+			$TypeMenu.rect_scale = Vector2(0.2, 0.2);
+			var tween = get_tree().create_tween();
+			tween.tween_property($TypeMenu, "rect_scale", Vector2(1, 1), 0.125);
 			$TypeMenu.show();
-			$TypeMenu/AnimationPlayer.play("in");
+			
 			if (Global.CurrentInput == "Gamepad" || OS.get_name() == "Android"):
 				gamepadReleaseGrab();
 				
@@ -2656,7 +2685,6 @@ func _on_CharTypeMenuTimer_timeout():
 			$TypeMenu.rect_position.y = pos.y-26-100-10;
 			$TypeMenu.rect_position.x = pos.x-($TypeMenu.rect_size.x/2)
 
-
 func _on_Play_AnimationPlayer_animation_finished(anim_name):
 	if (anim_name == "out"):
 		$UIBlocker.hide();
@@ -2671,5 +2699,3 @@ func _on_AutoSavingTimer_timeout():
 
 func _on_SprintToggle_toggled(button_pressed):
 	sprint = button_pressed;
-
-

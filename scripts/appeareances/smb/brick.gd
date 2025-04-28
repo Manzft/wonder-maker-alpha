@@ -26,8 +26,8 @@ func render(group, forcerender = false, render_range = 60):
 	if (group != ""):
 		if (!is_in_group(group)):
 			return
-	var scrwidth = get_node("../Editor/BlackScreen").rect_size.x;
-	var distance = abs(position.x-Global.campos.x);
+	var scrwidth = get_node("../Editor/BlackScreen").rect_size.x
+	var distance = abs(position.x-Global.campos.x)
 	if (distance-(scrwidth/2) > scrwidth*(render_range*0.01)):
 		set_process(false);
 		set_physics_process(false);
@@ -75,8 +75,8 @@ func _ready():
 
 func _process(_delta):
 	if (currentSprite != get_node("SpriteGround")):
-		currentSprite.scale = $SpriteGround.scale;
-		currentSprite.position = $SpriteGround.position;
+		currentSprite.scale = $SpriteGround.scale
+		currentSprite.position = $SpriteGround.position
 	
 	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
 	shadow.scale = currentSprite.scale;
@@ -152,8 +152,8 @@ func styleChanged():
 	shadow = Sprite.new();
 	shadow.texture = currentSprite.texture;
 	shadow.scale = currentSprite.scale
-	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
-	get_node("../ViewportShadow/Shadows").add_child(shadow);
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25)
+	get_node("../ViewportShadow/Shadows").add_child(shadow)
 
 func hit(var shell = false):
 	if ($AnimationPlayer.current_animation != "hit" && visible):

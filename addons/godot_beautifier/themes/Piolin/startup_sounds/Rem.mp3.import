@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Rem.mp3-293d0947027ec8a442a0be74b600e9eb.mp3str"
+
+[deps]
+
+source_file="res://addons/godot_beautifier/themes/Piolin/startup_sounds/Rem.mp3"
+dest_files=[ "res://.import/Rem.mp3-293d0947027ec8a442a0be74b600e9eb.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
