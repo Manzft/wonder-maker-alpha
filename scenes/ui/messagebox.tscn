@@ -1,13 +1,15 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://fonts/NINTENDOSWITCHUI.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://sprites/ui/general/messagebox.png" type="Texture" id=2]
+[ext_resource path="res://sprites/ui/general/button_dropshadow.png" type="Texture" id=3]
 [ext_resource path="res://sprites/ui/general/button.png" type="Texture" id=4]
 [ext_resource path="res://sounds/ui/button.wav" type="AudioStream" id=5]
 [ext_resource path="res://sounds/ui/select_button.wav" type="AudioStream" id=6]
 [ext_resource path="res://scripts/ui/general/messagebox.gd" type="Script" id=7]
 [ext_resource path="res://sprites/64x64.png" type="Texture" id=8]
 [ext_resource path="res://sprites/ui/startmenu/selection_corner.png" type="Texture" id=9]
+[ext_resource path="res://sprites/ui/general/messagebox_dropshadow.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=6]
 size = 25
@@ -128,6 +130,19 @@ margin_bottom = 149.0
 texture = ExtResource( 2 )
 script = ExtResource( 7 )
 
+[node name="Shadow" type="TextureRect" parent="."]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -450.0
+margin_top = -200.0
+margin_right = 450.0
+margin_bottom = 200.0
+mouse_filter = 2
+texture = ExtResource( 10 )
+
 [node name="Background" type="TextureRect" parent="."]
 modulate = Color( 0, 0, 0, 0.215686 )
 show_behind_parent = true
@@ -148,9 +163,11 @@ margin_right = 740.0
 margin_bottom = 191.0
 custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
 custom_fonts/font = SubResource( 6 )
+text = "Text"
 align = 1
 valign = 1
 autowrap = true
+clip_text = true
 
 [node name="OkButton" type="TextureButton" parent="." groups=["Button"]]
 anchor_left = 0.5
@@ -171,6 +188,19 @@ texture_normal = ExtResource( 4 )
 texture_disabled = ExtResource( 4 )
 expand = true
 stretch_mode = 3
+
+[node name="Shadow" type="TextureRect" parent="OkButton"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -64.0
+margin_right = 250.0
+margin_bottom = 64.0
+mouse_filter = 2
+texture = ExtResource( 3 )
 
 [node name="Text" type="Label" parent="OkButton"]
 anchor_left = 0.5

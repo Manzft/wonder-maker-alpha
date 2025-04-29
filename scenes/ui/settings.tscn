@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=2]
+[gd_scene load_steps=57 format=2]
 
 [ext_resource path="res://fonts/NINTENDOSWITCHUI.TTF" type="DynamicFontData" id=1]
 [ext_resource path="res://sprites/ui/settings/settings_bg.png" type="Texture" id=2]
@@ -26,6 +26,10 @@
 [ext_resource path="res://sounds/ui/keyboard/key.wav" type="AudioStream" id=24]
 [ext_resource path="res://sprites/ui/settings/check_big.png" type="Texture" id=25]
 [ext_resource path="res://sprites/ui/settings/physicsinterpolation.png" type="Texture" id=26]
+[ext_resource path="res://sprites/ui/settings/check_dropshadow.png" type="Texture" id=27]
+[ext_resource path="res://sprites/ui/settings/check_big_dropshadow.png" type="Texture" id=28]
+[ext_resource path="res://sprites/ui/settings/savechanges_dropshadow.png" type="Texture" id=29]
+[ext_resource path="res://sprites/ui/settings/nine_patch_dropshadow.png" type="Texture" id=30]
 
 [sub_resource type="DynamicFont" id=6]
 size = 35
@@ -718,17 +722,16 @@ align = 1
 valign = 1
 
 [node name="Shadow" type="TextureRect" parent="OkButton"]
-modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -106.5
-margin_top = -21.5
-margin_right = 106.5
-margin_bottom = 28.5
-texture = ExtResource( 15 )
+margin_left = -149.0
+margin_top = -44.0
+margin_right = 151.0
+margin_bottom = 46.0
+texture = ExtResource( 29 )
 
 [node name="Selection" type="Control" parent="OkButton" groups=["Selection"]]
 visible = false
@@ -833,12 +836,16 @@ expand = true
 stretch_mode = 6
 
 [node name="Shadow" type="TextureRect" parent="VSync"]
-modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
-margin_top = 3.0
-margin_right = 300.0
-margin_bottom = 53.0
-texture = ExtResource( 7 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -45.0
+margin_right = 200.0
+margin_bottom = 45.0
+texture = ExtResource( 27 )
 
 [node name="Selection" type="Control" parent="VSync" groups=["Selection"]]
 visible = false
@@ -943,12 +950,16 @@ expand = true
 stretch_mode = 6
 
 [node name="Shadow" type="TextureRect" parent="Force169"]
-modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
-margin_top = 3.0
-margin_right = 300.0
-margin_bottom = 53.0
-texture = ExtResource( 7 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -45.0
+margin_right = 200.0
+margin_bottom = 45.0
+texture = ExtResource( 27 )
 
 [node name="Selection" type="Control" parent="Force169" groups=["Selection"]]
 visible = false
@@ -1053,12 +1064,16 @@ expand = true
 stretch_mode = 6
 
 [node name="Shadow" type="TextureRect" parent="ShowPauseButton"]
-modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
-margin_top = 3.0
-margin_right = 300.0
-margin_bottom = 53.0
-texture = ExtResource( 7 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -45.0
+margin_right = 200.0
+margin_bottom = 45.0
+texture = ExtResource( 27 )
 
 [node name="Selection" type="Control" parent="ShowPauseButton" groups=["Selection"]]
 visible = false
@@ -1163,12 +1178,16 @@ expand = true
 stretch_mode = 6
 
 [node name="Shadow" type="TextureRect" parent="ShowFPS"]
-modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
-margin_top = 3.0
-margin_right = 300.0
-margin_bottom = 53.0
-texture = ExtResource( 7 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -45.0
+margin_right = 200.0
+margin_bottom = 45.0
+texture = ExtResource( 27 )
 
 [node name="Selection" type="Control" parent="ShowFPS" groups=["Selection"]]
 visible = false
@@ -1273,12 +1292,16 @@ expand = true
 stretch_mode = 6
 
 [node name="Shadow" type="TextureRect" parent="AutoSaving"]
-modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
-margin_top = 3.0
-margin_right = 300.0
-margin_bottom = 53.0
-texture = ExtResource( 7 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -45.0
+margin_right = 200.0
+margin_bottom = 45.0
+texture = ExtResource( 27 )
 
 [node name="Selection" type="Control" parent="AutoSaving" groups=["Selection"]]
 visible = false
@@ -1383,12 +1406,16 @@ expand = true
 stretch_mode = 6
 
 [node name="Shadow" type="TextureRect" parent="SnowParticles"]
-modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
-margin_top = 3.0
-margin_right = 300.0
-margin_bottom = 53.0
-texture = ExtResource( 7 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -200.0
+margin_top = -45.0
+margin_right = 200.0
+margin_bottom = 45.0
+texture = ExtResource( 27 )
 
 [node name="Selection" type="Control" parent="SnowParticles" groups=["Selection"]]
 visible = false
@@ -1460,7 +1487,6 @@ focus_neighbour_bottom = NodePath(".")
 focus_next = NodePath(".")
 focus_previous = NodePath(".")
 texture_normal = ExtResource( 25 )
-texture_disabled = ExtResource( 4 )
 expand = true
 stretch_mode = 3
 
@@ -1497,17 +1523,16 @@ expand = true
 stretch_mode = 6
 
 [node name="Shadow" type="TextureRect" parent="PhysicsInterpolation"]
-modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -225.0
-margin_top = -22.0
-margin_right = 225.0
-margin_bottom = 28.0
-texture = ExtResource( 25 )
+margin_left = -275.0
+margin_top = -45.0
+margin_right = 275.0
+margin_bottom = 45.0
+texture = ExtResource( 28 )
 
 [node name="Selection" type="Control" parent="PhysicsInterpolation" groups=["Selection"]]
 visible = false
@@ -1618,17 +1643,18 @@ valign = 1
 autowrap = true
 
 [node name="Shadow" type="NinePatchRect" parent="ControlsTransparency"]
-modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 3.0
-margin_bottom = 3.0
-texture = ExtResource( 16 )
-patch_margin_left = 10
-patch_margin_top = 10
-patch_margin_right = 10
-patch_margin_bottom = 9
+margin_left = -26.0
+margin_top = -25.0
+margin_right = 26.0
+margin_bottom = 26.0
+texture = ExtResource( 30 )
+patch_margin_left = 38
+patch_margin_top = 39
+patch_margin_right = 38
+patch_margin_bottom = 40
 
 [node name="PhysicsSpeed" type="NinePatchRect" parent="."]
 margin_left = 419.5
@@ -1685,17 +1711,18 @@ valign = 1
 autowrap = true
 
 [node name="Shadow" type="NinePatchRect" parent="PhysicsSpeed"]
-modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 3.0
-margin_bottom = 3.0
-texture = ExtResource( 16 )
-patch_margin_left = 10
-patch_margin_top = 10
-patch_margin_right = 10
-patch_margin_bottom = 9
+margin_left = -26.0
+margin_top = -25.0
+margin_right = 26.0
+margin_bottom = 26.0
+texture = ExtResource( 30 )
+patch_margin_left = 38
+patch_margin_top = 39
+patch_margin_right = 38
+patch_margin_bottom = 40
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 2.0

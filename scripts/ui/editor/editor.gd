@@ -518,6 +518,24 @@ func editorMusic(a, pause = false):
 				music.stream_paused = false;
 
 func _ready():
+	#Fix Selection Corners
+	for node in get_tree().get_nodes_in_group("Selection"):
+		node.get_node("UpRight").rect_rotation = 90.0
+		node.get_node("DownRight").rect_rotation = 180.0
+		node.get_node("DownLeft").rect_rotation = 270.0
+		
+		node.get_node("UpLeft").rect_scale = Vector2(0.5, 0.5)
+		node.get_node("UpRight").rect_scale = Vector2(0.5, 0.5)
+		node.get_node("DownRight").rect_scale = Vector2(0.5, 0.5)
+		node.get_node("DownLeft").rect_scale = Vector2(0.5, 0.5)
+		
+		node.get_node("UpLeft").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.get_node("UpRight").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.get_node("DownRight").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.get_node("DownLeft").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		
+		node.get_node("AnimationPlayer").playback_speed = 1.0
+	
 	#$AnimationPlayer.play("RESET");
 	Global.connect("gameLoaded", self, "gameLoaded");
 	
@@ -1374,7 +1392,7 @@ func button_mouse_entered():
 		scale = str2var(get_node(mouseFocus).editor_description)
 	get_node(mouseFocus).editor_description = var2str(scale)
 	var tween = get_tree().create_tween()
-	tween.tween_property(get_node(mouseFocus), "rect_scale", Vector2(scale.x*1.05, scale.y*1.05), 0.0625)
+	tween.tween_property(get_node(mouseFocus), "rect_scale", Vector2(scale.x*1.1, scale.y*1.1), 0.0625)
 
 func button_mouse_exited():
 	$FPS.grab_focus();

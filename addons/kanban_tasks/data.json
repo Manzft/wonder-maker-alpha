@@ -55,6 +55,7 @@
     {
       "title": "Doing",
       "tasks": [
+        65,
         64
       ]
     },
@@ -466,6 +467,11 @@
     {
       "category": 0,
       "title": "Fix shadow system",
+      "details": ""
+    },
+    {
+      "category": 0,
+      "title": "Finish interface",
       "details": ""
     }
   ]

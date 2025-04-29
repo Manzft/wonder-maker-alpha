@@ -55,7 +55,23 @@ func updateFocusSprite():
 			node.get_node("Selection/AnimationPlayer").play("RESET");
 
 func _ready():
-	pass
+	#Fix Selection Corners
+	for node in get_tree().get_nodes_in_group("Selection"):
+		node.get_node("UpRight").rect_rotation = 90.0
+		node.get_node("DownRight").rect_rotation = 180.0
+		node.get_node("DownLeft").rect_rotation = 270.0
+		
+		node.get_node("UpLeft").rect_scale = Vector2(0.5, 0.5)
+		node.get_node("UpRight").rect_scale = Vector2(0.5, 0.5)
+		node.get_node("DownRight").rect_scale = Vector2(0.5, 0.5)
+		node.get_node("DownLeft").rect_scale = Vector2(0.5, 0.5)
+		
+		node.get_node("UpLeft").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.get_node("UpRight").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.get_node("DownRight").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.get_node("DownLeft").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		
+		node.get_node("AnimationPlayer").playback_speed = 1.0
 
 func _process(_delta):
 	pass
@@ -63,14 +79,34 @@ func _process(_delta):
 
 #Buttons
 func button_mouse_entered():
-	$AudioSelectButton.play();
-	get_node(mouseFocus+"/Selection/AnimationPlayer").play("idle");
-	changeFocus();
+	#$AudioSelectButton.pitch_scale = randf_range(0.9, 1.1)
+	$AudioSelectButton.play()
+	get_node(mouseFocus+"/Selection/AnimationPlayer").play("idle")
+	changeFocus()
+	#Input.set_custom_mouse_cursor(load("res://sprites/ui/cursor.png"))
+	get_node(mouseFocus).rect_pivot_offset.x = get_node(mouseFocus).rect_size.x/2
+	get_node(mouseFocus).rect_pivot_offset.y = get_node(mouseFocus).rect_size.y/2
+	var scale: Vector2 = Vector2(0, 0)
+	if (get_node(mouseFocus).editor_description == ""):
+		scale = get_node(mouseFocus).rect_scale
+	else:
+		scale = str2var(get_node(mouseFocus).editor_description)
+	get_node(mouseFocus).editor_description = var2str(scale)
+	var tween = get_tree().create_tween()
+	tween.tween_property(get_node(mouseFocus), "rect_scale", Vector2(scale.x*1.1, scale.y*1.1), 0.0625)
 
 func button_mouse_exited():
 	$TextureRect.grab_focus();
-	get_node(mouseFocus+"/Selection/AnimationPlayer").play("RESET");
+	if (mouseFocus != ""):
+		get_node(mouseFocus+"/Selection/AnimationPlayer").play("RESET");
+		get_node(mouseFocus).rect_pivot_offset.x = get_node(mouseFocus).rect_size.x/2;
+		get_node(mouseFocus).rect_pivot_offset.y = get_node(mouseFocus).rect_size.y/2;
+		var tween = get_tree().create_tween();
+		var scale: Vector2 = str2var(get_node(mouseFocus).editor_description);
+		tween.tween_property(get_node(mouseFocus), "rect_scale", scale, 0.0625);
 	changeFocus();
+	#Input.set_custom_mouse_cursor(load("res://sprites/ui/cursor_editor.png"));
+
 
 func _on_Close_pressed():
 	get_parent().sidemenu();

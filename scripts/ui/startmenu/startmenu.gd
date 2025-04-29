@@ -162,7 +162,7 @@ func button_mouse_entered():
 		scale = str2var(get_node(mouseFocus).editor_description)
 	get_node(mouseFocus).editor_description = var2str(scale)
 	var tween = get_tree().create_tween()
-	tween.tween_property(get_node(mouseFocus), "rect_scale", Vector2(scale.x*1.05, scale.y*1.05), 0.0625)
+	tween.tween_property(get_node(mouseFocus), "rect_scale", Vector2(scale.x*1.1, scale.y*1.1), 0.0625)
 
 func button_mouse_exited():
 	$FPS.grab_focus();

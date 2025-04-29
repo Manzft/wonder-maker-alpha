@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=2]
+[gd_scene load_steps=67 format=2]
 
 [ext_resource path="res://smm2menu.png" type="Texture" id=1]
 [ext_resource path="res://sprites/ui/startmenu/bg.png" type="Texture" id=2]
@@ -31,6 +31,11 @@
 [ext_resource path="res://sounds/ui/play_button.wav" type="AudioStream" id=29]
 [ext_resource path="res://sprites/ui/splashscreen/discord_icon.png" type="Texture" id=30]
 [ext_resource path="res://sprites/ui/splashscreen/youtube_icon.png" type="Texture" id=31]
+[ext_resource path="res://sprites/ui/editor/square_little_button_dropshadow.png" type="Texture" id=32]
+[ext_resource path="res://sprites/ui/editor/selector/close_dropshadow.png" type="Texture" id=33]
+[ext_resource path="res://sprites/ui/startmenu/playbutton_dropshadow.png" type="Texture" id=34]
+[ext_resource path="res://sprites/ui/startmenu/playbutton_square_dropshadow.png" type="Texture" id=35]
+[ext_resource path="res://sprites/ui/startmenu/playbutton_medium_dropshadow.png" type="Texture" id=36]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -371,73 +376,6 @@ tracks/2/keys = {
 "values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
 }
 
-[sub_resource type="Animation" id=9]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Color( 1, 1, 1, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_size")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 430, 102 ) ]
-}
-
-[sub_resource type="Animation" id=10]
-resource_name = "idle"
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath(".:rect_size")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 430, 102 ), Vector2( 440, 112 ), Vector2( 430, 102 ) ]
-}
-
 [sub_resource type="Animation" id=11]
 length = 0.001
 tracks/0/type = "value"
@@ -570,6 +508,73 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 98, 98 ), Vector2( 108, 108 ), Vector2( 98, 98 ) ]
+}
+
+[sub_resource type="Animation" id=9]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 430, 102 ) ]
+}
+
+[sub_resource type="Animation" id=10]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 430, 102 ), Vector2( 440, 112 ), Vector2( 430, 102 ) ]
 }
 
 [sub_resource type="Animation" id=17]
@@ -1022,16 +1027,19 @@ texture_normal = ExtResource( 19 )
 expand = true
 
 [node name="Shadow" type="TextureRect" parent="Close"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 3.0
-margin_bottom = 3.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -39.5
+margin_right = 40.0
+margin_bottom = 39.5
 mouse_filter = 2
-texture = ExtResource( 19 )
+texture = ExtResource( 33 )
 expand = true
-stretch_mode = 1
+stretch_mode = 6
 
 [node name="Selection" type="Control" parent="Close" groups=["Selection"]]
 visible = false
@@ -1294,14 +1302,17 @@ anims/RESET = SubResource( 25 )
 anims/idle = SubResource( 26 )
 
 [node name="Shadow" type="TextureRect" parent="ManzftChallenge"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 5.0
-margin_bottom = 5.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -66.0
+margin_right = 300.0
+margin_bottom = 62.0
 mouse_filter = 2
-texture = ExtResource( 5 )
+texture = ExtResource( 34 )
 
 [node name="Icon" type="TextureRect" parent="ManzftChallenge"]
 anchor_top = 0.5
@@ -1316,7 +1327,6 @@ expand = true
 stretch_mode = 6
 
 [node name="CourseWorld" type="TextureButton" parent="." groups=["Button"]]
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -1413,14 +1423,17 @@ anims/RESET = SubResource( 7 )
 anims/idle = SubResource( 8 )
 
 [node name="Shadow" type="TextureRect" parent="CourseWorld"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 5.0
-margin_bottom = 5.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -300.0
+margin_top = -66.0
+margin_right = 300.0
+margin_bottom = 62.0
 mouse_filter = 2
-texture = ExtResource( 5 )
+texture = ExtResource( 34 )
 
 [node name="Exit" type="TextureButton" parent="." groups=["Button"]]
 anchor_left = 0.5
@@ -1521,121 +1534,17 @@ anims/RESET = SubResource( 13 )
 anims/idle = SubResource( 14 )
 
 [node name="Shadow" type="TextureRect" parent="Exit"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 5.0
-margin_right = -36.0
-margin_bottom = -31.0
-mouse_filter = 2
-texture = ExtResource( 16 )
-
-[node name="CourseMaker" type="TextureButton" parent="." groups=["Button"]]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -271.0
-margin_top = -248.0
-margin_right = 159.0
-margin_bottom = -146.0
-grow_horizontal = 2
-grow_vertical = 2
-focus_neighbour_left = NodePath(".")
-focus_neighbour_top = NodePath("../Exit")
-focus_neighbour_right = NodePath("../Coursebot")
-focus_neighbour_bottom = NodePath("../WorldMaker")
-texture_normal = ExtResource( 10 )
-texture_disabled = ExtResource( 11 )
-stretch_mode = 3
-
-[node name="Icon" type="TextureRect" parent="CourseMaker"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = 22.0
-margin_top = -27.0
-margin_right = 76.0
-margin_bottom = 28.0
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 64.0
+margin_bottom = 64.0
 mouse_filter = 2
-texture = ExtResource( 13 )
-
-[node name="Text" type="Label" parent="CourseMaker"]
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -308.0
-margin_top = -18.0
-margin_right = -62.0
-margin_bottom = 18.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 4 )
-text = "Crear un nivel"
-
-[node name="Selection" type="Control" parent="CourseMaker" groups=["Selection"]]
-visible = false
-anchor_right = 1.0
-anchor_bottom = 1.0
-mouse_filter = 2
-
-[node name="UpLeft" type="TextureRect" parent="CourseMaker/Selection"]
-margin_left = -5.0
-margin_top = -5.0
-margin_right = 35.0
-margin_bottom = 35.0
-mouse_filter = 2
-texture = ExtResource( 20 )
-
-[node name="UpRight" type="TextureRect" parent="CourseMaker/Selection"]
-anchor_left = 1.0
-anchor_right = 1.0
-margin_left = 3.0
-margin_top = -5.0
-margin_right = 43.0
-margin_bottom = 35.0
-rect_rotation = 90.0
-mouse_filter = 2
-texture = ExtResource( 20 )
-
-[node name="DownRight" type="TextureRect" parent="CourseMaker/Selection"]
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.0
-margin_top = 5.0
-margin_right = 43.0
-margin_bottom = 44.9999
-rect_rotation = 180.0
-mouse_filter = 2
-texture = ExtResource( 20 )
-
-[node name="DownLeft" type="TextureRect" parent="CourseMaker/Selection"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = -5.0
-margin_top = 5.0
-margin_right = 35.0
-margin_bottom = 44.9999
-rect_rotation = 270.0
-mouse_filter = 2
-texture = ExtResource( 20 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="CourseMaker/Selection"]
-playback_speed = 1.25
-anims/RESET = SubResource( 9 )
-anims/idle = SubResource( 10 )
-
-[node name="Shadow" type="TextureRect" parent="CourseMaker"]
-modulate = Color( 0, 0, 0, 0.219608 )
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 5.0
-margin_bottom = 5.0
-mouse_filter = 2
-texture = ExtResource( 10 )
+texture = ExtResource( 32 )
 
 [node name="WorldMaker" type="TextureButton" parent="." groups=["Button"]]
 visible = false
@@ -1843,15 +1752,126 @@ anims/RESET = SubResource( 15 )
 anims/idle = SubResource( 16 )
 
 [node name="Shadow" type="TextureRect" parent="Coursebot"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 64.0
+margin_bottom = 64.0
+mouse_filter = 2
+texture = ExtResource( 35 )
+
+[node name="CourseMaker" type="TextureButton" parent="." groups=["Button"]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -271.0
+margin_top = -248.0
+margin_right = 159.0
+margin_bottom = -146.0
+grow_horizontal = 2
+grow_vertical = 2
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath("../Exit")
+focus_neighbour_right = NodePath("../Coursebot")
+focus_neighbour_bottom = NodePath("../WorldMaker")
+texture_normal = ExtResource( 10 )
+texture_disabled = ExtResource( 11 )
+stretch_mode = 3
+
+[node name="Icon" type="TextureRect" parent="CourseMaker"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 22.0
+margin_top = -27.0
+margin_right = 76.0
+margin_bottom = 28.0
+mouse_filter = 2
+texture = ExtResource( 13 )
+
+[node name="Text" type="Label" parent="CourseMaker"]
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = -308.0
+margin_top = -18.0
+margin_right = -62.0
+margin_bottom = 18.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_fonts/font = SubResource( 4 )
+text = "Crear un nivel"
+
+[node name="Selection" type="Control" parent="CourseMaker" groups=["Selection"]]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 5.0
-margin_right = -332.0
-margin_bottom = 1.0
 mouse_filter = 2
-texture = ExtResource( 23 )
+
+[node name="UpLeft" type="TextureRect" parent="CourseMaker/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="UpRight" type="TextureRect" parent="CourseMaker/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="DownRight" type="TextureRect" parent="CourseMaker/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="DownLeft" type="TextureRect" parent="CourseMaker/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CourseMaker/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 9 )
+anims/idle = SubResource( 10 )
+
+[node name="Shadow" type="TextureRect" parent="CourseMaker"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -65.0
+margin_right = 250.0
+margin_bottom = 63.0
+mouse_filter = 2
+texture = ExtResource( 36 )
 
 [node name="Worldbot" type="TextureButton" parent="." groups=["Button"]]
 visible = false
@@ -2172,15 +2192,17 @@ anims/RESET = SubResource( 21 )
 anims/idle = SubResource( 22 )
 
 [node name="Shadow" type="TextureRect" parent="Settings"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 5.0
-margin_right = -36.0
-margin_bottom = -31.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 64.0
+margin_bottom = 64.0
 mouse_filter = 2
-texture = ExtResource( 16 )
+texture = ExtResource( 32 )
 
 [node name="Discord" type="TextureButton" parent="." groups=["Button"]]
 anchor_left = 0.5
@@ -2283,15 +2305,17 @@ anims/RESET = SubResource( 27 )
 anims/idle = SubResource( 28 )
 
 [node name="Shadow" type="TextureRect" parent="Discord"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 5.0
-margin_right = -36.0
-margin_bottom = -31.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 64.0
+margin_bottom = 64.0
 mouse_filter = 2
-texture = ExtResource( 16 )
+texture = ExtResource( 32 )
 
 [node name="Youtube" type="TextureButton" parent="." groups=["Button"]]
 anchor_left = 0.5
@@ -2394,15 +2418,17 @@ anims/RESET = SubResource( 29 )
 anims/idle = SubResource( 30 )
 
 [node name="Shadow" type="TextureRect" parent="Youtube"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 5.0
-margin_right = -36.0
-margin_bottom = -31.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 64.0
+margin_bottom = 64.0
 mouse_filter = 2
-texture = ExtResource( 16 )
+texture = ExtResource( 32 )
 
 [node name="Controls" type="TextureButton" parent="." groups=["Button"]]
 visible = false
@@ -2564,15 +2590,15 @@ volume_db = 15.0
 [connection signal="mouse_entered" from="Exit" to="." method="_on_Exit_mouse_entered"]
 [connection signal="mouse_exited" from="Exit" to="." method="_on_Exit_mouse_exited"]
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
-[connection signal="mouse_entered" from="CourseMaker" to="." method="_on_CourseMaker_mouse_entered"]
-[connection signal="mouse_exited" from="CourseMaker" to="." method="_on_CourseMaker_mouse_exited"]
-[connection signal="pressed" from="CourseMaker" to="." method="_on_CourseMaker_pressed"]
 [connection signal="mouse_entered" from="WorldMaker" to="." method="_on_WorldMaker_mouse_entered"]
 [connection signal="mouse_exited" from="WorldMaker" to="." method="_on_WorldMaker_mouse_exited"]
 [connection signal="pressed" from="WorldMaker" to="." method="_on_WorldMaker_pressed"]
 [connection signal="mouse_entered" from="Coursebot" to="." method="_on_Coursebot_mouse_entered"]
 [connection signal="mouse_exited" from="Coursebot" to="." method="_on_Coursebot_mouse_exited"]
 [connection signal="pressed" from="Coursebot" to="." method="_on_Coursebot_pressed"]
+[connection signal="mouse_entered" from="CourseMaker" to="." method="_on_CourseMaker_mouse_entered"]
+[connection signal="mouse_exited" from="CourseMaker" to="." method="_on_CourseMaker_mouse_exited"]
+[connection signal="pressed" from="CourseMaker" to="." method="_on_CourseMaker_pressed"]
 [connection signal="mouse_entered" from="Worldbot" to="." method="_on_Worldbot_mouse_entered"]
 [connection signal="mouse_exited" from="Worldbot" to="." method="_on_Worldbot_mouse_exited"]
 [connection signal="pressed" from="Worldbot" to="." method="_on_Worldbot_pressed"]
