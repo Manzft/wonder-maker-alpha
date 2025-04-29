@@ -1,12 +1,12 @@
 extends Control
 
-var current_tab = "";
+export var rotation_velocity : float
+
 var backwards = false;
 var exiting = false;
 var goingto = "";
 
-var current_page = 0;
-var max_page = [];
+var current_page = 1;
 
 var selecting = false;
 
@@ -15,14 +15,103 @@ var mouseFocus = "";
 
 var mpos = Vector2(0, 0);
 
+var max_page = {
+	"terrain": 2,
+	"items": 1,
+	"enemies": 1,
+	"gizmos": 1
+}
+
+var current_category = "terrain";
+
+var category = {
+	"terrain": {
+		"1": {
+			"Up": Global.OBJ_FLOOR,
+			"Right": Global.OBJ_SPIKE,
+			"Left": Global.OBJ_BLOCK,
+			"Down": Global.OBJ_CLOUD,
+			"UpLeft": Global.OBJ_BRICK,
+			"UpRight": Global.OBJ_SEMISOLID,
+			"DownLeft": Global.OBJ_PIPE,
+			"DownRight": Global.OBJ_LUCKYBLOCK
+		},
+		"2": {
+			"Up": Global.OBJ_INVISIBLE_LUCKYBLOCK,
+			"Right": -1,
+			"Left": -1,
+			"Down": -1,
+			"UpLeft": Global.OBJ_DONUT,
+			"UpRight": Global.OBJ_PIPE_CONNECTOR,
+			"DownLeft": -1,
+			"DownRight": -1
+		}
+	},
+	"items": {
+		"1": {
+			"Up": Global.OBJ_COIN,
+			"Right": Global.OBJ_FIREFLOWER,
+			"Left": Global.OBJ_MUSHROOM,
+			"Down": -1,
+			"UpLeft": Global.OBJ_1UP,
+			"UpRight": Global.OBJ_10COIN,
+			"DownLeft": Global.OBJ_STAR,
+			"DownRight": -1
+		}
+	},
+	"enemies": {
+		"1": {
+			"Up": Global.OBJ_GOOMBA,
+			"Right": Global.OBJ_SPINY,
+			"Left": Global.OBJ_TWOMP,
+			"Down": -1,
+			"UpLeft": Global.OBJ_DRYBONES,
+			"UpRight": Global.OBJ_KOOPATROOPA,
+			"DownLeft": Global.OBJ_MUNCHER,
+			"DownRight": Global.OBJ_PIRANHAPLANT
+		}
+	},
+	"gizmos": {
+		"1": {
+			"Up": Global.OBJ_P,
+			"Right": Global.OBJ_ARROW,
+			"Left": Global.OBJ_CHECKPOINT,
+			"Down": Global.OBJ_ONOFFSWITCH,
+			"UpLeft": Global.OBJ_PBLOCK,
+			"UpRight": Global.OBJ_BURNER,
+			"DownLeft": Global.OBJ_ONBLOCK,
+			"DownRight": Global.OBJ_OFFBLOCK
+		}
+	}
+}
+
+var goingRight: bool = false
+var goingDirectly: bool = false
+
+func get_object(object_node: Node):
+	var object_pos: String = "";
+	if (object_node == null):
+		object_pos = "-1";
+	else:
+		object_pos = object_node.name;
+	
+	if (object_pos != "-1"):
+		var cat: Dictionary = category[current_category];
+		var page: Dictionary = cat[str(current_page)];
+		var obj: int = page[object_pos];
+		return obj;
+	else:
+		return -1;
+
 func _input(event):
 	if (Global.CurrentInput == "Gamepad"):
 		updateFocusSprite();
 	if (selecting && Global.CurrentInput != "Gamepad"):
 		if (event is InputEventScreenTouch && !event.pressed):
 			var nearest = get_nearest_object();
-			if (int(nearest.get_name()) < Global.Objects && nearest.get_parent().visible && nearest.get_parent().get_name() == str(current_page)+current_tab):
-				get_parent().get_parent().objSelected = int(nearest.get_name());
+			var object = get_object(nearest);
+			if (object > -1 && nearest.get_parent().visible):
+				get_parent().get_parent().objSelected = object;
 				get_parent().toggle_gamepadCursor();
 				get_parent().selObj();
 				end();
@@ -75,19 +164,39 @@ func updateFocusSprite():
 
 #General
 func button_mouse_entered():
-	$AudioSelectButton.play();
-	get_node(mouseFocus+"/Selection/AnimationPlayer").play("idle");
-	changeFocus();
+	#$AudioSelectButton.pitch_scale = randf_range(0.9, 1.1)
+	$AudioSelectButton.play()
+	get_node(mouseFocus+"/Selection/AnimationPlayer").play("idle")
+	changeFocus()
+	#Input.set_custom_mouse_cursor(load("res://sprites/ui/cursor.png"))
+	get_node(mouseFocus).rect_pivot_offset.x = get_node(mouseFocus).rect_size.x/2
+	get_node(mouseFocus).rect_pivot_offset.y = get_node(mouseFocus).rect_size.y/2
+	var scale: Vector2 = Vector2(0, 0)
+	if (get_node(mouseFocus).editor_description == ""):
+		scale = get_node(mouseFocus).rect_scale
+	else:
+		scale = str2var(get_node(mouseFocus).editor_description)
+	get_node(mouseFocus).editor_description = var2str(scale)
+	var tween = get_tree().create_tween()
+	tween.tween_property(get_node(mouseFocus), "rect_scale", Vector2(scale.x*1.05, scale.y*1.05), 0.0625)
 
 func button_mouse_exited():
 	$Bg.grab_focus();
-	get_node(mouseFocus+"/Selection/AnimationPlayer").play("RESET");
+	if (mouseFocus != ""):
+		get_node(mouseFocus+"/Selection/AnimationPlayer").play("RESET");
+		get_node(mouseFocus).rect_pivot_offset.x = get_node(mouseFocus).rect_size.x/2;
+		get_node(mouseFocus).rect_pivot_offset.y = get_node(mouseFocus).rect_size.y/2;
+		var tween = get_tree().create_tween();
+		var scale: Vector2 = str2var(get_node(mouseFocus).editor_description);
+		tween.tween_property(get_node(mouseFocus), "rect_scale", scale, 0.0625);
 	changeFocus();
+	#Input.set_custom_mouse_cursor(load("res://sprites/ui/cursor_editor.png"));
+
 
 #Start Menu
 func _on_CloseButton_pressed():
 	end();
-	$AudioButton.play();
+	$AudioPress.play();
 	changeFocus();
 func _on_CloseButton_mouse_entered():
 	mouseFocus = "CloseButton"; button_mouse_entered(); changeFocus();
@@ -113,70 +222,152 @@ func _on_SwitchLeft_mouse_exited():
 	button_mouse_exited(); mouseFocus = ""; changeFocus();
 
 func start():
-	if (current_tab == ""):
-		current_tab = "terrain";
-		set_max_page();
 	hide_objects();
-	$Tabs/AnimationPlayer.play(current_tab);
+	$TabBar/AnimationPlayer.play(current_category);
 	$Select/AnimationPlayer.play("boop");
 	$Bg.grab_focus();
 	set_color();
-	
+	updateSideCategories();
+
 func end():
-	$Tabs/AnimationPlayer.play_backwards(current_tab);
+	$TabBar/AnimationPlayer.play_backwards(current_category);
 	backwards = true;
 	exiting = true;
 	selecting = false;
 	get_parent().changeInput();
-	
-func set_max_page():
-	match (current_tab):
-		"terrain": max_page = 0;
-		"items": max_page = 0;
-		"enemies": max_page = 0;
-		"gizmos": max_page = 0;
-		
+
 func hide_objects():
-	var nodes = get_tree().get_nodes_in_group("objects");
-	for node in nodes:
-		node.hide();
-		
+	$Select/Outline/Objects.hide();
+	$Select/RightCategory/Objects.hide();
+	$Select/LeftCategory/Objects.hide();
+
 func set_color():
-	match (current_tab):
+	match (current_category):
 		"terrain":
-			$Select/Outline/Core.self_modulate = $Tabs/Terrain.self_modulate;
-			$Select/Outline/OutlineSelect/Sprite.modulate = $Tabs/Terrain.self_modulate;
+			$Select/Outline/Core.self_modulate = $TabBar/Terrain.self_modulate;
+			$Select/Outline/OutlineSelect/Sprite2D.modulate = $TabBar/Terrain.self_modulate;
 		"items":
-			$Select/Outline/Core.self_modulate = $Tabs/Items.self_modulate;
-			$Select/Outline/OutlineSelect/Sprite.modulate = $Tabs/Items.self_modulate;
+			$Select/Outline/Core.self_modulate = $TabBar/Items.self_modulate;
+			$Select/Outline/OutlineSelect/Sprite2D.modulate = $TabBar/Items.self_modulate;
 		"enemies":
-			$Select/Outline/Core.self_modulate = $Tabs/Enemies.self_modulate;
-			$Select/Outline/OutlineSelect/Sprite.modulate = $Tabs/Enemies.self_modulate;
+			$Select/Outline/Core.self_modulate = $TabBar/Enemies.self_modulate;
+			$Select/Outline/OutlineSelect/Sprite2D.modulate = $TabBar/Enemies.self_modulate;
 		"gizmos":
-			$Select/Outline/Core.self_modulate = $Tabs/Gizmos.self_modulate;
-			$Select/Outline/OutlineSelect/Sprite.modulate = $Tabs/Gizmos.self_modulate;
+			$Select/Outline/Core.self_modulate = $TabBar/Gizmos.self_modulate;
+			$Select/Outline/OutlineSelect/Sprite2D.modulate = $TabBar/Gizmos.self_modulate;
 
 func load_objects_icons():
-	var nodes = get_tree().get_nodes_in_group("object");
-	for node in nodes:
-		if (int(node.get_name()) < Global.Objects):
-			node.get_node("icon").texture = Global.object[Global.CurrentAppeareance][int(node.get_name())][Global.OP_ICON];
-			node.get_node("HasVariants").visible = Global.hasVariants(int(node.get_name()))
-			node.get_node("HasVariants").scale = Vector2(1.443, 1.443);
-			node.get_node("HasVariants").position = Vector2(75, 75);
+	for key in category.keys():
+		if (key == current_category):
+			for page in category[key].keys():
+				if (page == str(current_page)):
+					for obj in category[key][page].keys():
+						var cat = category[key];
+						var spage = cat[page];
+						var object = int(spage[obj]);
+						if (object != -1):
+							var icon = Global.object[Global.CurrentAppeareance][object][Global.OP_ICON];
+							get_node("Select/Outline/Objects/"+obj).show();
+							get_node("Select/Outline/Objects/"+obj+"/icon").texture = icon;
+							get_node("Select/Outline/Objects/"+obj+"/HasVariants").visible = Global.hasVariants(object);
+						else:
+							get_node("Select/Outline/Objects/"+obj).hide();
+	#Right Category
+	var pg = -1;
+	var cate = "";
+	if !(current_page == max_page[current_category] && current_category == "gizmos"):
+		if (current_page == max_page[current_category]):
+			match (current_category):
+				"terrain":
+					cate = "items";
+				"items":
+					cate = "enemies";
+				"enemies":
+					cate = "gizmos";
+			pg = 1;
 		else:
-			node.hide();
+			cate = current_category;
+			pg = current_page+1;
+		
+		for key in category.keys():
+			if (key == cate):
+				for page in category[key].keys():
+					if (page == str(pg)):
+						for obj in category[key][page].keys():
+							var cat = category[key];
+							var spage = cat[page];
+							var object = int(spage[obj]);
+							if (object != -1):
+								var icon = Global.object[Global.CurrentAppeareance][object][Global.OP_ICON];
+								get_node("Select/RightCategory/Objects/"+obj).show();
+								get_node("Select/RightCategory/Objects/"+obj+"/icon").texture = icon;
+								get_node("Select/RightCategory/Objects/"+obj+"/HasVariants").visible = false;
+							else:
+								get_node("Select/RightCategory/Objects/"+obj).hide();
+	#Left Category
+	pg = -1;
+	cate = "";
+	if !(current_page == 1 && current_category == "terrain"):
+		if (current_page == 1):
+			match (current_category):
+				"items":
+					cate = "terrain";
+				"enemies":
+					cate = "items";
+				"gizmos":
+					cate = "enemies";
+			pg = max_page[cate];
+		else:
+			cate = current_category;
+			pg = current_page-1;
+		
+		for key in category.keys():
+			if (key == cate):
+				for page in category[key].keys():
+					if (page == str(pg)):
+						for obj in category[key][page].keys():
+							var cat = category[key];
+							var spage = cat[page];
+							var object = int(spage[obj]);
+							if (object != -1):
+								var icon = Global.object[Global.CurrentAppeareance][object][Global.OP_ICON];
+								get_node("Select/LeftCategory/Objects/"+obj).show();
+								get_node("Select/LeftCategory/Objects/"+obj+"/icon").texture = icon;
+								get_node("Select/LeftCategory/Objects/"+obj+"/HasVariants").visible = false;
+							else:
+								get_node("Select/LeftCategory/Objects/"+obj).hide();
+	
+	$Select/Outline/Objects.show();
+	$Select/RightCategory/Objects.show();
+	$Select/LeftCategory/Objects.show();
+	#updateSideCategories();
 
 func _on_ShowObjectsTimer_timeout():
-	get_node("Select/Outline/"+str(current_page)+current_tab).show();
+	$Select/Outline/Objects.show();
+	$Select/RightCategory/Objects.show();
+	$Select/LeftCategory/Objects.show();
+	
+	load_objects_icons();
+	updateSideCategories();
 
 func _ready():
-	setupArray(max_page, 4, false);
-	
-	max_page[0] = 1; #Terrain
-	max_page[1] = 0; #Items
-	max_page[2] = 0; #Enemies
-	max_page[3] = 1; #Gizmos
+	#Fix Selection Corners
+	for node in get_tree().get_nodes_in_group("Selection"):
+		node.get_node("UpRight").rect_rotation = 90.0
+		node.get_node("DownRight").rect_rotation = 180.0
+		node.get_node("DownLeft").rect_rotation = 270.0
+		
+		node.get_node("UpLeft").rect_scale = Vector2(0.5, 0.5)
+		node.get_node("UpRight").rect_scale = Vector2(0.5, 0.5)
+		node.get_node("DownRight").rect_scale = Vector2(0.5, 0.5)
+		node.get_node("DownLeft").rect_scale = Vector2(0.5, 0.5)
+		
+		node.get_node("UpLeft").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.get_node("UpRight").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.get_node("DownRight").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.get_node("DownLeft").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		
+		node.get_node("AnimationPlayer").playback_speed = 1.0
 	
 	load_objects_icons();
 
@@ -198,16 +389,16 @@ func get_angle(vec2: Vector2):
 	return degrees;
 
 func get_gamepad_direction_position():
-	if (Input.is_action_pressed("up")): mpos = $PositionUp.global_position;
-	if (Input.is_action_pressed("down")): mpos = $PositionDown.global_position;
-	if (Input.is_action_pressed("left")): mpos = $PositionLeft.global_position;
-	if (Input.is_action_pressed("right")): mpos = $PositionRight.global_position;
+	if (Input.is_action_pressed("up")): mpos = $Select/Outline/Objects/Up.global_position;
+	if (Input.is_action_pressed("down")): mpos = $Select/Outline/Objects/Down.global_position;
+	if (Input.is_action_pressed("left")): mpos = $Select/Outline/Objects/Left.global_position;
+	if (Input.is_action_pressed("right")): mpos = $Select/Outline/Objects/Right.global_position;
 	
-	if (Input.is_action_pressed("up") && Input.is_action_pressed("right")): mpos = $PositionUpRight.global_position;
-	if (Input.is_action_pressed("up") && Input.is_action_pressed("left")): mpos = $PositionUpLeft.global_position;
+	if (Input.is_action_pressed("up") && Input.is_action_pressed("right")): mpos = $Select/Outline/Objects/UpRight.global_position;
+	if (Input.is_action_pressed("up") && Input.is_action_pressed("left")): mpos = $Select/Outline/Objects/UpLeft.global_position;
 	
-	if (Input.is_action_pressed("down") && Input.is_action_pressed("right")): mpos = $PositionDownRight.global_position;
-	if (Input.is_action_pressed("down") && Input.is_action_pressed("left")): mpos = $PositionDownLeft.global_position;
+	if (Input.is_action_pressed("down") && Input.is_action_pressed("right")): mpos = $Select/Outline/Objects/DownRight.global_position;
+	if (Input.is_action_pressed("down") && Input.is_action_pressed("left")): mpos = $Select/Outline/Objects/DownLeft.global_position;
 
 func get_nearest_object():
 	var mps;
@@ -222,103 +413,114 @@ func get_nearest_object():
 	var dist = 9999999;
 	var nearest = null;
 	for node in nodes:
-		var ds = node.rect_global_position.distance_to(mps);
-		if (ds < dist && visible && node.get_parent().visible):
+		var nodepos = node.rect_global_position+Vector2(30, 30);
+		var ds = nodepos.distance_to(mps);
+		if (ds < dist && visible && node.get_parent().visible && node.name != "Selected"):
 			dist = ds;
 			nearest = node;
-			
+	#var degrees : float = $Select/Outline/OutlineSelect/Sprite2D.rotation_degrees;
+	#if (degrees >= -20):
+		#return $Select/Outline/Objects/Up;
+	#elif (degrees >= 20):
+		#return $Select/Outline/Objects/UpRight;
 	
 	return nearest;
-		
+
 func switch_right():
 	$AudioSwitch.play();
-	var maxpage = 0;
-	match (current_tab):
-		"terrain":
-			maxpage = 1;
-		"items":
-			maxpage = 0;
-		"enemies":
-			maxpage = 0;
-		"gizmos":
-			maxpage = 0;
-	if (current_page < maxpage):
+	if (current_page < max_page[current_category]):
 		current_page += 1;
 		hide_objects();
 		$Select/Outline/Selected.hide();
+		$Select/AnimationPlayer.play("boop");
 		_on_ShowObjectsTimer_timeout();
 	else:
-		match (current_tab):
+		match (current_category):
 			"terrain": goingto = "items";
 			"items": goingto = "enemies";
 			"enemies": goingto = "gizmos";
-		if (current_tab != goingto && goingto != ""):
-			$Tabs/AnimationPlayer.play_backwards(current_tab);
+		if (current_category != goingto && goingto != ""):
+			$TabBar/AnimationPlayer.play_backwards(current_category);
 			backwards = true;
 			hide_objects();
 			$Select/Outline/Selected.hide();
 			$Select/AnimationPlayer.play("boop");
+			goingRight = true;
 
 func switch_left():
 	$AudioSwitch.play();
-	if (current_page > 0):
+	if (current_page > 1):
 		current_page -= 1;
 		hide_objects();
 		$Select/Outline/Selected.hide();
 		_on_ShowObjectsTimer_timeout();
+		$Select/AnimationPlayer.play("boop");
 	else:
-		match (current_tab):
+		match (current_category):
 			"gizmos": goingto = "enemies";
 			"enemies": goingto = "items";
 			"items": goingto = "terrain";
-		if (current_tab != goingto && goingto != ""):
-			$Tabs/AnimationPlayer.play_backwards(current_tab);
+		if (current_category != goingto && goingto != ""):
+			$TabBar/AnimationPlayer.play_backwards(current_category);
 			backwards = true;
 			hide_objects();
 			$Select/Outline/Selected.hide();
 			$Select/AnimationPlayer.play("boop");
+			goingRight = false;
+
+func updateSideCategories():
+	$Select/LeftCategory.visible = !(current_category == "terrain" && current_page == 1);
+	$Select/RightCategory.visible = !(current_category == "gizmos" && current_page == max_page["gizmos"]);
 
 func _process(_delta):
-	if (visible && goingto == ""):
+	if (visible && goingto == "" && $Select/Outline/ShowObjectsTimer.is_stopped()):
 		if (!get_parent().gamepadCursor):
 			get_parent().hide_guides();
 		
 		if (selecting && Global.CurrentInput != "Gamepad"):
 			var nearest = get_nearest_object();
+			var object = get_object(nearest);
 			
-			if (int(nearest.get_name()) < Global.Objects && nearest.get_parent().visible && nearest.get_parent().get_name() == str(current_page)+current_tab):
+			if (object > -1 && nearest.get_parent().visible):
 				$Select/Outline/Selected.show();
-				$Select/Outline/Selected/icon.texture = Global.object[Global.CurrentAppeareance][int(nearest.get_name())][Global.OP_ICON];
-				$Select/Outline/Selected/Label.text = Global.object[Global.CurrentAppeareance][int(nearest.get_name())][Global.OP_NAME];
+				$Select/Outline/Selected/icon.texture = Global.object[Global.CurrentAppeareance][object][Global.OP_ICON];
+				$Select/Outline/Selected/Label.text = Global.object[Global.CurrentAppeareance][object][Global.OP_NAME];
 				if (Input.is_action_just_pressed("leftclick")):
-					get_parent().get_parent().objSelected = int(nearest.get_name());
+					get_parent().get_parent().objSelected = object;
 					get_parent().toggle_gamepadCursor();
 					get_parent().selObj();
 					end();
 					$AudioPress.play();
-			var pos = $Select/Outline/OutlineSelect/Sprite.global_position;
+			else:
+				$Select/Outline/Selected.hide();
+			var pos = $Select/Outline/OutlineSelect/Sprite2D.global_position;
 			var direction = pos.direction_to(get_viewport().get_mouse_position());
 			var degrees = get_angle(direction);
-			$Select/Outline/OutlineSelect/Sprite.rotation_degrees = degrees;
+			$Select/Outline/OutlineSelect/Sprite2D.rotation = lerp_angle($Select/Outline/OutlineSelect/Sprite2D.rotation, deg2rad(degrees), rotation_velocity);
 		elif (Global.CurrentInput == "Gamepad"):
 			get_gamepad_direction_position();
 			
 			var nearest = get_nearest_object();
-			if (int(nearest.get_name()) < Global.Objects && nearest.get_parent().visible && nearest.get_parent().get_name() == str(current_page)+current_tab):
+			var object = get_object(nearest);
+			if (object > -1 && nearest.get_parent().visible):
 				$Select/Outline/Selected.show();
-				$Select/Outline/Selected/icon.texture = Global.object[Global.CurrentAppeareance][int(nearest.get_name())][Global.OP_ICON];
-				$Select/Outline/Selected/Label.text = Global.object[Global.CurrentAppeareance][int(nearest.get_name())][Global.OP_NAME];
+				$Select/Outline/Selected/icon.texture = Global.object[Global.CurrentAppeareance][object][Global.OP_ICON];
+				$Select/Outline/Selected/Label.text = Global.object[Global.CurrentAppeareance][object][Global.OP_NAME];
 				if (Input.is_action_just_pressed("a")):
 					get_parent().toggle_gamepadCursor();
-					get_parent().get_parent().objSelected = int(nearest.get_name());
+					get_parent().get_parent().objSelected = object;
 					get_parent().selObj();
 					end();
 					$AudioPress.play();
+			else:
+				$Select/Outline/Selected.hide();
 			$Select/Outline/OutlineSelect.show();
-			var pos = $Select/Outline/OutlineSelect/Sprite.global_position;
+			var pos = $Select/Outline/OutlineSelect/Sprite2D.global_position;
 			var direction = pos.direction_to(mpos);
 			var degrees = get_angle(direction);
-			$Select/Outline/OutlineSelect/Sprite.rotation_degrees = degrees;
+			$Select/Outline/OutlineSelect/Sprite2D.rotation = lerp_angle($Select/Outline/OutlineSelect/Sprite2D.rotation, deg2rad(degrees), rotation_velocity);
+		else:
+			$Select/Outline/Selected.hide();
 		
 		if (Input.is_action_just_pressed("back") || Input.is_action_just_pressed("b")):
 			end();
@@ -330,13 +532,10 @@ func _process(_delta):
 			switch_left();
 
 func _on_TabsAnimationPlayer_animation_finished(anim_name):
-	load_objects_icons();
 	if (!backwards && goingto == ""):
-		get_node("Select/Outline/"+str(current_page)+current_tab).show();
+		get_node("Select/Outline/Objects").show();
 	
 	if (backwards && exiting):
-		#current_tab = "";
-		#goingto = "";
 		exiting = false;
 		hide();
 		get_parent().CurrentMenu = "Editor";
@@ -347,19 +546,18 @@ func _on_TabsAnimationPlayer_animation_finished(anim_name):
 		backwards = false;
 	
 	if (backwards && goingto != ""):
-		$Tabs/AnimationPlayer.play(goingto);
+		$TabBar/AnimationPlayer.play(goingto);
 		backwards = false;
 	if (!backwards && goingto != ""):
-		current_tab = goingto;
-		match (current_tab):
-			"gizmos": current_page = 0
-			"enemies": current_page = 0
-			"items": current_page = 0
-			"terrain": current_page = 1
+		current_category = goingto;
+		if (!goingRight && !goingDirectly):
+			current_page = max_page[current_category];
+		else:
+			current_page = 1;
 		goingto = "";
-		set_max_page();
-		get_node("Select/Outline/"+str(current_page)+current_tab).show();
 	set_color();
+	load_objects_icons();
+	updateSideCategories();
 
 func _on_Outline_mouse_entered():
 	selecting = true;
@@ -376,3 +574,98 @@ func setupArray(array, x, INT = false):
 		array.append([]);
 		if (INT):
 			array[i] = 0;
+
+#Select Animation Player
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if (anim_name == "boop"):
+		pass
+		#updateSideCategories();
+
+func _on_Terrain_gui_input(event: InputEvent) -> void:
+	if (event is InputEventMouseButton || event is InputEventScreenTouch):
+		if (event.is_pressed()):
+			if (current_category != "terrain"):
+				goingto = "terrain";
+				if (current_category != goingto && goingto != ""):
+					$TabBar/AnimationPlayer.play_backwards(current_category);
+					backwards = true;
+					hide_objects();
+					$Select/Outline/Selected.hide();
+					$Select/AnimationPlayer.play("boop");
+					goingRight = false
+					goingDirectly = true
+			$AudioSwitch.play();
+			mouseFocus = ""; changeFocus();
+func _on_Terrain_mouse_entered() -> void:
+	if ($TabBar/AnimationPlayer.current_animation != "terrain" && current_category != "terrain"):
+		mouseFocus = "TabBar/Terrain"; button_mouse_entered(); changeFocus();
+func _on_Terrain_mouse_exited() -> void:
+	if ($TabBar/AnimationPlayer.current_animation != "terrain" && current_category != "terrain"):
+		button_mouse_exited(); mouseFocus = ""; changeFocus();
+		
+func _on_Items_gui_input(event: InputEvent) -> void:
+	if (event is InputEventMouseButton || event is InputEventScreenTouch):
+		if (event.is_pressed()):
+			if (current_category != "items"):
+				goingto = "items";
+				if (current_category != goingto && goingto != ""):
+					$TabBar/AnimationPlayer.play_backwards(current_category);
+					backwards = true;
+					hide_objects();
+					$Select/Outline/Selected.hide();
+					$Select/AnimationPlayer.play("boop");
+					goingRight = false
+					goingDirectly = true
+			$AudioSwitch.play();
+			mouseFocus = ""; changeFocus();
+func _on_Items_mouse_entered() -> void:
+	if ($TabBar/AnimationPlayer.current_animation != "items" && current_category != "items"):
+		mouseFocus = "TabBar/Items"; button_mouse_entered(); changeFocus();
+func _on_Items_mouse_exited() -> void:
+	if ($TabBar/AnimationPlayer.current_animation != "items" && current_category != "items"):
+		button_mouse_exited(); mouseFocus = ""; changeFocus();
+
+func _on_Enemies_gui_input(event: InputEvent) -> void:
+	if (event is InputEventMouseButton || event is InputEventScreenTouch):
+		if (event.is_pressed()):
+			if (current_category != "enemies"):
+				goingto = "enemies";
+				if (current_category != goingto && goingto != ""):
+					$TabBar/AnimationPlayer.play_backwards(current_category);
+					backwards = true;
+					hide_objects();
+					$Select/Outline/Selected.hide();
+					$Select/AnimationPlayer.play("boop");
+					goingRight = false
+					goingDirectly = true
+			$AudioSwitch.play();
+			mouseFocus = ""; changeFocus();
+func _on_Enemies_mouse_entered() -> void:
+	if ($TabBar/AnimationPlayer.current_animation != "enemies" && current_category != "enemies"):
+		mouseFocus = "TabBar/Enemies"; button_mouse_entered(); changeFocus();
+func _on_Enemies_mouse_exited() -> void:
+	if ($TabBar/AnimationPlayer.current_animation != "enemies" && current_category != "enemies"):
+		button_mouse_exited(); mouseFocus = ""; changeFocus();
+
+func _on_Gizmos_gui_input(event: InputEvent) -> void:
+	if (event is InputEventMouseButton || event is InputEventScreenTouch):
+		if (event.is_pressed()):
+			if (current_category != "gizmos"):
+				goingto = "gizmos";
+				if (current_category != goingto && goingto != ""):
+					$TabBar/AnimationPlayer.play_backwards(current_category);
+					backwards = true;
+					hide_objects();
+					$Select/Outline/Selected.hide();
+					$Select/AnimationPlayer.play("boop");
+					goingRight = false
+					goingDirectly = true
+			$AudioSwitch.play();
+			mouseFocus = ""; changeFocus();
+func _on_Gizmos_mouse_entered() -> void:
+	if ($TabBar/AnimationPlayer.current_animation != "gizmos" && current_category != "gizmos"):
+		mouseFocus = "TabBar/Gizmos"; button_mouse_entered(); changeFocus();
+func _on_Gizmos_mouse_exited() -> void:
+	if ($TabBar/AnimationPlayer.current_animation != "gizmos" && current_category != "gizmos"):
+		button_mouse_exited(); mouseFocus = ""; changeFocus();
+

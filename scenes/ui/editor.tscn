@@ -1,4 +1,4 @@
-[gd_scene load_steps=379 format=2]
+[gd_scene load_steps=380 format=2]
 
 [ext_resource path="res://scripts/ui/startmenu/FPS.gd" type="Script" id=1]
 [ext_resource path="res://sprites/ui/editor/square_little_button.png" type="Texture" id=2]
@@ -167,6 +167,7 @@
 [ext_resource path="res://sprites/ui/editor/course_viewer_currentpos_dropshadow.png" type="Texture" id=165]
 [ext_resource path="res://sprites/ui/editor/selector/close_dropshadow.png" type="Texture" id=166]
 [ext_resource path="res://sprites/ui/editor/savebot/button1_dropshadow.png" type="Texture" id=167]
+[ext_resource path="res://sprites/ui/editor/camera_speed_button_dropshadow.png" type="Texture" id=168]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -10202,9 +10203,9 @@ visible = false
 modulate = Color( 1, 1, 1, 0 )
 self_modulate = Color( 1, 1, 1, 0.941176 )
 margin_left = 195.0
-margin_top = 116.0
+margin_top = 129.0
 margin_right = 591.0
-margin_bottom = 595.0
+margin_bottom = 608.0
 rect_scale = Vector2( 0.7, 1 )
 texture = ExtResource( 54 )
 
@@ -11064,9 +11065,9 @@ visible = false
 modulate = Color( 1, 1, 1, 0 )
 self_modulate = Color( 1, 1, 1, 0.941176 )
 margin_left = 195.0
-margin_top = 116.0
+margin_top = 129.0
 margin_right = 591.0
-margin_bottom = 595.0
+margin_bottom = 608.0
 rect_scale = Vector2( 0.7, 1 )
 texture = ExtResource( 57 )
 
@@ -12306,10 +12307,10 @@ anims/idle = SubResource( 282 )
 visible = false
 modulate = Color( 1, 1, 1, 0 )
 self_modulate = Color( 1, 1, 1, 0.941176 )
-margin_left = 182.0
-margin_top = 116.0
-margin_right = 624.0
-margin_bottom = 595.0
+margin_left = 195.0
+margin_top = 129.0
+margin_right = 637.0
+margin_bottom = 608.0
 rect_scale = Vector2( 0.7, 1 )
 texture = ExtResource( 95 )
 
@@ -12356,14 +12357,17 @@ texture_normal = ExtResource( 55 )
 expand = true
 
 [node name="Shadow" type="TextureRect" parent="CameraMenu/CloseButton"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 3.0
-margin_bottom = 3.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -39.3
+margin_top = -39.3
+margin_right = 40.7
+margin_bottom = 40.7
 mouse_filter = 2
-texture = ExtResource( 55 )
+texture = ExtResource( 166 )
 expand = true
 stretch_mode = 1
 
@@ -12445,13 +12449,17 @@ texture_normal = ExtResource( 94 )
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="CameraMenu/Buttons/None"]
-modulate = Color( 0, 0, 0, 0.184314 )
 show_behind_parent = true
-margin_top = 5.0
-margin_right = 62.0
-margin_bottom = 67.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -249.0
+margin_top = -66.0
+margin_right = 251.0
+margin_bottom = 62.0
 mouse_filter = 2
-texture = ExtResource( 94 )
+texture = ExtResource( 168 )
 
 [node name="Icon" type="TextureRect" parent="CameraMenu/Buttons/None"]
 anchor_top = 0.5
@@ -12550,13 +12558,17 @@ texture_normal = ExtResource( 94 )
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="CameraMenu/Buttons/Slow"]
-modulate = Color( 0, 0, 0, 0.184314 )
 show_behind_parent = true
-margin_top = 5.0
-margin_right = 62.0
-margin_bottom = 67.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -249.0
+margin_top = -66.0
+margin_right = 251.0
+margin_bottom = 62.0
 mouse_filter = 2
-texture = ExtResource( 94 )
+texture = ExtResource( 168 )
 
 [node name="Icon" type="TextureRect" parent="CameraMenu/Buttons/Slow"]
 anchor_top = 0.5
@@ -12655,13 +12667,17 @@ texture_normal = ExtResource( 94 )
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="CameraMenu/Buttons/Normal"]
-modulate = Color( 0, 0, 0, 0.184314 )
 show_behind_parent = true
-margin_top = 5.0
-margin_right = 62.0
-margin_bottom = 67.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -249.0
+margin_top = -66.0
+margin_right = 251.0
+margin_bottom = 62.0
 mouse_filter = 2
-texture = ExtResource( 94 )
+texture = ExtResource( 168 )
 
 [node name="Icon" type="TextureRect" parent="CameraMenu/Buttons/Normal"]
 anchor_top = 0.5
@@ -12760,13 +12776,17 @@ texture_normal = ExtResource( 94 )
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="CameraMenu/Buttons/Fast"]
-modulate = Color( 0, 0, 0, 0.184314 )
 show_behind_parent = true
-margin_top = 5.0
-margin_right = 62.0
-margin_bottom = 67.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -249.0
+margin_top = -66.0
+margin_right = 251.0
+margin_bottom = 62.0
 mouse_filter = 2
-texture = ExtResource( 94 )
+texture = ExtResource( 168 )
 
 [node name="Icon" type="TextureRect" parent="CameraMenu/Buttons/Fast"]
 anchor_top = 0.5
@@ -12851,10 +12871,10 @@ anims/idle = SubResource( 226 )
 visible = false
 modulate = Color( 1, 1, 1, 0 )
 self_modulate = Color( 1, 1, 1, 0.941176 )
-margin_left = 182.0
-margin_top = 116.0
-margin_right = 475.0
-margin_bottom = 595.0
+margin_left = 195.0
+margin_top = 129.0
+margin_right = 488.0
+margin_bottom = 608.0
 rect_scale = Vector2( 0.7, 1 )
 texture = ExtResource( 124 )
 
@@ -12902,14 +12922,17 @@ texture_normal = ExtResource( 55 )
 expand = true
 
 [node name="Shadow" type="TextureRect" parent="TimeMenu/CloseButton"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 3.0
-margin_bottom = 3.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -39.3
+margin_top = -39.3
+margin_right = 40.7
+margin_bottom = 40.7
 mouse_filter = 2
-texture = ExtResource( 55 )
+texture = ExtResource( 166 )
 expand = true
 stretch_mode = 1
 
@@ -13627,7 +13650,6 @@ anims/idle = SubResource( 276 )
 [node name="ClockMan" type="AnimatedSprite" parent="TimeMenu/Buttons"]
 position = Vector2( 143, 174 )
 frames = SubResource( 253 )
-frame = 1
 speed_scale = 0.33
 playing = true
 

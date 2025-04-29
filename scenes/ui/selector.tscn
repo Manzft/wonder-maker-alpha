@@ -1,20 +1,20 @@
-[gd_scene load_steps=41 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://sprites/ui/editor/selector/guide.png" type="Texture" id=1]
 [ext_resource path="res://sprites/ui/editor/selector/topicon_bg.png" type="Texture" id=2]
 [ext_resource path="res://sprites/64x64.png" type="Texture" id=3]
-[ext_resource path="res://sprites/ui/editor/selector/terrain_icon.png" type="Texture" id=4]
+[ext_resource path="res://sprites/ui/editor/selector/topicon_bg_dropshadow.png" type="Texture" id=4]
 [ext_resource path="res://fonts/NINTENDOSWITCHUI.TTF" type="DynamicFontData" id=5]
 [ext_resource path="res://scripts/ui/editor/selector.gd" type="Script" id=6]
 [ext_resource path="res://sounds/ui/select_button.wav" type="AudioStream" id=7]
 [ext_resource path="res://sounds/ui/button.wav" type="AudioStream" id=8]
-[ext_resource path="res://sprites/ui/editor/selector/items_icon.png" type="Texture" id=9]
-[ext_resource path="res://sprites/ui/editor/selector/gizmos_icon.png" type="Texture" id=10]
-[ext_resource path="res://sprites/ui/editor/selector/enemies_icon.png" type="Texture" id=11]
+[ext_resource path="res://sprites/ui/editor/selector/terrain_icon_new.png" type="Texture" id=9]
+[ext_resource path="res://sprites/ui/editor/selector/close_dropshadow.png" type="Texture" id=10]
+[ext_resource path="res://sprites/ui/editor/selector/items_icon_new.png" type="Texture" id=11]
 [ext_resource path="res://sprites/ui/editor/selector/section_outline.png" type="Texture" id=12]
 [ext_resource path="res://sprites/ui/editor/selector/section_core.png" type="Texture" id=13]
 [ext_resource path="res://sprites/ui/editor/selector/section_outline_selected.png" type="Texture" id=14]
-[ext_resource path="res://sprites/ui/editor/selector/icon_bg_little.png" type="Texture" id=15]
+[ext_resource path="res://sprites/ui/editor/selector/icon_outline.png" type="Texture" id=15]
 [ext_resource path="res://sprites/ui/editor/selector/icon_bg_big.png" type="Texture" id=16]
 [ext_resource path="res://sprites/ui/editor/selector/object_name_bg.png" type="Texture" id=17]
 [ext_resource path="res://sprites/ui/editor/selector/object_name_bg_base.png" type="Texture" id=18]
@@ -25,10 +25,236 @@
 [ext_resource path="res://sprites/ui/editor/selector/switch_left.png" type="Texture" id=23]
 [ext_resource path="res://sprites/ui/editor/selector/switch_right.png" type="Texture" id=24]
 [ext_resource path="res://sprites/ui/editor/variantSymbol.png" type="Texture" id=25]
+[ext_resource path="res://sprites/ui/editor/selector/enemies_icon_new.png" type="Texture" id=26]
+[ext_resource path="res://sprites/ui/editor/selector/gizmos_icon_new.png" type="Texture" id=27]
+[ext_resource path="res://sprites/appeareances/smb/icons/items/fireflower.png" type="Texture" id=28]
+[ext_resource path="res://sprites/appeareances/smb/icons/terrain/floor.png" type="Texture" id=29]
+[ext_resource path="res://sprites/ui/editor/selector/side_section.png" type="Texture" id=30]
+[ext_resource path="res://sprites/ui/editor/selector/switch_dropshadow.png" type="Texture" id=31]
 
-[sub_resource type="DynamicFont" id=1]
-size = 35
+[sub_resource type="DynamicFont" id=16]
+size = 25
 font_data = ExtResource( 5 )
+
+[sub_resource type="Animation" id=17]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=18]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ), Vector2( 92, 90 ), Vector2( 82, 80 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=20]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ), Vector2( 92, 90 ), Vector2( 82, 80 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=22]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=23]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ), Vector2( 92, 90 ), Vector2( 82, 80 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=24]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+
+[sub_resource type="Animation" id=25]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ), Vector2( 92, 90 ), Vector2( 82, 80 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
 
 [sub_resource type="Animation" id=3]
 length = 0.001
@@ -42,10 +268,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 115, 115 ) ]
+"values": [ Vector2( 82, 80 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Terrain/Icon:rect_position")
+tracks/1/path = NodePath("Terrain:rect_position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -54,10 +280,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 35, 33 ) ]
+"values": [ Vector2( -36, 40 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Terrain:rect_position")
+tracks/2/path = NodePath("Terrain:rect_scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -66,10 +292,10 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 902.5, 66 ) ]
+"values": [ Vector2( 1, 1 ) ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Items:rect_position")
+tracks/3/path = NodePath("Terrain/Text:visible")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/imported = false
@@ -77,11 +303,11 @@ tracks/3/enabled = true
 tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
-"update": 0,
-"values": [ Vector2( 1032.5, 66 ) ]
+"update": 1,
+"values": [ false ]
 }
 tracks/4/type = "value"
-tracks/4/path = NodePath("Enemies:rect_position")
+tracks/4/path = NodePath("Items:rect_position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/imported = false
@@ -90,10 +316,10 @@ tracks/4/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1162, 66 ) ]
+"values": [ Vector2( 59, 40 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Gizmos:rect_position")
+tracks/5/path = NodePath("Items:rect_size")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -102,10 +328,10 @@ tracks/5/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1292, 66 ) ]
+"values": [ Vector2( 82, 80 ) ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Items:rect_size")
+tracks/6/path = NodePath("Items:rect_scale")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/imported = false
@@ -114,10 +340,10 @@ tracks/6/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 115, 115 ) ]
+"values": [ Vector2( 1, 1 ) ]
 }
 tracks/7/type = "value"
-tracks/7/path = NodePath("Items/Icon:rect_position")
+tracks/7/path = NodePath("Items/Text:visible")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/imported = false
@@ -126,10 +352,10 @@ tracks/7/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 35, 33 ) ]
+"values": [ false ]
 }
 tracks/8/type = "value"
-tracks/8/path = NodePath("Gizmos:rect_size")
+tracks/8/path = NodePath("Enemies:rect_position")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/imported = false
@@ -138,7 +364,7 @@ tracks/8/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 115, 115 ) ]
+"values": [ Vector2( 153, 40 ) ]
 }
 tracks/9/type = "value"
 tracks/9/path = NodePath("Enemies:rect_size")
@@ -150,10 +376,10 @@ tracks/9/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 115, 115 ) ]
+"values": [ Vector2( 82, 80 ) ]
 }
 tracks/10/type = "value"
-tracks/10/path = NodePath("Gizmos/Icon:rect_position")
+tracks/10/path = NodePath("Enemies:rect_scale")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/imported = false
@@ -162,10 +388,10 @@ tracks/10/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 33.9985, 33 ) ]
+"values": [ Vector2( 1, 1 ) ]
 }
 tracks/11/type = "value"
-tracks/11/path = NodePath("Gizmos/Text:visible")
+tracks/11/path = NodePath("Enemies/Text:visible")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/imported = false
@@ -176,270 +402,57 @@ tracks/11/keys = {
 "update": 0,
 "values": [ false ]
 }
+tracks/12/type = "value"
+tracks/12/path = NodePath("Gizmos:rect_position")
+tracks/12/interp = 1
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 245, 40 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Gizmos:rect_size")
+tracks/13/interp = 1
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Gizmos:rect_scale")
+tracks/14/interp = 1
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Gizmos/Text:visible")
+tracks/15/interp = 1
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=26]
 resource_name = "enemies"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Terrain:rect_position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 642.5, 66 ), Vector2( 396.623, 66 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Items:rect_position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 772, 66 ), Vector2( 526, 66 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Enemies:rect_position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 902, 66 ), Vector2( 656, 66 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Gizmos:rect_position")
-tracks/3/interp = 2
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1032, 66 ), Vector2( 1282.49, 66 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Enemies:rect_size")
-tracks/4/interp = 2
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 115, 115 ), Vector2( 609, 115 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Enemies/Icon:rect_position")
-tracks/5/interp = 2
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 33, 33 ), Vector2( 66, 33 ) ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Enemies/Text:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0, 0.6, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ false, false, true ]
-}
-
-[sub_resource type="Animation" id=5]
-resource_name = "gizmos"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Terrain:rect_position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 512, 66 ), Vector2( 266.623, 66 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Items:rect_position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 642, 66 ), Vector2( 396, 66 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Enemies:rect_position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 772, 66 ), Vector2( 526, 66 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Gizmos:rect_position")
-tracks/3/interp = 2
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 902, 66 ), Vector2( 656, 66 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Gizmos:rect_size")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 115, 115 ), Vector2( 609, 115 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Gizmos/Icon:rect_position")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 34, 33 ), Vector2( 68, 33 ) ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Gizmos/Text:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0, 0.6, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ false, false, true ]
-}
-
-[sub_resource type="Animation" id=6]
-resource_name = "items"
-tracks/0/type = "value"
-tracks/0/path = NodePath("Terrain:rect_position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 772.5, 66 ), Vector2( 526.623, 66 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Items:rect_position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 902, 66 ), Vector2( 656, 66 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Enemies:rect_position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1032, 66 ), Vector2( 1305.49, 66 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Gizmos:rect_position")
-tracks/3/interp = 2
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 1162, 66 ), Vector2( 1444.49, 66 ) ]
-}
-tracks/4/type = "value"
-tracks/4/path = NodePath("Items:rect_size")
-tracks/4/interp = 2
-tracks/4/loop_wrap = true
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 115, 115 ), Vector2( 609, 115 ) ]
-}
-tracks/5/type = "value"
-tracks/5/path = NodePath("Items/Text:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/keys = {
-"times": PoolRealArray( 0, 0.6, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ false, false, true ]
-}
-tracks/6/type = "value"
-tracks/6/path = NodePath("Items/Icon:rect_position")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 35, 33 ), Vector2( 70, 33 ) ]
-}
-
-[sub_resource type="Animation" id=2]
-resource_name = "terrain"
 tracks/0/type = "value"
 tracks/0/path = NodePath("Terrain:rect_size")
 tracks/0/interp = 2
@@ -447,46 +460,46 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 115, 115 ), Vector2( 609, 115 ) ]
+"values": [ Vector2( 82, 80 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("Terrain/Text:visible")
-tracks/1/interp = 1
+tracks/1/path = NodePath("Terrain:rect_position")
+tracks/1/interp = 2
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.6, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 1,
-"values": [ false, false, true ]
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -223, 40 ), Vector2( -373, 40 ) ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Terrain/Icon:rect_position")
+tracks/2/path = NodePath("Terrain/Text:visible")
 tracks/2/interp = 2
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
-"update": 0,
-"values": [ Vector2( 35, 33 ), Vector2( 70, 33 ) ]
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 tracks/3/type = "value"
-tracks/3/path = NodePath("Terrain:rect_position")
+tracks/3/path = NodePath("Terrain:rect_scale")
 tracks/3/interp = 2
 tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 1 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 902.5, 66 ), Vector2( 656.623, 66 ) ]
+"values": [ Vector2( 1, 1 ) ]
 }
 tracks/4/type = "value"
 tracks/4/path = NodePath("Items:rect_position")
@@ -498,10 +511,400 @@ tracks/4/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1032, 66 ), Vector2( 1298.3, 66 ) ]
+"values": [ Vector2( -130, 40 ), Vector2( -272, 40 ) ]
 }
 tracks/5/type = "value"
-tracks/5/path = NodePath("Enemies:rect_position")
+tracks/5/path = NodePath("Items:rect_size")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Items:rect_scale")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Items/Text:visible")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Enemies:rect_position")
+tracks/8/interp = 2
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -36, 40 ), Vector2( -175, 40 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Enemies:rect_size")
+tracks/9/interp = 2
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ), Vector2( 350, 80 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Enemies:rect_scale")
+tracks/10/interp = 2
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Enemies/Text:visible")
+tracks/11/interp = 2
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Gizmos:rect_position")
+tracks/12/interp = 2
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 61, 40 ), Vector2( 192, 40 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Gizmos:rect_size")
+tracks/13/interp = 2
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Gizmos:rect_scale")
+tracks/14/interp = 2
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Gizmos/Text:visible")
+tracks/15/interp = 2
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "gizmos"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Terrain:rect_size")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Terrain:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -320, 40 ), Vector2( -459, 40 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Terrain/Text:visible")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Terrain:rect_scale")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Items:rect_position")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -227, 40 ), Vector2( -362, 40 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Items:rect_size")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Items:rect_scale")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Items/Text:visible")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Enemies:rect_position")
+tracks/8/interp = 2
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -133, 40 ), Vector2( -270, 40 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Enemies:rect_size")
+tracks/9/interp = 2
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Enemies:rect_scale")
+tracks/10/interp = 2
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Enemies/Text:visible")
+tracks/11/interp = 2
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Gizmos:rect_position")
+tracks/12/interp = 2
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -36, 40 ), Vector2( -175, 40 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Gizmos:rect_size")
+tracks/13/interp = 2
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ), Vector2( 350, 80 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Gizmos:rect_scale")
+tracks/14/interp = 2
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Gizmos/Text:visible")
+tracks/15/interp = 2
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+
+[sub_resource type="Animation" id=28]
+resource_name = "items"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Terrain:rect_size")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Terrain:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -129, 40 ), Vector2( -276, 40 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Terrain/Text:visible")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Terrain:rect_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Items:rect_position")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -36, 40 ), Vector2( -175, 40 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Items:rect_size")
 tracks/5/interp = 2
 tracks/5/loop_wrap = true
 tracks/5/imported = false
@@ -510,29 +913,332 @@ tracks/5/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1162, 66 ), Vector2( 1435.49, 66 ) ]
+"values": [ Vector2( 82, 80 ), Vector2( 350, 80 ) ]
 }
 tracks/6/type = "value"
-tracks/6/path = NodePath("Gizmos:rect_position")
-tracks/6/interp = 1
+tracks/6/path = NodePath("Items:rect_scale")
+tracks/6/interp = 2
 tracks/6/loop_wrap = true
 tracks/6/imported = false
 tracks/6/enabled = true
 tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Items/Text:visible")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Enemies:rect_position")
+tracks/8/interp = 2
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
 "times": PoolRealArray( 0, 1 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
-"values": [ Vector2( 1292, 66 ), Vector2( 1574.49, 66 ) ]
+"values": [ Vector2( 59, 40 ), Vector2( 188, 40 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Enemies:rect_size")
+tracks/9/interp = 2
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Enemies:rect_scale")
+tracks/10/interp = 2
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Enemies/Text:visible")
+tracks/11/interp = 2
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Gizmos:rect_position")
+tracks/12/interp = 2
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 151, 40 ), Vector2( 280, 40 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Gizmos:rect_size")
+tracks/13/interp = 2
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Gizmos:rect_scale")
+tracks/14/interp = 2
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Gizmos/Text:visible")
+tracks/15/interp = 2
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
 }
 
-[sub_resource type="DynamicFont" id=9]
-size = 40
+[sub_resource type="Animation" id=19]
+resource_name = "terrain"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Terrain:rect_size")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ), Vector2( 350, 80 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Terrain:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( -36, 40 ), Vector2( -175, 40 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Terrain/Text:visible")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ false, true ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Terrain:rect_scale")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("Items:rect_position")
+tracks/4/interp = 2
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 59, 40 ), Vector2( 189, 40 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Items:rect_size")
+tracks/5/interp = 2
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ) ]
+}
+tracks/6/type = "value"
+tracks/6/path = NodePath("Items:rect_scale")
+tracks/6/interp = 2
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/7/type = "value"
+tracks/7/path = NodePath("Items/Text:visible")
+tracks/7/interp = 2
+tracks/7/loop_wrap = true
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/8/type = "value"
+tracks/8/path = NodePath("Enemies:rect_position")
+tracks/8/interp = 2
+tracks/8/loop_wrap = true
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 153, 40 ), Vector2( 283, 40 ) ]
+}
+tracks/9/type = "value"
+tracks/9/path = NodePath("Enemies:rect_size")
+tracks/9/interp = 2
+tracks/9/loop_wrap = true
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ) ]
+}
+tracks/10/type = "value"
+tracks/10/path = NodePath("Enemies:rect_scale")
+tracks/10/interp = 2
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/11/type = "value"
+tracks/11/path = NodePath("Enemies/Text:visible")
+tracks/11/interp = 2
+tracks/11/loop_wrap = true
+tracks/11/imported = false
+tracks/11/enabled = true
+tracks/11/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+tracks/12/type = "value"
+tracks/12/path = NodePath("Gizmos:rect_position")
+tracks/12/interp = 2
+tracks/12/loop_wrap = true
+tracks/12/imported = false
+tracks/12/enabled = true
+tracks/12/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 245, 40 ), Vector2( 375, 40 ) ]
+}
+tracks/13/type = "value"
+tracks/13/path = NodePath("Gizmos:rect_size")
+tracks/13/interp = 2
+tracks/13/loop_wrap = true
+tracks/13/imported = false
+tracks/13/enabled = true
+tracks/13/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 82, 80 ) ]
+}
+tracks/14/type = "value"
+tracks/14/path = NodePath("Gizmos:rect_scale")
+tracks/14/interp = 2
+tracks/14/loop_wrap = true
+tracks/14/imported = false
+tracks/14/enabled = true
+tracks/14/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/15/type = "value"
+tracks/15/path = NodePath("Gizmos/Text:visible")
+tracks/15/interp = 2
+tracks/15/loop_wrap = true
+tracks/15/imported = false
+tracks/15/enabled = true
+tracks/15/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ false ]
+}
+
+[sub_resource type="DynamicFont" id=29]
+size = 18
 font_data = ExtResource( 5 )
 
 [sub_resource type="Animation" id=7]
 length = 0.001
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_scale")
+tracks/0/path = NodePath("Outline:rect_position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -541,10 +1247,10 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 1, 1 ) ]
+"values": [ Vector2( -300, -240 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_position")
+tracks/1/path = NodePath("Outline:rect_scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -553,14 +1259,62 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ) ]
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("RightCategory:rect_position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 234.218, -116 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("RightCategory:rect_scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("LeftCategory:rect_position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -597, -116 ) ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("LeftCategory:rect_scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=32]
 resource_name = "boop"
 tracks/0/type = "value"
-tracks/0/path = NodePath(".:rect_scale")
-tracks/0/interp = 2
+tracks/0/path = NodePath("Outline:rect_scale")
+tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -571,8 +1325,8 @@ tracks/0/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 0.9, 0.9 ), Vector2( 1, 1 ) ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath(".:rect_position")
-tracks/1/interp = 2
+tracks/1/path = NodePath("RightCategory:rect_scale")
+tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
@@ -580,7 +1334,19 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 96, 54 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 1, 1 ), Vector2( 0.9, 0.9 ), Vector2( 1, 1 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("LeftCategory:rect_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 0.9, 0.9 ), Vector2( 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -596,6 +1362,18 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 54, 54 ) ]
 }
 
 [sub_resource type="Animation" id=11]
@@ -623,7 +1401,7 @@ tracks/1/keys = {
 "times": PoolRealArray( 0, 0.5, 1 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 79, 81 ), Vector2( 89, 91 ), Vector2( 79, 81 ) ]
+"values": [ Vector2( 54, 54 ), Vector2( 64, 64 ), Vector2( 54, 54 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:rect_position")
@@ -693,7 +1471,7 @@ tracks/2/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=14]
+[sub_resource type="Animation" id=30]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath(".:modulate")
@@ -708,7 +1486,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=15]
+[sub_resource type="Animation" id=31]
 resource_name = "idle"
 loop = true
 tracks/0/type = "value"
@@ -749,274 +1527,513 @@ tracks/2/keys = {
 }
 
 [node name="Selector" type="Control"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -640.0
-margin_top = -360.0
-margin_right = 1280.0
-margin_bottom = 720.0
-rect_scale = Vector2( 0.667, 0.667 )
+anchor_right = 1.0
+anchor_bottom = 1.0
 script = ExtResource( 6 )
+rotation_velocity = 0.5
 
 [node name="Bg" type="TextureRect" parent="."]
 modulate = Color( 1, 1, 1, 0.329412 )
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -13409.3
-margin_top = -8899.55
-margin_right = -13409.3
-margin_bottom = -8899.55
-rect_scale = Vector2( 50, 50 )
 focus_mode = 2
+mouse_filter = 2
 texture = ExtResource( 3 )
 expand = true
-__meta__ = {
-"_edit_lock_": true
-}
+stretch_mode = 1
 
 [node name="Guide" type="Sprite" parent="."]
 visible = false
-position = Vector2( 960, 540 )
+scale = Vector2( 0.667, 0.667 )
 z_index = -1
 texture = ExtResource( 1 )
+centered = false
 
-[node name="Tabs" type="Control" parent="."]
-anchor_right = 1.0
+[node name="TabBar" type="Control" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
 
-[node name="Terrain" type="NinePatchRect" parent="Tabs"]
+[node name="Terrain" type="NinePatchRect" parent="TabBar" groups=["Button"]]
 self_modulate = Color( 0.345098, 0.686275, 1, 1 )
 show_behind_parent = true
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -57.5
-margin_top = 66.0
-margin_right = 57.5
-margin_bottom = 181.0
+margin_left = -36.0
+margin_top = 40.0
+margin_right = 46.0
+margin_bottom = 120.0
+mouse_filter = 0
 texture = ExtResource( 2 )
-region_rect = Rect2( 0, 0, 113, 113 )
-patch_margin_left = 52
-patch_margin_top = 55
-patch_margin_right = 52
-patch_margin_bottom = 51
+region_rect = Rect2( 0, 0, 75, 75 )
+patch_margin_left = 39
+patch_margin_top = 38
+patch_margin_right = 39
+patch_margin_bottom = 40
 
-[node name="NinePacthRect2" type="NinePatchRect" parent="Tabs/Terrain"]
-modulate = Color( 0, 0, 0, 0.219608 )
+[node name="Shadow" type="NinePatchRect" parent="TabBar/Terrain"]
+modulate = Color( 0, 0, 0, 0.360784 )
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 10.0
-margin_bottom = 10.0
-texture = ExtResource( 2 )
-region_rect = Rect2( 0, 0, 113, 113 )
-patch_margin_left = 52
-patch_margin_top = 55
-patch_margin_right = 52
-patch_margin_bottom = 51
-
-[node name="Icon" type="TextureRect" parent="Tabs/Terrain"]
-anchor_top = 0.5
-anchor_bottom = 0.5
-margin_left = 35.0
-margin_top = -24.5
-margin_right = 81.0001
-margin_bottom = 20.5
-mouse_filter = 2
+margin_left = -9.5
+margin_top = -8.0
+margin_right = 10.5
+margin_bottom = 12.0
 texture = ExtResource( 4 )
+region_rect = Rect2( 17.054, 20.188, 92.085, 88.263 )
+patch_margin_left = 43
+patch_margin_top = 41
+patch_margin_right = 40
+patch_margin_bottom = 39
 
-[node name="Text" type="Label" parent="Tabs/Terrain"]
-visible = false
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -70.0
-margin_top = -18.0
-margin_right = 70.0
-margin_bottom = 18.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 1 )
-text = "Terreno"
-align = 1
-
-[node name="Items" type="NinePatchRect" parent="Tabs"]
-self_modulate = Color( 0.878431, 0.419608, 0.917647, 1 )
-show_behind_parent = true
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = 72.5
-margin_top = 66.0
-margin_right = 187.5
-margin_bottom = 181.0
-texture = ExtResource( 2 )
-region_rect = Rect2( 0, 0, 113, 113 )
-patch_margin_left = 52
-patch_margin_top = 55
-patch_margin_right = 52
-patch_margin_bottom = 51
-
-[node name="NinePacthRect2" type="NinePatchRect" parent="Tabs/Items"]
-modulate = Color( 0, 0, 0, 0.219608 )
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 10.0
-margin_bottom = 10.0
-texture = ExtResource( 2 )
-region_rect = Rect2( 0, 0, 113, 113 )
-patch_margin_left = 52
-patch_margin_top = 55
-patch_margin_right = 52
-patch_margin_bottom = 51
-
-[node name="Icon" type="TextureRect" parent="Tabs/Items"]
+[node name="Icon" type="TextureRect" parent="TabBar/Terrain"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 35.0
-margin_top = -24.5
-margin_right = 82.0
-margin_bottom = 28.5
+margin_left = 21.0
+margin_top = -20.0
+margin_right = 61.0
+margin_bottom = 20.0
 mouse_filter = 2
 texture = ExtResource( 9 )
+expand = true
 
-[node name="Text" type="Label" parent="Tabs/Items"]
+[node name="Text" type="Label" parent="TabBar/Terrain"]
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -70.0
-margin_top = -18.0
-margin_right = 70.0
-margin_bottom = 18.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 1 )
-text = "Items"
+margin_left = -55.0
+margin_top = -16.0
+margin_right = 85.0
+margin_bottom = 20.0
+custom_colors/font_color = Color( 0.360784, 0.113725, 0.0784314, 1 )
+custom_fonts/font = SubResource( 16 )
+text = "Terreno"
 align = 1
+valign = 1
 
-[node name="Enemies" type="NinePatchRect" parent="Tabs"]
-self_modulate = Color( 0.392157, 0.858824, 0.164706, 1 )
+[node name="Selection" type="Control" parent="TabBar/Terrain" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.59797
+margin_top = -1.59797
+margin_right = 1.59796
+margin_bottom = 1.59796
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="TabBar/Terrain/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="UpRight" type="TextureRect" parent="TabBar/Terrain/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="DownRight" type="TextureRect" parent="TabBar/Terrain/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="DownLeft" type="TextureRect" parent="TabBar/Terrain/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TabBar/Terrain/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 17 )
+anims/idle = SubResource( 18 )
+
+[node name="Items" type="NinePatchRect" parent="TabBar" groups=["Button"]]
+self_modulate = Color( 0.878431, 0.419608, 0.917647, 1 )
 show_behind_parent = true
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = 202.0
-margin_top = 66.0
-margin_right = 317.0
-margin_bottom = 181.0
+margin_left = 59.0
+margin_top = 40.0
+margin_right = 141.0
+margin_bottom = 120.0
+mouse_filter = 0
 texture = ExtResource( 2 )
-region_rect = Rect2( 0, 0, 113, 113 )
-patch_margin_left = 52
-patch_margin_top = 55
-patch_margin_right = 52
-patch_margin_bottom = 51
+region_rect = Rect2( 0, 0, 75, 75 )
+patch_margin_left = 39
+patch_margin_top = 38
+patch_margin_right = 39
+patch_margin_bottom = 40
 
-[node name="NinePacthRect2" type="NinePatchRect" parent="Tabs/Enemies"]
-modulate = Color( 0, 0, 0, 0.219608 )
+[node name="Shadow" type="NinePatchRect" parent="TabBar/Items"]
+modulate = Color( 0, 0, 0, 0.360784 )
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 10.0
-margin_bottom = 10.0
-texture = ExtResource( 2 )
-region_rect = Rect2( 0, 0, 113, 113 )
-patch_margin_left = 52
-patch_margin_top = 55
-patch_margin_right = 52
-patch_margin_bottom = 51
+margin_left = -9.5
+margin_top = -8.0
+margin_right = 10.5
+margin_bottom = 12.0
+texture = ExtResource( 4 )
+region_rect = Rect2( 17.054, 20.188, 92.085, 88.263 )
+patch_margin_left = 43
+patch_margin_top = 41
+patch_margin_right = 40
+patch_margin_bottom = 39
 
-[node name="Icon" type="TextureRect" parent="Tabs/Enemies"]
+[node name="Icon" type="TextureRect" parent="TabBar/Items"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 33.0
-margin_top = -24.5
-margin_right = 85.0
-margin_bottom = 26.5
+margin_left = 19.0
+margin_top = -24.0
+margin_right = 64.0
+margin_bottom = 21.0
 mouse_filter = 2
 texture = ExtResource( 11 )
+expand = true
+stretch_mode = 6
 
-[node name="Text" type="Label" parent="Tabs/Enemies"]
+[node name="Text" type="Label" parent="TabBar/Items"]
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -70.0
-margin_top = -18.0
-margin_right = 70.0
-margin_bottom = 18.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 1 )
+margin_left = -55.0
+margin_top = -16.0
+margin_right = 85.0
+margin_bottom = 20.0
+custom_colors/font_color = Color( 0.360784, 0.113725, 0.0784314, 1 )
+custom_fonts/font = SubResource( 16 )
+text = "Items"
+align = 1
+valign = 1
+
+[node name="Selection" type="Control" parent="TabBar/Items" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.59797
+margin_top = -1.59797
+margin_right = 1.59796
+margin_bottom = 1.59796
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="TabBar/Items/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="UpRight" type="TextureRect" parent="TabBar/Items/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="DownRight" type="TextureRect" parent="TabBar/Items/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="DownLeft" type="TextureRect" parent="TabBar/Items/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TabBar/Items/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 20 )
+anims/idle = SubResource( 21 )
+
+[node name="Enemies" type="NinePatchRect" parent="TabBar" groups=["Button"]]
+self_modulate = Color( 0.392157, 0.858824, 0.164706, 1 )
+show_behind_parent = true
+margin_left = 153.0
+margin_top = 40.0
+margin_right = 235.0
+margin_bottom = 120.0
+mouse_filter = 0
+texture = ExtResource( 2 )
+region_rect = Rect2( 0, 0, 75, 75 )
+patch_margin_left = 39
+patch_margin_top = 38
+patch_margin_right = 39
+patch_margin_bottom = 40
+
+[node name="Shadow" type="NinePatchRect" parent="TabBar/Enemies"]
+modulate = Color( 0, 0, 0, 0.360784 )
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -9.5
+margin_top = -8.0
+margin_right = 10.5
+margin_bottom = 12.0
+texture = ExtResource( 4 )
+region_rect = Rect2( 17.054, 20.188, 92.085, 88.263 )
+patch_margin_left = 43
+patch_margin_top = 41
+patch_margin_right = 40
+patch_margin_bottom = 39
+
+[node name="Icon" type="TextureRect" parent="TabBar/Enemies"]
+anchor_top = 0.5
+anchor_bottom = 0.5
+margin_left = 21.0
+margin_top = -21.0
+margin_right = 61.0
+margin_bottom = 19.0
+mouse_filter = 2
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+
+[node name="Text" type="Label" parent="TabBar/Enemies"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -55.0
+margin_top = -16.0
+margin_right = 85.0
+margin_bottom = 20.0
+custom_colors/font_color = Color( 0.360784, 0.113725, 0.0784314, 1 )
+custom_fonts/font = SubResource( 16 )
 text = "Enemigos"
 align = 1
+valign = 1
 
-[node name="Gizmos" type="NinePatchRect" parent="Tabs"]
+[node name="Selection" type="Control" parent="TabBar/Enemies" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.59797
+margin_top = -1.59797
+margin_right = 1.59796
+margin_bottom = 1.59796
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="TabBar/Enemies/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="UpRight" type="TextureRect" parent="TabBar/Enemies/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="DownRight" type="TextureRect" parent="TabBar/Enemies/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="DownLeft" type="TextureRect" parent="TabBar/Enemies/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TabBar/Enemies/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 22 )
+anims/idle = SubResource( 23 )
+
+[node name="Gizmos" type="NinePatchRect" parent="TabBar" groups=["Button"]]
 self_modulate = Color( 1, 0.847059, 0.145098, 1 )
 show_behind_parent = true
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = 332.0
-margin_top = 66.0
-margin_right = 447.0
-margin_bottom = 181.0
+margin_left = 245.0
+margin_top = 40.0
+margin_right = 327.0
+margin_bottom = 120.0
+mouse_filter = 0
 texture = ExtResource( 2 )
-region_rect = Rect2( 0, 0, 113, 113 )
-patch_margin_left = 52
-patch_margin_top = 55
-patch_margin_right = 52
-patch_margin_bottom = 51
+region_rect = Rect2( 0, 0, 75, 75 )
+patch_margin_left = 39
+patch_margin_top = 38
+patch_margin_right = 39
+patch_margin_bottom = 40
 
-[node name="NinePacthRect2" type="NinePatchRect" parent="Tabs/Gizmos"]
-modulate = Color( 0, 0, 0, 0.219608 )
+[node name="Shadow" type="NinePatchRect" parent="TabBar/Gizmos"]
+modulate = Color( 0, 0, 0, 0.360784 )
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 10.0
-margin_bottom = 10.0
-texture = ExtResource( 2 )
-region_rect = Rect2( 0, 0, 113, 113 )
-patch_margin_left = 52
-patch_margin_top = 55
-patch_margin_right = 52
-patch_margin_bottom = 51
+margin_left = -9.5
+margin_top = -8.0
+margin_right = 10.5
+margin_bottom = 12.0
+texture = ExtResource( 4 )
+region_rect = Rect2( 17.054, 20.188, 92.085, 88.263 )
+patch_margin_left = 43
+patch_margin_top = 41
+patch_margin_right = 40
+patch_margin_bottom = 39
 
-[node name="Icon" type="TextureRect" parent="Tabs/Gizmos"]
+[node name="Icon" type="TextureRect" parent="TabBar/Gizmos"]
 anchor_top = 0.5
 anchor_bottom = 0.5
-margin_left = 33.9985
-margin_top = -24.5
-margin_right = 80.9986
-margin_bottom = 27.5
+margin_left = 21.0
+margin_top = -21.0
+margin_right = 61.0
+margin_bottom = 19.0
 mouse_filter = 2
-texture = ExtResource( 10 )
+texture = ExtResource( 27 )
+expand = true
+stretch_mode = 6
 
-[node name="Text" type="Label" parent="Tabs/Gizmos"]
+[node name="Text" type="Label" parent="TabBar/Gizmos"]
 visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -70.0
-margin_top = -18.0
-margin_right = 70.0
-margin_bottom = 18.0
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-custom_fonts/font = SubResource( 1 )
+margin_left = -55.0
+margin_top = -16.0
+margin_right = 85.0
+margin_bottom = 20.0
+custom_colors/font_color = Color( 0.360784, 0.113725, 0.0784314, 1 )
+custom_fonts/font = SubResource( 16 )
 text = "Gizmos"
 align = 1
+valign = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Tabs"]
-playback_speed = 5.0
-anims/RESET = SubResource( 3 )
-anims/enemies = SubResource( 4 )
-anims/gizmos = SubResource( 5 )
-anims/items = SubResource( 6 )
-anims/terrain = SubResource( 2 )
-
-[node name="Select" type="Control" parent="."]
+[node name="Selection" type="Control" parent="TabBar/Gizmos" groups=["Selection"]]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = -1.59797
+margin_top = -1.59797
+margin_right = 1.59796
+margin_bottom = 1.59796
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="TabBar/Gizmos/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="UpRight" type="TextureRect" parent="TabBar/Gizmos/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="DownRight" type="TextureRect" parent="TabBar/Gizmos/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="DownLeft" type="TextureRect" parent="TabBar/Gizmos/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 20 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TabBar/Gizmos/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 24 )
+anims/idle = SubResource( 25 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="TabBar"]
+playback_speed = 5.0
+anims/RESET = SubResource( 3 )
+anims/enemies = SubResource( 26 )
+anims/gizmos = SubResource( 27 )
+anims/items = SubResource( 28 )
+anims/terrain = SubResource( 19 )
+
+[node name="Select" type="Control" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 
 [node name="Outline" type="TextureRect" parent="Select"]
 self_modulate = Color( 0.882353, 0.882353, 0.882353, 1 )
@@ -1024,15 +2041,21 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -346.0
-margin_top = -283.031
-margin_right = 346.0
-margin_bottom = 408.969
+margin_left = -300.0
+margin_top = -240.0
+margin_right = 300.0
+margin_bottom = 360.0
+rect_pivot_offset = Vector2( 300, 300 )
 texture = ExtResource( 12 )
 
-[node name="ShowObjectsTimer" type="Timer" parent="Select/Outline"]
-wait_time = 0.5
-one_shot = true
+[node name="Shadow" type="TextureRect" parent="Select/Outline"]
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
+show_behind_parent = true
+margin_top = 9.75
+margin_right = 600.0
+margin_bottom = 609.75
+texture = ExtResource( 12 )
 
 [node name="OutlineSelect" type="Control" parent="Select/Outline"]
 anchor_left = 0.5
@@ -1042,8 +2065,9 @@ anchor_bottom = 0.5
 margin_top = -3.05176e-05
 margin_bottom = -3.05176e-05
 
-[node name="Sprite" type="Sprite" parent="Select/Outline/OutlineSelect"]
+[node name="Sprite2D" type="Sprite" parent="Select/Outline/OutlineSelect"]
 modulate = Color( 0.27451, 0.627451, 1, 1 )
+scale = Vector2( 0.667, 0.667 )
 texture = ExtResource( 14 )
 
 [node name="Core" type="TextureRect" parent="Select/Outline"]
@@ -1052,1230 +2076,407 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -175.0
-margin_top = -175.0
-margin_right = 175.0
-margin_bottom = 175.0
+margin_left = -182.0
+margin_top = -169.0
+margin_right = 182.0
+margin_bottom = 169.0
 mouse_filter = 2
 texture = ExtResource( 13 )
 expand = true
+stretch_mode = 6
 
-[node name="0terrain" type="Control" parent="Select/Outline" groups=["objects"]]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Objects" type="Control" parent="Select/Outline"]
+margin_left = 300.0
+margin_top = 300.0
+margin_right = 300.0
+margin_bottom = 300.0
 mouse_filter = 2
 
-[node name="0" type="TextureRect" parent="Select/Outline/0terrain" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -45.0
-margin_top = -304.37
-margin_right = 45.0
-margin_bottom = -214.37
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0terrain/0"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -41.5
-margin_top = -41.5
-margin_right = 41.5
-margin_bottom = 41.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0terrain/0"]
-visible = false
-position = Vector2( 80, 80 )
-texture = ExtResource( 25 )
-
-[node name="1" type="TextureRect" parent="Select/Outline/0terrain" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -235.0
-margin_top = -235.0
-margin_right = -145.0
+[node name="Up" type="TextureRect" parent="Select/Outline/Objects" groups=["object"]]
+margin_left = -29.0
+margin_top = -205.0
+margin_right = 31.0
 margin_bottom = -145.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0terrain/1"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0terrain/1"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="2" type="TextureRect" parent="Select/Outline/0terrain" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -305.0
-margin_top = -45.0
-margin_right = -215.0
-margin_bottom = 45.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0terrain/2"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0terrain/2"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="4" type="TextureRect" parent="Select/Outline/0terrain" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -235.0
-margin_top = 136.0
-margin_right = -145.0
-margin_bottom = 226.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0terrain/4"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0terrain/4"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="37" type="TextureRect" parent="Select/Outline/0terrain" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -45.0
-margin_top = 210.49
-margin_right = 45.0
-margin_bottom = 300.49
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0terrain/37"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0terrain/37"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="6" type="TextureRect" parent="Select/Outline/0terrain" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 136.0
-margin_top = 136.0
-margin_right = 226.0
-margin_bottom = 226.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0terrain/6"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0terrain/6"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="38" type="TextureRect" parent="Select/Outline/0terrain" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 206.0
-margin_top = -45.0
-margin_right = 296.0
-margin_bottom = 45.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0terrain/38"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0terrain/38"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="8" type="TextureRect" parent="Select/Outline/0terrain" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 136.0
-margin_top = -238.0
-margin_right = 226.0
-margin_bottom = -148.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0terrain/8"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0terrain/8"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="1terrain" type="Control" parent="Select/Outline" groups=["objects"]]
-anchor_right = 1.0
-anchor_bottom = 1.0
 mouse_filter = 2
-
-[node name="39" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -45.0
-margin_top = -304.37
-margin_right = 45.0
-margin_bottom = -214.37
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/1terrain/39"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -41.5
-margin_top = -41.5
-margin_right = 41.5
-margin_bottom = 41.5
 texture = ExtResource( 15 )
 expand = true
+stretch_mode = 6
 
-[node name="HasVariants" type="Sprite" parent="Select/Outline/1terrain/39"]
-visible = false
-position = Vector2( 80, 80 )
-texture = ExtResource( 25 )
+[node name="Bg" type="TextureRect" parent="Select/Outline/Objects/Up"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
 
-[node name="7" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
+[node name="icon" type="TextureRect" parent="Select/Outline/Objects/Up"]
+show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -235.0
-margin_top = -235.0
-margin_right = -145.0
-margin_bottom = -145.0
-texture = ExtResource( 15 )
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
 
-[node name="icon" type="TextureRect" parent="Select/Outline/1terrain/7"]
+[node name="HasVariants" type="TextureRect" parent="Select/Outline/Objects/Up"]
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/1terrain/7"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
 texture = ExtResource( 25 )
 
-[node name="5" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -305.0
-margin_top = -45.0
-margin_right = -215.0
-margin_bottom = 45.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/1terrain/5"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/1terrain/5"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="91" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -235.0
-margin_top = 136.0
-margin_right = -145.0
-margin_bottom = 226.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/1terrain/91"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/1terrain/91"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="92" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -45.0
-margin_top = 210.49
-margin_right = 45.0
-margin_bottom = 300.49
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/1terrain/92"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/1terrain/92"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="93" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 136.0
-margin_top = 136.0
-margin_right = 226.0
-margin_bottom = 226.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/1terrain/93"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/1terrain/93"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="94" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 206.0
-margin_top = -45.0
-margin_right = 296.0
-margin_bottom = 45.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/1terrain/94"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/1terrain/94"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="95" type="TextureRect" parent="Select/Outline/1terrain" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 136.0
-margin_top = -238.0
-margin_right = 226.0
-margin_bottom = -148.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/1terrain/95"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/1terrain/95"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="0items" type="Control" parent="Select/Outline" groups=["objects"]]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Down" type="TextureRect" parent="Select/Outline/Objects" groups=["object"]]
+margin_left = -29.0
+margin_top = 143.0
+margin_right = 31.0
+margin_bottom = 203.0
 mouse_filter = 2
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
 
-[node name="3" type="TextureRect" parent="Select/Outline/0items" groups=["object"]]
+[node name="Bg" type="TextureRect" parent="Select/Outline/Objects/Down"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/Outline/Objects/Down"]
+show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -45.0
-margin_top = -304.37
-margin_right = 45.0
-margin_bottom = -214.37
-texture = ExtResource( 15 )
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
 
-[node name="icon" type="TextureRect" parent="Select/Outline/0items/3"]
+[node name="HasVariants" type="TextureRect" parent="Select/Outline/Objects/Down"]
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0items/3"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
 texture = ExtResource( 25 )
 
-[node name="9" type="TextureRect" parent="Select/Outline/0items" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -235.0
-margin_top = -235.0
-margin_right = -145.0
-margin_bottom = -145.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0items/9"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0items/9"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="12" type="TextureRect" parent="Select/Outline/0items" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -305.0
-margin_top = -45.0
-margin_right = -215.0
-margin_bottom = 45.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0items/12"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0items/12"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="13" type="TextureRect" parent="Select/Outline/0items" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -235.0
-margin_top = 136.0
-margin_right = -145.0
-margin_bottom = 226.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0items/13"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0items/13"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="14" type="TextureRect" parent="Select/Outline/0items" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -45.0
-margin_top = 210.49
-margin_right = 45.0
-margin_bottom = 300.49
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0items/14"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0items/14"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="15" type="TextureRect" parent="Select/Outline/0items" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 136.0
-margin_top = 136.0
-margin_right = 226.0
-margin_bottom = 226.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0items/15"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0items/15"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="90" type="TextureRect" parent="Select/Outline/0items" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 206.0
-margin_top = -45.0
-margin_right = 296.0
-margin_bottom = 45.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0items/90"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0items/90"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="91" type="TextureRect" parent="Select/Outline/0items" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 136.0
-margin_top = -238.0
-margin_right = 226.0
-margin_bottom = -148.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0items/91"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0items/91"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="0enemies" type="Control" parent="Select/Outline" groups=["objects"]]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Right" type="TextureRect" parent="Select/Outline/Objects" groups=["object"]]
+margin_left = 140.0
+margin_top = -30.0
+margin_right = 200.0
+margin_bottom = 30.0
 mouse_filter = 2
-
-[node name="16" type="TextureRect" parent="Select/Outline/0enemies" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -45.0
-margin_top = -304.37
-margin_right = 45.0
-margin_bottom = -214.37
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0enemies/16"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
 texture = ExtResource( 15 )
 expand = true
+stretch_mode = 6
 
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0enemies/16"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="17" type="TextureRect" parent="Select/Outline/0enemies" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -235.0
-margin_top = -235.0
-margin_right = -145.0
-margin_bottom = -145.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0enemies/17"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
+[node name="Bg" type="TextureRect" parent="Select/Outline/Objects/Right"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
 expand = true
+stretch_mode = 6
 
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0enemies/17"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="31" type="TextureRect" parent="Select/Outline/0enemies" groups=["object"]]
+[node name="icon" type="TextureRect" parent="Select/Outline/Objects/Right"]
+show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -305.0
-margin_top = -45.0
-margin_right = -215.0
-margin_bottom = 45.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0enemies/31"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
 expand = true
+stretch_mode = 6
 
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0enemies/31"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="18" type="TextureRect" parent="Select/Outline/0enemies" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -235.0
-margin_top = 136.0
-margin_right = -145.0
-margin_bottom = 226.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0enemies/18"]
+[node name="HasVariants" type="TextureRect" parent="Select/Outline/Objects/Right"]
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0enemies/18"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
 texture = ExtResource( 25 )
 
-[node name="19" type="TextureRect" parent="Select/Outline/0enemies" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -45.0
-margin_top = 210.49
-margin_right = 45.0
-margin_bottom = 300.49
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0enemies/19"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0enemies/19"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="20" type="TextureRect" parent="Select/Outline/0enemies" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 136.0
-margin_top = 136.0
-margin_right = 226.0
-margin_bottom = 226.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0enemies/20"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0enemies/20"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="21" type="TextureRect" parent="Select/Outline/0enemies" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 206.0
-margin_top = -45.0
-margin_right = 296.0
-margin_bottom = 45.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0enemies/21"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0enemies/21"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="56" type="TextureRect" parent="Select/Outline/0enemies" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 136.0
-margin_top = -238.0
-margin_right = 226.0
-margin_bottom = -148.0
-texture = ExtResource( 15 )
-
-[node name="0gizmos" type="Control" parent="Select/Outline" groups=["objects"]]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Left" type="TextureRect" parent="Select/Outline/Objects" groups=["object"]]
+margin_left = -200.0
+margin_top = -30.0
+margin_right = -140.0
+margin_bottom = 30.0
 mouse_filter = 2
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
 
-[node name="22" type="TextureRect" parent="Select/Outline/0gizmos" groups=["object"]]
+[node name="Bg" type="TextureRect" parent="Select/Outline/Objects/Left"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/Outline/Objects/Left"]
+show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -45.0
-margin_top = -304.37
-margin_right = 45.0
-margin_bottom = -214.37
-texture = ExtResource( 15 )
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
 
-[node name="icon" type="TextureRect" parent="Select/Outline/0gizmos/22"]
+[node name="HasVariants" type="TextureRect" parent="Select/Outline/Objects/Left"]
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0gizmos/22"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
 texture = ExtResource( 25 )
 
-[node name="23" type="TextureRect" parent="Select/Outline/0gizmos" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -235.0
-margin_top = -235.0
-margin_right = -145.0
-margin_bottom = -145.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0gizmos/23"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0gizmos/23"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="24" type="TextureRect" parent="Select/Outline/0gizmos" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -305.0
-margin_top = -45.0
-margin_right = -215.0
-margin_bottom = 45.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0gizmos/24"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0gizmos/24"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="25" type="TextureRect" parent="Select/Outline/0gizmos" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -235.0
-margin_top = 136.0
-margin_right = -145.0
-margin_bottom = 226.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0gizmos/25"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0gizmos/25"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="26" type="TextureRect" parent="Select/Outline/0gizmos" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -45.0
-margin_top = 210.49
-margin_right = 45.0
-margin_bottom = 300.49
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0gizmos/26"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0gizmos/26"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="27" type="TextureRect" parent="Select/Outline/0gizmos" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 136.0
-margin_top = 136.0
-margin_right = 226.0
-margin_bottom = 226.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0gizmos/27"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0gizmos/27"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="32" type="TextureRect" parent="Select/Outline/0gizmos" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 206.0
-margin_top = -45.0
-margin_right = 296.0
-margin_bottom = 45.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0gizmos/32"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0gizmos/32"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="33" type="TextureRect" parent="Select/Outline/0gizmos" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 136.0
-margin_top = -238.0
-margin_right = 226.0
-margin_bottom = -148.0
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/0gizmos/33"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/0gizmos/33"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
-
-[node name="1gizmos" type="Control" parent="Select/Outline" groups=["objects"]]
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="UpLeft" type="TextureRect" parent="Select/Outline/Objects" groups=["object"]]
+margin_left = -154.0
+margin_top = -151.0
+margin_right = -94.0
+margin_bottom = -91.0
 mouse_filter = 2
-
-[node name="34" type="TextureRect" parent="Select/Outline/1gizmos" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -45.0
-margin_top = -304.37
-margin_right = 45.0
-margin_bottom = -214.37
-texture = ExtResource( 15 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/1gizmos/34"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
 texture = ExtResource( 15 )
 expand = true
+stretch_mode = 6
 
-[node name="HasVariants" type="Sprite" parent="Select/Outline/1gizmos/34"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
-texture = ExtResource( 25 )
+[node name="Bg" type="TextureRect" parent="Select/Outline/Objects/UpLeft"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
 
-[node name="35" type="TextureRect" parent="Select/Outline/1gizmos" groups=["object"]]
+[node name="icon" type="TextureRect" parent="Select/Outline/Objects/UpLeft"]
+show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -235.0
-margin_top = -235.0
-margin_right = -145.0
-margin_bottom = -145.0
-texture = ExtResource( 15 )
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
 
-[node name="icon" type="TextureRect" parent="Select/Outline/1gizmos/35"]
+[node name="HasVariants" type="TextureRect" parent="Select/Outline/Objects/UpLeft"]
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/1gizmos/35"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
 texture = ExtResource( 25 )
 
-[node name="36" type="TextureRect" parent="Select/Outline/1gizmos" groups=["object"]]
+[node name="UpRight" type="TextureRect" parent="Select/Outline/Objects" groups=["object"]]
+margin_left = 92.0
+margin_top = -151.0
+margin_right = 152.0
+margin_bottom = -91.0
+mouse_filter = 2
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/Outline/Objects/UpRight"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/Outline/Objects/UpRight"]
+show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -305.0
-margin_top = -45.0
-margin_right = -215.0
-margin_bottom = 45.0
-texture = ExtResource( 15 )
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
 
-[node name="icon" type="TextureRect" parent="Select/Outline/1gizmos/36"]
+[node name="HasVariants" type="TextureRect" parent="Select/Outline/Objects/UpRight"]
+anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 3.5
-margin_top = 3.5
-margin_right = -3.5
-margin_bottom = -3.5
-texture = ExtResource( 15 )
-expand = true
-
-[node name="HasVariants" type="Sprite" parent="Select/Outline/1gizmos/36"]
-visible = false
-position = Vector2( 80.5023, 80.7114 )
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
 texture = ExtResource( 25 )
 
-[node name="82" type="TextureRect" parent="Select/Outline/1gizmos" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -235.0
-margin_top = 136.0
-margin_right = -145.0
-margin_bottom = 226.0
+[node name="DownRight" type="TextureRect" parent="Select/Outline/Objects" groups=["object"]]
+margin_left = 92.0
+margin_top = 89.0
+margin_right = 152.0
+margin_bottom = 149.0
+mouse_filter = 2
 texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
 
-[node name="83" type="TextureRect" parent="Select/Outline/1gizmos" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -45.0
-margin_top = 210.49
-margin_right = 45.0
-margin_bottom = 300.49
-texture = ExtResource( 15 )
+[node name="Bg" type="TextureRect" parent="Select/Outline/Objects/DownRight"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
 
-[node name="84" type="TextureRect" parent="Select/Outline/1gizmos" groups=["object"]]
+[node name="icon" type="TextureRect" parent="Select/Outline/Objects/DownRight"]
+show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 136.0
-margin_top = 136.0
-margin_right = 226.0
-margin_bottom = 226.0
-texture = ExtResource( 15 )
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
 
-[node name="85" type="TextureRect" parent="Select/Outline/1gizmos" groups=["object"]]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = 206.0
-margin_top = -45.0
-margin_right = 296.0
-margin_bottom = 45.0
-texture = ExtResource( 15 )
+[node name="HasVariants" type="TextureRect" parent="Select/Outline/Objects/DownRight"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
+texture = ExtResource( 25 )
 
-[node name="86" type="TextureRect" parent="Select/Outline/1gizmos" groups=["object"]]
+[node name="DownLeft" type="TextureRect" parent="Select/Outline/Objects" groups=["object"]]
+margin_left = -154.0
+margin_top = 89.0
+margin_right = -94.0
+margin_bottom = 149.0
+mouse_filter = 2
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/Outline/Objects/DownLeft"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/Outline/Objects/DownLeft"]
+show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 136.0
-margin_top = -238.0
-margin_right = 226.0
-margin_bottom = -148.0
-texture = ExtResource( 15 )
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="HasVariants" type="TextureRect" parent="Select/Outline/Objects/DownLeft"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
+texture = ExtResource( 25 )
 
 [node name="Selected" type="TextureRect" parent="Select/Outline" groups=["object"]]
 visible = false
-self_modulate = Color( 0.886275, 0.886275, 0.886275, 1 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -85.0
-margin_top = -85.0
-margin_right = 85.0
-margin_bottom = 85.0
-texture = ExtResource( 16 )
-
-[node name="icon" type="TextureRect" parent="Select/Outline/Selected"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -76.5
-margin_top = -76.5
-margin_right = 76.5
-margin_bottom = 76.5
+margin_left = -57.0
+margin_top = -57.0
+margin_right = 57.0
+margin_bottom = 57.0
 texture = ExtResource( 15 )
 expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/Outline/Selected"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -57.0
+margin_top = -57.0
+margin_right = 57.0
+margin_bottom = 57.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/Outline/Selected"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -51.026
+margin_top = -51.026
+margin_right = 51.025
+margin_bottom = 51.025
+texture = ExtResource( 28 )
+expand = true
+stretch_mode = 6
 
 [node name="HasVariants" type="Sprite" parent="Select/Outline/Selected"]
 visible = false
@@ -2286,13 +2487,13 @@ texture = ExtResource( 25 )
 [node name="Label" type="Label" parent="Select/Outline/Selected"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -63.4843
-margin_top = -63.0
-margin_right = 63.5157
-margin_bottom = 2.0
+margin_left = -61.0
+margin_top = -29.0
+margin_right = 62.0
+margin_bottom = -8.0
 grow_horizontal = 2
-custom_fonts/font = SubResource( 9 )
-text = "27/10"
+custom_fonts/font = SubResource( 29 )
+text = "Object Name"
 align = 1
 valign = 1
 
@@ -2300,14 +2501,16 @@ valign = 1
 show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -22.5037
-margin_right = 20.4963
+margin_left = -12.0
+margin_top = -11.0
+margin_right = 10.0
+margin_bottom = 11.0
 grow_horizontal = 2
 texture = ExtResource( 17 )
-patch_margin_left = 30
-patch_margin_top = 25
-patch_margin_right = 30
-patch_margin_bottom = 29
+patch_margin_left = 23
+patch_margin_top = 21
+patch_margin_right = 23
+patch_margin_bottom = 22
 
 [node name="Corner" type="TextureRect" parent="Select/Outline/Selected/Label/Bg"]
 show_behind_parent = true
@@ -2321,26 +2524,742 @@ margin_right = 10.5
 margin_bottom = 16.4917
 texture = ExtResource( 18 )
 
-[node name="Shadow" type="TextureRect" parent="Select/Outline"]
-modulate = Color( 0, 0, 0, 0.294118 )
-show_behind_parent = true
-margin_top = 9.75
-margin_right = 40.0
-margin_bottom = 49.75
-texture = ExtResource( 12 )
+[node name="ShowObjectsTimer" type="Timer" parent="Select/Outline"]
+wait_time = 0.125
+one_shot = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Select"]
 playback_speed = 4.0
 anims/RESET = SubResource( 7 )
-anims/boop = SubResource( 8 )
+anims/boop = SubResource( 32 )
+
+[node name="RightCategory" type="TextureRect" parent="Select"]
+self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
+margin_left = 234.218
+margin_top = -116.0
+margin_right = 598.218
+margin_bottom = 222.0
+rect_pivot_offset = Vector2( 182, 169 )
+texture = ExtResource( 30 )
+expand = true
+stretch_mode = 6
+
+[node name="Objects" type="Control" parent="Select/RightCategory"]
+modulate = Color( 0.811765, 0.811765, 0.811765, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Up" type="TextureRect" parent="Select/RightCategory/Objects" groups=["object"]]
+margin_left = 163.782
+margin_top = 67.0
+margin_right = 223.782
+margin_bottom = 127.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/RightCategory/Objects/Up"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/RightCategory/Objects/Up"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="HasVariants" type="TextureRect" parent="Select/RightCategory/Objects/Up"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
+texture = ExtResource( 25 )
+
+[node name="Down" type="TextureRect" parent="Select/RightCategory/Objects" groups=["object"]]
+margin_left = 165.782
+margin_top = 239.0
+margin_right = 225.782
+margin_bottom = 299.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/RightCategory/Objects/Down"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/RightCategory/Objects/Down"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="HasVariants" type="TextureRect" parent="Select/RightCategory/Objects/Down"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
+texture = ExtResource( 25 )
+
+[node name="Right" type="TextureRect" parent="Select/RightCategory/Objects" groups=["object"]]
+margin_left = 250.782
+margin_top = 154.0
+margin_right = 310.782
+margin_bottom = 214.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/RightCategory/Objects/Right"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/RightCategory/Objects/Right"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="HasVariants" type="TextureRect" parent="Select/RightCategory/Objects/Right"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
+texture = ExtResource( 25 )
+
+[node name="Left" type="TextureRect" parent="Select/RightCategory/Objects" groups=["object"]]
+margin_left = 78.782
+margin_top = 154.0
+margin_right = 138.782
+margin_bottom = 214.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/RightCategory/Objects/Left"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/RightCategory/Objects/Left"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="HasVariants" type="TextureRect" parent="Select/RightCategory/Objects/Left"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
+texture = ExtResource( 25 )
+
+[node name="UpLeft" type="TextureRect" parent="Select/RightCategory/Objects" groups=["object"]]
+margin_left = 102.782
+margin_top = 94.0
+margin_right = 162.782
+margin_bottom = 154.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/RightCategory/Objects/UpLeft"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/RightCategory/Objects/UpLeft"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="HasVariants" type="TextureRect" parent="Select/RightCategory/Objects/UpLeft"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
+texture = ExtResource( 25 )
+
+[node name="UpRight" type="TextureRect" parent="Select/RightCategory/Objects" groups=["object"]]
+margin_left = 223.782
+margin_top = 94.0
+margin_right = 283.782
+margin_bottom = 154.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/RightCategory/Objects/UpRight"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/RightCategory/Objects/UpRight"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="HasVariants" type="TextureRect" parent="Select/RightCategory/Objects/UpRight"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
+texture = ExtResource( 25 )
+
+[node name="DownRight" type="TextureRect" parent="Select/RightCategory/Objects" groups=["object"]]
+margin_left = 220.782
+margin_top = 209.0
+margin_right = 280.782
+margin_bottom = 269.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/RightCategory/Objects/DownRight"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/RightCategory/Objects/DownRight"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="HasVariants" type="TextureRect" parent="Select/RightCategory/Objects/DownRight"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
+texture = ExtResource( 25 )
+
+[node name="DownLeft" type="TextureRect" parent="Select/RightCategory/Objects" groups=["object"]]
+margin_left = 111.782
+margin_top = 209.0
+margin_right = 171.782
+margin_bottom = 269.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/RightCategory/Objects/DownLeft"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/RightCategory/Objects/DownLeft"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="HasVariants" type="TextureRect" parent="Select/RightCategory/Objects/DownLeft"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
+texture = ExtResource( 25 )
+
+[node name="LeftCategory" type="TextureRect" parent="Select"]
+self_modulate = Color( 0.67451, 0.67451, 0.67451, 1 )
+margin_left = -597.0
+margin_top = -116.0
+margin_right = -233.0
+margin_bottom = 222.0
+rect_pivot_offset = Vector2( 182, 169 )
+texture = ExtResource( 30 )
+expand = true
+stretch_mode = 6
+
+[node name="Objects" type="Control" parent="Select/LeftCategory"]
+modulate = Color( 0.811765, 0.811765, 0.811765, 1 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Up" type="TextureRect" parent="Select/LeftCategory/Objects" groups=["object"]]
+margin_left = 163.782
+margin_top = 67.0
+margin_right = 223.782
+margin_bottom = 127.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/LeftCategory/Objects/Up"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/LeftCategory/Objects/Up"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="HasVariants" type="TextureRect" parent="Select/LeftCategory/Objects/Up"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
+texture = ExtResource( 25 )
+
+[node name="Down" type="TextureRect" parent="Select/LeftCategory/Objects" groups=["object"]]
+margin_left = 165.782
+margin_top = 239.0
+margin_right = 225.782
+margin_bottom = 299.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/LeftCategory/Objects/Down"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/LeftCategory/Objects/Down"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="HasVariants" type="TextureRect" parent="Select/LeftCategory/Objects/Down"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
+texture = ExtResource( 25 )
+
+[node name="Right" type="TextureRect" parent="Select/LeftCategory/Objects" groups=["object"]]
+margin_left = 250.782
+margin_top = 154.0
+margin_right = 310.782
+margin_bottom = 214.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/LeftCategory/Objects/Right"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/LeftCategory/Objects/Right"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="HasVariants" type="TextureRect" parent="Select/LeftCategory/Objects/Right"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
+texture = ExtResource( 25 )
+
+[node name="Left" type="TextureRect" parent="Select/LeftCategory/Objects" groups=["object"]]
+margin_left = 78.782
+margin_top = 154.0
+margin_right = 138.782
+margin_bottom = 214.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/LeftCategory/Objects/Left"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/LeftCategory/Objects/Left"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="HasVariants" type="TextureRect" parent="Select/LeftCategory/Objects/Left"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
+texture = ExtResource( 25 )
+
+[node name="UpLeft" type="TextureRect" parent="Select/LeftCategory/Objects" groups=["object"]]
+margin_left = 102.782
+margin_top = 94.0
+margin_right = 162.782
+margin_bottom = 154.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/LeftCategory/Objects/UpLeft"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/LeftCategory/Objects/UpLeft"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="HasVariants" type="TextureRect" parent="Select/LeftCategory/Objects/UpLeft"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
+texture = ExtResource( 25 )
+
+[node name="UpRight" type="TextureRect" parent="Select/LeftCategory/Objects" groups=["object"]]
+margin_left = 223.782
+margin_top = 94.0
+margin_right = 283.782
+margin_bottom = 154.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/LeftCategory/Objects/UpRight"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/LeftCategory/Objects/UpRight"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="HasVariants" type="TextureRect" parent="Select/LeftCategory/Objects/UpRight"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
+texture = ExtResource( 25 )
+
+[node name="DownRight" type="TextureRect" parent="Select/LeftCategory/Objects" groups=["object"]]
+margin_left = 220.782
+margin_top = 209.0
+margin_right = 280.782
+margin_bottom = 269.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/LeftCategory/Objects/DownRight"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/LeftCategory/Objects/DownRight"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="HasVariants" type="TextureRect" parent="Select/LeftCategory/Objects/DownRight"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
+texture = ExtResource( 25 )
+
+[node name="DownLeft" type="TextureRect" parent="Select/LeftCategory/Objects" groups=["object"]]
+margin_left = 111.782
+margin_top = 209.0
+margin_right = 171.782
+margin_bottom = 269.0
+rect_scale = Vector2( 0.6, 0.6 )
+texture = ExtResource( 15 )
+expand = true
+stretch_mode = 6
+
+[node name="Bg" type="TextureRect" parent="Select/LeftCategory/Objects/DownLeft"]
+show_behind_parent = true
+margin_right = 60.0
+margin_bottom = 60.0
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 6
+
+[node name="icon" type="TextureRect" parent="Select/LeftCategory/Objects/DownLeft"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -27.6805
+margin_top = -27.6805
+margin_right = 27.6805
+margin_bottom = 27.6805
+texture = ExtResource( 29 )
+expand = true
+stretch_mode = 6
+
+[node name="HasVariants" type="TextureRect" parent="Select/LeftCategory/Objects/DownLeft"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -22.0
+margin_right = 4.0
+margin_bottom = 4.0
+texture = ExtResource( 25 )
 
 [node name="CloseButton" type="TextureButton" parent="." groups=["Button"]]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -173.0
-margin_top = 90.0
-margin_right = -92.0
-margin_bottom = 171.0
+margin_left = -140.0
+margin_top = 48.0
+margin_right = -86.0
+margin_bottom = 102.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
@@ -2348,26 +3267,31 @@ focus_neighbour_top = NodePath("../MakeButton")
 focus_neighbour_right = NodePath("../MakeButton")
 texture_normal = ExtResource( 19 )
 expand = true
-stretch_mode = 3
+stretch_mode = 5
 
 [node name="Shadow" type="TextureRect" parent="CloseButton"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 10.0
-margin_bottom = 10.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -42.487
+margin_top = -42.487
+margin_right = 42.513
+margin_bottom = 42.513
 mouse_filter = 2
-texture = ExtResource( 19 )
+texture = ExtResource( 10 )
+expand = true
+stretch_mode = 6
 
 [node name="Selection" type="Control" parent="CloseButton" groups=["Selection"]]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = -3.88954
-margin_top = -3.88954
-margin_right = 3.88954
-margin_bottom = 3.88954
+margin_left = -2.63925
+margin_top = -2.63925
+margin_right = -2.63926
+margin_bottom = -2.63926
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="CloseButton/Selection"]
@@ -2423,37 +3347,37 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = 547.024
-margin_top = 39.9999
-margin_right = 627.024
-margin_bottom = 121.0
+margin_left = 386.0
+margin_top = 14.0
+margin_right = 466.0
+margin_bottom = 95.0001
 grow_horizontal = 2
 grow_vertical = 2
 focus_neighbour_top = NodePath("../MakeButton")
 focus_neighbour_right = NodePath("../MakeButton")
 texture_normal = ExtResource( 24 )
 expand = true
-stretch_mode = 3
+stretch_mode = 5
 
 [node name="Shadow" type="TextureRect" parent="SwitchRight"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -33.463
-margin_top = -33.5
-margin_right = 46.537
-margin_bottom = 47.5
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 64.0
+margin_bottom = 64.0
 mouse_filter = 2
-texture = ExtResource( 24 )
+texture = ExtResource( 31 )
 
 [node name="Selection" type="Control" parent="SwitchRight" groups=["Selection"]]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1.0
+margin_bottom = -9.15527e-05
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SwitchRight/Selection"]
@@ -2509,10 +3433,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -595.0
-margin_top = 40.0
-margin_right = -515.0
-margin_bottom = 121.0
+margin_left = -466.0
+margin_top = 14.0
+margin_right = -386.0
+margin_bottom = 95.0
 grow_horizontal = 2
 grow_vertical = 2
 focus_neighbour_top = NodePath("../MakeButton")
@@ -2522,24 +3446,25 @@ expand = true
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="SwitchLeft"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -33.463
-margin_top = -33.5
-margin_right = 46.537
-margin_bottom = 47.5
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 64.0
+margin_bottom = 64.0
 mouse_filter = 2
-texture = ExtResource( 23 )
+texture = ExtResource( 31 )
+flip_h = true
 
 [node name="Selection" type="Control" parent="SwitchLeft" groups=["Selection"]]
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = -1.0
+margin_bottom = -9.15527e-05
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="SwitchLeft/Selection"]
@@ -2587,8 +3512,8 @@ texture = ExtResource( 20 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SwitchLeft/Selection"]
 playback_speed = 1.25
-anims/RESET = SubResource( 14 )
-anims/idle = SubResource( 15 )
+anims/RESET = SubResource( 30 )
+anims/idle = SubResource( 31 )
 
 [node name="AudioSwitch" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 22 )
@@ -2605,34 +3530,23 @@ volume_db = 15.0
 stream = ExtResource( 8 )
 volume_db = 15.0
 
-[node name="PositionUp" type="Position2D" parent="."]
-position = Vector2( 959.52, 341.829 )
-
-[node name="PositionUpRight" type="Position2D" parent="."]
-position = Vector2( 1142.43, 412.294 )
-
-[node name="PositionUpLeft" type="Position2D" parent="."]
-position = Vector2( 772.114, 415.292 )
-
-[node name="PositionLeft" type="Position2D" parent="."]
-position = Vector2( 700.15, 602.699 )
-
-[node name="PositionRight" type="Position2D" parent="."]
-position = Vector2( 1212.89, 604.198 )
-
-[node name="PositionDown" type="Position2D" parent="."]
-position = Vector2( 962.519, 857.571 )
-
-[node name="PositionDownRight" type="Position2D" parent="."]
-position = Vector2( 1137.93, 784.108 )
-
-[node name="PositionDownLeft" type="Position2D" parent="."]
-position = Vector2( 772.114, 785.607 )
-
-[connection signal="animation_finished" from="Tabs/AnimationPlayer" to="." method="_on_TabsAnimationPlayer_animation_finished"]
+[connection signal="gui_input" from="TabBar/Terrain" to="." method="_on_Terrain_gui_input"]
+[connection signal="mouse_entered" from="TabBar/Terrain" to="." method="_on_Terrain_mouse_entered"]
+[connection signal="mouse_exited" from="TabBar/Terrain" to="." method="_on_Terrain_mouse_exited"]
+[connection signal="gui_input" from="TabBar/Items" to="." method="_on_Items_gui_input"]
+[connection signal="mouse_entered" from="TabBar/Items" to="." method="_on_Items_mouse_entered"]
+[connection signal="mouse_exited" from="TabBar/Items" to="." method="_on_Items_mouse_exited"]
+[connection signal="gui_input" from="TabBar/Enemies" to="." method="_on_Enemies_gui_input"]
+[connection signal="mouse_entered" from="TabBar/Enemies" to="." method="_on_Enemies_mouse_entered"]
+[connection signal="mouse_exited" from="TabBar/Enemies" to="." method="_on_Enemies_mouse_exited"]
+[connection signal="gui_input" from="TabBar/Gizmos" to="." method="_on_Gizmos_gui_input"]
+[connection signal="mouse_entered" from="TabBar/Gizmos" to="." method="_on_Gizmos_mouse_entered"]
+[connection signal="mouse_exited" from="TabBar/Gizmos" to="." method="_on_Gizmos_mouse_exited"]
+[connection signal="animation_finished" from="TabBar/AnimationPlayer" to="." method="_on_TabsAnimationPlayer_animation_finished"]
 [connection signal="mouse_entered" from="Select/Outline" to="." method="_on_Outline_mouse_entered"]
 [connection signal="mouse_exited" from="Select/Outline" to="." method="_on_Outline_mouse_exited"]
 [connection signal="timeout" from="Select/Outline/ShowObjectsTimer" to="." method="_on_ShowObjectsTimer_timeout"]
+[connection signal="animation_finished" from="Select/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="mouse_entered" from="CloseButton" to="." method="_on_CloseButton_mouse_entered"]
 [connection signal="mouse_exited" from="CloseButton" to="." method="_on_CloseButton_mouse_exited"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_CloseButton_pressed"]
