@@ -62,12 +62,9 @@ func render(group, forcerender = false, render_range = 60):
 	if (group != ""):
 		if (!is_in_group(group)):
 			return
-	var scrwidth = OS.get_window_size().x;
-	var scrheight = OS.get_window_size().y;
-	var multiplier = 720/scrheight;
-	var finalscrwidth = scrwidth * multiplier;
-	var distance = abs(position.x-Global.campos.x);
-	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+	var scrwidth = get_node("../../Editor/BlackScreen").rect_size.x
+	var distance = abs(position.x-Global.campos.x)
+	if (distance-(scrwidth/2) > scrwidth*(render_range*0.01)):
 		set_process(false);
 		set_physics_process(false);
 	else:
@@ -118,19 +115,19 @@ func _ready():
 	Global.connect("erase", self, "erase");
 	
 	yield(get_tree(), "idle_frame");
-	if (get_node("../..").editing):
-		$AnimationPlayer.play("start");
-	styleChanged()
-	updateShape();
 	$ResizeContainer.position.x = (16*(grid_end.x))*3.25;
 	$Arrows.position.x = $ResizeContainer.position.x;
 	yield(get_tree(), "idle_frame");
-	styleChanged();
+	styleChanged()
+	updateShape()
 
 func _process(_delta):
 	if (bye):
 		eraseShadow();
 		queue_free();
+	
+	if (currentSprite != get_node("SpriteGround")):
+		currentSprite.scale = $SpriteGround.scale
 	
 	if (get_node("../../Editor").playing):
 		$ResizeContainer/ResizeButton.hide();
@@ -211,7 +208,7 @@ func _on_ResizeButton_mouse_exited():
 		get_node("../../Editor").externalButton = false;
 
 func _on_ResizeButton_pressed():
-	if (get_node("../..").grab || !get_node("../../Editor").externalButton):
+	if (get_node("../..").grab):
 		return
 	currentGrid = get_node("../..").calculateGrid(position.x, position.y);
 	resizing = true;
@@ -238,17 +235,11 @@ func createShadow(texture : Texture, position : Vector2, frames : Vector2, frame
 	inst.vframes = frames.y
 	inst.frame_coords = frame_coords
 	inst.scale = Vector2(3.25, 3.25)
-	get_node("../../ShadowViewport").add_child(inst)
+	get_node("../../ViewportShadow/Shadows").add_child(inst)
 	return inst;
 
 func setBodySprites():
 	eraseShadow()
-	
-	#for node in currentSprite.get_node("Center").get_children(): node.queue_free();
-	for node in currentSprite.get_node("Down").get_children(): node.queue_free();
-	for node in currentSprite.get_node("Up").get_children(): node.queue_free();
-	for node in currentSprite.get_node("Right").get_children(): node.queue_free();
-	for node in currentSprite.get_node("Left").get_children(): node.queue_free();
 	
 	var upr = currentSprite.get_node("UpRight");
 	var upl = currentSprite.get_node("UpLeft");
@@ -268,78 +259,68 @@ func setBodySprites():
 	currentSprite.get_node("DownLeft").position.y = 16*(visual_grid_end.y-1);
 	
 	#Up
-	for i in range(grid_end.x-1):
-		var inst = Sprite.new();
-		inst.position.x = (16*(i));
-		inst.position.y = -16;
-		inst.texture = currentSprite.get_node("UpLeft").texture;
-		inst.vframes = 3;
-		inst.hframes = 3;
-		inst.frame_coords = Vector2(1, 0);
-		inst.name = "Up"+str(i)
-		currentSprite.get_node("Up").add_child(inst);
-		shadows[inst.name] = createShadow(inst.texture, inst.global_position, Vector2(inst.hframes, inst.vframes), inst.frame_coords);
-	
+	var inst = currentSprite.get_node("Up/Up0");
+	inst.texture = currentSprite.get_node("UpLeft").texture;
+	inst.position = Vector2((grid_end.x-2)*8, -16);
+	inst.scale = Vector2(grid_end.x-1, 1);
+	var material = ShaderMaterial.new();
+	material.shader = load("res://shaders/semisolid.gdshader");
+	inst.material = material
+	inst.material.set_shader_param("tile_amount", Vector2(grid_end.x-1, 1))
+	shadows[inst.name] = createShadow(inst.texture, inst.global_position, Vector2(inst.hframes, inst.vframes), inst.frame_coords)
+	shadows[inst.name].material = material
+	shadows[inst.name].material.set_shader_param("tile_amount", Vector2(grid_end.x-1, 1))
+	shadows[inst.name].scale = inst.scale*Vector2(3.25, 3.25)
+
 	#Down
-	for i in range(grid_end.x-1):
-		var inst = Sprite.new();
-		inst.position.x = (16*(i));
-		inst.position.y = 16*(visual_grid_end.y-1);
-		inst.texture = currentSprite.get_node("UpLeft").texture;
-		inst.vframes = 3;
-		inst.hframes = 3;
-		inst.frame_coords = Vector2(1, 2);
-		inst.name = "Down"+str(i)
-		currentSprite.get_node("Down").add_child(inst);
-		shadows[inst.name] = createShadow(inst.texture, inst.global_position, Vector2(inst.hframes, inst.vframes), inst.frame_coords);
+	inst = currentSprite.get_node("Down/Down0");
+	inst.texture = currentSprite.get_node("UpLeft").texture;
+	inst.position = Vector2((grid_end.x-2)*8, -16+(16*visual_grid_end.y));
+	inst.scale = Vector2(grid_end.x-1, 1);
+	material = ShaderMaterial.new();
+	material.shader = load("res://shaders/semisolid.gdshader");
+	inst.material = material
+	inst.material.set_shader_param("tile_amount", Vector2(grid_end.x-1, 1))
+	shadows[inst.name] = createShadow(inst.texture, inst.global_position, Vector2(inst.hframes, inst.vframes), inst.frame_coords)
+	shadows[inst.name].material = material
+	shadows[inst.name].material.set_shader_param("tile_amount", Vector2(grid_end.x-1, 1))
+	shadows[inst.name].scale = inst.scale*Vector2(3.25, 3.25)
 	
 	#Left
-	for i in range(visual_grid_end.y-1):
-		var inst = Sprite.new();
-		inst.position.x = -16;
-		inst.position.y = (16*(i));
-		inst.texture = currentSprite.get_node("UpLeft").texture;
-		inst.vframes = 3;
-		inst.hframes = 3;
-		inst.frame_coords = Vector2(0, 1);
-		inst.name = "Left"+str(i)
-		currentSprite.get_node("Left").add_child(inst);
-		shadows[inst.name] = createShadow(inst.texture, inst.global_position, Vector2(inst.hframes, inst.vframes), inst.frame_coords);
+	inst = currentSprite.get_node("Left/Left0");
+	inst.texture = currentSprite.get_node("UpLeft").texture;
+	inst.position = Vector2(-16, (visual_grid_end.y-2)*8);
+	inst.scale = Vector2(1, visual_grid_end.y-1);
+	material = ShaderMaterial.new();
+	material.shader = load("res://shaders/semisolid.gdshader");
+	inst.material = material;
+	inst.material.set_shader_param("tile_amount", Vector2(1, visual_grid_end.y-1));
+	shadows[inst.name] = createShadow(inst.texture, inst.global_position, Vector2(inst.hframes, inst.vframes), inst.frame_coords);
+	shadows[inst.name].material = material;
+	shadows[inst.name].material.set_shader_param("tile_amount", Vector2(1, visual_grid_end.y-1));
+	shadows[inst.name].scale = inst.scale*Vector2(3.25, 3.25);
 		
 	#Right
-	for i in range(visual_grid_end.y-1):
-		var inst = Sprite.new();
-		inst.position.x = -16+(16*grid_end.x);
-		inst.position.y = (16*(i));
-		inst.texture = currentSprite.get_node("UpLeft").texture;
-		inst.vframes = 3;
-		inst.hframes = 3;
-		inst.frame_coords = Vector2(2, 1);
-		inst.name = "Right"+str(i)
-		currentSprite.get_node("Right").add_child(inst);
-		shadows[inst.name] = createShadow(inst.texture, inst.global_position, Vector2(inst.hframes, inst.vframes), inst.frame_coords);
+	inst = currentSprite.get_node("Right/Right0");
+	inst.texture = currentSprite.get_node("UpLeft").texture;
+	inst.position = Vector2(-16+(16*grid_end.x), (visual_grid_end.y-2)*8);
+	inst.scale = Vector2(1, visual_grid_end.y-1);
+	material = ShaderMaterial.new();
+	material.shader = load("res://shaders/semisolid.gdshader");
+	inst.material = material;
+	inst.material.set_shader_param("tile_amount", Vector2(1, visual_grid_end.y-1));
+	shadows[inst.name] = createShadow(inst.texture, inst.global_position, Vector2(inst.hframes, inst.vframes), inst.frame_coords);
+	shadows[inst.name].material = material;
+	shadows[inst.name].material.set_shader_param("tile_amount", Vector2(1, visual_grid_end.y-1));
+	shadows[inst.name].scale = inst.scale*Vector2(3.25, 3.25);
 		
 	#Center
-#	var k = 0;
-#	for i in range(grid_end.x-1):
-#		for j in range(visual_grid_end.y-1):
-#			var inst = Sprite.new();
-#			inst.position.x = 16*i;
-#			inst.position.y = 16*j;
-#			inst.texture = currentSprite.get_node("UpLeft").texture;
-#			inst.vframes = 3;
-#			inst.hframes = 3;
-#			inst.frame_coords = Vector2(1, 1);
-#			inst.name = "Center"+str(k)
-#			currentSprite.get_node("Center").add_child(inst);
-#			shadows[inst.name] = createShadow(inst.texture, inst.global_position, Vector2(inst.hframes, inst.vframes), inst.frame_coords);
-#			k += 1;
-	var inst = currentSprite.get_node("Center/Center0")
-	inst.texture = currentSprite.get_node("UpLeft").texture
-	inst.position = Vector2((grid_end.x-2)*8, (visual_grid_end.y-2)*8)
-	inst.scale = Vector2(grid_end.x-1, visual_grid_end.y-1)
-	var material = ShaderMaterial.new()
-	material.shader = load("res://shaders/semisolid.gdshader")
+	inst = currentSprite.get_node("Center/Center0");
+	inst.texture = currentSprite.get_node("UpLeft").texture;
+	inst.position = Vector2((grid_end.x-2)*8, (visual_grid_end.y-2)*8);
+	inst.scale = Vector2(grid_end.x-1, visual_grid_end.y-1);
+	material = ShaderMaterial.new();
+	material.shader = load("res://shaders/semisolid.gdshader");
 	inst.material = material
 	inst.material.set_shader_param("tile_amount", Vector2(grid_end.x-1, visual_grid_end.y-1))
 	shadows[inst.name] = createShadow(inst.texture, inst.global_position, Vector2(inst.hframes, inst.vframes), inst.frame_coords)

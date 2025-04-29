@@ -502,10 +502,10 @@ func _process(delta):
 				position.x = lerp(position.x, enterPipePosition.x+26, 12*delta)
 			"left":
 				current_sprite.offset.x += moveSpeed
-				position.y = lerp(position.y, enterPipePosition.y+26, 12*delta)
+				position.y = lerp(position.y, enterPipePosition.y+26+18, 12*delta)
 			"right":
 				current_sprite.offset.x -= moveSpeed
-				position.y = lerp(position.y, enterPipePosition.y+26, 12*delta)
+				position.y = lerp(position.y, enterPipePosition.y+26+18, 12*delta)
 	
 	if (exitingPipe):
 		var yoffset = 0
@@ -788,17 +788,17 @@ func enterPipe(direction : String, pipeNode : Node, code : int):
 						#position.x = pipeNode.position.x+26
 						current_sprite.play(currentPowerup+"_idle");
 					"left":
-						position.y = pipeNode.position.y+26+18
+						#position.y = pipeNode.position.y+26+18
 						current_sprite.play(currentPowerup+"_walk");
 						if (currentPowerup != "small"):
 							current_sprite.scale.y = (3.25)*0.85
 					"right":
-						position.y = pipeNode.position.y+26+18
+						#position.y = pipeNode.position.y+26+18
 						current_sprite.play(currentPowerup+"_walk");
 						if (currentPowerup != "small"):
 							current_sprite.scale.y = (3.25)*0.85
 					"down":
-						position.x = pipeNode.position.x+26
+						#position.x = pipeNode.position.x+26
 						current_sprite.play(currentPowerup+"_idle");
 				$EnterPipeTimer.start()
 				enteringPipeDirection = direction

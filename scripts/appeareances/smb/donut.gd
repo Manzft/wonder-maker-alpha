@@ -63,8 +63,6 @@ func _ready():
 	Global.connect("erase", self, "erase");
 	styleChanged();
 	yield(get_tree(), "idle_frame");
-	if (get_parent().editing):
-		$AnimationPlayer.play("start");
 	startPos = position;
 
 func _process(delta):
@@ -136,7 +134,7 @@ func styleChanged():
 	shadow.animation = currentSprite.animation;
 	shadow.scale = currentSprite.scale;
 	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
-	get_node("../ViewportShadows/Shadows").add_child(shadow);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character")):

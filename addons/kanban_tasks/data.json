@@ -55,13 +55,13 @@
     {
       "title": "Doing",
       "tasks": [
-        65,
         64
       ]
     },
     {
       "title": "Done",
       "tasks": [
+        65,
         7,
         4,
         48,
@@ -466,8 +466,8 @@
     },
     {
       "category": 0,
-      "title": "Fix shadow system",
-      "details": ""
+      "title": "Fix objects",
+      "details": "SMB\n- Terrain ❌✔️☑️\n- Enemies❌ ✖️\n- Items ❌✖️\n- Gizmos ❌✖️\nSMB3\n- Terrain ❌✖️\n- Enemies ❌✖️\n- Items❌ ✖️\n- Gizmos❌ ✖️"
     },
     {
       "category": 0,
