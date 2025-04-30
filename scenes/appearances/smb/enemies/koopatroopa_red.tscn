@@ -234,6 +234,7 @@ cast_to = Vector2( 3, 5 )
 collision_mask = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
 playback_speed = 10.0
 anims/RESET = SubResource( 34 )
 anims/draging = SubResource( 35 )

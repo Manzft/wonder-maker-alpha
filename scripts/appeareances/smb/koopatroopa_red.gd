@@ -74,12 +74,9 @@ func render(group, forcerender = false, render_range = 60):
 	if (group != ""):
 		if (!is_in_group(group)):
 			return
-	var scrwidth = OS.get_window_size().x;
-	var scrheight = OS.get_window_size().y;
-	var multiplier = 720/scrheight;
-	var finalscrwidth = scrwidth * multiplier;
+	var scrwidth = get_node("../Editor/BlackScreen").rect_size.x;
 	var distance = abs(position.x-Global.campos.x);
-	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+	if (distance-(scrwidth/2) > scrwidth*(render_range*0.01)):
 		set_process(false);
 		set_physics_process(false);
 	else:
@@ -131,8 +128,6 @@ func _ready():
 	Global.connect("erase", self, "erase");
 	styleChanged();
 	currentSprite.flip_h = true;
-	yield(get_tree(), "idle_frame");
-	$AnimationPlayer.play("start");
 	startPos = position;
 	if (insided):
 		currentSprite.flip_h = false;
@@ -187,7 +182,7 @@ func _process(_delta):
 					if (chainObject.inbones):
 						chained = false;
 						chainObject = null;
-				if ("inshell" in chainObject):
+				if ("inShell" in chainObject):
 					if (chainObject.inshell):
 						chained = false;
 						chainObject = null;
@@ -518,7 +513,7 @@ func styleChanged():
 	shadow.frames = currentSprite.frames;
 	shadow.animation = currentSprite.animation;
 	shadow.scale = currentSprite.scale;
-	get_node("../ShadowViewport").add_child(shadow);
+	get_node("../ViewporShadow/Shadows").add_child(shadow);
 	
 	if (dupsprite == null):
 		pass

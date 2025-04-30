@@ -1891,9 +1891,7 @@ func styleChange(style, start = false, dontTellObj : bool = false):
 	Global.CurrentStyle = style;
 	get_parent().setStyleBackground();
 	if (style == "Ghostforest"  || style == "Ghosthouse" || style == "Underground"):
-		get_parent().get_node("TileMap").modulate.r = 255;
-		get_parent().get_node("TileMap").modulate.g = 255;
-		get_parent().get_node("TileMap").modulate.b = 255;
+		get_parent().get_node("TileMap").modulate = Color("#76ffffff")
 		
 		get_parent().get_node("ShadowLayer").material.set_shader_param("tint_active", true)
 		get_parent().get_node("ShadowLayer").modulate = Color(1, 1, 1, 1);
@@ -1902,9 +1900,7 @@ func styleChange(style, start = false, dontTellObj : bool = false):
 		else:
 			get_parent().get_node("ShadowLayer").material.set_shader_param("tint_color", Color(0.11, 0.11, 0.1, 1))
 	else:
-		get_parent().get_node("TileMap").modulate.r = 0;
-		get_parent().get_node("TileMap").modulate.g = 0;
-		get_parent().get_node("TileMap").modulate.b = 0;
+		get_parent().get_node("TileMap").modulate = Color("#76000000")
 		get_parent().get_node("ShadowLayer").material.set_shader_param("tint_active", false)
 		get_parent().get_node("ShadowLayer").modulate = Color(0, 0, 0, 0.39);
 	var nodes : Array;

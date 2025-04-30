@@ -70,7 +70,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=23]
+[sub_resource type="RectangleShape2D" id=28]
 extents = Vector2( 19, 19.5 )
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -192,7 +192,7 @@ flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 5.5 )
-shape = SubResource( 23 )
+shape = SubResource( 28 )
 
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 3
@@ -209,6 +209,7 @@ position = Vector2( 0, -16.5 )
 shape = SubResource( 10 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
 playback_speed = 10.0
 anims/RESET = SubResource( 24 )
 anims/draging = SubResource( 25 )
