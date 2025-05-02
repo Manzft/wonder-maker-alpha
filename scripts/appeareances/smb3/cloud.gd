@@ -14,18 +14,15 @@ func render(group, forcerender = false, render_range = 60):
 	if (group != ""):
 		if (!is_in_group(group)):
 			return
-	var scrwidth = OS.get_window_size().x;
-	var scrheight = OS.get_window_size().y;
-	var multiplier = 720/scrheight;
-	var finalscrwidth = scrwidth * multiplier;
+	var scrwidth = get_node("../Editor/BlackScreen").rect_size.x;
 	var distance = abs(position.x-Global.campos.x);
-	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+	if (distance-(scrwidth/2) > scrwidth*(render_range*0.01)):
 		set_process(false);
 		set_physics_process(false);
 	else:
 		set_process(true);
 		set_physics_process(true);
-		
+
 func floorErase():
 	var delete = false;
 	if (get_parent().calculateGrid(position.x, position.y).x <= 6):
@@ -69,10 +66,11 @@ func _ready():
 func _process(_delta):
 	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
 	shadow.scale = currentSprite.scale;
-	$SpriteUnderground.scale = $SpriteGround.scale;
-	$SpriteUnderground.position = $SpriteGround.position;
-	$SpriteGhostforest.scale = $SpriteGround.scale;
-	$SpriteGhostforest.position = $SpriteGround.position;
+	
+	if (currentSprite != get_node("SpriteGround")):
+		currentSprite.scale = $SpriteGround.scale;
+		currentSprite.position = $SpriteGround.position;
+	
 	if (get_node("../Editor").playing):
 		if (get_node("../Character").position.y <= position.y-49):
 			$CollisionShape2D.disabled = false;
@@ -98,10 +96,6 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGhostforest");
 			currentSprite.show();
-		"Snow":
-			currentSprite.hide();
-			currentSprite = get_node("SpriteSnow");
-			currentSprite.show();
 		_:
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
@@ -113,7 +107,8 @@ func styleChanged():
 	shadow = Sprite.new();
 	shadow.texture = currentSprite.texture;
 	shadow.scale = currentSprite.scale
-	get_node("../ShadowViewport").add_child(shadow);
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character")):

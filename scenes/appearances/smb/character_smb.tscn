@@ -755,7 +755,7 @@ stream = ExtResource( 51 )
 [node name="Light2D" type="Light2D" parent="."]
 enabled = false
 texture = ExtResource( 30 )
-energy = 13.15
+energy = 7.0
 mode = 2
 range_item_cull_mask = 2
 __meta__ = {

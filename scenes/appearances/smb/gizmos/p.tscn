@@ -74,7 +74,6 @@ tracks/0/keys = {
 extents = Vector2( 26, 7.5 )
 
 [node name="P" type="KinematicBody2D" groups=["Obj", "P"]]
-z_index = -1
 collision_layer = 8
 collision_mask = 8
 script = ExtResource( 1 )
@@ -83,13 +82,14 @@ script = ExtResource( 1 )
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 9 )
 animation = "idle"
-frame = 2
+frame = 3
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
 playback_speed = 10.0
 anims/RESET = SubResource( 2 )
 anims/start = SubResource( 3 )

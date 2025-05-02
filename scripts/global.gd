@@ -991,12 +991,14 @@ func hasVariants(var objCode):
 func isChainable(var objCode):
 	var chainable = false;
 	match (objCode):
-		OBJ_GOOMBA: chainable = true;
-		OBJ_GOOMBRAT: chainable = true;
-		OBJ_DRYBONES: chainable = true;
-		OBJ_KOOPATROOPA: chainable = true;
-		OBJ_KOOPATROOPA_RED: chainable = true;
-		OBJ_SPINY: chainable = true;
+		OBJ_GOOMBA: chainable = true
+		OBJ_GOOMBRAT: chainable = true
+		OBJ_DRYBONES: chainable = true
+		OBJ_KOOPATROOPA: chainable = true
+		OBJ_KOOPATROOPA_RED: chainable = true
+		OBJ_SPINY: chainable = true
+		OBJ_PIRANHAPLANT: chainable = true
+		OBJ_PIRANHAPLANT_FIRE: chainable = true
 	
 	return chainable;
 

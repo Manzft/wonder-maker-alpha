@@ -17,12 +17,9 @@ func render(group, forcerender = false, render_range = 60):
 	if (group != ""):
 		if (!is_in_group(group)):
 			return
-	var scrwidth = OS.get_window_size().x;
-	var scrheight = OS.get_window_size().y;
-	var multiplier = 720/scrheight;
-	var finalscrwidth = scrwidth * multiplier;
+	var scrwidth = get_node("../Editor/BlackScreen").rect_size.x;
 	var distance = abs(position.x-Global.campos.x);
-	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+	if (distance-(scrwidth/2) > scrwidth*(render_range*0.01)):
 		set_process(false);
 		set_physics_process(false);
 	else:
@@ -66,47 +63,45 @@ func _ready():
 	Global.connect("erase", self, "erase");
 	styleChanged();
 	yield(get_tree(), "idle_frame");
-	if (get_parent().editing):
-		$AnimationPlayer.play("start");
 	startPos = position;
 
 func _process(delta):
-	$SpriteUnderground.scale = $SpriteGround.scale;
-	$SpriteUnderground.position = $SpriteGround.position;
-	$SpriteGhostforest.scale = $SpriteGround.scale;
-	$SpriteGhostforest.position = $SpriteGround.position;
+	if (currentSprite != get_node("SpriteGround")):
+		currentSprite.scale = $SpriteGround.scale
+		currentSprite.position = $SpriteGround.position
+		
 	if (get_node("../Editor").playing):
 		if (get_node("../Character").position.y <= position.y-49):
-			$CollisionShape2D.disabled = false;
+			$CollisionShape2D.disabled = false
 		else:
-			$CollisionShape2D.disabled = true;
+			$CollisionShape2D.disabled = true
 		
 		if (get_node("../Character").currentPowerup == "small"):
-			$Area2D/CollisionShape2D.position.y = -49;
+			$Area2D/CollisionShape2D.position.y = -49
 		else:
-			$Area2D/CollisionShape2D.position.y = -49-20;
+			$Area2D/CollisionShape2D.position.y = -49-20
 	else:
 		if (down || !$ToFallTimer.is_stopped() || !$FallTimer.is_stopped() || currentSprite.frame == 1):
 			currentSprite.frame = 0;
-			$AnimationPlayer.play("RESET");
-			down = false;
-			$ToFallTimer.stop();
-			$FallTimer.stop();
-			position = startPos;
-			downVelocity = 0.0;
-			moveCharacter = false;
-		startPos = position;
+			$AnimationPlayer.play("RESET")
+			down = false
+			$ToFallTimer.stop()
+			$FallTimer.stop()
+			position = startPos
+			downVelocity = 0.0
+			moveCharacter = false
+		startPos = position
 	
 	if (down):
-		position.y += (5+downVelocity)/0.016*delta;
+		position.y += (5+downVelocity)/0.016*delta
 		if (moveCharacter && get_node("../Character").donuts > 0 && get_node("../Character").clouds <= 0):
-			get_node("../Character").position.y += (5+downVelocity)/0.016*delta/get_node("../Character").donuts;
-		downVelocity += (0.125/0.016)*delta;
+			get_node("../Character").position.y += (5+downVelocity)/0.016*delta/get_node("../Character").donuts
+		downVelocity += (0.125/0.016)*delta
 	
-	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
-	shadow.animation = currentSprite.animation;
-	shadow.frame = currentSprite.frame;
-	shadow.scale = currentSprite.scale;
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25)
+	shadow.animation = currentSprite.animation
+	shadow.frame = currentSprite.frame
+	shadow.scale = currentSprite.scale
 
 func styleChanged():
 	match (Global.CurrentStyle):
@@ -134,7 +129,8 @@ func styleChanged():
 	shadow.frames = currentSprite.frames;
 	shadow.animation = currentSprite.animation;
 	shadow.scale = currentSprite.scale;
-	get_node("../ShadowViewport").add_child(shadow);
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character")):

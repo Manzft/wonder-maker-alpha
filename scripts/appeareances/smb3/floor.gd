@@ -25,6 +25,8 @@ var defaultFalseUp2 : bool = false
 var defaultFalseCenter : bool = false
 var defaultFalseCenter2 : bool = false
 
+export var deco_spawn_speed: float = 0.5;
+
 func render(group, forcerender = false, render_range = 60):
 	if (forcerender):
 		set_process(true);
@@ -33,12 +35,9 @@ func render(group, forcerender = false, render_range = 60):
 	if (group != ""):
 		if (!is_in_group(group)):
 			return
-	var scrwidth = OS.get_window_size().x;
-	var scrheight = OS.get_window_size().y;
-	var multiplier = 720/scrheight;
-	var finalscrwidth = scrwidth * multiplier;
+	var scrwidth = get_node("../Editor/BlackScreen").rect_size.x;
 	var distance = abs(position.x-Global.campos.x);
-	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+	if (distance-(scrwidth/2) > scrwidth*(render_range*0.01)):
 		set_process(false);
 		set_physics_process(false);
 	else:
@@ -83,21 +82,21 @@ func _ready():
 	Global.connect("erase", self, "erase");
 	get_node("../LevelFloor").connect("levelFloorChanged", self, "levelFloorChanged");
 	get_node("../EndFloor").connect("endFloorChanged", self, "endFloorChanged");
-	yield(get_tree(), "idle_frame");
-	
+
+	yield(get_tree(), "idle_frame")
 	mygrid = get_parent().calculateGrid(position.x, position.y);
 	
-	styleChanged();
+	styleChanged()
 	updateNearFloors();
 	if (editPlaced):
 		spawnDecoration();
 	else:
 		setDecoration()
 	
-	yield(get_tree(), "idle_frame");
+	yield(get_tree(), "idle_frame")
 	
-	styleChanged();
-	editPlaced = true;
+	editPlaced = false;
+	styleChanged()
 
 func spawnDecoration():
 	var i = str(round(rand_range(0, 20)));
@@ -111,6 +110,9 @@ func spawnDecoration():
 				hasDecoration = true;
 				if (editPlaced):
 					$SoundSpawnDecoration.play();
+					var tween = get_tree().create_tween();
+					get_node(Global.CurrentStyle+"/Decoration"+decorationType).scale.y = 2;
+					tween.tween_property(get_node(Global.CurrentStyle+"/Decoration"+decorationType), "scale", Vector2(3.25, 3.25), deco_spawn_speed)
 		"1":
 			var mygrid = get_parent().calculateGrid(position.x, position.y);
 			if (isNotSolidOrDoesntExists(Vector2(mygrid.x, mygrid.y-1)) && isNotSolidOrDoesntExists(Vector2(mygrid.x, mygrid.y-2))):
@@ -119,6 +121,9 @@ func spawnDecoration():
 				hasDecoration = true;
 				if (editPlaced):
 					$SoundSpawnDecoration.play();
+					var tween = get_tree().create_tween();
+					get_node(Global.CurrentStyle+"/Decoration"+decorationType).scale.y = 2;
+					tween.tween_property(get_node(Global.CurrentStyle+"/Decoration"+decorationType), "scale", Vector2(3.25, 3.25), deco_spawn_speed)
 		"2":
 			var mygrid = get_parent().calculateGrid(position.x, position.y);
 			if (isNotSolidOrDoesntExists(Vector2(mygrid.x, mygrid.y-1)) && isNotSolidOrDoesntExists(Vector2(mygrid.x-1, mygrid.y-1)) && isNotSolidOrDoesntExists(Vector2(mygrid.x-2, mygrid.y-1))):
@@ -129,6 +134,9 @@ func spawnDecoration():
 						hasDecoration = true;
 						if (editPlaced):
 							$SoundSpawnDecoration.play();
+							var tween = get_tree().create_tween();
+							get_node(Global.CurrentStyle+"/Decoration"+decorationType).scale.y = 2;
+							tween.tween_property(get_node(Global.CurrentStyle+"/Decoration"+decorationType), "scale", Vector2(3.25, 3.25), deco_spawn_speed)
 
 func setDecoration():
 	match (decorationType):
@@ -237,7 +245,8 @@ func _process(_delta):
 		shadowdecoration.hide();
 
 func styleChanged():
-	swapDecorationStyle(currentSprite.get_name().trim_prefix("Sprite").trim_suffix("Variant").trim_suffix("Top"));
+	if (!editPlaced):
+		swapDecorationStyle(currentSprite.get_name().trim_prefix("Sprite").trim_suffix("Variant").trim_suffix("Top"));
 	match (Global.CurrentStyle):
 		"Underground":
 			currentSprite.hide();
@@ -716,14 +725,20 @@ func styleChanged():
 	shadow.hframes = currentSprite.get_node("Sprite").hframes;
 	shadow.vframes = currentSprite.get_node("Sprite").vframes;
 	shadow.texture = currentSprite.get_node("Sprite").texture;
-	get_node("../ShadowViewport").add_child(shadow);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 	if (shadowdecoration == null):
 		pass
 	else:
 		shadowdecoration.queue_free();
 	shadowdecoration = Sprite.new();
-	shadowdecoration.scale = currentSprite.scale;
-	get_node("../ShadowViewport").add_child(shadowdecoration);
+	shadowdecoration.scale = currentSprite.scale
+	if (editPlaced):
+		shadowdecoration.scale.y = 2
+	if (decorationType != ""):
+		shadowdecoration.position = get_node("Ground/Decoration"+decorationType).global_position+Vector2(3*3.25, 3*3.25)
+		shadowdecoration.offset = get_node("Ground/Decoration"+decorationType).offset
+		shadowdecoration.texture =  get_node(Global.CurrentStyle+"/Decoration"+decorationType).texture
+	get_node("../ViewportShadow/Shadows").add_child(shadowdecoration)
 
 func levelFloorChanged(levelFloorGrid):
 	if (mygrid.x == levelFloorGrid.x+1):

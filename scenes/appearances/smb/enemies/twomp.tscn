@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://scripts/appeareances/smb/twomp.gd" type="Script" id=1]
 [ext_resource path="res://sprites/appeareances/smb/enemies/twomp/attack.png" type="Texture" id=2]
@@ -115,9 +115,6 @@ _data = [ Vector2( 0, 360 ), 0.0, 0.0, 0, 0, Vector2( 0.505952, 0 ), 0.0, 0.0, 0
 max_value = 360.0
 _data = [ Vector2( 0.0138889, 122.577 ), 0.0, 0.0, 0, 0, Vector2( 0.505952, 360 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="RectangleShape2D" id=13]
-extents = Vector2( 39, 52 )
-
 [node name="Twomp" type="KinematicBody2D" groups=["Enemy", "Extensible", "NotKilleableWithShell", "Obj", "Solid", "Twomp"]]
 z_index = 2
 collision_layer = 2
@@ -151,30 +148,52 @@ position = Vector2( 26, 9.5 )
 shape = SubResource( 10 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
 playback_speed = 10.0
 anims/RESET = SubResource( 14 )
 anims/draging = SubResource( 15 )
 anims/start = SubResource( 16 )
 
-[node name="RayCast" type="RayCast2D" parent="."]
-position = Vector2( -15, 83 )
+[node name="RaycastDown" type="RayCast2D" parent="."]
+position = Vector2( -11, 83 )
 enabled = true
-cast_to = Vector2( 82, 0 )
-collision_mask = 3
+cast_to = Vector2( 36, 0 )
+collision_mask = 11
 collide_with_areas = true
 
-[node name="RayCast2" type="RayCast2D" parent="."]
-position = Vector2( -20, -28 )
+[node name="RaycastDown2" type="RayCast2D" parent="."]
+position = Vector2( 63, 83 )
 enabled = true
-cast_to = Vector2( 0, 106 )
-collision_mask = 3
+cast_to = Vector2( -36, 0 )
+collision_mask = 11
 collide_with_areas = true
 
-[node name="RayCast3" type="RayCast2D" parent="."]
-position = Vector2( 72, -28 )
+[node name="RaycastLeft" type="RayCast2D" parent="."]
+position = Vector2( -20, -24 )
 enabled = true
-cast_to = Vector2( 0, 106 )
-collision_mask = 3
+cast_to = Vector2( 0, 48 )
+collision_mask = 11
+collide_with_areas = true
+
+[node name="RaycastLeft2" type="RayCast2D" parent="."]
+position = Vector2( -20, 74 )
+enabled = true
+cast_to = Vector2( 0, -48 )
+collision_mask = 11
+collide_with_areas = true
+
+[node name="RaycastRight" type="RayCast2D" parent="."]
+position = Vector2( 72, -24 )
+enabled = true
+cast_to = Vector2( 0, 48 )
+collision_mask = 11
+collide_with_areas = true
+
+[node name="RaycastRight2" type="RayCast2D" parent="."]
+position = Vector2( 72, 74 )
+enabled = true
+cast_to = Vector2( 0, -48 )
+collision_mask = 11
 collide_with_areas = true
 
 [node name="DeadTimer" type="Timer" parent="."]
@@ -215,16 +234,6 @@ spread = 11.0
 gravity = Vector2( 0, 2000 )
 initial_velocity = 600.0
 angle_curve = SubResource( 12 )
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-collision_layer = 5
-collision_mask = 0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-visible = false
-position = Vector2( 26, 26 )
-shape = SubResource( 13 )
-disabled = true
 
 [node name="DirectionButton" type="TextureButton" parent="."]
 margin_left = 7.0

@@ -467,7 +467,7 @@
     {
       "category": 0,
       "title": "Fix objects",
-      "details": "SMB\n- Terrain ❌✔️☑️\n- Enemies❌ ✖️\n- Items ❌✖️\n- Gizmos ❌✖️\nSMB3\n- Terrain ❌✖️\n- Enemies ❌✖️\n- Items❌ ✖️\n- Gizmos❌ ✖️"
+      "details": "SMB ✔️☑️️\nSMB3\n- Terrain ❌✖️\n- Enemies ❌✖️\n- Items❌ ✖️\n- Gizmos❌ ✖️"
     },
     {
       "category": 0,

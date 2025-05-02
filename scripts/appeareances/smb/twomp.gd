@@ -18,9 +18,14 @@ var timer = 0.0;
 
 onready var currentSprite = get_node("SpriteGround");
 
-onready var rcd1 = get_node("RayCast");
-onready var rcd2 = get_node("RayCast2");
-onready var rcd3 = get_node("RayCast3");
+onready var rc_down = get_node("RaycastDown")
+onready var rc_down2 = get_node("RaycastDown2")
+
+onready var rc_left = get_node("RaycastLeft")
+onready var rc_left2 = get_node("RaycastLeft2")
+
+onready var rc_right = get_node("RaycastRight")
+onready var rc_right2 = get_node("RaycastRight2")
 
 var motion = Vector2();
 
@@ -90,12 +95,9 @@ func render(group, forcerender = false, render_range = 60):
 	if (group != ""):
 		if (!is_in_group(group)):
 			return
-	var scrwidth = OS.get_window_size().x;
-	var scrheight = OS.get_window_size().y;
-	var multiplier = 720/scrheight;
-	var finalscrwidth = scrwidth * multiplier;
+	var scrwidth = get_node("../Editor/BlackScreen").rect_size.x;
 	var distance = abs(position.x-Global.campos.x);
-	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+	if (distance-(scrwidth/2) > scrwidth*(render_range*0.01)):
 		set_process(false);
 		set_physics_process(false);
 	else:
@@ -152,8 +154,6 @@ func _ready():
 	Global.connect("erase", self, "erase");
 	hide();
 	styleChanged();
-	yield(get_tree(), "idle_frame");
-	$AnimationPlayer.play("start");
 	startPos = position;
 	ready = true;
 
@@ -240,22 +240,23 @@ func _process(_delta):
 		comingBack = false;
 		$CollisionShape2D.disabled = false;
 		
-		if (get_parent().grab && get_parent().grab_node == self):
-			currentSprite.play("attack");
-			currentSprite.speed_scale = 2;
-			currentSprite.scale = Vector2(4, 4);
-			$SweatParticlesLeft.emitting = true;
-			$SweatParticlesRight.emitting = true;
-			$AnimationPlayer.play("draging");
-		else:
-			currentSprite.play("sleep");
-			currentSprite.speed_scale = 0;
-			currentSprite.frame = 0;
-			if (currentSprite.scale.x > 3.25):
-				currentSprite.scale = Vector2(3.25, 3.25);
-			$SweatParticlesLeft.emitting = false;
-			$SweatParticlesRight.emitting = false;
-			$AnimationPlayer.play("RESET");
+		if ($AnimationPlayer.current_animation != "start"):
+			if (get_parent().grab && get_parent().grab_node == self):
+				currentSprite.play("attack");
+				currentSprite.speed_scale = 2;
+				currentSprite.scale = Vector2(4, 4);
+				$SweatParticlesLeft.emitting = true;
+				$SweatParticlesRight.emitting = true;
+				$AnimationPlayer.play("draging");
+			else:
+				currentSprite.play("sleep");
+				currentSprite.speed_scale = 0;
+				currentSprite.frame = 0;
+				if (currentSprite.scale.x > 3.25):
+					currentSprite.scale = Vector2(3.25, 3.25);
+				$SweatParticlesLeft.emitting = false;
+				$SweatParticlesRight.emitting = false;
+				$AnimationPlayer.play("RESET");
 		
 		#DirectionButton Gamepad Press
 		if (Global.CurrentInput == "Gamepad"):
@@ -304,11 +305,14 @@ func _physics_process(delta):
 	#Head Hit Raycasts
 	if (!dead):
 		if (seldirection == "down"):
-			if (rcd1.is_colliding()): areaCollide(rcd1);
+			if (rc_down.is_colliding()): areaCollide(rc_down)
+			if (rc_down2.is_colliding()): areaCollide(rc_down2)
 		if (seldirection == "left"):
-			if (rcd2.is_colliding()): areaCollide(rcd2);
+			if (rc_left.is_colliding()): areaCollide(rc_left)
+			if (rc_left2.is_colliding()): areaCollide(rc_left2)
 		if (seldirection == "right"):
-			if (rcd3.is_colliding()): areaCollide(rcd3);
+			if (rc_right.is_colliding()): areaCollide(rc_right)
+			if (rc_right2.is_colliding()): areaCollide(rc_right2)
 	
 	if (!active && !exiting):
 		active = true;
@@ -344,23 +348,26 @@ func _physics_process(delta):
 				arrived = true;
 			
 			if (attacking):
-				if (seldirection == "down"):
-					motion.y += gravity
-					if (motion.y > max_fall):
-						motion.y = max_fall;
-					currentSprite.play("attack");
-				if (seldirection == "left"):
-					motion.x -= gravity
-					if (motion.x < -max_fall):
-						motion.x = -max_fall;
-					currentSprite.play("attack_side");
-					currentSprite.flip_h = false;
-				if (seldirection == "right"):
-					motion.x += gravity
-					if (motion.x > max_fall):
-						motion.x = max_fall;
-					currentSprite.play("attack_side");
-					currentSprite.flip_h = true;
+				if ($ComeBackTimer.is_stopped()):
+					if (seldirection == "down"):
+						motion.y += gravity
+						if (motion.y > max_fall):
+							motion.y = max_fall;
+						currentSprite.play("attack");
+					if (seldirection == "left"):
+						motion.x -= gravity
+						if (motion.x < -max_fall):
+							motion.x = -max_fall;
+						currentSprite.play("attack_side");
+						currentSprite.flip_h = false;
+					if (seldirection == "right"):
+						motion.x += gravity
+						if (motion.x > max_fall):
+							motion.x = max_fall;
+						currentSprite.play("attack_side");
+						currentSprite.flip_h = true;
+				else:
+					motion = Vector2(0.0, 0.0)
 			elif (comingBack):
 				if (seldirection == "down"):
 					motion.y = -max_walk_speed;
@@ -472,11 +479,35 @@ func areaCollide(rc):
 				get_node("../Character/SoundOnOffSwitch").play();
 			else:
 				get_node("../Character/SoundBrick").play();
-		if (body.is_in_group("Solid") || body.is_in_group("Floor")):
+		if (body.is_in_group("Solid") || body.is_in_group("Floor") || body.is_in_group("P")):
 			if (attacking):
+				if (body.is_in_group("P")):
+					body._press(true)
 				get_node("../Character/SoundTwompHit").play();
-				yield(get_tree(), "idle_frame");
+				yield(get_tree(), "idle_frame")
 				$ComeBackTimer.start();
+				var inst = load("res://scenes/appearances/smb/particles/partexplosion.tscn").instance();
+				var inst2 = load("res://scenes/appearances/smb/particles/partexplosion.tscn").instance();
+				match (seldirection):
+					"down":
+						inst.position.x = position.x;
+						inst2.position.x = position.x+52;
+						inst.position.y = position.y+78;
+						inst2.position.y = position.y+78;
+					"left":
+						inst.position.x = position.x-13;
+						inst2.position.x = position.x-13;
+						inst.position.y = position.y;
+						inst2.position.y = position.y+52;
+					"right":
+						inst.position.x = position.x+65;
+						inst2.position.x = position.x+65;
+						inst.position.y = position.y;
+						inst2.position.y = position.y+52;
+				get_parent().add_child(inst)
+				get_parent().add_child(inst2)
+				
+				get_parent().trigger_shake()
 
 func styleChanged():
 	match (Global.CurrentStyle):
@@ -492,7 +523,7 @@ func styleChanged():
 	shadow.frames = currentSprite.frames;
 	shadow.animation = currentSprite.animation;
 	shadow.scale = currentSprite.scale;
-	get_node("../ShadowViewport").add_child(shadow);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 	
 	if (dupsprite == null):
 		pass
@@ -508,10 +539,12 @@ func styleChanged():
 	get_parent().add_child(dupsprite);
 
 func _on_Area2D_body_entered(body):
+	if (body == self):
+		return
 	if (body.is_in_group("Character") && visible && !exiting && active):
 		hitCharacter = true;
 	if (body.is_in_group("Enemy") && !body.is_in_group("Solid") && visible && !exiting && active):
-		if (motion.x != 0 || motion.y != 0 && attacking):
+		if (motion.x != 0 || motion.y != 0 && attacking && !body.dead):
 			body.hitDead = true;
 			if (position.x < body.position.x):
 				body.hit("right");

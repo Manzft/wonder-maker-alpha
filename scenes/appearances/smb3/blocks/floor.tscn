@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://sprites/appeareances/smb3/blocks/underground/floor.png" type="Texture" id=1]
 [ext_resource path="res://scripts/appeareances/smb3/floor.gd" type="Script" id=2]
@@ -39,9 +39,6 @@
 [ext_resource path="res://sprites/appeareances/smb3/blocks/sky/floor/up.png" type="Texture" id=99]
 [ext_resource path="res://sprites/appeareances/smb3/blocks/sky/floor/center.png" type="Texture" id=102]
 [ext_resource path="res://sprites/appeareances/smb3/blocks/snow/floor/up.png" type="Texture" id=115]
-[ext_resource path="res://sprites/appeareances/smb3/decoration/ghostforest/grass_tall.png" type="Texture" id=121]
-[ext_resource path="res://sprites/appeareances/smb3/decoration/ghostforest/grass_short.png" type="Texture" id=124]
-[ext_resource path="res://sprites/appeareances/smb3/decoration/ghostforest/grass_wide.png" type="Texture" id=125]
 [ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/center.png" type="Texture" id=126]
 [ext_resource path="res://sprites/appeareances/smb3/blocks/ghostforest/floor/up.png" type="Texture" id=131]
 
@@ -130,6 +127,7 @@ tracks/2/keys = {
 collision_layer = 11
 collision_mask = 11
 script = ExtResource( 2 )
+deco_spawn_speed = 0.125
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 4 )
@@ -404,147 +402,154 @@ z_index = -1
 
 [node name="DecorationTall" type="Sprite" parent="Ground"]
 visible = false
-position = Vector2( 0, -104 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 6 )
+offset = Vector2( 0, -32 )
 
 [node name="DecorationShort" type="Sprite" parent="Ground"]
 visible = false
-position = Vector2( 0, -78 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 38 )
+offset = Vector2( 0, -24 )
 
 [node name="DecorationWide" type="Sprite" parent="Ground"]
 visible = false
-position = Vector2( -52, -52 )
+position = Vector2( -52, 0 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 37 )
+offset = Vector2( 0, -16 )
 
 [node name="Underground" type="Node2D" parent="."]
 z_index = -1
 
 [node name="DecorationTall" type="Sprite" parent="Underground"]
 visible = false
-position = Vector2( 0, -101 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 11 )
+offset = Vector2( 0, -32 )
 
 [node name="DecorationShort" type="Sprite" parent="Underground"]
 visible = false
-position = Vector2( 0, -78 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 16 )
+offset = Vector2( 0, -24 )
 
 [node name="DecorationWide" type="Sprite" parent="Underground"]
 visible = false
-position = Vector2( -52, -49 )
+position = Vector2( -52, 0 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 10 )
+offset = Vector2( 0, -16 )
 
 [node name="Sky" type="Node2D" parent="."]
 z_index = -1
 
 [node name="DecorationTall" type="Sprite" parent="Sky"]
 visible = false
-position = Vector2( 0, -104 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 12 )
+offset = Vector2( 0, -32 )
 
 [node name="DecorationShort" type="Sprite" parent="Sky"]
 visible = false
-position = Vector2( 0, -78 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 7 )
+offset = Vector2( 0, -24 )
 
 [node name="DecorationWide" type="Sprite" parent="Sky"]
 visible = false
-position = Vector2( -52, -52 )
+position = Vector2( -52, 0 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 8 )
+offset = Vector2( 0, -16 )
 
 [node name="Forest" type="Node2D" parent="."]
 z_index = -1
 
 [node name="DecorationTall" type="Sprite" parent="Forest"]
 visible = false
-position = Vector2( 0, -101 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 15 )
+offset = Vector2( 0, -32 )
 
 [node name="DecorationShort" type="Sprite" parent="Forest"]
 visible = false
-position = Vector2( 0, -75 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 14 )
+offset = Vector2( 0, -24 )
 
 [node name="DecorationWide" type="Sprite" parent="Forest"]
 visible = false
-position = Vector2( -52, -49 )
+position = Vector2( -52, 0 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 13 )
+offset = Vector2( 0, -16 )
 
 [node name="Desert" type="Node2D" parent="."]
 z_index = -1
 
 [node name="DecorationTall" type="Sprite" parent="Desert"]
 visible = false
-position = Vector2( 0, -104 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 21 )
+offset = Vector2( 0, -32 )
 
 [node name="DecorationShort" type="Sprite" parent="Desert"]
 visible = false
-position = Vector2( 0, -78 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 23 )
+offset = Vector2( 0, -24 )
 
 [node name="DecorationWide" type="Sprite" parent="Desert"]
 visible = false
-position = Vector2( -52, -52 )
+position = Vector2( -52, 0 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 24 )
+offset = Vector2( 0, -16 )
 
 [node name="Snow" type="Node2D" parent="."]
 z_index = -1
 
 [node name="DecorationTall" type="Sprite" parent="Snow"]
 visible = false
-position = Vector2( 0, -104 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 22 )
+offset = Vector2( 0, -32 )
 
 [node name="DecorationShort" type="Sprite" parent="Snow"]
 visible = false
-position = Vector2( 0, -78 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 25 )
+offset = Vector2( 0, -24 )
 
 [node name="DecorationWide" type="Sprite" parent="Snow"]
 visible = false
-position = Vector2( -52, -52 )
+position = Vector2( -52, 0 )
 scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 20 )
+offset = Vector2( 0, -16 )
 
 [node name="Ghostforest" type="Node2D" parent="."]
 z_index = -1
 
 [node name="DecorationTall" type="Sprite" parent="Ghostforest"]
 visible = false
-position = Vector2( 0, -104 )
 scale = Vector2( 3.25, 3.25 )
-texture = ExtResource( 121 )
+texture = ExtResource( 22 )
+offset = Vector2( 0, -32 )
 
 [node name="DecorationShort" type="Sprite" parent="Ghostforest"]
 visible = false
-position = Vector2( 0, -78 )
 scale = Vector2( 3.25, 3.25 )
-texture = ExtResource( 124 )
+texture = ExtResource( 25 )
+offset = Vector2( 0, -24 )
 
 [node name="DecorationWide" type="Sprite" parent="Ghostforest"]
 visible = false
-position = Vector2( -52, -52 )
+position = Vector2( -52, 0 )
 scale = Vector2( 3.25, 3.25 )
-texture = ExtResource( 125 )
+texture = ExtResource( 20 )
+offset = Vector2( 0, -16 )
 
 [node name="SoundSpawnDecoration" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 9 )

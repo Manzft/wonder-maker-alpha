@@ -61,12 +61,9 @@ func render(group, forcerender = false, render_range = 60):
 	if (group != ""):
 		if (!is_in_group(group)):
 			return
-	var scrwidth = OS.get_window_size().x;
-	var scrheight = OS.get_window_size().y;
-	var multiplier = 720/scrheight;
-	var finalscrwidth = scrwidth * multiplier;
+	var scrwidth = get_node("../Editor/BlackScreen").rect_size.x;
 	var distance = abs(position.x-Global.campos.x);
-	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+	if (distance-(scrwidth/2) > scrwidth*(render_range*0.01)):
 		set_process(false);
 		set_physics_process(false);
 	else:
@@ -91,7 +88,7 @@ func changeStyle():
 	var grid = get_parent().calculateGrid(pos.x, pos.y);
 	var obj = get_parent().grid[grid.x][grid.y];
 	var scene = Global.object[Global.CurrentAppeareance][obj][Global.OP_SCENE];
-	var inst = scene.instance();
+	var inst = scene.instantiate();
 	get_parent().grid_node[grid.x][grid.y] = inst;
 	get_parent().add_child(inst);
 	inst.position = pos;
@@ -112,14 +109,11 @@ func _ready():
 	jump_h  = def_jump_h/(Global.ENTITY_PHYSICS_SPEED*0.01);
 	gravity = def_gravity/(Global.ENTITY_PHYSICS_SPEED*0.01);
 	max_fall = def_max_fall/(Global.ENTITY_PHYSICS_SPEED*0.01);
-	Global.connect("render", self, "render");
-	Global.connect("floorErase", self, "floorErase");
-	Global.connect("changeStyle", self, "changeStyle");
-	Global.connect("erase", self, "erase");
+	Global.connect("render", self, "render")
+	Global.connect("floorErase", self, "floorErase")
+	Global.connect("changeStyle", self, "changeStyle")
+	Global.connect("erase", self, "erase")
 	styleChanged();
-	yield(get_tree(), "idle_frame");
-	if (get_parent().editing):
-		$AnimationPlayer.play("start");
 	startPos = position;
 	chainAnimation();
 
@@ -160,8 +154,7 @@ func _process(delta):
 			else:
 				chainMoving = "2"
 			
-		if (is_on_floor() || dead):
-			canChain = false;
+		canChain = false;
 			
 		if (stopped && chained):
 			stopChainObject = true;
@@ -175,40 +168,25 @@ func _process(delta):
 		
 		if (chained):
 			if (chainObject != null):
-				if ("inbones" in chainObject):
-					if (chainObject.inbones):
-						chained = false;
-						chainObject = null;
-				if ("inshell" in chainObject):
-					if (chainObject.inshell):
-						chained = false;
-						chainObject = null;
-				
 				if (chainObject.visible):
 					position.y = chainObject.position.y-51;
-					if (chainObject.stopped):
-						if (currentSprite.animation != "idle"):
-							currentSprite.animation = "idle";
-					else:
-						if (currentSprite.animation != "walk"):
-							currentSprite.animation = "walk";
-							#$AnimationPlayer.play("incolumn"+chainMoving);
 					
-#					if (chainMoving == ""):
-#						currentSprite.position.x = lerp(currentSprite.position.x, -4, 0.25);
-#						if (currentSprite.position.x <= -3.9):
-#							chainMoving = "2";
-#					else:
-#						currentSprite.position.x = lerp(currentSprite.position.x, 4, 0.25);
-#						if (currentSprite.position.x >= 3.9):
-#							chainMoving = "";
-						
 					motion.x = chainObject.motion.x;
 					
 					if (abs(position.x-chainObject.position.x) > 13):
 						motion.y = 0;
 						chained = false;
 						chainObject = null;
+				if (chainObject != null):
+					if ("inbones" in chainObject):
+						if (chainObject.inbones):
+							chained = false;
+							chainObject = null;
+					if (chainObject != null):
+						if ("inshell" in chainObject):
+							if (chainObject.inshell):
+								chained = false;
+								chainObject = null;
 			else:
 				chainObject = null;
 				chained = false;
@@ -231,7 +209,7 @@ func _process(delta):
 				inst.position = position;
 				inst.position.y -= 26;
 				inst.nogravity = true;
-				inst.additionalSpeed += motion;
+				#inst.additionalSpeed += motion;
 				get_parent().add_child(inst);
 				if (!currentSprite.flip_h):
 					inst.direction = "left";
@@ -324,6 +302,7 @@ func _process(delta):
 		
 	if (!dupsprite.visible):
 		dupsprite.position = currentSprite.global_position;
+		yield(get_tree(), "idle_frame")
 		dupsprite.show();
 	
 	dupsprite.frame = currentSprite.frame;
@@ -454,7 +433,8 @@ func styleChanged():
 	shadow.frames = currentSprite.frames;
 	shadow.animation = currentSprite.animation;
 	shadow.scale = currentSprite.scale;
-	get_node("../ShadowViewport").add_child(shadow);
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25)
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 	
 	if (dupsprite == null):
 		pass

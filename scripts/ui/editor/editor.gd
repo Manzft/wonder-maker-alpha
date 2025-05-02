@@ -1844,7 +1844,7 @@ func appearanceChange(app, start = false):
 func _on_SMBButton_pressed():
 	$AudioBigButton.play();
 	closeMenus();
-	yield(get_tree().create_timer(0.5), "timeout");
+	yield(get_tree().create_timer(0.25), "timeout");
 	Global.startAppearanceChange(Global.APP_SMB, false, self);
 func _on_SMBButton_mouse_entered():
 	mouseFocus = "AppeareancesMenu/SMBButton"; button_mouse_entered(); changeFocus();
@@ -1854,7 +1854,7 @@ func _on_SMBButton_mouse_exited():
 func _on_SMB3Button_pressed():
 	$AudioBigButton.play();
 	closeMenus();
-	yield(get_tree().create_timer(0.5), "timeout");
+	yield(get_tree().create_timer(0.25), "timeout");
 	Global.startAppearanceChange(Global.APP_SMB3, false, self);
 func _on_SMB3Button_mouse_entered():
 	mouseFocus = "AppeareancesMenu/SMB3Button"; button_mouse_entered(); changeFocus();

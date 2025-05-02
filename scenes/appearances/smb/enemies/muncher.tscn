@@ -122,6 +122,7 @@ position = Vector2( 0, 0.5 )
 shape = SubResource( 16 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
 playback_speed = 10.0
 anims/RESET = SubResource( 18 )
 anims/draging = SubResource( 19 )

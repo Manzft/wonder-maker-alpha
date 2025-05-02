@@ -136,6 +136,7 @@ position = Vector2( 0, -12.5 )
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 17 )
 animation = "up"
+frame = 1
 playing = true
 
 [node name="Area2D" type="Area2D" parent="."]

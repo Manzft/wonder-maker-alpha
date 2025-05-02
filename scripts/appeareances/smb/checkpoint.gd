@@ -42,12 +42,9 @@ func render(group, forcerender = false, render_range = 60):
 	if (group != ""):
 		if (!is_in_group(group)):
 			return
-	var scrwidth = OS.get_window_size().x;
-	var scrheight = OS.get_window_size().y;
-	var multiplier = 720/scrheight;
-	var finalscrwidth = scrwidth * multiplier;
+	var scrwidth = get_node("../Editor/BlackScreen").rect_size.x;
 	var distance = abs(position.x-Global.campos.x);
-	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+	if (distance-(scrwidth/2) > scrwidth*(render_range*0.01)):
 		set_process(false);
 		set_physics_process(false);
 	else:
@@ -102,12 +99,8 @@ func _ready():
 	if (Global.CheckpointGrid == mygrid):
 		got = true;
 		currentSprite.play("mario");
-	
-	yield(get_tree(), "idle_frame");
-	if (get_parent().editing):
-		$AnimationPlayer.play("start");
 
-func _process(_delta):
+func _process(delta: float):
 	if (bye):
 		eraseShadow();
 		queue_free();
@@ -119,16 +112,16 @@ func _process(_delta):
 	match (seldirection):
 		"down":
 			$DirectionButton/ArrowDown.show();
-			$SpriteGround.rotation = lerp_angle($SpriteGround.rotation, deg2rad(180.0), 0.25);
+			$SpriteGround.rotation = lerp_angle($SpriteGround.rotation, deg2rad(180.0), 16.0*delta);
 		"up":
 			$DirectionButton/ArrowUp.show();
-			$SpriteGround.rotation = lerp_angle($SpriteGround.rotation, deg2rad(0.0), 0.25);
+			$SpriteGround.rotation = lerp_angle($SpriteGround.rotation, deg2rad(0.0), 16.0*delta);
 		"left":
 			$DirectionButton/ArrowLeft.show();
-			$SpriteGround.rotation = lerp_angle($SpriteGround.rotation, deg2rad(270.0), 0.25);
+			$SpriteGround.rotation = lerp_angle($SpriteGround.rotation, deg2rad(270.0), 16.0*delta);
 		"right":
 			$DirectionButton/ArrowRight.show();
-			$SpriteGround.rotation = lerp_angle($SpriteGround.rotation, deg2rad(90.0), 0.25);
+			$SpriteGround.rotation = lerp_angle($SpriteGround.rotation, deg2rad(90.0), 16.0*delta);
 	
 	if (get_node("../Editor").playing):
 		$DirectionButton.hide();
@@ -157,7 +150,7 @@ func styleChanged():
 	shadowbase = Sprite.new();
 	shadowbase.texture = $SpriteGround.texture;
 	shadowbase.scale = $SpriteGround.scale
-	get_node("../ShadowViewport").add_child(shadowbase);
+	get_node("../ViewportShadow/Shadows").add_child(shadowbase);
 	if (shadowflag == null):
 		pass
 	else:
@@ -166,7 +159,7 @@ func styleChanged():
 	shadowflag.frames = currentSprite.frames;
 	shadowflag.scale = currentSprite.scale;
 	shadowflag.offset = currentSprite.offset;
-	get_node("../ShadowViewport").add_child(shadowflag);
+	get_node("../ViewportShadow/Shadows").add_child(shadowflag);
 
 func _on_Checkpoint_body_entered(body):
 	if (body == get_node("../Character") && !got):

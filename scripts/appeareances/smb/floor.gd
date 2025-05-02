@@ -318,10 +318,8 @@ func styleChanged():
 	if (decorationType != ""):
 		shadowdecoration.position = get_node("Ground/Decoration"+decorationType).global_position+Vector2(3*3.25, 3*3.25)
 		shadowdecoration.offset = get_node("Ground/Decoration"+decorationType).offset
+		shadowdecoration.texture =  get_node("Ground/Decoration"+decorationType).texture
 	get_node("../ViewportShadow/Shadows").add_child(shadowdecoration)
-	
-	if (!currentSprite.visible):
-		print("Im ", currentSprite, " and im not visible");
 
 func levelFloorChanged(levelFloorGrid):
 	if (mygrid.x == levelFloorGrid.x+1):

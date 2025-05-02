@@ -37,7 +37,6 @@ tracks/0/keys = {
 }
 
 [node name="Arrow" type="Node2D" groups=["Arrow", "Extensible", "Obj"]]
-z_index = -1
 script = ExtResource( 1 )
 
 [node name="SpriteGround" type="Sprite" parent="."]
@@ -46,6 +45,7 @@ scale = Vector2( 3.25, 3.25 )
 texture = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
 playback_speed = 10.0
 anims/RESET = SubResource( 2 )
 anims/start = SubResource( 3 )

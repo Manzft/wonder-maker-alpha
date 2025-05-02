@@ -26,12 +26,9 @@ func render(group, forcerender = false, render_range = 60):
 	if (group != ""):
 		if (!is_in_group(group)):
 			return
-	var scrwidth = OS.get_window_size().x;
-	var scrheight = OS.get_window_size().y;
-	var multiplier = 720/scrheight;
-	var finalscrwidth = scrwidth * multiplier;
-	var distance = abs(position.x-Global.campos.x);
-	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+	var scrwidth = get_node("../Editor/BlackScreen").rect_size.x
+	var distance = abs(position.x-Global.campos.x)
+	if (distance-(scrwidth/2) > scrwidth*(render_range*0.01)):
 		set_process(false);
 		set_physics_process(false);
 	else:
@@ -75,16 +72,16 @@ func _ready():
 	Global.connect("changeStyle", self, "changeStyle");
 	Global.connect("erase", self, "erase");
 	styleChanged();
-	yield(get_tree(), "idle_frame");
-	if (get_parent().editing):
-		$AnimationPlayer.play("start");
 
 func _process(_delta):
-	currentSprite.frame = floor(get_parent().syncanim.smb3.brick);
+	if (currentSprite != get_node("SpriteGround")):
+		currentSprite.scale = $SpriteGround.scale
+		currentSprite.position = $SpriteGround.position
+		
+	currentSprite.frame = floor(get_parent().syncanim.smb3.brick)
 	
 	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
 	shadow.scale = currentSprite.scale;
-	shadow.frame = currentSprite.frame;
 	if (!currentSprite.visible || !visible):
 		shadow.visible = false;
 	else:
@@ -101,11 +98,6 @@ func _process(_delta):
 	if (delete):
 		get_parent().eraseObject(position);
 	
-	$SpriteUnderground.scale = $SpriteGround.scale;
-	$SpriteUnderground.position = $SpriteGround.position;
-	$SpriteGhostforest.scale = $SpriteGround.scale;
-	$SpriteGhostforest.position = $SpriteGround.position;
-	
 	if (objectInside != ""):
 		if (get_node("../Editor").playing):
 			$HasObjectInside.hide();
@@ -113,12 +105,13 @@ func _process(_delta):
 			$HasObjectInside.show();
 			
 	if (!get_node("../Editor").playing):
+		currentSprite.speed_scale = 0;
+		currentSprite.frame = 0;
 		if (!visible):
 			show();
 			$CollisionShape2D.disabled = false;
 		myUpCoinDone = false;
 		candeactivate = false;
-		currentSprite.frame = 0;
 		$CoinInsideTimer.stop();
 		if (deactivated):
 			styleChanged();
@@ -158,8 +151,10 @@ func styleChanged():
 		shadow.queue_free();
 	shadow = AnimatedSprite.new();
 	shadow.frames = currentSprite.frames;
+	shadow.animation = currentSprite.animation
 	shadow.scale = currentSprite.scale
-	get_node("../ShadowViewport").add_child(shadow);
+	shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25)
+	get_node("../ViewportShadow/Shadows").add_child(shadow)
 
 func hit(var shell = false):
 	if ($AnimationPlayer.current_animation != "hit" && visible):

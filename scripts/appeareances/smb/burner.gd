@@ -13,6 +13,8 @@ var seldirection = "up";
 var shadow : Sprite
 var shadowflame : AnimatedSprite
 
+var rendered: bool = false
+
 func render(group, forcerender = false, render_range = 60):
 	if (forcerender):
 		set_process(true);
@@ -21,15 +23,14 @@ func render(group, forcerender = false, render_range = 60):
 	if (group != ""):
 		if (!is_in_group(group)):
 			return
-	var scrwidth = OS.get_window_size().x;
-	var scrheight = OS.get_window_size().y;
-	var multiplier = 720/scrheight;
-	var finalscrwidth = scrwidth * multiplier;
+	var scrwidth = get_node("../Editor/BlackScreen").rect_size.x;
 	var distance = abs(position.x-Global.campos.x);
-	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
-		set_process(false);
-		set_physics_process(false);
+	if (distance-(scrwidth/2) > scrwidth*(render_range*0.01)):
+		rendered = false
+		#set_process(false);
+		#set_physics_process(false);
 	else:
+		rendered = true
 		set_process(true);
 		set_physics_process(true);
 
@@ -67,9 +68,6 @@ func _ready():
 	Global.connect("changeStyle", self, "changeStyle");
 	Global.connect("erase", self, "erase");
 	styleChanged();
-	yield(get_tree(), "idle_frame");
-	if (get_parent().editing):
-		$AnimationPlayer.play("start");
 	canSyncAnim = true;
 	match (seldirection):
 		"right":
@@ -81,7 +79,7 @@ func _ready():
 		"up":
 			currentSprite.rotation = deg2rad(0.0);
 
-func _process(_delta):
+func _process(delta: float):
 	$DirectionButton/ArrowLeft.hide();
 	$DirectionButton/ArrowRight.hide();
 	$DirectionButton/ArrowUp.hide();
@@ -89,9 +87,9 @@ func _process(_delta):
 	match (seldirection):
 		"down":
 			$DirectionButton/ArrowDown.show();
-			$SpriteGround.rotation = lerp_angle(currentSprite.rotation, deg2rad(180.0), 0.25);
+			$SpriteGround.rotation = lerp_angle(currentSprite.rotation, deg2rad(180.0), 16.0*delta);
 			
-			$Flame.rotation = lerp_angle($Flame.rotation, deg2rad(180.0), 0.25);
+			$Flame.rotation = lerp_angle($Flame.rotation, deg2rad(180.0), 16.0*delta);
 			
 			$Area2D/Up.disabled = true;
 			$Area2D/Left.disabled = true;
@@ -99,9 +97,9 @@ func _process(_delta):
 			$Area2D/Down.disabled = false;
 		"up":
 			$DirectionButton/ArrowUp.show();
-			$SpriteGround.rotation = lerp_angle(currentSprite.rotation, deg2rad(0.0), 0.25);
+			$SpriteGround.rotation = lerp_angle(currentSprite.rotation, deg2rad(0.0), 16.0*delta);
 			
-			$Flame.rotation = lerp_angle($Flame.rotation, deg2rad(0.0), 0.25);
+			$Flame.rotation = lerp_angle($Flame.rotation, deg2rad(0.0), 16.0*delta);
 			
 			$Area2D/Up.disabled = false;
 			$Area2D/Left.disabled = true;
@@ -109,9 +107,9 @@ func _process(_delta):
 			$Area2D/Down.disabled = true;
 		"left":
 			$DirectionButton/ArrowLeft.show();
-			$SpriteGround.rotation = lerp_angle(currentSprite.rotation, deg2rad(270.0), 0.25);
+			$SpriteGround.rotation = lerp_angle(currentSprite.rotation, deg2rad(270.0), 16.0*delta);
 			
-			$Flame.rotation = lerp_angle($Flame.rotation, deg2rad(270.0), 0.25);
+			$Flame.rotation = lerp_angle($Flame.rotation, deg2rad(270.0), 16.0*delta);
 			
 			$Area2D/Up.disabled = true;
 			$Area2D/Left.disabled = false;
@@ -119,9 +117,9 @@ func _process(_delta):
 			$Area2D/Down.disabled = true;
 		"right":
 			$DirectionButton/ArrowRight.show();
-			$SpriteGround.rotation = lerp_angle(currentSprite.rotation, deg2rad(90.0), 0.25);
+			$SpriteGround.rotation = lerp_angle(currentSprite.rotation, deg2rad(90.0), 16.0*delta);
 			
-			$Flame.rotation = lerp_angle($Flame.rotation, deg2rad(90.0), 0.25);
+			$Flame.rotation = lerp_angle($Flame.rotation, deg2rad(90.0), 16.0*delta);
 			
 			$Area2D/Up.disabled = true;
 			$Area2D/Left.disabled = true;
@@ -132,7 +130,10 @@ func _process(_delta):
 		$DirectionButton.hide();
 		
 		if (sleep):
-			get_node("../Character/SoundBurnerFlame").play();
+			flameCurrentSprite.play("idle")
+			flameCurrentSprite.speed_scale = 1;
+			if (rendered):
+				get_node("../Character/SoundBurnerFlame").play()
 			sleep = false;
 		
 		if (flameCurrentSprite.animation == "idle"):
@@ -203,7 +204,7 @@ func styleChanged():
 	shadow = Sprite.new();
 	shadow.texture = currentSprite.texture;
 	shadow.scale = currentSprite.scale
-	get_node("../ShadowViewport").add_child(shadow);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 	if (shadowflame == null):
 		pass
 	else:
@@ -212,7 +213,7 @@ func styleChanged():
 	shadowflame.frames = flameCurrentSprite.frames;
 	shadowflame.scale = flameCurrentSprite.scale;
 	shadowflame.offset = flameCurrentSprite.offset;
-	get_node("../ShadowViewport").add_child(shadowflame);
+	get_node("../ViewportShadow/Shadows").add_child(shadowflame);
 
 func _on_Area2D_body_entered(body):
 	if (body.is_in_group("Character")):

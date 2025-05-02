@@ -113,6 +113,7 @@ func _ready():
 	Global.connect("floorErase", self, "floorErase");
 	Global.connect("changeStyle", self, "changeStyle");
 	Global.connect("erase", self, "erase");
+	hide()
 	
 	yield(get_tree(), "idle_frame");
 	$ResizeContainer.position.x = (16*(grid_end.x))*3.25;
@@ -120,6 +121,7 @@ func _ready():
 	yield(get_tree(), "idle_frame");
 	styleChanged()
 	updateShape()
+	show()
 
 func _process(_delta):
 	if (bye):
@@ -369,16 +371,22 @@ func _input(event):
 						$AudioGrabMove.play();
 						updateShape();
 				if (toGrid.y > currentGrid.y && visual_grid_end.y > visual_grid_end_def.y):
-					unSetAllGrids();
-					currentGrid = Vector2(currentGrid.x, currentGrid.y+1);
-					visual_grid_end = Vector2(grid_end.x, visual_grid_end.y-1);
-					position = get_node("../..").calculateGridPosition(currentGrid);
-					setGrids(Global.OBJ_SEMISOLID);
-					get_node("../..").grid[currentGrid.x][currentGrid.y] = Global.OBJ_SEMISOLID;
-					get_node("../..").grid_node[currentGrid.x][currentGrid.y] = self;
-					setBodySprites();
-					$AudioGrabMove.play();
-					updateShape();
+					var can = true;
+					for i in range(grid_end.x+1+(abs(grid_origin.x))):
+						if (Vector2(i, currentGrid.y-1) != grid_origin*-1):
+							if (get_node("../..").grid[currentGrid.x+i][currentGrid.y+1] != null):
+								can = false;
+					if (can):
+						unSetAllGrids();
+						currentGrid = Vector2(currentGrid.x, currentGrid.y+1);
+						visual_grid_end = Vector2(grid_end.x, visual_grid_end.y-1);
+						position = get_node("../..").calculateGridPosition(currentGrid);
+						setGrids(Global.OBJ_SEMISOLID);
+						get_node("../..").grid[currentGrid.x][currentGrid.y] = Global.OBJ_SEMISOLID;
+						get_node("../..").grid_node[currentGrid.x][currentGrid.y] = self;
+						setBodySprites();
+						$AudioGrabMove.play();
+						updateShape();
 				if (toGrid.x > currentGrid.x+grid_end.x):
 					var can = true;
 					for j in range(grid_end.y+1+(abs(grid_origin.y))):
