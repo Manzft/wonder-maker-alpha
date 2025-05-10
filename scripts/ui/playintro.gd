@@ -30,7 +30,9 @@ func _ready():
 	$Control/AnimationPlayer.play("jump");
 	
 	if (Online.playing_online):
+		$Loading.show()
 		var result = yield(Online.set_played(), "completed")
+		$Loading.hide()
 		if (result == "success"):
 			request_sent = true
 		else:
@@ -41,6 +43,7 @@ func _process(_delta):
 	if (Online.playing_online):
 		if (can_go && request_sent):
 			get_out_here()
+			$Loading.hide()
 	else:
 		if (can_go):
 			get_out_here()

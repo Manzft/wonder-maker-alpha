@@ -81,6 +81,8 @@ func login(nickname: String, password: String):
 	
 	var user_found = false
 	
+	local_accounts_data = accounts
+	
 	for account in accounts:
 		if (account.nick == nickname):
 			user_found = true
@@ -107,6 +109,8 @@ func register(nickname: String, password: String):
 	
 	var user_found = false
 	
+	local_accounts_data = accounts
+	
 	for account in accounts:
 		if (account.nick == nickname):
 			user_found = true
@@ -132,6 +136,8 @@ func set_played():
 	
 	if (accounts == null):
 		return "request_error"
+	
+	local_accounts_data = accounts
 	
 	for account in accounts:
 		if (account.nick == user_name):
@@ -197,6 +203,8 @@ func add_level_clear():
 	if (accounts == null):
 		return "request_error"
 	
+	local_accounts_data = accounts
+	
 	for account in accounts:
 		if (account.nick == user_name):
 			var level_code = str(int(Online.local_loaded_level_data.id))
@@ -215,7 +223,12 @@ func add_level_clear():
 			else:
 				send_data = {"levels_interacted": {}}
 			
+			var r = find_for_str_in_array_dir(local_accounts_data, user_name)
+			if (r == -1):
+				print("User ", user_name," not found in local account data")
+				return
 			send_data.levels_interacted[level_code] = {"clear": true}
+			send_data.finished_levels = int(local_accounts_data[r].finished_levels)+1
 			var condition = ["nick", user_name]
 			print("Updating account info of ", user_name)
 			var result = yield(send_data_condition("accounts", send_data, condition), "completed")
@@ -255,12 +268,51 @@ func add_level_clear():
 				return null
 			return "success"
 
+func add_death():
+	print("Requesting add death...")
+	var accounts = yield(receive_data("accounts"), "completed")
+	
+	if (accounts == null):
+		return "request_error"
+	
+	local_accounts_data = accounts
+	
+	for account in accounts:
+		if (account.nick == user_name):
+			var level_code = str(int(Online.local_loaded_level_data.id))
+			
+			var send_data = {}
+			
+			#Sending Data
+			send_data = {"deaths": int(local_loaded_level_data.deaths)+1}
+			var condition = ["id", str(local_loaded_level_data.id)]
+			print("Updating level info: ", local_loaded_level_data.name)
+			var result = yield(send_data_condition("levels", send_data, condition), "completed")
+			
+			if (result == null):
+				return null
+			
+			#Updating local data
+			result = yield(receive_data("levels"), "completed")
+			if (result != null):
+				for level in result:
+					if (str(level.id) == str(local_loaded_level_data.id)):
+						local_loaded_level_data = level
+						print("Updated local level data")
+						break
+			else:
+				print("Could not update local level data")
+				return null
+			return "success"
+
 func add_like():
 	print("Requesting add like...")
 	var accounts = yield(receive_data("accounts"), "completed")
 	
 	if (accounts == null):
 		return "request_error"
+	
+	local_accounts_data = accounts
 	
 	for account in accounts:
 		if (account.nick == Online.user_name):
@@ -326,6 +378,8 @@ func add_dislike():
 	
 	if (accounts == null):
 		return "request_error"
+	
+	local_accounts_data = accounts
 	
 	for account in accounts:
 		if (account.nick == Online.user_name):
@@ -568,3 +622,11 @@ func check_request():
 	else:
 		print("Request successful")
 		return true
+
+func find_for_str_in_array_dir(array: Array, name: String) -> int:
+	for i in range(array.size()):
+		var element = array[i]
+		if ("nick" in element):
+			if (element["nick"] == name):
+				return i
+	return -1

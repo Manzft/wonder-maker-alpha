@@ -119,6 +119,8 @@ func _ready():
 	if (Global.DISCORD_PRESENCE):
 		Global.setDiscordState("courseworld")
 	
+	setMe(find_node("PopularCourses"))
+	
 	yield(get_tree().create_timer(0.5), "timeout")
 	if (Online.persistency_menu != ""):
 		if (Online.persistency_menu == "NewCourses" || Online.persistency_menu == "PopularCourses"):
@@ -220,7 +222,6 @@ func list_levels():
 	
 	if (selected_tab.name == "NewCourses"):
 		organized_levels_array.sort_custom(MyCustomSorter, "sort_recent")
-		print("NEWCOURSES")
 	elif (selected_tab.name == "PopularCourses"):
 		organized_levels_array.sort_custom(MyCustomSorter, "sort_ascending")
 	

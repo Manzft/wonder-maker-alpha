@@ -2454,6 +2454,11 @@ func _on_Edit_pressed():
 			playing = false
 			Global.playing = false
 			yield(get_tree().create_timer(0.25), "timeout")
+			if (Online.playing_online):
+				var loading = get_tree().current_scene.find_node("GameUI").get_node("Loading")
+				loading.show()
+				yield(Online.add_death(), "completed")
+				loading.hide()
 			Global.changingToEditMode = false
 			#Delete Online Death Signals
 			nodes = get_tree().get_nodes_in_group("OnlineDeath");

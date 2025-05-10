@@ -1,0 +1,910 @@
+[gd_scene load_steps=32 format=2]
+
+[ext_resource path="res://fonts/NINTENDOSWITCHUI.TTF" type="DynamicFontData" id=1]
+[ext_resource path="res://scripts/ui/login.gd" type="Script" id=2]
+[ext_resource path="res://sprites/ui/general/button_dropshadow.png" type="Texture" id=3]
+[ext_resource path="res://sprites/ui/general/button.png" type="Texture" id=4]
+[ext_resource path="res://sounds/ui/button.wav" type="AudioStream" id=5]
+[ext_resource path="res://sounds/ui/select_button.wav" type="AudioStream" id=6]
+[ext_resource path="res://sprites/ui/login/login_bg.png" type="Texture" id=7]
+[ext_resource path="res://sprites/64x64.png" type="Texture" id=8]
+[ext_resource path="res://sprites/ui/startmenu/selection_corner.png" type="Texture" id=9]
+[ext_resource path="res://sprites/ui/login/login_bg_dropshadow.png" type="Texture" id=10]
+[ext_resource path="res://sprites/ui/settings/nine_patch.png" type="Texture" id=11]
+[ext_resource path="res://sprites/ui/editor/selector/close_dropshadow.png" type="Texture" id=12]
+[ext_resource path="res://sprites/ui/editor/selector/close.png" type="Texture" id=13]
+[ext_resource path="res://sprites/ui/settings/nine_patch_dropshadow.png" type="Texture" id=14]
+[ext_resource path="res://sounds/ui/close_menu.wav" type="AudioStream" id=15]
+[ext_resource path="res://sprites/ui/loading.png" type="Texture" id=16]
+
+[sub_resource type="DynamicFont" id=27]
+size = 30
+outline_size = 1
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=28]
+size = 25
+outline_size = 1
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=35]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=26]
+size = 20
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=1]
+size = 30
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 410, 78 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 410, 78 ), Vector2( 420, 88 ), Vector2( 410, 78 ) ]
+}
+
+[sub_resource type="Animation" id=29]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 410, 78 ) ]
+}
+
+[sub_resource type="Animation" id=30]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 410, 78 ), Vector2( 420, 88 ), Vector2( 410, 78 ) ]
+}
+
+[sub_resource type="Animation" id=31]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 48.6, 48.6 ) ]
+}
+
+[sub_resource type="Animation" id=32]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 48.6, 48.6 ), Vector2( 58.6, 58.6 ), Vector2( 48.6, 48.6 ) ]
+}
+
+[sub_resource type="Animation" id=33]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=34]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "in"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="Login" type="TextureRect" groups=["CurrentTree"]]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -287.0
+margin_top = -320.0
+margin_right = 287.0
+margin_bottom = 320.0
+texture = ExtResource( 7 )
+script = ExtResource( 2 )
+
+[node name="Shadow" type="TextureRect" parent="."]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -350.0
+margin_top = -400.0
+margin_right = 350.0
+margin_bottom = 400.0
+mouse_filter = 2
+texture = ExtResource( 10 )
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color( 0, 0, 0, 0.215686 )
+show_behind_parent = true
+margin_left = -4110.0
+margin_top = -2418.0
+margin_right = 5285.0
+margin_bottom = 3167.0
+texture = ExtResource( 8 )
+expand = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Title" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -183.0
+margin_top = 7.0
+margin_right = 184.0
+margin_bottom = 68.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.278431, 0.278431, 0.278431, 1 )
+custom_fonts/font = SubResource( 27 )
+text = "Conectarse al Online"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="UserTitle" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -257.0
+margin_top = 98.0
+margin_right = 260.0
+margin_bottom = 127.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.278431, 0.278431, 0.278431, 1 )
+custom_fonts/font = SubResource( 28 )
+text = "Usuario"
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="UserBox" type="NinePatchRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -265.0
+margin_top = -181.0
+margin_right = 265.0
+margin_bottom = -113.0
+texture = ExtResource( 11 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 9
+
+[node name="Label" type="Label" parent="UserBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 13.0
+margin_top = 11.0
+margin_right = -13.0
+margin_bottom = -11.0
+rect_clip_content = true
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 35 )
+text = "user"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Shadow" type="NinePatchRect" parent="UserBox"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -26.0
+margin_top = -25.0
+margin_right = 26.0
+margin_bottom = 26.0
+texture = ExtResource( 14 )
+patch_margin_left = 38
+patch_margin_top = 39
+patch_margin_right = 38
+patch_margin_bottom = 40
+
+[node name="PasswordTitle" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -257.0
+margin_top = 230.0
+margin_right = 260.0
+margin_bottom = 259.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_outline_modulate = Color( 0.278431, 0.278431, 0.278431, 1 )
+custom_fonts/font = SubResource( 28 )
+text = "Contraseña"
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="PasswordBox" type="NinePatchRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -265.0
+margin_top = -49.0
+margin_right = 265.0
+margin_bottom = 19.0
+texture = ExtResource( 11 )
+patch_margin_left = 10
+patch_margin_top = 10
+patch_margin_right = 10
+patch_margin_bottom = 9
+
+[node name="Label" type="Label" parent="PasswordBox"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 13.0
+margin_top = 11.0
+margin_right = -13.0
+margin_bottom = -11.0
+rect_clip_content = true
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 26 )
+text = "password"
+align = 1
+valign = 1
+autowrap = true
+
+[node name="Shadow" type="NinePatchRect" parent="PasswordBox"]
+show_behind_parent = true
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -26.0
+margin_top = -25.0
+margin_right = 26.0
+margin_bottom = 26.0
+texture = ExtResource( 14 )
+patch_margin_left = 38
+patch_margin_top = 39
+patch_margin_right = 38
+patch_margin_bottom = 40
+
+[node name="LoginButton" type="TextureButton" parent="." groups=["Button"]]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -205.0
+margin_top = -195.0
+margin_right = 205.0
+margin_bottom = -117.0
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath(".")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+texture_normal = ExtResource( 4 )
+texture_disabled = ExtResource( 4 )
+expand = true
+stretch_mode = 3
+
+[node name="Shadow" type="TextureRect" parent="LoginButton"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -64.0
+margin_right = 250.0
+margin_bottom = 64.0
+mouse_filter = 2
+texture = ExtResource( 3 )
+
+[node name="Text" type="Label" parent="LoginButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -89.5
+margin_top = -15.5
+margin_right = 89.5
+margin_bottom = 15.5
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Iniciar Sesión"
+align = 1
+
+[node name="Selection" type="Control" parent="LoginButton" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="LoginButton/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="UpRight" type="TextureRect" parent="LoginButton/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownRight" type="TextureRect" parent="LoginButton/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownLeft" type="TextureRect" parent="LoginButton/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LoginButton/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 4 )
+anims/idle = SubResource( 5 )
+
+[node name="RegisterButton" type="TextureButton" parent="." groups=["Button"]]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -205.0
+margin_top = -98.0
+margin_right = 205.0
+margin_bottom = -20.0
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath(".")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath(".")
+focus_next = NodePath(".")
+focus_previous = NodePath(".")
+texture_normal = ExtResource( 4 )
+texture_disabled = ExtResource( 4 )
+expand = true
+stretch_mode = 3
+
+[node name="Shadow" type="TextureRect" parent="RegisterButton"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -64.0
+margin_right = 250.0
+margin_bottom = 64.0
+mouse_filter = 2
+texture = ExtResource( 3 )
+
+[node name="Text" type="Label" parent="RegisterButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -89.5
+margin_top = -15.5
+margin_right = 89.5
+margin_bottom = 15.5
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 1 )
+text = "Registrarse"
+align = 1
+
+[node name="Selection" type="Control" parent="RegisterButton" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="RegisterButton/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="UpRight" type="TextureRect" parent="RegisterButton/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownRight" type="TextureRect" parent="RegisterButton/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownLeft" type="TextureRect" parent="RegisterButton/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RegisterButton/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 29 )
+anims/idle = SubResource( 30 )
+
+[node name="CloseButton" type="TextureButton" parent="." groups=["Button"]]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -63.0
+margin_top = 11.0
+margin_right = -14.4
+margin_bottom = 59.6
+grow_horizontal = 2
+grow_vertical = 2
+rect_pivot_offset = Vector2( -10, 15 )
+focus_neighbour_left = NodePath("../Exit")
+focus_neighbour_top = NodePath(".")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath("../Coursebot")
+texture_normal = ExtResource( 13 )
+expand = true
+
+[node name="Shadow" type="TextureRect" parent="CloseButton"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -39.5
+margin_right = 40.0
+margin_bottom = 39.5
+mouse_filter = 2
+texture = ExtResource( 12 )
+expand = true
+stretch_mode = 6
+
+[node name="Selection" type="Control" parent="CloseButton" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 2.28882e-05
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="CloseButton/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="UpRight" type="TextureRect" parent="CloseButton/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownRight" type="TextureRect" parent="CloseButton/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="DownLeft" type="TextureRect" parent="CloseButton/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CloseButton/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 31 )
+anims/idle = SubResource( 32 )
+
+[node name="UIBlocker" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Loading" type="Control" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_top = 73.0
+margin_bottom = 73.0
+mouse_filter = 2
+
+[node name="Node2D" type="Node2D" parent="Loading"]
+scale = Vector2( 1.5, 1.5 )
+
+[node name="Sprite" type="Sprite" parent="Loading/Node2D"]
+position = Vector2( 0, -16.0001 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 16 )
+
+[node name="Sprite9" type="Sprite" parent="Loading/Node2D/Sprite"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 16 )
+
+[node name="Sprite2" type="Sprite" parent="Loading/Node2D"]
+position = Vector2( 16, 0 )
+rotation = 1.5708
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 16 )
+
+[node name="Sprite9" type="Sprite" parent="Loading/Node2D/Sprite2"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 16 )
+
+[node name="Sprite3" type="Sprite" parent="Loading/Node2D"]
+position = Vector2( 0, 16 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 16 )
+
+[node name="Sprite9" type="Sprite" parent="Loading/Node2D/Sprite3"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 16 )
+
+[node name="Sprite4" type="Sprite" parent="Loading/Node2D"]
+position = Vector2( -16, 0 )
+rotation = 1.5708
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 16 )
+
+[node name="Sprite9" type="Sprite" parent="Loading/Node2D/Sprite4"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 16 )
+
+[node name="Sprite5" type="Sprite" parent="Loading/Node2D"]
+position = Vector2( -12, -12 )
+rotation = -0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 16 )
+
+[node name="Sprite9" type="Sprite" parent="Loading/Node2D/Sprite5"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 16 )
+
+[node name="Sprite6" type="Sprite" parent="Loading/Node2D"]
+position = Vector2( 12, -12 )
+rotation = 0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 16 )
+
+[node name="Sprite9" type="Sprite" parent="Loading/Node2D/Sprite6"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 16 )
+
+[node name="Sprite7" type="Sprite" parent="Loading/Node2D"]
+position = Vector2( 12, 12 )
+rotation = -0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 16 )
+
+[node name="Sprite9" type="Sprite" parent="Loading/Node2D/Sprite7"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 16 )
+
+[node name="Sprite8" type="Sprite" parent="Loading/Node2D"]
+position = Vector2( -12, 12 )
+rotation = 0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 16 )
+
+[node name="Sprite9" type="Sprite" parent="Loading/Node2D/Sprite8"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 16 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Loading/Node2D"]
+autoplay = "idle"
+playback_speed = 0.5
+anims/RESET = SubResource( 33 )
+anims/idle = SubResource( 34 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 2.0
+anims/RESET = SubResource( 3 )
+anims/in = SubResource( 2 )
+
+[node name="AudioSelectButton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = 15.0
+
+[node name="AudioButton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = 15.0
+
+[node name="AudioCloseMenu" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 15 )
+
+[connection signal="mouse_entered" from="LoginButton" to="." method="_on_OkButton_mouse_entered"]
+[connection signal="mouse_exited" from="LoginButton" to="." method="_on_OkButton_mouse_exited"]
+[connection signal="pressed" from="LoginButton" to="." method="_on_OkButton_pressed"]
+[connection signal="mouse_entered" from="RegisterButton" to="." method="_on_OkButton_mouse_entered"]
+[connection signal="mouse_exited" from="RegisterButton" to="." method="_on_OkButton_mouse_exited"]
+[connection signal="pressed" from="RegisterButton" to="." method="_on_OkButton_pressed"]
+[connection signal="mouse_entered" from="CloseButton" to="." method="_on_CloseButton_mouse_entered"]
+[connection signal="mouse_exited" from="CloseButton" to="." method="_on_CloseButton_mouse_exited"]
+[connection signal="pressed" from="CloseButton" to="." method="_on_CloseButton_pressed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/ui/gameui.gd" type="Script" id=1]
 [ext_resource path="res://sounds/ui/button.wav" type="AudioStream" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://sprites/ui/pausemenu/pause_icon.png" type="Texture" id=4]
 [ext_resource path="res://sprites/ui/startmenu/selection_corner.png" type="Texture" id=5]
 [ext_resource path="res://sprites/ui/editor/square_little_button.png" type="Texture" id=6]
+[ext_resource path="res://sprites/ui/loading.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -72,6 +73,37 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
 }
 
 [node name="GameUI" type="CanvasLayer"]
@@ -186,6 +218,121 @@ texture = ExtResource( 5 )
 playback_speed = 1.25
 anims/RESET = SubResource( 1 )
 anims/idle = SubResource( 2 )
+
+[node name="Loading" type="Control" parent="."]
+visible = false
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -55.0
+margin_top = -51.0
+margin_right = -55.0
+margin_bottom = -51.0
+mouse_filter = 2
+
+[node name="Node2D" type="Node2D" parent="Loading"]
+scale = Vector2( 1.5, 1.5 )
+
+[node name="Sprite" type="Sprite" parent="Loading/Node2D"]
+position = Vector2( 0, -16.0001 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 7 )
+
+[node name="Sprite9" type="Sprite" parent="Loading/Node2D/Sprite"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 7 )
+
+[node name="Sprite2" type="Sprite" parent="Loading/Node2D"]
+position = Vector2( 16, 0 )
+rotation = 1.5708
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 7 )
+
+[node name="Sprite9" type="Sprite" parent="Loading/Node2D/Sprite2"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 7 )
+
+[node name="Sprite3" type="Sprite" parent="Loading/Node2D"]
+position = Vector2( 0, 16 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 7 )
+
+[node name="Sprite9" type="Sprite" parent="Loading/Node2D/Sprite3"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 7 )
+
+[node name="Sprite4" type="Sprite" parent="Loading/Node2D"]
+position = Vector2( -16, 0 )
+rotation = 1.5708
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 7 )
+
+[node name="Sprite9" type="Sprite" parent="Loading/Node2D/Sprite4"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 7 )
+
+[node name="Sprite5" type="Sprite" parent="Loading/Node2D"]
+position = Vector2( -12, -12 )
+rotation = -0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 7 )
+
+[node name="Sprite9" type="Sprite" parent="Loading/Node2D/Sprite5"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 7 )
+
+[node name="Sprite6" type="Sprite" parent="Loading/Node2D"]
+position = Vector2( 12, -12 )
+rotation = 0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 7 )
+
+[node name="Sprite9" type="Sprite" parent="Loading/Node2D/Sprite6"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 7 )
+
+[node name="Sprite7" type="Sprite" parent="Loading/Node2D"]
+position = Vector2( 12, 12 )
+rotation = -0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 7 )
+
+[node name="Sprite9" type="Sprite" parent="Loading/Node2D/Sprite7"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 7 )
+
+[node name="Sprite8" type="Sprite" parent="Loading/Node2D"]
+position = Vector2( -12, 12 )
+rotation = 0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 7 )
+
+[node name="Sprite9" type="Sprite" parent="Loading/Node2D/Sprite8"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 7 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Loading/Node2D"]
+autoplay = "idle"
+playback_speed = 0.5
+anims/RESET = SubResource( 3 )
+anims/idle = SubResource( 4 )
 
 [connection signal="mouse_entered" from="Pause" to="." method="_on_Pause_mouse_entered"]
 [connection signal="mouse_exited" from="Pause" to="." method="_on_Pause_mouse_exited"]

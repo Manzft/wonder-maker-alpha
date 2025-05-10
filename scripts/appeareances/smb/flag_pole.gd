@@ -73,8 +73,21 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		if (!Global.coursePlaying):
 			get_node("../Editor")._on_Edit_pressed();
 		else:
-			Global.changeScene("res://scenes/ui/coursebot.tscn", get_parent())
-			Global.coursePlaying = false;
+			if (Online.playing_online):
+				var loading = get_tree().current_scene.find_node("GameUI").get_node("Loading")
+				loading.show()
+				var result = yield(Online.add_level_clear(), "completed")
+				loading.hide()
+				if (result == "success"):
+					print("Level clear information sent to Wonder Maker Online server")
+					Global.changeScene("res://scenes/ui/online.tscn", get_parent())
+					Global.coursePlaying = false
+				else:
+					print("Can't send level clear information to Wonder Maker Online server, aborting...")
+					get_node("../Editor")._on_Edit_pressed()
+			else:
+				Global.changeScene("res://scenes/ui/coursebot.tscn", get_parent())
+				Global.coursePlaying = false
 
 func _on_BaseArea_body_entered(body):
 	if (body.is_in_group("Character")):
