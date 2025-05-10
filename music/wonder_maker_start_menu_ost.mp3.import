@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/wonder_maker_start_menu_ost.mp3-150f21520a670976f2c09fe521f518cc.mp3str"
+
+[deps]
+
+source_file="res://music/wonder_maker_start_menu_ost.mp3"
+dest_files=[ "res://.import/wonder_maker_start_menu_ost.mp3-150f21520a670976f2c09fe521f518cc.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

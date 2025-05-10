@@ -183,9 +183,13 @@ func _press(by_twomp: bool = false):
 		if !(Input.is_action_pressed("a") || Input.is_action_pressed("b")):
 			get_node("../Character").motion.y = get_node("../Character").jump_h*0.7;
 			get_node("../Character").jumping = true;
+			get_node("../Character").jump_timer = 0.0;
+			get_node("../Character").falling = false;
 		else:
-			get_node("../Character").motion.y = get_node("../Character").jump_h*1;
+			get_node("../Character").motion.y = get_node("../Character").jump_h;
 			get_node("../Character").jumping = true;
+			get_node("../Character").jump_timer = 0.0;
+			get_node("../Character").falling = false;
 	
 	var nodes = get_tree().get_nodes_in_group("Coin");
 	for node in nodes:

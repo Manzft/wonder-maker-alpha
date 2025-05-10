@@ -291,6 +291,7 @@ config/windows_native_icon="res://deficon_icon.ico"
 
 [autoload]
 
+Supabase="*res://addons/supabase/Supabase/supabase.gd"
 Discord="*res://addons/discord_game_sdk/discord.gd"
 Global="*res://scripts/global.gd"
 Online="*res://scripts/online.gd"
@@ -310,7 +311,7 @@ window/stretch/aspect="keep_height"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addons/godot_editor_discord_presence/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/discord_game_sdk/plugin.cfg", "res://addons/godot_editor_discord_presence/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg", "res://addons/supabase/plugin.cfg" )
 
 [global]
 
@@ -410,6 +411,7 @@ start={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777221,"unicode":0,"echo":false,"script":null)
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":0,"button_index":11,"pressure":0.0,"pressed":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":0,"physical_scancode":16777217,"unicode":0,"echo":false,"script":null)
  ]
 }
 select={

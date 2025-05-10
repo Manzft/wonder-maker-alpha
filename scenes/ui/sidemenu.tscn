@@ -1045,7 +1045,8 @@ stretch_mode = 6
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 2.28882e-05
+margin_right = 48.6
+margin_bottom = 48.6
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="Close/Selection"]
@@ -1147,8 +1148,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -4.63017
 margin_top = -4.63017
-margin_right = -4.63019
-margin_bottom = -4.63017
+margin_right = 538.37
+margin_bottom = 97.3698
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="StoryMode/Selection"]
@@ -1249,8 +1250,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -4.63017
 margin_top = -4.63017
-margin_right = -4.63019
-margin_bottom = -4.63017
+margin_right = 538.37
+margin_bottom = 97.3698
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="ManzftChallenge/Selection"]
@@ -1372,6 +1373,8 @@ text = "Niveles Mundiales"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 543.0
+margin_bottom = 102.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="CourseWorld/Selection"]
@@ -1483,6 +1486,8 @@ text = "Crear un nivel"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 62.0
+margin_bottom = 62.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="Exit/Selection"]
@@ -1593,6 +1598,8 @@ text = "Crear un mundo"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 430.0
+margin_bottom = 102.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="WorldMaker/Selection"]
@@ -1701,6 +1708,8 @@ text = "Crear un nivel"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 98.0
+margin_bottom = 98.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="Coursebot/Selection"]
@@ -1810,6 +1819,8 @@ text = "Crear un nivel"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 430.0
+margin_bottom = 102.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="CourseMaker/Selection"]
@@ -1922,6 +1933,8 @@ text = "Crear un nivel"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 98.0
+margin_bottom = 98.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="Worldbot/Selection"]
@@ -2032,6 +2045,8 @@ text = "Crear un nivel"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 62.0
+margin_bottom = 62.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="Notifications/Selection"]
@@ -2141,6 +2156,8 @@ text = "Crear un nivel"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 62.0
+margin_bottom = 62.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="Settings/Selection"]
@@ -2254,6 +2271,8 @@ text = "Crear un nivel"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 62.0
+margin_bottom = 62.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="Discord/Selection"]
@@ -2367,6 +2386,8 @@ text = "Crear un nivel"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 62.0
+margin_bottom = 62.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="Youtube/Selection"]
@@ -2479,6 +2500,8 @@ text = "Crear un nivel"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = 62.0
+margin_bottom = 62.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="Controls/Selection"]

@@ -84,6 +84,8 @@ var max_jump_timer: float = max_jump_timer_def;
 var koyoteFalling = false;
 var startedJumping = false;
 
+var jumpBuffer = false;
+
 var enteringPipe : bool = false
 var exitingPipe : bool = false
 var enteringPipeDirection : String = ""
@@ -93,6 +95,8 @@ var enterPipePosition : Vector2 = Vector2(0, 0)
 var canEnterPipe: bool = true
 var recentlyPipeExited: bool = false
 var lastPipeNode: Node
+
+var cc_motion = Vector2(0, 0)
 
 func eraseShadow():
 	shadow.queue_free();
@@ -440,12 +444,19 @@ func _physics_process(delta):
 				$SoundReadytofly.stop();
 		
 		#Jump and friction controller
+		if (Input.is_action_just_pressed("a") || Input.is_action_just_pressed("b")):
+			if (!is_on_floor() && !jumpBuffer):
+				jumpBuffer = true
+				$JumpBufferTimer.start()
+		
 		if (is_on_floor() || koyoteTime):
-			if (!course_clear && startmenucheck && !falling):
-				if (Input.is_action_just_pressed("a") || Input.is_action_just_pressed("b")):
+			if (!course_clear && startmenucheck):
+				if (Input.is_action_just_pressed("a") || Input.is_action_just_pressed("b") || jumpBuffer):
 					if (!sneaking && !attacking):
 						current_sprite.play(currentPowerup+"_jump");
 					jumping = true;
+					if (jumpBuffer):
+						jumpBuffer = false
 					if (!$SoundJump.playing):
 						$SoundJump.play();
 					koyoteTime = false;
@@ -511,13 +522,32 @@ func _physics_process(delta):
 		if (kicking):
 			current_sprite.play(currentPowerup+"_kick");
 		
-		#Debug
-		#if (Input.is_action_just_pressed("r")):
-		#	if (!died): die();
+		#Corner Correction
+		if (jumping && false):
+			if ($CCRaycastLeft.is_colliding() && !$CCRaycastRight.is_colliding()):
+				var correction_speed = 500
+				if ($CCRaycastLeft.get_collider().is_in_group("Solid")):
+					cc_motion.x = correction_speed
+			elif ($CCRaycastRight.is_colliding() && !$CCRaycastLeft.is_colliding()):
+				var correction_speed = 500
+				if ($CCRaycastRight.get_collider().is_in_group("Solid")):
+					cc_motion.x = -correction_speed
+			else:
+				cc_motion = Vector2(0, 0)
+		else:
+			cc_motion = Vector2(0, 0)
+		$CCRaycastLeft.position.y = -24+$UpArea.position.y
+		$CCRaycastRight.position.y = $CCRaycastLeft.position.y
+		
 		
 	#Global Movement Controller
 	if (!enteringPipe && !exitingPipe && enteringPipeDirection == ""):
-		motion = move_and_slide(motion, Vector2(0, -1));
+		if (cc_motion != Vector2(0, 0)):
+			var mot = motion.x
+			motion = move_and_slide(Vector2(cc_motion.x, motion.y), Vector2(0, -1))
+			motion.x = mot
+		else:
+			motion = move_and_slide(motion, Vector2(0, -1));
 
 func sneak():
 	if (!carrying):
@@ -571,10 +601,12 @@ func die():
 	$SoundStar.stop();
 	
 	#Online Dead Signal
-	if (Global.coursePlaying):
+	if (Online.playing_online):
 		var inst = load("res://scenes/appearances/OnlineDeath.tscn").instance();
 		get_parent().add_child(inst);
 		inst.position = position;
+		if (inst.position.y >= 1600-52):
+			inst.position.y = 1600-52
 	
 	yield(get_tree().create_timer(0.8), "timeout");
 	
@@ -1021,3 +1053,6 @@ func _on_FinishPipeTimer_timeout():
 
 func _on_RecentlyPipeExitedTimer_timeout() -> void:
 	recentlyPipeExited = false
+
+func _on_JumpBufferTimer_timeout():
+	jumpBuffer = false

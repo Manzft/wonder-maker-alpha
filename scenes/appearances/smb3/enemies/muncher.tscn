@@ -108,10 +108,10 @@ script = ExtResource( 1 )
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 8 )
 animation = "idle"
-frame = 1
 playing = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
 playback_speed = 10.0
 anims/RESET = SubResource( 16 )
 anims/draging = SubResource( 17 )

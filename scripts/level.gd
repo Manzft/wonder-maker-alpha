@@ -353,7 +353,6 @@ func placeObject(mousepos, pressed = false, customObj = -1, sound : bool = true,
 					var scene = Global.object[Global.CurrentAppeareance][obj][Global.OP_SCENE];
 					if (inst == null):
 						inst = scene.instance();
-						
 					inst.position = pos;
 					inst.add_to_group(str(obj))
 					

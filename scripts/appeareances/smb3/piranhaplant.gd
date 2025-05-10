@@ -112,9 +112,6 @@ func _ready():
 	Global.connect("changeStyle", self, "changeStyle");
 	Global.connect("erase", self, "erase");
 	styleChanged();
-	yield(get_tree(), "idle_frame");
-	if (get_parent().editing):
-		$AnimationPlayer.play("start");
 	startPos = position;
 	chainAnimation();
 
@@ -149,8 +146,7 @@ func _process(_delta):
 			else:
 				chainMoving = "2"
 			
-		if (is_on_floor() || dead):
-			canChain = false;
+		canChain = false;
 			
 		if (stopped && chained):
 			stopChainObject = true;
@@ -281,7 +277,7 @@ func _process(_delta):
 		dupsprite.position = pos;
 	else:
 		dupsprite.position = currentSprite.global_position;
-	
+		
 	if (!dupsprite.visible):
 		dupsprite.position = currentSprite.global_position;
 		dupsprite.show();
@@ -403,7 +399,7 @@ func styleChanged():
 	shadow.frames = currentSprite.frames;
 	shadow.animation = currentSprite.animation;
 	shadow.scale = currentSprite.scale;
-	get_node("../ShadowViewport").add_child(shadow);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 	
 	if (dupsprite == null):
 		pass

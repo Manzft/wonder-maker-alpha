@@ -10,8 +10,8 @@ var storage : SupabaseStorage
 var debug: bool = false
 
 var config : Dictionary = {
-	"supabaseUrl": "",
-	"supabaseKey": ""
+	"supabaseUrl": "https://wpatttjduqxigjcrprwa.supabase.co",
+	"supabaseKey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndwYXR0dGpkdXF4aWdqY3JwcndhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQxMTczNTQsImV4cCI6MjA1OTY5MzM1NH0.P7qkEBRlrj26VZE4rxjvB3jy4P09jZo4p4cD8OUfnXo"
 }
 
 var header : PoolStringArray = [
@@ -20,6 +20,7 @@ var header : PoolStringArray = [
 ]
 
 func _ready() -> void:
+	pause_mode = PAUSE_MODE_PROCESS
 	load_config()
 	load_nodes()
 

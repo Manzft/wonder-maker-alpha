@@ -93,10 +93,8 @@ func _ready():
 	else:
 		setDecoration()
 	
-	yield(get_tree(), "idle_frame")
-	
-	editPlaced = false;
 	styleChanged()
+	editPlaced = false;
 
 func spawnDecoration():
 	var i = str(round(rand_range(0, 20)));
@@ -715,6 +713,7 @@ func styleChanged():
 		get_node(currentsprite+"/FalseCenter").visible = defaultFalseCenter;
 		get_node(currentsprite+"/FalseUp2").visible = defaultFalseUp2;
 		get_node(currentsprite+"/FalseCenter2").visible = defaultFalseCenter2;
+		defaultFrameCoords = Vector2(-1, -1)
 	
 	if (shadow == null):
 		pass
@@ -726,18 +725,22 @@ func styleChanged():
 	shadow.vframes = currentSprite.get_node("Sprite").vframes;
 	shadow.texture = currentSprite.get_node("Sprite").texture;
 	get_node("../ViewportShadow/Shadows").add_child(shadow);
+	
 	if (shadowdecoration == null):
 		pass
 	else:
 		shadowdecoration.queue_free();
+	
 	shadowdecoration = Sprite.new();
-	shadowdecoration.scale = currentSprite.scale
-	if (editPlaced):
-		shadowdecoration.scale.y = 2
+	shadowdecoration.scale = Vector2(3.25, 3.25)
 	if (decorationType != ""):
 		shadowdecoration.position = get_node("Ground/Decoration"+decorationType).global_position+Vector2(3*3.25, 3*3.25)
 		shadowdecoration.offset = get_node("Ground/Decoration"+decorationType).offset
-		shadowdecoration.texture =  get_node(Global.CurrentStyle+"/Decoration"+decorationType).texture
+		shadowdecoration.texture =  get_node("Ground/Decoration"+decorationType).texture
+	if (editPlaced):
+		var tween = get_tree().create_tween();
+		shadowdecoration.scale.y = 2;
+		tween.tween_property(shadowdecoration, "scale", Vector2(3.25, 3.25), deco_spawn_speed)
 	get_node("../ViewportShadow/Shadows").add_child(shadowdecoration)
 
 func levelFloorChanged(levelFloorGrid):

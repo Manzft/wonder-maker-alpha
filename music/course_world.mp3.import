@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/course_world.mp3-efb0701a6d9dbc15280e5e8d4df32a63.mp3str"
+
+[deps]
+
+source_file="res://music/course_world.mp3"
+dest_files=[ "res://.import/course_world.mp3-efb0701a6d9dbc15280e5e8d4df32a63.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

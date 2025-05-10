@@ -582,6 +582,18 @@ position = Vector2( 17, -53 )
 enabled = true
 cast_to = Vector2( -35, 0 )
 
+[node name="CCRaycastLeft" type="RayCast2D" parent="."]
+position = Vector2( -14, -24 )
+enabled = true
+cast_to = Vector2( -3, -70 )
+collision_mask = 3
+
+[node name="CCRaycastRight" type="RayCast2D" parent="."]
+position = Vector2( 14, -24 )
+enabled = true
+cast_to = Vector2( 3, -70 )
+collision_mask = 3
+
 [node name="UpArea" type="Node2D" parent="."]
 
 [node name="RayCast2D" type="RayCast2D" parent="UpArea"]
@@ -660,6 +672,10 @@ one_shot = true
 
 [node name="KoyoteTimer" type="Timer" parent="."]
 wait_time = 0.1
+one_shot = true
+
+[node name="JumpBufferTimer" type="Timer" parent="."]
+wait_time = 0.125
 one_shot = true
 
 [node name="DeadTimer" type="Timer" parent="."]
@@ -768,6 +784,7 @@ __meta__ = {
 [connection signal="timeout" from="ExitPipeTimer" to="." method="_on_ExitPipeTimer_timeout"]
 [connection signal="timeout" from="FinishPipeTimer" to="." method="_on_FinishPipeTimer_timeout"]
 [connection signal="timeout" from="KoyoteTimer" to="." method="_on_KoyoteTimer_timeout"]
+[connection signal="timeout" from="JumpBufferTimer" to="." method="_on_JumpBufferTimer_timeout"]
 [connection signal="timeout" from="DeadTimer" to="." method="_on_DeadTimer_timeout"]
 [connection signal="timeout" from="InvincibleTimer" to="." method="_on_InvincibleTimer_timeout"]
 [connection signal="timeout" from="ChangingPowerupTimer" to="." method="_on_ChangingPowerup_timeout"]

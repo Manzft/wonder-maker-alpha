@@ -149,6 +149,7 @@ playing = true
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
 anims/RESET = SubResource( 2 )
 anims/hit = SubResource( 4 )
 anims/start = SubResource( 3 )

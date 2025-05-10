@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=66 format=2]
 
 [ext_resource path="res://scripts/ui/pausemenu.gd" type="Script" id=1]
 [ext_resource path="res://sprites/64x64.png" type="Texture" id=2]
@@ -20,6 +20,21 @@
 [ext_resource path="res://sounds/ui/pause.wav" type="AudioStream" id=18]
 [ext_resource path="res://sprites/ui/splashscreen/youtube_icon.png" type="Texture" id=19]
 [ext_resource path="res://sprites/ui/splashscreen/discord_icon.png" type="Texture" id=20]
+[ext_resource path="res://sprites/ui/general/button_dropshadow.png" type="Texture" id=21]
+[ext_resource path="res://sprites/ui/editor/square_little_button_dropshadow.png" type="Texture" id=22]
+[ext_resource path="res://sprites/ui/editor/selector/close_dropshadow.png" type="Texture" id=23]
+[ext_resource path="res://sprites/ui/pausemenu/courseworld_icon.png" type="Texture" id=24]
+[ext_resource path="res://sprites/ui/online/tag.png" type="Texture" id=25]
+[ext_resource path="res://sprites/ui/online/stats_heart_broken.png" type="Texture" id=26]
+[ext_resource path="res://sprites/ui/online/stats_heart.png" type="Texture" id=27]
+[ext_resource path="res://sprites/ui/online/stats_users_played.png" type="Texture" id=28]
+[ext_resource path="res://sprites/ui/online/course_clear/cc_circle_button.png" type="Texture" id=29]
+[ext_resource path="res://sprites/ui/online/course_clear/cc_circle_button_dropshadow.png" type="Texture" id=30]
+[ext_resource path="res://sprites/ui/online/course_clear/cc_like.png" type="Texture" id=31]
+[ext_resource path="res://sprites/ui/online/course_clear/cc_dislike.png" type="Texture" id=32]
+[ext_resource path="res://sprites/ui/loading.png" type="Texture" id=33]
+[ext_resource path="res://sounds/ui/dislike.wav" type="AudioStream" id=34]
+[ext_resource path="res://sounds/ui/like.wav" type="AudioStream" id=35]
 
 [sub_resource type="DynamicFont" id=1]
 size = 40
@@ -502,6 +517,202 @@ tracks/2/keys = {
 "values": [ Vector2( 62, 62 ), Vector2( 72, 72 ), Vector2( 62, 62 ) ]
 }
 
+[sub_resource type="Animation" id=26]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 410, 78 ) ]
+}
+
+[sub_resource type="Animation" id=27]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 188, 188 ), Vector2( 198, 198 ), Vector2( 188, 188 ) ]
+}
+
+[sub_resource type="Animation" id=30]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=31]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
+[sub_resource type="Animation" id=28]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 410, 78 ) ]
+}
+
+[sub_resource type="Animation" id=29]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_size")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 188, 188 ), Vector2( 198, 198 ), Vector2( 188, 188 ) ]
+}
+
+[sub_resource type="Animation" id=32]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0.0 ]
+}
+
+[sub_resource type="Animation" id=33]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:rotation_degrees")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 360.0 ]
+}
+
 [sub_resource type="Animation" id=7]
 length = 0.001
 tracks/0/type = "value"
@@ -599,7 +810,7 @@ tracks/3/loop_wrap = true
 tracks/3/imported = false
 tracks/3/enabled = true
 tracks/3/keys = {
-"times": PoolRealArray( 0, 0.2, 0.3 ),
+"times": PoolRealArray( 0, 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
 "values": [ Vector2( 40, 0 ), Vector2( -450, 0 ), Vector2( -445, 0 ) ]
@@ -660,6 +871,10 @@ tracks/3/keys = {
 [sub_resource type="DynamicFont" id=17]
 font_data = ExtResource( 4 )
 
+[sub_resource type="DynamicFont" id=25]
+size = 35
+font_data = ExtResource( 11 )
+
 [node name="PauseMenu" type="CanvasLayer" groups=["CurrentTree"]]
 pause_mode = 2
 script = ExtResource( 1 )
@@ -715,18 +930,6 @@ focus_neighbour_bottom = NodePath("../Reset")
 texture_normal = ExtResource( 12 )
 expand = true
 
-[node name="Shadow" type="TextureRect" parent="BaseContainer/Base/Close"]
-modulate = Color( 0, 0, 0, 0.219608 )
-show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 3.0
-margin_bottom = 3.0
-mouse_filter = 2
-texture = ExtResource( 12 )
-expand = true
-stretch_mode = 1
-
 [node name="Selection" type="Control" parent="BaseContainer/Base/Close" groups=["Selection"]]
 visible = false
 anchor_right = 1.0
@@ -781,6 +984,21 @@ playback_speed = 1.25
 anims/RESET = SubResource( 5 )
 anims/idle = SubResource( 6 )
 
+[node name="Shadow" type="TextureRect" parent="BaseContainer/Base/Close"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -40.0
+margin_top = -39.5
+margin_right = 40.0
+margin_bottom = 39.5
+mouse_filter = 2
+texture = ExtResource( 23 )
+expand = true
+stretch_mode = 6
+
 [node name="Reset" type="TextureButton" parent="BaseContainer/Base" groups=["Button"]]
 anchor_left = 0.5
 anchor_top = 0.5
@@ -800,14 +1018,17 @@ focus_neighbour_bottom = NodePath("../Exit")
 texture_normal = ExtResource( 13 )
 
 [node name="Shadow" type="TextureRect" parent="BaseContainer/Base/Reset"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 5.0
-margin_bottom = 5.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -64.0
+margin_right = 250.0
+margin_bottom = 64.0
 mouse_filter = 2
-texture = ExtResource( 13 )
+texture = ExtResource( 21 )
 stretch_mode = 1
 
 [node name="Selection" type="Control" parent="BaseContainer/Base/Reset" groups=["Selection"]]
@@ -897,14 +1118,17 @@ focus_neighbour_bottom = NodePath("../Edit")
 texture_normal = ExtResource( 13 )
 
 [node name="Shadow" type="TextureRect" parent="BaseContainer/Base/Exit"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 5.0
-margin_bottom = 5.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -64.0
+margin_right = 250.0
+margin_bottom = 64.0
 mouse_filter = 2
-texture = ExtResource( 13 )
+texture = ExtResource( 21 )
 stretch_mode = 1
 
 [node name="Selection" type="Control" parent="BaseContainer/Base/Exit" groups=["Selection"]]
@@ -993,14 +1217,17 @@ focus_neighbour_right = NodePath(".")
 texture_normal = ExtResource( 13 )
 
 [node name="Shadow" type="TextureRect" parent="BaseContainer/Base/Edit"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 5.0
-margin_bottom = 5.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -250.0
+margin_top = -64.0
+margin_right = 250.0
+margin_bottom = 64.0
 mouse_filter = 2
-texture = ExtResource( 13 )
+texture = ExtResource( 21 )
 stretch_mode = 1
 
 [node name="Selection" type="Control" parent="BaseContainer/Base/Edit" groups=["Selection"]]
@@ -1170,15 +1397,17 @@ anims/RESET = SubResource( 19 )
 anims/idle = SubResource( 20 )
 
 [node name="Shadow" type="TextureRect" parent="BaseContainer/Base/Settings"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 5.0
-margin_right = -36.0
-margin_bottom = -31.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 64.0
+margin_bottom = 64.0
 mouse_filter = 2
-texture = ExtResource( 10 )
+texture = ExtResource( 22 )
 
 [node name="Discord" type="TextureButton" parent="BaseContainer/Base" groups=["Button"]]
 anchor_left = 0.5
@@ -1281,15 +1510,17 @@ anims/RESET = SubResource( 21 )
 anims/idle = SubResource( 22 )
 
 [node name="Shadow" type="TextureRect" parent="BaseContainer/Base/Discord"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
-anchor_right = 1.0
-anchor_bottom = 1.0
-margin_top = 5.0
-margin_right = -36.0
-margin_bottom = -31.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 64.0
+margin_bottom = 64.0
 mouse_filter = 2
-texture = ExtResource( 10 )
+texture = ExtResource( 22 )
 
 [node name="Youtube" type="TextureButton" parent="BaseContainer/Base" groups=["Button"]]
 anchor_left = 0.5
@@ -1392,17 +1623,478 @@ anims/RESET = SubResource( 23 )
 anims/idle = SubResource( 24 )
 
 [node name="Shadow" type="TextureRect" parent="BaseContainer/Base/Youtube"]
-modulate = Color( 0, 0, 0, 0.219608 )
 show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 64.0
+margin_bottom = 64.0
+mouse_filter = 2
+texture = ExtResource( 22 )
+
+[node name="LikeButton" type="TextureButton" parent="BaseContainer/Base" groups=["Button"]]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -197.0
+margin_top = -239.0
+margin_right = -9.0
+margin_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_pivot_offset = Vector2( -10, 15 )
+focus_neighbour_left = NodePath("../Exit")
+focus_neighbour_top = NodePath("../Reset")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath("../Edit")
+texture_normal = ExtResource( 29 )
+
+[node name="Shadow" type="TextureRect" parent="BaseContainer/Base/LikeButton"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -120.0
+margin_top = -120.0
+margin_right = 120.0
+margin_bottom = 120.0
+mouse_filter = 2
+texture = ExtResource( 30 )
+stretch_mode = 1
+
+[node name="Selection" type="Control" parent="BaseContainer/Base/LikeButton" groups=["Selection"]]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_top = 5.0
-margin_right = -36.0
-margin_bottom = -31.0
+margin_left = -3.60376
+margin_top = -3.60376
+margin_right = 218.396
+margin_bottom = -113.604
 mouse_filter = 2
-texture = ExtResource( 10 )
+
+[node name="UpLeft" type="TextureRect" parent="BaseContainer/Base/LikeButton/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="UpRight" type="TextureRect" parent="BaseContainer/Base/LikeButton/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="DownRight" type="TextureRect" parent="BaseContainer/Base/LikeButton/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="DownLeft" type="TextureRect" parent="BaseContainer/Base/LikeButton/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BaseContainer/Base/LikeButton/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 26 )
+anims/idle = SubResource( 27 )
+
+[node name="Label" type="Label" parent="BaseContainer/Base/LikeButton"]
+modulate = Color( 0.317647, 0.317647, 0.317647, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -112.0
+margin_top = 16.0
+margin_right = 112.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 12 )
+text = "¡Me gusta!"
+align = 1
+
+[node name="Icon" type="TextureRect" parent="BaseContainer/Base/LikeButton"]
+modulate = Color( 0.921569, 0.384314, 0.360784, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -33.0
+margin_top = -46.0
+margin_right = 33.0
+margin_bottom = 4.0
+mouse_filter = 2
+texture = ExtResource( 31 )
+
+[node name="Loading" type="Control" parent="BaseContainer/Base/LikeButton"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+mouse_filter = 2
+
+[node name="Node2D" type="Node2D" parent="BaseContainer/Base/LikeButton/Loading"]
+scale = Vector2( 1.5, 1.5 )
+
+[node name="Sprite" type="Sprite" parent="BaseContainer/Base/LikeButton/Loading/Node2D"]
+position = Vector2( 0, -16.0001 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 33 )
+
+[node name="Sprite9" type="Sprite" parent="BaseContainer/Base/LikeButton/Loading/Node2D/Sprite"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 33 )
+
+[node name="Sprite2" type="Sprite" parent="BaseContainer/Base/LikeButton/Loading/Node2D"]
+position = Vector2( 16, 0 )
+rotation = 1.5708
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 33 )
+
+[node name="Sprite9" type="Sprite" parent="BaseContainer/Base/LikeButton/Loading/Node2D/Sprite2"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 33 )
+
+[node name="Sprite3" type="Sprite" parent="BaseContainer/Base/LikeButton/Loading/Node2D"]
+position = Vector2( 0, 16 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 33 )
+
+[node name="Sprite9" type="Sprite" parent="BaseContainer/Base/LikeButton/Loading/Node2D/Sprite3"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 33 )
+
+[node name="Sprite4" type="Sprite" parent="BaseContainer/Base/LikeButton/Loading/Node2D"]
+position = Vector2( -16, 0 )
+rotation = 1.5708
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 33 )
+
+[node name="Sprite9" type="Sprite" parent="BaseContainer/Base/LikeButton/Loading/Node2D/Sprite4"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 33 )
+
+[node name="Sprite5" type="Sprite" parent="BaseContainer/Base/LikeButton/Loading/Node2D"]
+position = Vector2( -12, -12 )
+rotation = -0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 33 )
+
+[node name="Sprite9" type="Sprite" parent="BaseContainer/Base/LikeButton/Loading/Node2D/Sprite5"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 33 )
+
+[node name="Sprite6" type="Sprite" parent="BaseContainer/Base/LikeButton/Loading/Node2D"]
+position = Vector2( 12, -12 )
+rotation = 0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 33 )
+
+[node name="Sprite9" type="Sprite" parent="BaseContainer/Base/LikeButton/Loading/Node2D/Sprite6"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 33 )
+
+[node name="Sprite7" type="Sprite" parent="BaseContainer/Base/LikeButton/Loading/Node2D"]
+position = Vector2( 12, 12 )
+rotation = -0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 33 )
+
+[node name="Sprite9" type="Sprite" parent="BaseContainer/Base/LikeButton/Loading/Node2D/Sprite7"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 33 )
+
+[node name="Sprite8" type="Sprite" parent="BaseContainer/Base/LikeButton/Loading/Node2D"]
+position = Vector2( -12, 12 )
+rotation = 0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 33 )
+
+[node name="Sprite9" type="Sprite" parent="BaseContainer/Base/LikeButton/Loading/Node2D/Sprite8"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 33 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BaseContainer/Base/LikeButton/Loading/Node2D"]
+autoplay = "idle"
+playback_speed = 0.5
+anims/RESET = SubResource( 30 )
+anims/idle = SubResource( 31 )
+
+[node name="DislikeButton" type="TextureButton" parent="BaseContainer/Base" groups=["Button"]]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 2.5
+margin_top = -239.0
+margin_right = 190.5
+margin_bottom = -51.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_pivot_offset = Vector2( -10, 15 )
+focus_neighbour_left = NodePath("../Exit")
+focus_neighbour_top = NodePath("../Reset")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath("../Edit")
+texture_normal = ExtResource( 29 )
+
+[node name="Shadow" type="TextureRect" parent="BaseContainer/Base/DislikeButton"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -120.0
+margin_top = -120.0
+margin_right = 120.0
+margin_bottom = 120.0
+mouse_filter = 2
+texture = ExtResource( 30 )
+stretch_mode = 1
+
+[node name="Selection" type="Control" parent="BaseContainer/Base/DislikeButton" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -3.60376
+margin_top = -3.60376
+margin_right = 218.396
+margin_bottom = -113.604
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="BaseContainer/Base/DislikeButton/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
+margin_bottom = 35.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="UpRight" type="TextureRect" parent="BaseContainer/Base/DislikeButton/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="DownRight" type="TextureRect" parent="BaseContainer/Base/DislikeButton/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="DownLeft" type="TextureRect" parent="BaseContainer/Base/DislikeButton/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 8 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BaseContainer/Base/DislikeButton/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 28 )
+anims/idle = SubResource( 29 )
+
+[node name="Label" type="Label" parent="BaseContainer/Base/DislikeButton"]
+modulate = Color( 0.317647, 0.317647, 0.317647, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -112.0
+margin_top = 16.0
+margin_right = 112.0
+margin_bottom = 41.0
+custom_fonts/font = SubResource( 12 )
+text = "¡Buu!"
+align = 1
+
+[node name="Icon" type="TextureRect" parent="BaseContainer/Base/DislikeButton"]
+modulate = Color( 0.364706, 0.337255, 0.745098, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -33.0
+margin_top = -46.0
+margin_right = 33.0
+margin_bottom = 4.0
+mouse_filter = 2
+texture = ExtResource( 32 )
+
+[node name="Loading" type="Control" parent="BaseContainer/Base/DislikeButton"]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+mouse_filter = 2
+
+[node name="Node2D" type="Node2D" parent="BaseContainer/Base/DislikeButton/Loading"]
+scale = Vector2( 1.5, 1.5 )
+
+[node name="Sprite" type="Sprite" parent="BaseContainer/Base/DislikeButton/Loading/Node2D"]
+position = Vector2( 0, -16.0001 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 33 )
+
+[node name="Sprite9" type="Sprite" parent="BaseContainer/Base/DislikeButton/Loading/Node2D/Sprite"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 33 )
+
+[node name="Sprite2" type="Sprite" parent="BaseContainer/Base/DislikeButton/Loading/Node2D"]
+position = Vector2( 16, 0 )
+rotation = 1.5708
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 33 )
+
+[node name="Sprite9" type="Sprite" parent="BaseContainer/Base/DislikeButton/Loading/Node2D/Sprite2"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 33 )
+
+[node name="Sprite3" type="Sprite" parent="BaseContainer/Base/DislikeButton/Loading/Node2D"]
+position = Vector2( 0, 16 )
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 33 )
+
+[node name="Sprite9" type="Sprite" parent="BaseContainer/Base/DislikeButton/Loading/Node2D/Sprite3"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 33 )
+
+[node name="Sprite4" type="Sprite" parent="BaseContainer/Base/DislikeButton/Loading/Node2D"]
+position = Vector2( -16, 0 )
+rotation = 1.5708
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 33 )
+
+[node name="Sprite9" type="Sprite" parent="BaseContainer/Base/DislikeButton/Loading/Node2D/Sprite4"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 33 )
+
+[node name="Sprite5" type="Sprite" parent="BaseContainer/Base/DislikeButton/Loading/Node2D"]
+position = Vector2( -12, -12 )
+rotation = -0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 33 )
+
+[node name="Sprite9" type="Sprite" parent="BaseContainer/Base/DislikeButton/Loading/Node2D/Sprite5"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 33 )
+
+[node name="Sprite6" type="Sprite" parent="BaseContainer/Base/DislikeButton/Loading/Node2D"]
+position = Vector2( 12, -12 )
+rotation = 0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 33 )
+
+[node name="Sprite9" type="Sprite" parent="BaseContainer/Base/DislikeButton/Loading/Node2D/Sprite6"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 33 )
+
+[node name="Sprite7" type="Sprite" parent="BaseContainer/Base/DislikeButton/Loading/Node2D"]
+position = Vector2( 12, 12 )
+rotation = -0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 33 )
+
+[node name="Sprite9" type="Sprite" parent="BaseContainer/Base/DislikeButton/Loading/Node2D/Sprite7"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 33 )
+
+[node name="Sprite8" type="Sprite" parent="BaseContainer/Base/DislikeButton/Loading/Node2D"]
+position = Vector2( -12, 12 )
+rotation = 0.785398
+scale = Vector2( 0.3, 0.3 )
+texture = ExtResource( 33 )
+
+[node name="Sprite9" type="Sprite" parent="BaseContainer/Base/DislikeButton/Loading/Node2D/Sprite8"]
+self_modulate = Color( 0.364706, 0.27451, 0.541176, 1 )
+show_behind_parent = true
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 33 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BaseContainer/Base/DislikeButton/Loading/Node2D"]
+autoplay = "idle"
+playback_speed = 0.5
+anims/RESET = SubResource( 32 )
+anims/idle = SubResource( 33 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="BaseContainer"]
+playback_speed = 2.0
 anims/RESET = SubResource( 7 )
 anims/in = SubResource( 8 )
 anims/out = SubResource( 9 )
@@ -1422,6 +2114,12 @@ volume_db = -5.0
 [node name="AudioPause" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 18 )
 volume_db = -10.0
+
+[node name="AudioLike" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 35 )
+
+[node name="AudioDislike" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 34 )
 
 [node name="Separator" type="TextureRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
@@ -1447,6 +2145,23 @@ margin_right = 123.578
 margin_bottom = -5.17907
 custom_fonts/font = SubResource( 17 )
 text = "Guardabot"
+
+[node name="CourseWorldIcon" type="TextureRect" parent="Separator"]
+visible = false
+margin_left = 3.0
+margin_top = -28.0
+margin_right = 31.0
+margin_bottom = -5.0
+texture = ExtResource( 24 )
+
+[node name="CourseWorldLabel" type="Label" parent="Separator"]
+visible = false
+margin_left = 37.5777
+margin_top = -22.1791
+margin_right = 182.578
+margin_bottom = -5.17907
+custom_fonts/font = SubResource( 17 )
+text = "Niveles Mundiales"
 
 [node name="Label2" type="Label" parent="Separator"]
 margin_left = 16.5777
@@ -1505,6 +2220,146 @@ margin_bottom = -13.0
 custom_fonts/font = SubResource( 17 )
 text = "Sin condición especial."
 
+[node name="MarginContainer" type="MarginContainer" parent="Separator2"]
+visible = false
+margin_left = 11.0
+margin_top = 13.0
+margin_right = 190.0
+margin_bottom = 299.0
+custom_constants/margin_right = 5
+custom_constants/margin_top = 7
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Separator2/MarginContainer"]
+margin_top = 7.0
+margin_right = 174.0
+margin_bottom = 286.0
+custom_constants/separation = 15
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Separator2/MarginContainer/VBoxContainer"]
+margin_right = 174.0
+margin_bottom = 40.0
+mouse_filter = 2
+
+[node name="TagIcon" type="TextureRect" parent="Separator2/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 0 )
+mouse_filter = 2
+texture = ExtResource( 25 )
+expand = true
+stretch_mode = 6
+
+[node name="Separator" type="Control" parent="Separator2/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 44.0
+margin_right = 49.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 5, 0 )
+mouse_filter = 2
+
+[node name="TagLabel" type="Label" parent="Separator2/MarginContainer/VBoxContainer/HBoxContainer3"]
+margin_left = 53.0
+margin_right = 174.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 25 )
+text = "---"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Separator2/MarginContainer/VBoxContainer"]
+margin_top = 55.0
+margin_right = 174.0
+margin_bottom = 95.0
+mouse_filter = 2
+custom_constants/separation = 6
+
+[node name="PlayedIcon" type="TextureRect" parent="Separator2/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_right = 35.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 35, 0 )
+mouse_filter = 2
+texture = ExtResource( 28 )
+expand = true
+stretch_mode = 6
+
+[node name="Separator" type="Control" parent="Separator2/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 41.0
+margin_right = 46.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 5, 0 )
+mouse_filter = 2
+
+[node name="PlayedLabel" type="Label" parent="Separator2/MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 52.0
+margin_right = 174.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 25 )
+text = "10000"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="Separator2/MarginContainer/VBoxContainer"]
+margin_top = 110.0
+margin_right = 174.0
+margin_bottom = 150.0
+mouse_filter = 2
+
+[node name="LikeIcon" type="TextureRect" parent="Separator2/MarginContainer/VBoxContainer/HBoxContainer4"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 0 )
+mouse_filter = 2
+texture = ExtResource( 27 )
+expand = true
+stretch_mode = 6
+
+[node name="Separator" type="Control" parent="Separator2/MarginContainer/VBoxContainer/HBoxContainer4"]
+margin_left = 44.0
+margin_right = 49.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 5, 0 )
+mouse_filter = 2
+
+[node name="LikeLabel" type="Label" parent="Separator2/MarginContainer/VBoxContainer/HBoxContainer4"]
+margin_left = 53.0
+margin_right = 174.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 25 )
+text = "10000"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Separator2/MarginContainer/VBoxContainer"]
+margin_top = 165.0
+margin_right = 174.0
+margin_bottom = 205.0
+mouse_filter = 2
+
+[node name="DislikeIcon" type="TextureRect" parent="Separator2/MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_right = 40.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 0 )
+mouse_filter = 2
+texture = ExtResource( 26 )
+expand = true
+stretch_mode = 6
+
+[node name="Separator" type="Control" parent="Separator2/MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 44.0
+margin_right = 49.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 5, 0 )
+mouse_filter = 2
+
+[node name="DislikeLabel" type="Label" parent="Separator2/MarginContainer/VBoxContainer/HBoxContainer2"]
+margin_left = 53.0
+margin_right = 174.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 25 )
+text = "10000"
+
+[node name="UIBlocker" type="Control" parent="."]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+
 [connection signal="mouse_entered" from="BaseContainer/Base/Close" to="." method="_on_Close_mouse_entered"]
 [connection signal="mouse_exited" from="BaseContainer/Base/Close" to="." method="_on_Close_mouse_exited"]
 [connection signal="pressed" from="BaseContainer/Base/Close" to="." method="_on_Close_pressed"]
@@ -1526,4 +2381,10 @@ text = "Sin condición especial."
 [connection signal="mouse_entered" from="BaseContainer/Base/Youtube" to="." method="_on_Youtube_mouse_entered"]
 [connection signal="mouse_exited" from="BaseContainer/Base/Youtube" to="." method="_on_Youtube_mouse_exited"]
 [connection signal="pressed" from="BaseContainer/Base/Youtube" to="." method="_on_Youtube_pressed"]
+[connection signal="mouse_entered" from="BaseContainer/Base/LikeButton" to="." method="_on_LikeButton_mouse_entered"]
+[connection signal="mouse_exited" from="BaseContainer/Base/LikeButton" to="." method="_on_LikeButton_mouse_exited"]
+[connection signal="pressed" from="BaseContainer/Base/LikeButton" to="." method="_on_LikeButton_pressed"]
+[connection signal="mouse_entered" from="BaseContainer/Base/DislikeButton" to="." method="_on_DislikeButton_mouse_entered"]
+[connection signal="mouse_exited" from="BaseContainer/Base/DislikeButton" to="." method="_on_DislikeButton_mouse_exited"]
+[connection signal="pressed" from="BaseContainer/Base/DislikeButton" to="." method="_on_DislikeButton_pressed"]
 [connection signal="animation_finished" from="BaseContainer/AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

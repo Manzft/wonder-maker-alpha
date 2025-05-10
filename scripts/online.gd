@@ -5,113 +5,389 @@ var playing_online: bool = false
 
 var to_publish: bool = false
 
-var request_type: String = ""
-var request_tree: Node = null
-
-var http_request = HTTPRequest.new()
-
-var waiting_for_response: bool = false
+var request_data = null
 
 var persistency_menu: String = ""
 
 var user_name: String = ""
 
+var local_accounts_data = {}
+var local_loaded_level_data = {}
+
 var timer = 0.0
 
 func _ready() -> void:
-	add_child(http_request)
+	yield(auth(), "completed")
+	yield(login("Manzft27", "2710"), "completed")
 
-func _process(delta: float) -> void:
-	if (waiting_for_response):
-		timer += delta
-		if (timer >= 5.0):
-			timer = 0.0
-			waiting_for_response = false
+func auth():
+	var auth_result = yield(Supabase.auth.sign_in_anonymous(), "completed")
+	if auth_result.error:
+		print("Auth error:", auth_result.error)
 	else:
-		timer = 0.0
+		print("Logged sucessfully.")
+	return
 
-func login(tree: Node):
-	if (waiting_for_response):
-		return
-	var data = null
-	request_type = "login"
-	request_tree = tree
-	waiting_for_response = true
-	SupabaseClient.fetch_all_rows("accounts", http_request, self)
+func send_data(table: String, data: Dictionary):
+	var query = SupabaseQuery.new().from(table).insert([data])
+	
+	# Conectar señal para manejar el resultado
+	Supabase.database.connect("inserted", self, "_on_send_data_finished")
+	
+	var task = Supabase.database.query(query)
+	
+	request_data = null
+	var var_to_send = yield(internal_check_request(), "completed")
+	return var_to_send
 
-func register(tree: Node):
-	if (waiting_for_response):
-		return
-	request_type = "register"
-	request_tree = tree
-	waiting_for_response = true
-	SupabaseClient.fetch_all_rows("accounts", http_request, self)
+func _on_send_data_finished(result):
+	request_data = result
 
-func get_users(tree: Node):
-	if (waiting_for_response):
-		return
-	request_type = "get_users"
-	request_tree = tree
-	waiting_for_response = true
-	SupabaseClient.fetch_all_rows("accounts", http_request, self)
+func send_data_condition(table: String, data: Dictionary, condition: Array):
+	var query = SupabaseQuery.new().from(table).update(data).eq(condition[0], condition[1])
 
-func get_levels(tree: Node):
-	if (waiting_for_response):
-		return
-	request_type = "get_levels"
-	request_tree = tree
-	waiting_for_response = true
-	SupabaseClient.fetch_all_rows("levels", http_request, self)
+	Supabase.database.connect("updated", self, "_on_send_data_condition_finished")
+	
+	var task = Supabase.database.query(query)
+	
+	request_data = null
+	var var_to_send = yield(internal_check_request(), "completed")
+	return var_to_send
 
-func publish_level(level_data: Dictionary, level_name: String):
-	if (waiting_for_response):
-		return
-	var level = {
-		"name": level_name,
-		"data": level_data
-	}
-	SupabaseClient.insert_row("levels", level, http_request)
+func _on_send_data_condition_finished(result):
+	request_data = result
+
+func receive_data(table: String):
+	var query = SupabaseQuery.new().from(table).select()
+	
+	# Conectar señal para manejar el resultado
+	Supabase.database.connect("selected", self, "_on_receive_data_finished")
+	
+	var task = Supabase.database.query(query)
+	
+	request_data = null
+	var var_to_send = yield(internal_check_request(), "completed")
+	return var_to_send
+
+func _on_receive_data_finished(result):
+	request_data = result
+
+func login(nickname: String, password: String):
+	print("Requesting login...")
+	var accounts = yield(receive_data("accounts"), "completed")
+	
+	if (accounts == null):
+		return "request_error"
+	
+	var user_found = false
+	
+	for account in accounts:
+		if (account.nick == nickname):
+			user_found = true
+			if (account.password == password):
+				print("User ", nickname, " logged in Wonder Maker Online successfully")
+				logged = true
+				user_name = nickname
+				return "logged"
+			else:
+				print("Incorrect Password")
+				return "incorrect_password"
+			break
+	
+	if (!user_found):
+		print("This user doesn't exists")
+		return "user_not_found"
+
+func register(nickname: String, password: String):
+	print("Requesting register...")
+	var accounts = yield(receive_data("accounts"), "completed")
+	
+	if (accounts == null):
+		return "request_error"
+	
+	var user_found = false
+	
+	for account in accounts:
+		if (account.nick == nickname):
+			user_found = true
+			break
+	
+	if (user_found):
+		print("This user already exists")
+		return "user_found"
+	else:
+		print("User not found, trying to register...")
+		var result = yield(send_data("accounts", {"nick": nickname, "password": password}), "completed")
+		if (result != null):
+			print("User ", nickname, " registered in Wonder Maker Online successfully")
+			user_name = nickname
+			logged = true
+			return "registered"
+		else:
+			return "request_error"
 
 func set_played():
-	if (waiting_for_response):
-		return
-	request_type = "set_played"
-	waiting_for_response = true
-	SupabaseClient.fetch_all_rows("accounts", http_request, self)
-
-func add_death():
-	if (waiting_for_response):
-		return
-	var level_code = str(int(Global.current_lodaded_level_data.id))
-	var send_data = int(Global.current_lodaded_level_data.deaths)+1
-	var condition = {
-		"id": int(Global.current_lodaded_level_data.id)
-	}
-	Global.current_lodaded_level_data.deaths = int(Global.current_lodaded_level_data.deaths)+1
-	SupabaseClient.set_value("levels", "deaths", send_data, condition, http_request)
+	print("Requesting set played...")
+	var accounts = yield(receive_data("accounts"), "completed")
+	
+	if (accounts == null):
+		return "request_error"
+	
+	for account in accounts:
+		if (account.nick == user_name):
+			var level_code = str(int(Online.local_loaded_level_data.id))
+			var dir = {}
+			if (account.levels_interacted != null):
+				dir = account.levels_interacted
+				if (level_code in dir):
+					return "success"
+			
+			var send_data = {}
+			
+			#Sending Data
+			if (account.levels_interacted != null):
+				send_data = {"levels_interacted": account.levels_interacted}
+			else:
+				send_data = {"levels_interacted": {}}
+			
+			send_data.levels_interacted[level_code] = {"played": true}
+			var condition = ["nick", user_name]
+			print("Updating account info of ", user_name)
+			var result = yield(send_data_condition("accounts", send_data, condition), "completed")
+			
+			if (result == null):
+				return null
+			
+			send_data = {"played": int(local_loaded_level_data.played)+1}
+			condition = ["id", str(local_loaded_level_data.id)]
+			print("Updating level info: ", local_loaded_level_data.name)
+			result = yield(send_data_condition("levels", send_data, condition), "completed")
+			
+			if (result == null):
+				return null
+			
+			#Updating local data
+			result = yield(receive_data("levels"), "completed")
+			if (result != null):
+				for level in result:
+					if (str(level.id) == str(local_loaded_level_data.id)):
+						local_loaded_level_data = level
+						print("Updated local level data")
+						break
+			else:
+				print("Could not update local level data")
+				return null
+			
+			result = yield(receive_data("accounts"), "completed")
+			if (result != null):
+				local_accounts_data = result
+				print("Updated local accounts data")
+			else:
+				print("Could not update local level data")
+				return null
+			
+			if (result == null):
+				return null
+			return "success"
 
 func add_level_clear():
-	if (waiting_for_response):
-		return
-	request_type = "add_level_clear"
-	waiting_for_response = true
-	SupabaseClient.fetch_all_rows("accounts", http_request, self)
+	print("Requesting add level clear...")
+	var accounts = yield(receive_data("accounts"), "completed")
+	
+	if (accounts == null):
+		return "request_error"
+	
+	for account in accounts:
+		if (account.nick == user_name):
+			var level_code = str(int(Online.local_loaded_level_data.id))
+			var dir = {}
+			if (account.levels_interacted != null):
+				dir = account.levels_interacted
+				if (level_code in dir):
+					if ("clear" in dir[level_code]):
+						return "success"
+			
+			var send_data = {}
+			
+			#Sending Data
+			if (account.levels_interacted != null):
+				send_data = {"levels_interacted": account.levels_interacted}
+			else:
+				send_data = {"levels_interacted": {}}
+			
+			send_data.levels_interacted[level_code] = {"clear": true}
+			var condition = ["nick", user_name]
+			print("Updating account info of ", user_name)
+			var result = yield(send_data_condition("accounts", send_data, condition), "completed")
+			
+			if (result == null):
+				return null
+			
+			send_data = {"clear": int(local_loaded_level_data.clear)+1}
+			condition = ["id", str(local_loaded_level_data.id)]
+			print("Updating level info: ", local_loaded_level_data.name)
+			result = yield(send_data_condition("levels", send_data, condition), "completed")
+			
+			if (result == null):
+				return null
+			
+			#Updating local data
+			result = yield(receive_data("levels"), "completed")
+			if (result != null):
+				for level in result:
+					if (str(level.id) == str(local_loaded_level_data.id)):
+						local_loaded_level_data = level
+						print("Updated local level data")
+						break
+			else:
+				print("Could not update local level data")
+				return null
+			
+			result = yield(receive_data("accounts"), "completed")
+			if (result != null):
+				local_accounts_data = result
+				print("Updated local accounts data")
+			else:
+				print("Could not update local level data")
+				return null
+			
+			if (result == null):
+				return null
+			return "success"
 
 func add_like():
-	if (waiting_for_response):
-		return
-	request_type = "add_like"
-	waiting_for_response = true
-	SupabaseClient.fetch_all_rows("accounts", http_request, self)
+	print("Requesting add like...")
+	var accounts = yield(receive_data("accounts"), "completed")
+	
+	if (accounts == null):
+		return "request_error"
+	
+	for account in accounts:
+		if (account.nick == Online.user_name):
+			var level_code = str(int(Online.local_loaded_level_data.id))
+			var dir = {}
+			if (account.levels_interacted != null):
+				dir = account.levels_interacted
+				if (level_code in dir):
+					if ("reacted" in dir[level_code]):
+						return
+			
+			var send_data = {}
+			
+			#Sending Data
+			if (account.levels_interacted != null):
+				send_data = {"levels_interacted": account.levels_interacted}
+			else:
+				send_data = {"levels_interacted": {}}
+			
+			send_data.levels_interacted[level_code]["reacted"] = "like"
+			var condition = ["nick", user_name]
+			print("Updating account info of ", user_name)
+			var result = yield(send_data_condition("accounts", send_data, condition), "completed")
+			
+			if (result == null):
+				return null
+			
+			send_data = {"likes": int(local_loaded_level_data.likes)+1}
+			condition = ["id", str(local_loaded_level_data.id)]
+			print("Updating level info: ", local_loaded_level_data.name)
+			result = yield(send_data_condition("levels", send_data, condition), "completed")
+			
+			if (result == null):
+				return null
+			
+			#Updating local data
+			result = yield(receive_data("levels"), "completed")
+			if (result != null):
+				for level in result:
+					if (str(level.id) == str(local_loaded_level_data.id)):
+						local_loaded_level_data = level
+						print("Updated local level data")
+						break
+			else:
+				print("Could not update local level data")
+				return null
+			
+			result = yield(receive_data("accounts"), "completed")
+			if (result != null):
+				local_accounts_data = result
+				print("Updated local accounts data")
+			else:
+				print("Could not update local level data")
+				return null
+			
+			if (result == null):
+				return null
+			return "success"
 
 func add_dislike():
-	if (waiting_for_response):
-		return
-	request_type = "add_dislike"
-	waiting_for_response = true
-	SupabaseClient.fetch_all_rows("accounts", http_request, self)
+	print("Requesting add dislike...")
+	var accounts = yield(receive_data("accounts"), "completed")
+	
+	if (accounts == null):
+		return "request_error"
+	
+	for account in accounts:
+		if (account.nick == Online.user_name):
+			var level_code = str(int(Online.local_loaded_level_data.id))
+			var dir = {}
+			if (account.levels_interacted != null):
+				dir = account.levels_interacted
+				if (level_code in dir):
+					if ("reacted" in dir[level_code]):
+						return
+			
+			var send_data = {}
+			
+			#Sending Data
+			if (account.levels_interacted != null):
+				send_data = {"levels_interacted": account.levels_interacted}
+			else:
+				send_data = {"levels_interacted": {}}
+			
+			send_data.levels_interacted[level_code]["reacted"] = "dislike"
+			var condition = ["nick", user_name]
+			print("Updating account info of ", user_name)
+			var result = yield(send_data_condition("accounts", send_data, condition), "completed")
+			
+			if (result == null):
+				return null
+			
+			send_data = {"dislikes": int(local_loaded_level_data.dislikes)+1}
+			condition = ["id", str(local_loaded_level_data.id)]
+			print("Updating level info: ", local_loaded_level_data.name)
+			result = yield(send_data_condition("levels", send_data, condition), "completed")
+			
+			if (result == null):
+				return null
+			
+			#Updating local data
+			result = yield(receive_data("levels"), "completed")
+			if (result != null):
+				for level in result:
+					if (str(level.id) == str(local_loaded_level_data.id)):
+						local_loaded_level_data = level
+						print("Updated local level data")
+						break
+			else:
+				print("Could not update local level data")
+				return null
+			
+			result = yield(receive_data("accounts"), "completed")
+			if (result != null):
+				local_accounts_data = result
+				print("Updated local accounts data")
+			else:
+				print("Could not update local level data")
+				return null
+			
+			if (result == null):
+				return null
+			return "success"
 
 func http_finished(data):
+	var request_type
+	var request_tree
 	if (data != null):
 		match (request_type):
 			"set_played":
@@ -244,5 +520,51 @@ func http_finished(data):
 				request_tree = null
 	else:
 		print("Error")
-	
-	waiting_for_response = false
+
+func internal_check_request():
+	yield(get_tree().create_timer(1.0), "timeout")
+	if (check_request()):
+		var val_to_send = request_data; request_data = null; return val_to_send
+	else:
+		yield(get_tree().create_timer(1.0), "timeout")
+		if (check_request()):
+			var val_to_send = request_data; request_data = null; return val_to_send
+		else:
+			yield(get_tree().create_timer(1.0), "timeout")
+			if (check_request()):
+				var val_to_send = request_data; request_data = null; return val_to_send
+			else:
+				yield(get_tree().create_timer(1.0), "timeout")
+				if (check_request()):
+					var val_to_send = request_data; request_data = null; return val_to_send
+				else:
+					yield(get_tree().create_timer(1.0), "timeout")
+					if (check_request()):
+						var val_to_send = request_data; request_data = null; return val_to_send
+					else:
+						yield(get_tree().create_timer(1.0), "timeout")
+						if (check_request()):
+							var val_to_send = request_data; request_data = null; return val_to_send
+						else:
+							yield(get_tree().create_timer(1.0), "timeout")
+							if (check_request()):
+								var val_to_send = request_data; request_data = null; return val_to_send
+							else:
+								yield(get_tree().create_timer(1.0), "timeout")
+								if (check_request()):
+									var val_to_send = request_data; request_data = null; return val_to_send
+								else:
+									yield(get_tree().create_timer(1.0), "timeout")
+									if (check_request()):
+										var val_to_send = request_data; request_data = null; return val_to_send
+									else:
+										print("ERROR: The request didn't work")
+										return null
+
+func check_request():
+	if (request_data == null):
+		print("Waiting...")
+		return false
+	else:
+		print("Request successful")
+		return true

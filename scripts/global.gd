@@ -193,6 +193,8 @@ func to_dict(node: Node):
 	return data
 
 func courseGetAppeareance(filedir):
+	if !(filedir is String):
+		return int(filedir.appeareance)
 	var f = File.new()
 	f.open_encrypted_with_pass(filedir, File.READ, SECURITY_KEY);
 	var content = f.get_as_text();
@@ -202,6 +204,8 @@ func courseGetAppeareance(filedir):
 	return int(data.appeareance)
 
 func courseGetStyle(filedir):
+	if !(filedir is String):
+		return filedir.style
 	var f = File.new()
 	f.open_encrypted_with_pass(filedir, File.READ, SECURITY_KEY);
 	var content = f.get_as_text();
@@ -211,6 +215,8 @@ func courseGetStyle(filedir):
 	return data.style;
 
 func courseGetDescription(filedir):
+	if !(filedir is String):
+		return filedir.description
 	var f = File.new()
 	f.open_encrypted_with_pass(filedir, File.READ, SECURITY_KEY);
 	var content = f.get_as_text();
@@ -220,6 +226,8 @@ func courseGetDescription(filedir):
 	return data.description;
 
 func courseGetUser(filedir):
+	if !(filedir is String):
+		return filedir.user
 	var f = File.new()
 	f.open_encrypted_with_pass(filedir, File.READ, SECURITY_KEY);
 	var content = f.get_as_text();
@@ -229,6 +237,8 @@ func courseGetUser(filedir):
 	return data.user;
 
 func courseGetVersion(filedir):
+	if !(filedir is String):
+		return filedir.version
 	var f = File.new()
 	f.open_encrypted_with_pass(filedir, File.READ, SECURITY_KEY);
 	var content = f.get_as_text();
@@ -238,13 +248,24 @@ func courseGetVersion(filedir):
 	return data.version;
 
 func courseGetThumbnail(filedir):
+	var returndata = null;
+	if !(filedir is String):
+		if ("thumbnail" in filedir):
+			var bytes_png = str2var(filedir.thumbnail)
+			var img = Image.new();
+			img.load_png_from_buffer(bytes_png);
+			var texture = ImageTexture.new();
+			texture.create_from_image(img);
+			returndata = texture;
+			return returndata
+		else:
+			return null
 	var f = File.new()
 	f.open_encrypted_with_pass(filedir, File.READ, SECURITY_KEY);
 	var content = f.get_as_text();
 	var json = JSON.parse(content)
 	var data = json.result;
 	f.close();
-	var returndata = null;
 	if ("thumbnail" in data):
 		var bytes_png = str2var(data.thumbnail)
 		var img = Image.new();
@@ -331,12 +352,18 @@ func saveCourseData(ingame : bool = true, autosave : bool = false):
 
 func loadCourseData(ingame = true):
 	print("Course Data Loaded")
-	var f = File.new()
-	f.open_encrypted_with_pass(currentlevel, File.READ, SECURITY_KEY);
-	
-	var content = f.get_as_text();
-	var json = JSON.parse(content)
-	level_data = json.result;
+	if (!Online.playing_online):
+		var f = File.new()
+		f.open_encrypted_with_pass(currentlevel, File.READ, SECURITY_KEY);
+		
+		var content = f.get_as_text();
+		
+		f.close()
+		
+		var json = JSON.parse(content)
+		level_data = json.result;
+	else:
+		level_data = Online.local_loaded_level_data.data
 	
 	CurrentAppeareance = int(level_data.appeareance);
 	CurrentStyle = level_data.style;
@@ -359,7 +386,6 @@ func loadCourseData(ingame = true):
 	
 	object_data = level_data.objects;
 
-	f.close()
 	if (ingame):
 		loadLevelInfo();
 	return false;
@@ -381,6 +407,7 @@ func setLevelInfo():
 		endfloor_grid = level.calculateGrid(node.position.x, node.position.y);
 
 func loadLevelInfo():
+	loadingCourse = true
 	var level;
 	var nodes = get_tree().get_nodes_in_group("Level");
 	for node in nodes:
@@ -411,6 +438,7 @@ func loadLevelInfo():
 	for node in nodes:
 		level = node;
 	loadObjects(level);
+	loadingCourse = false
 #	thread = Thread.new();
 #	thread.start(self, "loadObjects", level)
 

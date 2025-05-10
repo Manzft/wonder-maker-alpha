@@ -16,6 +16,8 @@ var decorationType = "";
 
 var mygrid = Vector2();
 
+var readyed = false
+
 func render(group, forcerender = false, render_range = 60):
 	if (forcerender):
 		set_process(true);
@@ -63,15 +65,13 @@ func eraseShadow():
 	shadow.queue_free();
 	shadowdecoration.queue_free();
 
-func _ready():
+func ready():
 	Global.connect("render", self, "render");
 	Global.connect("floorErase", self, "floorErase");
 	Global.connect("changeStyle", self, "changeStyle");
 	Global.connect("erase", self, "erase");
 	get_node("../LevelFloor").connect("levelFloorChanged", self, "levelFloorChanged");
 	get_node("../EndFloor").connect("endFloorChanged", self, "endFloorChanged");
-	
-	yield(get_tree(), "idle_frame");
 	
 	mygrid = get_parent().calculateGrid(position.x, position.y);
 
@@ -85,6 +85,10 @@ func _ready():
 	editPlaced = false;
 
 func _process(delta):
+	if (!readyed):
+		ready()
+		readyed = true
+	
 	if (shadow != null):
 		shadow.position = currentSprite.global_position+Vector2(3*3.25, 3*3.25);
 	if (shadowdecoration != null && decorationType != ""):
@@ -92,7 +96,6 @@ func _process(delta):
 		var node = Global.CurrentStyle+"/Decoration"+decorationType;
 		shadowdecoration.position = get_node(node).global_position+Vector2(3*3.25, 3*3.25);
 		shadowdecoration.texture = get_node(node).texture;
-		shadowdecoration.scale = get_node(node).scale
 	elif (shadowdecoration != null):
 		shadowdecoration.hide();
 
@@ -312,13 +315,15 @@ func styleChanged():
 		shadowdecoration.queue_free();
 
 	shadowdecoration = Sprite.new();
-	shadowdecoration.scale = currentSprite.scale
-	if (editPlaced):
-		shadowdecoration.scale.y = 2
+	shadowdecoration.scale = Vector2(3.25, 3.25)
 	if (decorationType != ""):
 		shadowdecoration.position = get_node("Ground/Decoration"+decorationType).global_position+Vector2(3*3.25, 3*3.25)
 		shadowdecoration.offset = get_node("Ground/Decoration"+decorationType).offset
 		shadowdecoration.texture =  get_node("Ground/Decoration"+decorationType).texture
+	if (editPlaced):
+		var tween = get_tree().create_tween();
+		shadowdecoration.scale.y = 2;
+		tween.tween_property(shadowdecoration, "scale", Vector2(3.25, 3.25), deco_spawn_speed)
 	get_node("../ViewportShadow/Shadows").add_child(shadowdecoration)
 
 func levelFloorChanged(levelFloorGrid):

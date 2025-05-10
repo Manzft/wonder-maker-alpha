@@ -133,12 +133,91 @@ func _ready():
 	Global.connect("erase", self, "erase");
 	styleChanged();
 	currentSprite.flip_h = true;
-	yield(get_tree(), "idle_frame");
-	$AnimationPlayer.play("start");
 	startPos = position;
 	if (insided):
 		currentSprite.flip_h = false;
 	chainAnimation();
+
+func chainFunctions(delta):
+	if (chained && chainObject != null):
+		if (chainObject.dead):
+			chained = false;
+			canChain = false;
+			motion.x = -max_walk_speed;
+	
+	if (canChain && !chained && !dead && !alreadydead):
+		var gr = get_parent().calculateGrid(position.x, position.y);
+		if (Global.isChainable(get_parent().grid[gr.x][gr.y+1])):
+			chained = true;
+			canChain = false;
+			chainObject = get_parent().grid_node[gr.x][gr.y+1];
+			arrived = true;
+		
+		var ir = round(rand_range(0, 1));
+		if (ir == 1):
+			chainMoving = "";
+		else:
+			chainMoving = "2"
+		
+	if (is_on_floor() || dead || true):
+		canChain = false;
+		
+	if (stopped && chained):
+		stopChainObject = true;
+	if (!stopped && !dead && chained):
+		stopChainObject = false;
+		if (chainObject != null):
+			chainObject.stopped = false;
+	
+	if (stopChainObject && chainObject != null):
+		chainObject.stopped = true;
+	
+	if (chained):
+		if (chainObject != null):
+			if (chainObject.visible):
+				position.y = chainObject.position.y-51;
+				if (chainObject.stopped):
+					if (currentSprite.animation != "idle"):
+						currentSprite.animation = "idle";
+				else:
+					if (currentSprite.animation != "walk"):
+						currentSprite.animation = "walk";
+						#$AnimationPlayer.play("incolumn"+chainMoving);
+				
+				if (chainMoving == ""):
+					currentSprite.position.x = lerp(currentSprite.position.x, -4.0, 12.0*delta);
+					#currentSprite.flip_h = true;
+					if (currentSprite.position.x <= -3.9):
+						chainMoving = "2";
+				else:
+					currentSprite.position.x = lerp(currentSprite.position.x, 4.0, 12.0*delta);
+					#currentSprite.flip_h = false;
+					if (currentSprite.position.x >= 3.9):
+						chainMoving = "";
+					
+				motion.x = chainObject.motion.x;
+				currentSprite.flip_h = (motion.x <= 0);
+				
+				if (abs(position.x-chainObject.position.x) > 13):
+					motion.y = 0;
+					chained = false;
+					chainObject = null;
+				
+			if ("inbones" in chainObject):
+				if (chainObject.inbones):
+					chained = false;
+					chainObject = null;
+			if (chainObject != null):
+				if ("inshell" in chainObject):
+					if (chainObject.inshell):
+						chained = false;
+						chainObject = null;
+		else:
+			chainObject = null;
+			chained = false;
+			
+	if (!chained && currentSprite.position.x != 0):
+		currentSprite.position.x = 0;
 
 func _process(delta: float):
 	max_walk_speed = def_max_walk_speed/(Global.ENTITY_PHYSICS_SPEED*0.01);
@@ -155,85 +234,7 @@ func _process(delta: float):
 		else:
 			z_index = 1;
 		
-		if (chained && chainObject != null):
-			if (chainObject.dead):
-				chained = false;
-				canChain = false;
-				motion.x = -max_walk_speed;
-		
-		if (canChain && !chained && !dead && !alreadydead):
-			var gr = get_parent().calculateGrid(position.x, position.y);
-			if (Global.isChainable(get_parent().grid[gr.x][gr.y+1])):
-				chained = true;
-				canChain = false;
-				chainObject = get_parent().grid_node[gr.x][gr.y+1];
-				arrived = true;
-			
-			var ir = round(rand_range(0, 1));
-			if (ir == 1):
-				chainMoving = "";
-			else:
-				chainMoving = "2"
-			
-		if (is_on_floor() || dead || true):
-			canChain = false;
-			
-		if (stopped && chained):
-			stopChainObject = true;
-		if (!stopped && !dead && chained):
-			stopChainObject = false;
-			if (chainObject != null):
-				chainObject.stopped = false;
-		
-		if (stopChainObject && chainObject != null):
-			chainObject.stopped = true;
-		
-		if (chained):
-			if (chainObject != null):
-				if (chainObject.visible):
-					position.y = chainObject.position.y-51;
-					if (chainObject.stopped):
-						if (currentSprite.animation != "idle"):
-							currentSprite.animation = "idle";
-					else:
-						if (currentSprite.animation != "walk"):
-							currentSprite.animation = "walk";
-							#$AnimationPlayer.play("incolumn"+chainMoving);
-					
-					if (chainMoving == ""):
-						currentSprite.position.x = lerp(currentSprite.position.x, -4.0, 12.0*delta);
-						#currentSprite.flip_h = true;
-						if (currentSprite.position.x <= -3.9):
-							chainMoving = "2";
-					else:
-						currentSprite.position.x = lerp(currentSprite.position.x, 4.0, 12.0*delta);
-						#currentSprite.flip_h = false;
-						if (currentSprite.position.x >= 3.9):
-							chainMoving = "";
-						
-					motion.x = chainObject.motion.x;
-					currentSprite.flip_h = (motion.x <= 0);
-					
-					if (abs(position.x-chainObject.position.x) > 13):
-						motion.y = 0;
-						chained = false;
-						chainObject = null;
-					
-				if ("inbones" in chainObject):
-					if (chainObject.inbones):
-						chained = false;
-						chainObject = null;
-				if (chainObject != null):
-					if ("inshell" in chainObject):
-						if (chainObject.inshell):
-							chained = false;
-							chainObject = null;
-			else:
-				chainObject = null;
-				chained = false;
-				
-		if (!chained && currentSprite.position.x != 0):
-			currentSprite.position.x = 0;
+		chainFunctions(delta)
 		
 		currentSprite.speed_scale = 1;
 		currentSprite.scale = Vector2(3.25, 3.25);

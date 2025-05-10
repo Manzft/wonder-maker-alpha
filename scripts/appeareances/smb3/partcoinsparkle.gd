@@ -11,7 +11,8 @@ func _ready():
 	shadow = AnimatedSprite.new();
 	shadow.frames = frames;
 	shadow.scale = scale;
-	get_node("../ShadowViewport").add_child(shadow);
+	shadow.position = position+Vector2(3*3.25, 3*3.25);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 
 func _process(_delta):
 	shadow.frame = frame;

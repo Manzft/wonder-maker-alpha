@@ -581,8 +581,8 @@ func _ready():
 			Global.setDiscordState("startmenu")
 		elif (Global.coursePlaying && Online.playing_online):
 			Global.setDiscordState("playing_courseworld")
-			if (Online.logged):
-				Online.set_played()
+			#if (Online.logged):
+				#Online.set_played()
 		elif (Global.coursePlaying):
 			Global.setDiscordState("playing_coursebot")
 		else:
@@ -2378,10 +2378,11 @@ func _on_Play_pressed():
 		var nodes = get_tree().get_nodes_in_group("Obj");
 		get_parent().freecam = false;
 		for node in nodes:
-			if (node.position.y <= 840):
-				get_parent().freecam = true;
-				print("Cam now is FREE");
-				break;
+			if (node.position.y <= 840-52):
+				if (Global.getObjectCode(node) != Global.OBJ_SEMISOLID):
+					get_parent().freecam = true;
+					print("Cam mode setted to: Free");
+					break;
 		
 		$Edit/AnimationPlayer.play("in");
 func _on_Play_mouse_entered():
@@ -2424,13 +2425,12 @@ func _on_Edit_pressed():
 			node.get_node("AnimationPlayer").play("RESET");
 			node.get_node("SoundGoal").stop();
 		
-		#Delete Online Death Signals
-		nodes = get_tree().get_nodes_in_group("OnlineDeath");
-		for node in nodes:
-			node.queue_free();
-		
 		if (!Global.coursePlaying):
 			$AnimationPlayer.play("in");
+			#Delete Online Death Signals
+			nodes = get_tree().get_nodes_in_group("OnlineDeath");
+			for node in nodes:
+				node.queue_free();
 		
 		if (!Global.coursePlaying):
 			get_node("../CharacterEditor").show();
@@ -2455,6 +2455,10 @@ func _on_Edit_pressed():
 			Global.playing = false
 			yield(get_tree().create_timer(0.25), "timeout")
 			Global.changingToEditMode = false
+			#Delete Online Death Signals
+			nodes = get_tree().get_nodes_in_group("OnlineDeath");
+			for node in nodes:
+				node.queue_free();
 			_on_Play_pressed();
 			get_node("../CircleTransition/Transition/AnimationPlayer").play("out");
 func _on_Edit_mouse_entered():

@@ -141,11 +141,12 @@ func _process(delta):
 	pass
 
 func setCourseName():
-	Global.thread = Thread.new();
-	Global.thread.start(self, "courseName");
-	$AppeareanceChangeIcon/AnimationPlayer.play("in");
-	$Base/ScrollContainer.hide();
-	$UIBlocker.show();
+	#Global.thread = Thread.new();
+	#Global.thread.start(self, "courseName");
+	courseName()
+#	$AppeareanceChangeIcon/AnimationPlayer.play("in");
+#	$Base/ScrollContainer.hide();
+#	$UIBlocker.show();
 
 func courseName():
 	canHandleInput = false;
@@ -202,10 +203,10 @@ func courseName():
 	
 		#node.hide();
 	
-	$AppeareanceChangeIcon/AnimationPlayer.play("out");
-	yield(get_tree().create_timer(0.5), "timeout");
-	$Base/ScrollContainer.show();
-	$UIBlocker.hide();
+#	$AppeareanceChangeIcon/AnimationPlayer.play("out");
+#	yield(get_tree().create_timer(0.5), "timeout");
+#	$Base/ScrollContainer.show();
+#	$UIBlocker.hide();
 	
 	canHandleInput = true;
 

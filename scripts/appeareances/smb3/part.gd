@@ -11,7 +11,7 @@ func _ready():
 	shadow.frame = frame;
 	shadow.hframes = hframes;
 	shadow.texture = texture;
-	get_parent().get_node("ShadowViewport").add_child(shadow);
+	get_parent().get_node("ViewportShadow/Shadows").add_child(shadow);
 
 func _process(_delta):
 	if (!Global.playing):

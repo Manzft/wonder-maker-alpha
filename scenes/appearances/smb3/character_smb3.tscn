@@ -594,6 +594,18 @@ position = Vector2( 17, -53 )
 enabled = true
 cast_to = Vector2( -35, 0 )
 
+[node name="CCRaycastLeft" type="RayCast2D" parent="."]
+position = Vector2( -14, -24 )
+enabled = true
+cast_to = Vector2( -3, -70 )
+collision_mask = 3
+
+[node name="CCRaycastRight" type="RayCast2D" parent="."]
+position = Vector2( 14, -24 )
+enabled = true
+cast_to = Vector2( 3, -70 )
+collision_mask = 3
+
 [node name="UpArea" type="Node2D" parent="."]
 
 [node name="RayCast2D" type="RayCast2D" parent="UpArea"]
@@ -644,6 +656,10 @@ playing = true
 anims/RESET = SubResource( 19 )
 anims/invincible = SubResource( 27 )
 anims/star = SubResource( 20 )
+
+[node name="JumpBufferTimer" type="Timer" parent="."]
+wait_time = 0.125
+one_shot = true
 
 [node name="EnterPipeTimer" type="Timer" parent="."]
 wait_time = 0.6
@@ -781,6 +797,7 @@ __meta__ = {
 }
 
 [connection signal="tree_exiting" from="." to="." method="_on_Character_tree_exiting"]
+[connection signal="timeout" from="JumpBufferTimer" to="." method="_on_JumpBufferTimer_timeout"]
 [connection signal="timeout" from="EnterPipeTimer" to="." method="_on_EnterPipeTimer_timeout"]
 [connection signal="timeout" from="RecentlyPipeExitedTimer" to="." method="_on_RecentlyPipeExitedTimer_timeout"]
 [connection signal="timeout" from="ExitPipeTimer" to="." method="_on_ExitPipeTimer_timeout"]

@@ -57,19 +57,83 @@ func updateFocusSprite():
 			node.get_node("Selection/AnimationPlayer").play("RESET");
 
 func _ready():
+	#Fix Selection Corners
+	for node in get_tree().get_nodes_in_group("Selection"):
+		node.get_node("UpRight").rect_rotation = 90.0
+		node.get_node("DownRight").rect_rotation = 180.0
+		node.get_node("DownLeft").rect_rotation = 270.0
+		
+		node.get_node("UpLeft").rect_scale = Vector2(0.5, 0.5)
+		node.get_node("UpRight").rect_scale = Vector2(0.5, 0.5)
+		node.get_node("DownRight").rect_scale = Vector2(0.5, 0.5)
+		node.get_node("DownLeft").rect_scale = Vector2(0.5, 0.5)
+		
+		node.get_node("UpLeft").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.get_node("UpRight").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.get_node("DownRight").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.get_node("DownLeft").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		
+		node.get_node("AnimationPlayer").playback_speed = 1.0
+	
 	get_parent().get_node("GameMusic").pause_mode = PAUSE_MODE_INHERIT;
 	get_tree().paused = true;
 	$BaseContainer/AnimationPlayer.play("in");
 	$AudioPause.play();
 	
-	var user = Global.courseGetUser(Global.currentlevel);
+	var user = ""
+	if (Online.playing_online):
+		user = Global.courseGetUser(Online.local_loaded_level_data.data)
+		$Separator/Icon.hide()
+		$Separator/Label.hide()
+		$Separator/CourseWorldIcon.show()
+		$Separator/CourseWorldLabel.show()
+		
+		$Separator2/MarginContainer.show()
+		
+		#Likes
+		var likes_node = find_node("LikeLabel")
+		likes_node.text = str(int(Online.local_loaded_level_data.likes))
+		
+		#Dislikes
+		var dislikes_node = find_node("DislikeLabel")
+		dislikes_node.text = str(int(Online.local_loaded_level_data.dislikes))
+		
+		#Played
+		var played_node = find_node("PlayedLabel")
+		played_node.text = str(int(Online.local_loaded_level_data.played))
+	else:
+		user = Global.courseGetUser(Global.currentlevel)
 	
 	$Separator/Label2.text = Global.currentCourseName;
 	$Separator/Author.text = user;
 	
 	changeFocus();
 	
-	if (user != Global.USER_NAME):
+	if (Online.playing_online):
+		$BaseContainer/Base/LikeButton.show()
+		$BaseContainer/Base/DislikeButton.show()
+		$BaseContainer/Base/Reset.rect_position.y += 124;
+		$BaseContainer/Base/Exit.rect_position.y += 124;
+		$BaseContainer/Base/Edit.hide();
+		var dict: Dictionary
+		for us in range(Online.local_accounts_data.size()):
+			var e = Online.local_accounts_data[us]
+			if (e.nick == Online.user_name):
+				dict = e.levels_interacted[str(int(Online.local_loaded_level_data.id))]
+		if ("reacted" in dict):
+			if (dict["reacted"] == "like"):
+				$BaseContainer/Base/DislikeButton.modulate = Color("#999999")
+				$BaseContainer/Base/LikeButton.self_modulate = Color("#eb625c")
+				$BaseContainer/Base/LikeButton/Label.modulate = Color("#ffffff")
+				$BaseContainer/Base/LikeButton/Icon.modulate = Color("#ffffff")
+			elif (dict["reacted"] == "dislike"):
+				$BaseContainer/Base/LikeButton.modulate = Color("#999999")
+				$BaseContainer/Base/DislikeButton.self_modulate = Color("#5D56BE")
+				$BaseContainer/Base/DislikeButton/Label.modulate = Color("#ffffff")
+				$BaseContainer/Base/DislikeButton/Icon.modulate = Color("#ffffff")
+			$BaseContainer/Base/DislikeButton.disabled = true
+			$BaseContainer/Base/LikeButton.disabled = true
+	elif (user != Global.USER_NAME):
 		$BaseContainer/Base/Reset.rect_position.y += 62;
 		$BaseContainer/Base/Exit.rect_position.y += 62;
 		$BaseContainer/Base/Edit.hide();
@@ -80,14 +144,40 @@ func _process(_delta):
 
 #Buttons
 func button_mouse_entered():
-	$AudioSelectButton.play();
-	get_node(mouseFocus+"/Selection/AnimationPlayer").play("idle");
-	changeFocus();
+	#$AudioSelectButton.pitch_scale = randf_range(0.9, 1.1)
+	$AudioSelectButton.play()
+	get_node(mouseFocus+"/Selection/AnimationPlayer").play("idle")
+	changeFocus()
+	if (get_node(mouseFocus).is_in_group("LevelPanel") ||
+	get_node(mouseFocus).is_in_group("IgnoreSelection")):
+		return
+	#Input.set_custom_mouse_cursor(load("res://sprites/ui/cursor.png"))
+	get_node(mouseFocus).rect_pivot_offset.x = get_node(mouseFocus).rect_size.x/2
+	get_node(mouseFocus).rect_pivot_offset.y = get_node(mouseFocus).rect_size.y/2
+	var scale: Vector2 = Vector2(0, 0)
+	if (get_node(mouseFocus).editor_description == ""):
+		scale = get_node(mouseFocus).rect_scale
+	else:
+		scale = str2var(get_node(mouseFocus).editor_description)
+	get_node(mouseFocus).editor_description = var2str(scale)
+	var tween = get_tree().create_tween()
+	tween.set_pause_mode(PAUSE_MODE_PROCESS)
+	tween.tween_property(get_node(mouseFocus), "rect_scale", Vector2(scale.x*1.1, scale.y*1.1), 0.0625)
 
 func button_mouse_exited():
 	$Bg.grab_focus();
-	get_node(mouseFocus+"/Selection/AnimationPlayer").play("RESET");
+	if (mouseFocus != ""):
+		if (!get_node(mouseFocus).is_in_group("LevelPanel") && !get_node(mouseFocus).is_in_group("IgnoreSelection")):
+			get_node(mouseFocus+"/Selection/AnimationPlayer").play("RESET");
+			get_node(mouseFocus).rect_pivot_offset.x = get_node(mouseFocus).rect_size.x/2;
+			get_node(mouseFocus).rect_pivot_offset.y = get_node(mouseFocus).rect_size.y/2;
+			var tween = get_tree().create_tween();
+			var scale: Vector2 = str2var(get_node(mouseFocus).editor_description);
+			tween.set_pause_mode(PAUSE_MODE_PROCESS)
+			tween.tween_property(get_node(mouseFocus), "rect_scale", scale, 0.0625);
 	changeFocus();
+	#Input.set_custom_mouse_cursor(load("res://sprites/ui/cursor_editor.png"));
+
 
 func _on_Close_pressed():
 	if (!finishing):
@@ -115,9 +205,12 @@ func _on_Reset_mouse_exited():
 
 func _on_Exit_pressed():
 	$AudioButton.play();
-	Global.changeScene("res://scenes/ui/coursebot.tscn", get_parent())
+	if (Online.playing_online):
+		Global.changeScene("res://scenes/ui/online.tscn", get_parent())
+	else:
+		Global.changeScene("res://scenes/ui/coursebot.tscn", get_parent())
 	Global.coursePlaying = false;
-	get_tree().paused = false;
+	#get_tree().paused = false;
 	get_parent().get_node("GameMusic").pause_mode = PAUSE_MODE_PROCESS;
 	$BaseContainer/AnimationPlayer.play("out");
 	get_node("../GameUI").hide();
@@ -171,3 +264,66 @@ func _on_Youtube_mouse_entered():
 	mouseFocus = "BaseContainer/Base/Youtube"; button_mouse_entered(); changeFocus();
 func _on_Youtube_mouse_exited():
 	button_mouse_exited(); mouseFocus = ""; changeFocus();
+
+func _on_LikeButton_pressed():
+	if ($BaseContainer/Base/LikeButton.disabled): return
+	$UIBlocker.show()
+	_on_LikeButton_mouse_exited()
+	var node = $BaseContainer/Base/LikeButton
+	node.get_node("Selection").hide();
+	node.get_node("Selection/AnimationPlayer").play("RESET");
+	$Bg.grab_focus();
+	$AudioLike.play();
+	$BaseContainer/Base/LikeButton/Loading.show()
+	$BaseContainer/Base/LikeButton/Icon.hide()
+	$BaseContainer/Base/LikeButton/Label.hide()
+	var result = yield(Online.add_like(), "completed")
+	if (result == "success"):
+		$BaseContainer/Base/DislikeButton.modulate = Color("#999999")
+		$BaseContainer/Base/LikeButton.self_modulate = Color("#eb625c")
+		$BaseContainer/Base/LikeButton/Label.modulate = Color("#ffffff")
+		$BaseContainer/Base/LikeButton/Icon.modulate = Color("#ffffff")
+		$BaseContainer/Base/DislikeButton.disabled = true
+		$BaseContainer/Base/LikeButton.disabled = true
+	$BaseContainer/Base/LikeButton/Icon.show()
+	$BaseContainer/Base/LikeButton/Label.show()
+	$BaseContainer/Base/LikeButton/Loading.hide()
+	$UIBlocker.hide()
+func _on_LikeButton_mouse_entered():
+	if ($BaseContainer/Base/LikeButton.disabled): return
+	mouseFocus = "BaseContainer/Base/LikeButton"; button_mouse_entered(); changeFocus();
+func _on_LikeButton_mouse_exited():
+	if ($BaseContainer/Base/LikeButton.disabled): return
+	button_mouse_exited(); mouseFocus = ""; changeFocus();
+
+func _on_DislikeButton_pressed():
+	if ($BaseContainer/Base/DislikeButton.disabled): return
+	$UIBlocker.show()
+	_on_DislikeButton_mouse_exited()
+	var node = $BaseContainer/Base/DislikeButton
+	node.get_node("Selection").hide();
+	node.get_node("Selection/AnimationPlayer").play("RESET");
+	$Bg.grab_focus();
+	$AudioDislike.play();
+	$BaseContainer/Base/DislikeButton/Loading.show()
+	$BaseContainer/Base/DislikeButton/Icon.hide()
+	$BaseContainer/Base/DislikeButton/Label.hide()
+	var result = yield(Online.add_dislike(), "completed")
+	if (result == "success"):
+		$BaseContainer/Base/LikeButton.modulate = Color("#999999")
+		$BaseContainer/Base/DislikeButton.self_modulate = Color("#5D56BE")
+		$BaseContainer/Base/DislikeButton/Label.modulate = Color("#ffffff")
+		$BaseContainer/Base/DislikeButton/Icon.modulate = Color("#ffffff")
+		$BaseContainer/Base/DislikeButton.disabled = true
+		$BaseContainer/Base/LikeButton.disabled = true
+	$BaseContainer/Base/DislikeButton/Loading.hide()
+	$BaseContainer/Base/DislikeButton/Icon.show()
+	$BaseContainer/Base/DislikeButton/Label.show()
+	$UIBlocker.hide()
+func _on_DislikeButton_mouse_entered():
+	if ($BaseContainer/Base/DislikeButton.disabled): return
+	mouseFocus = "BaseContainer/Base/DislikeButton"; button_mouse_entered(); changeFocus();
+func _on_DislikeButton_mouse_exited():
+	if ($BaseContainer/Base/DislikeButton.disabled): return
+	button_mouse_exited(); mouseFocus = ""; changeFocus();
+

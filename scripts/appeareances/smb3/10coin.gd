@@ -40,12 +40,9 @@ func render(group, forcerender = false, render_range = 60):
 	if (group != ""):
 		if (!is_in_group(group)):
 			return
-	var scrwidth = OS.get_window_size().x;
-	var scrheight = OS.get_window_size().y;
-	var multiplier = 720/scrheight;
-	var finalscrwidth = scrwidth * multiplier;
+	var scrwidth = get_node("../Editor/BlackScreen").rect_size.x;
 	var distance = abs(position.x-Global.campos.x);
-	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+	if (distance-(scrwidth/2) > scrwidth*(render_range*0.01)):
 		set_process(false);
 		set_physics_process(false);
 	else:
@@ -84,9 +81,6 @@ func _ready():
 	Global.connect("changeStyle", self, "changeStyle");
 	Global.connect("erase", self, "erase");
 	styleChanged();
-	yield(get_tree(), "idle_frame");
-	if (get_parent().editing):
-		$AnimationPlayer.play("start");
 	ready = true;
 	canSyncAnim = true;
 
@@ -134,10 +128,6 @@ func styleChanged():
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGhostforest");
 			currentSprite.show();
-		"Snow":
-			currentSprite.hide();
-			currentSprite = get_node("SpriteUnderground");
-			currentSprite.show();
 		_:
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");
@@ -149,7 +139,7 @@ func styleChanged():
 	shadow = AnimatedSprite.new();
 	shadow.frames = currentSprite.frames;
 	shadow.scale = currentSprite.scale;
-	get_node("../ShadowViewport").add_child(shadow);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 
 func _on_Coin_body_entered(body):
 	if (body.is_in_group("Character") && visible):

@@ -39,7 +39,7 @@ func _ready():
 	shadow.texture = texture;
 	shadow.scale = scale
 	shadow.position = position+Vector2(3*3.25, 3*3.25);
-	get_node("../ShadowViewport").add_child(shadow);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 
 func _physics_process(delta):
 	if (!Global.playing):

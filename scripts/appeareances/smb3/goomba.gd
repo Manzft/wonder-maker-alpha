@@ -62,12 +62,9 @@ func render(group, forcerender = false, render_range = 60):
 	if (group != ""):
 		if (!is_in_group(group)):
 			return
-	var scrwidth = OS.get_window_size().x;
-	var scrheight = OS.get_window_size().y;
-	var multiplier = 720/scrheight;
-	var finalscrwidth = scrwidth * multiplier;
+	var scrwidth = get_node("../Editor/BlackScreen").rect_size.x;
 	var distance = abs(position.x-Global.campos.x);
-	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+	if (distance-(scrwidth/2) > scrwidth*(render_range*0.01)):
 		set_process(false);
 		set_physics_process(false);
 	else:
@@ -114,9 +111,6 @@ func _ready():
 	Global.connect("erase", self, "erase");
 	
 	styleChanged();
-	yield(get_tree(), "idle_frame");
-	if (get_parent().editing):
-		$AnimationPlayer.play("start");
 	startPos = position;
 	if (insided):
 		flip_h = false;
@@ -158,7 +152,7 @@ func _process(delta):
 			else:
 				chainMoving = "2"
 			
-		if (is_on_floor() || dead):
+		if (is_on_floor() || dead || true):
 			canChain = false;
 			
 		if (stopped && chained):
@@ -173,15 +167,6 @@ func _process(delta):
 		
 		if (chained):
 			if (chainObject != null):
-				if ("inbones" in chainObject):
-					if (chainObject.inbones):
-						chained = false;
-						chainObject = null;
-				if ("inshell" in chainObject):
-					if (chainObject.inshell):
-						chained = false;
-						chainObject = null;
-				
 				if (chainObject.visible):
 					position.y = chainObject.position.y-51;
 					if (chainObject.stopped):
@@ -193,11 +178,11 @@ func _process(delta):
 							#$AnimationPlayer.play("incolumn"+chainMoving);
 					
 					if (chainMoving == ""):
-						currentSprite.position.x = lerp(currentSprite.position.x, -4, 0.25);
+						currentSprite.position.x = lerp(currentSprite.position.x, -4.0, 12*delta);
 						if (currentSprite.position.x <= -3.9):
 							chainMoving = "2";
 					else:
-						currentSprite.position.x = lerp(currentSprite.position.x, 4, 0.25);
+						currentSprite.position.x = lerp(currentSprite.position.x, 4.0, 12*delta);
 						if (currentSprite.position.x >= 3.9):
 							chainMoving = "";
 						
@@ -207,6 +192,17 @@ func _process(delta):
 						motion.y = 0;
 						chained = false;
 						chainObject = null;
+				
+				if (chainObject != null):
+					if ("inbones" in chainObject):
+						if (chainObject.inbones):
+							chained = false;
+							chainObject = null;
+					if (chainObject != null):
+						if ("inshell" in chainObject):
+							if (chainObject.inshell):
+								chained = false;
+								chainObject = null;
 			else:
 				chainObject = null;
 				chained = false;
@@ -297,7 +293,7 @@ func _process(delta):
 		dupsprite.position = pos;
 	else:
 		dupsprite.position = currentSprite.global_position;
-		
+	
 	if (!dupsprite.visible):
 		dupsprite.position = currentSprite.global_position;
 		dupsprite.show();
@@ -454,7 +450,7 @@ func styleChanged():
 	shadow.frames = currentSprite.frames;
 	shadow.animation = currentSprite.animation;
 	shadow.scale = currentSprite.scale;
-	get_node("../ShadowViewport").add_child(shadow);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 	
 	if (dupsprite == null):
 		pass

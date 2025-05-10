@@ -141,6 +141,7 @@ script = ExtResource( 1 )
 position = Vector2( 24, 26 )
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 14 )
+frame = 2
 playing = true
 
 [node name="SpriteUnderground" type="AnimatedSprite" parent="."]
@@ -148,7 +149,7 @@ visible = false
 position = Vector2( 26, 26 )
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 23 )
-frame = 3
+frame = 1
 playing = true
 
 [node name="SpriteGhostforest" type="AnimatedSprite" parent="."]
@@ -156,6 +157,7 @@ visible = false
 position = Vector2( 26, 26 )
 scale = Vector2( 3.25, 3.25 )
 frames = SubResource( 48 )
+frame = 2
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -163,6 +165,7 @@ position = Vector2( 26, 26 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
 playback_speed = 10.0
 anims/RESET = SubResource( 2 )
 anims/start = SubResource( 3 )

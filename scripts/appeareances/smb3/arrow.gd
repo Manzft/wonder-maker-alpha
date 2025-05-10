@@ -38,12 +38,9 @@ func render(group, forcerender = false, render_range = 60):
 	if (group != ""):
 		if (!is_in_group(group)):
 			return
-	var scrwidth = OS.get_window_size().x;
-	var scrheight = OS.get_window_size().y;
-	var multiplier = 720/scrheight;
-	var finalscrwidth = scrwidth * multiplier;
+	var scrwidth = get_node("../Editor/BlackScreen").rect_size.x;
 	var distance = abs(position.x-Global.campos.x);
-	if (distance-(finalscrwidth/2) > finalscrwidth*(render_range*0.01)):
+	if (distance-(scrwidth/2) > scrwidth*(render_range*0.01)):
 		set_process(false);
 		set_physics_process(false);
 	else:
@@ -91,11 +88,8 @@ func _ready():
 	Global.connect("changeStyle", self, "changeStyle");
 	Global.connect("erase", self, "erase");
 	styleChanged();
-	yield(get_tree(), "idle_frame");
-	if (get_parent().editing):
-		$AnimationPlayer.play("start");
 
-func _process(_delta):
+func _process(delta: float):
 	if (bye):
 		eraseShadow();
 		queue_free();
@@ -112,29 +106,29 @@ func _process(_delta):
 	match (seldirection):
 		"down":
 			$DirectionButton/ArrowDown.show();
-			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(90.0), 0.25);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(90.0), 16.0*delta);
 		"up":
 			$DirectionButton/ArrowUp.show();
-			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(270.0), 0.25);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(270.0), 16.0*delta);
 		"left":
 			$DirectionButton/ArrowLeft.show();
-			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(180.0), 0.25);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(180.0), 16.0*delta);
 		"right":
 			$DirectionButton/ArrowRight.show();
-			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(0.0), 0.25);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(0.0), 16.0*delta);
 		#----------------------------------------------------------
 		"leftdown":
 			$DirectionButton/ArrowLeftDown.show();
-			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(135.0), 0.25);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(135.0), 16.0*delta);
 		"leftup":
 			$DirectionButton/ArrowLeftUp.show();
-			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(225.0), 0.25);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(225.0), 16.0*delta);
 		"rightdown":
 			$DirectionButton/ArrowRightDown.show();
-			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(45.0), 0.25);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(45.0), 16.0*delta);
 		"rightup":
 			$DirectionButton/ArrowRightUp.show();
-			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(315.0), 0.25);
+			currentSprite.rotation = lerp_angle(currentSprite.rotation, deg2rad(315.0), 16.0*delta);
 	
 	if (get_node("../Editor").playing):
 		$DirectionButton.hide();
@@ -156,7 +150,7 @@ func styleChanged():
 	shadow = Sprite.new();
 	shadow.texture = currentSprite.texture;
 	shadow.scale = currentSprite.scale
-	get_node("../ShadowViewport").add_child(shadow);
+	get_node("../ViewportShadow/Shadows").add_child(shadow);
 
 func _on_DirectionButton_pressed():
 	match (seldirection):

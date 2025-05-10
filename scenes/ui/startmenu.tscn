@@ -34,7 +34,7 @@
 [ext_resource path="res://title/M.png" type="Texture" id=32]
 [ext_resource path="res://title/E.png" type="Texture" id=33]
 [ext_resource path="res://sprites/ui/startmenu/title.png" type="Texture" id=34]
-[ext_resource path="res://music/title_screen.mp3" type="AudioStream" id=35]
+[ext_resource path="res://music/wonder_maker_start_menu_ost.mp3" type="AudioStream" id=35]
 [ext_resource path="res://sprites/ui/editor/square_big_button.png" type="Texture" id=36]
 [ext_resource path="res://sprites/ui/splashscreen/discord_icon.png" type="Texture" id=37]
 [ext_resource path="res://sprites/ui/splashscreen/youtube_icon.png" type="Texture" id=38]
@@ -1438,10 +1438,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 115.5
-margin_top = 224.0
-margin_right = 894.5
-margin_bottom = 353.0
+margin_left = 87.0
+margin_top = 171.0
+margin_right = 866.0
+margin_bottom = 300.0
 rect_rotation = -19.2639
 rect_scale = Vector2( 0.5, 0.5 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
@@ -1570,8 +1570,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -4.99064
 margin_top = -4.99064
-margin_right = 243.009
-margin_bottom = 40.0094
+margin_right = -4.99065
+margin_bottom = -4.99064
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="StartButton/Selection"]
@@ -1827,10 +1827,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 459.0
-margin_top = 410.0
-margin_right = 621.006
-margin_bottom = 535.999
+margin_left = -181.0
+margin_top = -310.0
+margin_right = -18.994
+margin_bottom = -184.001
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( 79, 62 )
@@ -1872,8 +1872,8 @@ text = "Crear"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 162.0
-margin_bottom = 126.0
+margin_right = -0.00598145
+margin_bottom = 0.000976563
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="ActionButtons/MakeButton/Selection"]
@@ -1945,10 +1945,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 659.0
-margin_top = 410.0
-margin_right = 821.0
-margin_bottom = 536.0
+margin_left = 19.0
+margin_top = -310.0
+margin_right = 181.0
+margin_bottom = -184.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( 79, 62 )
@@ -1989,8 +1989,6 @@ text = "Jugar"
 visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 162.0
-margin_bottom = 126.0
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="ActionButtons/PlayButton/Selection"]
@@ -2204,8 +2202,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -4.63017
 margin_top = -4.63017
-margin_right = 538.37
-margin_bottom = 97.3698
+margin_right = 0.369812
+margin_bottom = -0.630173
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="PlayButtons/ManzftChallenge/Selection"]
@@ -2320,8 +2318,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -4.63017
 margin_top = -4.63017
-margin_right = 538.37
-margin_bottom = 97.3698
+margin_right = -4.63019
+margin_bottom = -4.63017
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="PlayButtons/StoryMode/Selection"]
@@ -2433,8 +2431,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -4.63017
 margin_top = -4.63017
-margin_right = 538.37
-margin_bottom = 97.3698
+margin_right = 0.369812
+margin_bottom = -0.630173
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="PlayButtons/CourseWorld/Selection"]
@@ -2548,8 +2546,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = -4.63017
 margin_top = -4.63017
-margin_right = 538.37
-margin_bottom = 97.3698
+margin_right = 0.369812
+margin_bottom = -0.630173
 mouse_filter = 2
 
 [node name="UpLeft" type="TextureRect" parent="PlayButtons/Coursebot/Selection"]
@@ -2723,7 +2721,7 @@ pitch_scale = 0.8
 
 [node name="MusicTitleScreen" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 35 )
-volume_db = -10.0
+volume_db = -15.0
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false

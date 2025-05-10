@@ -198,7 +198,7 @@ func _on_Settings_mouse_exited():
 	
 func _on_ManzftChallenge_pressed():
 	savedFocus = getFocusNode();
-	Global.showMessage("El Manzft Challenge aún está en desarrollo, vendrá en la Alpha v1.3 Fix.", get_parent(), self);
+	Global.showMessage("Lo sentimos, el Manzft Challenge fue aplazado y no esta disponible todavia. Vendra en la Alpha v1.4.", get_parent(), self);
 	$AudioPlayButton.play();
 func _on_ManzftChallenge_mouse_entered():
 	mouseFocus = "ManzftChallenge"; button_mouse_entered(); changeFocus();

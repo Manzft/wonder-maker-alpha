@@ -48,19 +48,19 @@
     {
       "title": "Todo",
       "tasks": [
-        59,
-        60
+
       ]
     },
     {
       "title": "Doing",
       "tasks": [
-        64
+        59
       ]
     },
     {
       "title": "Done",
       "tasks": [
+        64,
         65,
         7,
         4,
@@ -87,6 +87,7 @@
     {
       "title": "Maybe",
       "tasks": [
+        60,
         63,
         17,
         3,

@@ -222,6 +222,7 @@ collision_mask = 3
 collide_with_areas = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "start"
 playback_speed = 10.0
 anims/RESET = SubResource( 33 )
 anims/draging = SubResource( 34 )
