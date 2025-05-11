@@ -149,7 +149,6 @@ tracks/2/keys = {
 
 [node name="EnterText" type="TextureRect" groups=["CurrentTree"]]
 self_modulate = Color( 0, 0, 0, 0.764706 )
-show_behind_parent = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 texture = ExtResource( 8 )

@@ -120,20 +120,26 @@ func _ready():
 			var e = Online.local_accounts_data[us]
 			if (e.nick == Online.user_name):
 				dict = e.levels_interacted[str(int(Online.local_loaded_level_data.id))]
-		if ("reacted" in dict):
-			if (dict["reacted"] == "like"):
-				$BaseContainer/Base/DislikeButton.modulate = Color("#999999")
-				$BaseContainer/Base/LikeButton.self_modulate = Color("#eb625c")
-				$BaseContainer/Base/LikeButton/Label.modulate = Color("#ffffff")
-				$BaseContainer/Base/LikeButton/Icon.modulate = Color("#ffffff")
-			elif (dict["reacted"] == "dislike"):
-				$BaseContainer/Base/LikeButton.modulate = Color("#999999")
-				$BaseContainer/Base/DislikeButton.self_modulate = Color("#5D56BE")
-				$BaseContainer/Base/DislikeButton/Label.modulate = Color("#ffffff")
-				$BaseContainer/Base/DislikeButton/Icon.modulate = Color("#ffffff")
+		if (user == Online.user_name):
+			$BaseContainer/Base/DislikeButton.modulate = Color("#999999")
+			$BaseContainer/Base/LikeButton.modulate = Color("#999999")
 			$BaseContainer/Base/DislikeButton.disabled = true
 			$BaseContainer/Base/LikeButton.disabled = true
-	elif (user != Global.USER_NAME):
+		else:
+			if ("reacted" in dict):
+				if (dict["reacted"] == "like"):
+					$BaseContainer/Base/DislikeButton.modulate = Color("#999999")
+					$BaseContainer/Base/LikeButton.self_modulate = Color("#eb625c")
+					$BaseContainer/Base/LikeButton/Label.modulate = Color("#ffffff")
+					$BaseContainer/Base/LikeButton/Icon.modulate = Color("#ffffff")
+				elif (dict["reacted"] == "dislike"):
+					$BaseContainer/Base/LikeButton.modulate = Color("#999999")
+					$BaseContainer/Base/DislikeButton.self_modulate = Color("#5D56BE")
+					$BaseContainer/Base/DislikeButton/Label.modulate = Color("#ffffff")
+					$BaseContainer/Base/DislikeButton/Icon.modulate = Color("#ffffff")
+				$BaseContainer/Base/DislikeButton.disabled = true
+				$BaseContainer/Base/LikeButton.disabled = true
+	elif (user != Global.USER_NAME || Global.toPublish):
 		$BaseContainer/Base/Reset.rect_position.y += 62;
 		$BaseContainer/Base/Exit.rect_position.y += 62;
 		$BaseContainer/Base/Edit.hide();
@@ -210,6 +216,8 @@ func _on_Exit_pressed():
 	else:
 		Global.changeScene("res://scenes/ui/coursebot.tscn", get_parent())
 	Global.coursePlaying = false;
+	Global.toPublish = false
+	Online.playing_online = false
 	#get_tree().paused = false;
 	get_parent().get_node("GameMusic").pause_mode = PAUSE_MODE_PROCESS;
 	$BaseContainer/AnimationPlayer.play("out");

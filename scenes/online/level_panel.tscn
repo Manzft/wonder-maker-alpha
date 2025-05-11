@@ -414,7 +414,6 @@ mouse_filter = 2
 size_flags_vertical = 0
 texture = ExtResource( 6 )
 expand = true
-flip_v = true
 
 [node name="Separator" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
 margin_left = 220.0

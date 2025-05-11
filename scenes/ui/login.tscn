@@ -381,6 +381,7 @@ margin_left = -265.0
 margin_top = -181.0
 margin_right = 265.0
 margin_bottom = -113.0
+mouse_filter = 0
 texture = ExtResource( 11 )
 patch_margin_left = 10
 patch_margin_top = 10
@@ -440,6 +441,7 @@ margin_left = -265.0
 margin_top = -49.0
 margin_right = 265.0
 margin_bottom = 19.0
+mouse_filter = 0
 texture = ExtResource( 11 )
 patch_margin_left = 10
 patch_margin_top = 10
@@ -898,12 +900,14 @@ volume_db = 15.0
 [node name="AudioCloseMenu" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 15 )
 
-[connection signal="mouse_entered" from="LoginButton" to="." method="_on_OkButton_mouse_entered"]
-[connection signal="mouse_exited" from="LoginButton" to="." method="_on_OkButton_mouse_exited"]
-[connection signal="pressed" from="LoginButton" to="." method="_on_OkButton_pressed"]
-[connection signal="mouse_entered" from="RegisterButton" to="." method="_on_OkButton_mouse_entered"]
-[connection signal="mouse_exited" from="RegisterButton" to="." method="_on_OkButton_mouse_exited"]
-[connection signal="pressed" from="RegisterButton" to="." method="_on_OkButton_pressed"]
+[connection signal="gui_input" from="UserBox" to="." method="_on_UserBox_gui_input"]
+[connection signal="gui_input" from="PasswordBox" to="." method="_on_PasswordBox_gui_input"]
+[connection signal="mouse_entered" from="LoginButton" to="." method="_on_LoginButton_mouse_entered"]
+[connection signal="mouse_exited" from="LoginButton" to="." method="_on_LoginButton_mouse_exited"]
+[connection signal="pressed" from="LoginButton" to="." method="_on_LoginButton_pressed"]
+[connection signal="mouse_entered" from="RegisterButton" to="." method="_on_RegisterButton_mouse_entered"]
+[connection signal="mouse_exited" from="RegisterButton" to="." method="_on_RegisterButton_mouse_exited"]
+[connection signal="pressed" from="RegisterButton" to="." method="_on_RegisterButton_pressed"]
 [connection signal="mouse_entered" from="CloseButton" to="." method="_on_CloseButton_mouse_entered"]
 [connection signal="mouse_exited" from="CloseButton" to="." method="_on_CloseButton_mouse_exited"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_CloseButton_pressed"]

@@ -18,7 +18,6 @@ var timer = 0.0
 
 func _ready() -> void:
 	yield(auth(), "completed")
-	yield(login("Manzft27", "2710"), "completed")
 
 func auth():
 	var auth_result = yield(Supabase.auth.sign_in_anonymous(), "completed")
@@ -79,6 +78,11 @@ func login(nickname: String, password: String):
 	if (accounts == null):
 		return "request_error"
 	
+	var server = yield(receive_data("server"), "completed")
+	
+	if (server == null):
+		return "request_error"
+	
 	var user_found = false
 	
 	local_accounts_data = accounts
@@ -87,10 +91,18 @@ func login(nickname: String, password: String):
 		if (account.nick == nickname):
 			user_found = true
 			if (account.password == password):
-				print("User ", nickname, " logged in Wonder Maker Online successfully")
-				logged = true
-				user_name = nickname
-				return "logged"
+				if (server[0]["server_opened"] == "yes"):
+					if (account.banned == "yes"):
+						print("User ", nickname, " can't login, he's banned from Wonder Maker Online server")
+						return "banned"
+					else:
+						print("User ", nickname, " logged in Wonder Maker Online successfully")
+						logged = true
+						user_name = nickname
+						return "logged"
+				else:
+					print("Servers Closed can't auth in Wonder Maker Online server")
+					return "server_closed"
 			else:
 				print("Incorrect Password")
 				return "incorrect_password"
@@ -105,6 +117,11 @@ func register(nickname: String, password: String):
 	var accounts = yield(receive_data("accounts"), "completed")
 	
 	if (accounts == null):
+		return "request_error"
+	
+	var server = yield(receive_data("server"), "completed")
+	
+	if (server == null):
 		return "request_error"
 	
 	var user_found = false
@@ -123,10 +140,14 @@ func register(nickname: String, password: String):
 		print("User not found, trying to register...")
 		var result = yield(send_data("accounts", {"nick": nickname, "password": password}), "completed")
 		if (result != null):
-			print("User ", nickname, " registered in Wonder Maker Online successfully")
-			user_name = nickname
-			logged = true
-			return "registered"
+			if (server[0]["server_opened"] == "yes"):
+				print("User ", nickname, " registered in Wonder Maker Online successfully")
+				logged = true
+				user_name = nickname
+				return "registered"
+			else:
+				print("Servers Closed can't auth in Wonder Maker Online server")
+				return "server_closed"
 		else:
 			return "request_error"
 
@@ -228,7 +249,8 @@ func add_level_clear():
 				print("User ", user_name," not found in local account data")
 				return
 			send_data.levels_interacted[level_code] = {"clear": true}
-			send_data.finished_levels = int(local_accounts_data[r].finished_levels)+1
+			if (local_loaded_level_data.data.user != user_name):
+				send_data.finished_levels = int(local_accounts_data[r].finished_levels)+1
 			var condition = ["nick", user_name]
 			print("Updating account info of ", user_name)
 			var result = yield(send_data_condition("accounts", send_data, condition), "completed")
@@ -438,6 +460,26 @@ func add_dislike():
 			if (result == null):
 				return null
 			return "success"
+
+func publish_level(level: String):
+	print("Requesting publish level...")
+	
+	var f = File.new()
+	f.open_encrypted_with_pass(level, File.READ, Global.SECURITY_KEY);
+	var content = f.get_as_text();
+	f.close()
+	var json = JSON.parse(content)
+	var level_data = json.result;
+	level_data.user = user_name
+	
+	var levels = yield(send_data("levels", {"name": Global.currentCourseName, "data": level_data}), "completed")
+	
+	if (levels == null):
+		print("Couldn't publish level: ", Global.currentCourseName)
+		return "request_error"
+	else:
+		print("Published level: ", Global.currentCourseName, " to Wonder Maker Online server")
+		return "success"
 
 func http_finished(data):
 	var request_type

@@ -127,6 +127,10 @@ func _process(delta):
 	jump_h  = def_jump_h/(Global.ENTITY_PHYSICS_SPEED*0.01);
 	gravity = def_gravity/(Global.ENTITY_PHYSICS_SPEED*0.01);
 	max_fall = def_max_fall/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	
+	if (currentSprite != get_node("SpriteGround")):
+		currentSprite.scale = $SpriteGround.scale;
+	
 	if (get_node("../Editor").playing):
 		if (dead):
 			z_index = 2;

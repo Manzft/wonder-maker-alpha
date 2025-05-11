@@ -52,6 +52,8 @@ func rpc(function_name : String, arguments : Dictionary = {}, supabase_query : S
 
 func _process_task(task : DatabaseTask) -> void:
 	var httprequest : HTTPRequest = HTTPRequest.new()
+	#httprequest.use_threads = true
+	#httprequest.download_chunk_size = 131072
 	add_child(httprequest)
 	task.connect("completed", self, "_on_task_completed")
 	task.push_request(httprequest)

@@ -134,8 +134,12 @@ func _on_Exit_mouse_exited():
 	button_mouse_exited(); mouseFocus = ""; changeFocus();
 
 func _on_CourseWorld_pressed():
-	savedFocus = getFocusNode();
-	Global.showMessage("¡Aún estamos trabajando en esto!", get_parent(), self);
+	#savedFocus = getFocusNode();
+	#Global.showMessage("¡Aún estamos trabajando en esto!", get_parent(), self);
+	if (Online.logged):
+		Global.changeScene("res://scenes/ui/online.tscn")
+	else:
+		Global.auth_interface(self)
 	$AudioPlayButton.play();
 func _on_CourseWorld_mouse_entered():
 	mouseFocus = "CourseWorld"; button_mouse_entered(); changeFocus();

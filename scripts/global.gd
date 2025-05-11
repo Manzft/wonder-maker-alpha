@@ -145,6 +145,8 @@ var activity
 var assets
 var timestamps
 
+var toPublish: bool = false
+
 func getObjectCode(node: Node):
 	var obj : int = -1;
 	for group in node.get_groups():
@@ -882,6 +884,13 @@ func showMessage(text, tree, realtree = null, type : String = ""):
 	inst.realmenu = realtree;
 	inst.type = type;
 
+func auth_interface(tree: Node, notstartmenu: bool = false):
+	var scene = preload("res://scenes/ui/login.tscn");
+	var inst = scene.instance();
+	inst.notstartmenu = notstartmenu
+	tree.add_child(inst);
+
+
 func spawnSettings(tree, realtree = null):
 	var scene = preload("res://scenes/ui/settings.tscn");
 	var inst = scene.instance();
@@ -892,7 +901,8 @@ func enterText(guidetext, type, tree, realtree = null):
 	var scene = preload("res://scenes/ui/Keyboard.tscn");
 	var inst = scene.instance();
 	tree.add_child(inst);
-	tree.editingText = true;
+	if ("editingText" in tree):
+		tree.editingText = true;
 	inst.setText(guidetext);
 	inst.realmenu = realtree;
 	inst.type = type;

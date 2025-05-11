@@ -119,6 +119,9 @@ func finish(cancel = false):
 		get_parent().editingText = false;
 	
 	if (!cancel):
-		get_parent().enterTextFinished($Base/Text.text, type);
+		var node = get_parent()
+		if (realmenu != null):
+			node = realmenu
+		node.enterTextFinished($Base/Text.text, type);
 	
 	queue_free();

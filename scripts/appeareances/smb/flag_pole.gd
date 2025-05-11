@@ -80,7 +80,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 				loading.hide()
 				if (result == "success"):
 					print("Level clear information sent to Wonder Maker Online server")
-					Global.changeScene("res://scenes/ui/online.tscn", get_parent())
+					Global.changeScene("res://scenes/ui/finish_online_level.tscn", get_parent())
 					Global.coursePlaying = false
 				else:
 					print("Can't send level clear information to Wonder Maker Online server, aborting...")

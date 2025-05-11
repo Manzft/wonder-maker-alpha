@@ -11,6 +11,10 @@ var realmenu = null;
 
 var type = "";
 
+var notstartmenu: bool = false
+
+var editingText: bool = false
+
 var savedFocus
 
 func _input(event):
@@ -30,7 +34,7 @@ func changeInput():
 	var nodes = get_tree().get_nodes_in_group("Button");
 	if (Global.CurrentInput == "Mouse"):
 		mouseFocus = "";
-		$Text.grab_focus();
+		$Shadow.grab_focus();
 		changeFocus();
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE);
 	if (Global.CurrentInput == "Gamepad"):
@@ -79,6 +83,12 @@ func _ready():
 		get_parent().editingText = true;
 	changeInput();
 	
+	#Reset Boxs Text
+	$UserBox/Label.text = ""
+	$PasswordBox/Label.text = ""
+	
+	$UserBox/Label.text = Global.USER_NAME
+	
 	#Connect button focus signals
 	var nodes = get_tree().get_nodes_in_group("Button");
 	for node in nodes:
@@ -119,7 +129,7 @@ func button_mouse_entered():
 	tween.tween_property(get_node(mouseFocus), "rect_scale", Vector2(scale.x*1.1, scale.y*1.1), 0.0625)
 
 func button_mouse_exited():
-	$Text.grab_focus();
+	$Shadow.grab_focus();
 	if (mouseFocus != ""):
 		get_node(mouseFocus+"/Selection/AnimationPlayer").play("RESET");
 		get_node(mouseFocus).rect_pivot_offset.x = get_node(mouseFocus).rect_size.x/2;
@@ -131,15 +141,15 @@ func button_mouse_exited():
 	#Input.set_custom_mouse_cursor(load("res://sprites/ui/cursor_editor.png"));
 
 func _on_LoginButton_pressed():
-	var username: String = $Panel/EmailPanel/Label.text
-	var password: String = $Panel/PasswordPanel/Label.text
+	var username: String = $UserBox/Label.text
+	var password: String = $PasswordBox/Label.text
 	$AudioButton.play()
 	changeFocus();
 	if (username != "" && !username.begins_with(" ") &&
 	password != "" && !password.begins_with(" ")):
 		$UIBlocker.show()
 		$Loading.show()
-		var result = yield(Online.login(username, password), "result")
+		var result = yield(Online.login(username, password), "completed")
 		$UIBlocker.hide()
 		$Loading.hide()
 		match (result):
@@ -152,8 +162,18 @@ func _on_LoginButton_pressed():
 			"server_closed":
 				savedFocus = getFocusNode()
 				Global.showMessage("Se estan llevando a cabo labores de mantenimiento, vuelve mas tarde.", self)
+			"banned":
+				savedFocus = getFocusNode()
+				Global.showMessage("Has sido baneado de Wonder Maker Online, puedes apelar en el servidor de discord.", self)
 			"logged":
-				Global.USER_NAME = Online.user_name
+				if (notstartmenu):
+					$AnimationPlayer.play_backwards("in");
+					Backwards = true;
+					changeFocus();
+				else:
+					Global.USER_NAME = Online.user_name
+					Global.saveSettings()
+					Global.changeScene("res://scenes/ui/online.tscn")
 	else:
 		savedFocus = getFocusNode()
 		Global.showMessage("Debes rellenar todos los campos.", self)
@@ -164,14 +184,34 @@ func _on_LoginButton_mouse_exited():
 	if (!Backwards):
 		button_mouse_exited(); mouseFocus = ""; changeFocus();
 
-func _on_RegisterButton_pressed():
-	var username: String = $Panel/EmailPanel/Label.text
-	var password: String = $Panel/PasswordPanel/Label.text
+func _on_RegisterButton_pressed():	
+	var username: String = $UserBox/Label.text
+	var password: String = $PasswordBox/Label.text
 	$AudioButton.play()
 	changeFocus();
 	if (username != "" && !username.begins_with(" ") &&
 	password != "" && !password.begins_with(" ")):
-		Online.register(username, password)
+		$UIBlocker.show()
+		$Loading.show()
+		var result = yield(Online.register(username, password), "completed")
+		$UIBlocker.hide()
+		$Loading.hide()
+		match (result):
+			"user_found":
+				savedFocus = getFocusNode()
+				Global.showMessage("Este usuario ya esta registrado.", self)
+			"server_closed":
+				savedFocus = getFocusNode()
+				Global.showMessage("Se estan llevando a cabo labores de mantenimiento, vuelve mas tarde.", self)
+			"registered":
+				if (notstartmenu):
+					$AnimationPlayer.play_backwards("in");
+					Backwards = true;
+					changeFocus();
+				else:
+					Global.USER_NAME = Online.user_name
+					Global.saveSettings()
+					Global.changeScene("res://scenes/ui/online.tscn")
 	else:
 		savedFocus = getFocusNode()
 		Global.showMessage("Debes rellenar todos los campos.", self)
@@ -195,6 +235,23 @@ func _on_CloseButton_mouse_exited():
 	if (!Backwards):
 		button_mouse_exited(); mouseFocus = ""; changeFocus();
 
+func checkClick(event: InputEvent):
+	var check: bool = false
+	if (event is InputEventMouseButton):
+		if (event.button_index == BUTTON_LEFT):
+			if (!event.pressed):
+				check = true
+	if (event is InputEventScreenTouch):
+		if (!event.pressed):
+			check = true
+	return check
+
+func enterTextFinished(text: String, type: String):
+	match (type):
+		"user":
+			$UserBox/Label.text = text
+		"password":
+			$PasswordBox/Label.text = text
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if (Backwards):
@@ -216,3 +273,10 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		if (get_parent().has_method("messageBoxFinished")):
 			get_parent().messageBoxFinished(type);
 
+func _on_UserBox_gui_input(event):
+	if (checkClick(event)):
+		Global.enterText("Escribe tu nombre de usuario:", "user", self)
+
+func _on_PasswordBox_gui_input(event):
+	if (checkClick(event)):
+		Global.enterText("Escribe tu contraseña:", "password", self)

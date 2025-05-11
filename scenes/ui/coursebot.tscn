@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=2]
+[gd_scene load_steps=119 format=2]
 
 [ext_resource path="res://sprites/ui/coursebot/bg.png" type="Texture" id=1]
 [ext_resource path="res://sprites/ui/coursebot/base.png" type="Texture" id=2]
@@ -37,6 +37,12 @@
 [ext_resource path="res://sprites/ui/editor/square_little_button.png" type="Texture" id=35]
 [ext_resource path="res://sprites/ui/editor/menu_icon.png" type="Texture" id=36]
 [ext_resource path="res://sounds/ui/pause_button.wav" type="AudioStream" id=37]
+[ext_resource path="res://sprites/ui/editor/square_little_button_dropshadow.png" type="Texture" id=38]
+[ext_resource path="res://sprites/ui/startmenu/back_dropshadow.png" type="Texture" id=39]
+[ext_resource path="res://sprites/ui/editor/selector/close_dropshadow.png" type="Texture" id=40]
+[ext_resource path="res://sprites/ui/coursebot/erasebutton_dropshadow.png" type="Texture" id=41]
+[ext_resource path="res://sprites/ui/coursebot/editbutton_dropshadow.png" type="Texture" id=42]
+[ext_resource path="res://sprites/ui/coursebot/largebutton_dropshadow.png" type="Texture" id=43]
 
 [sub_resource type="Animation" id=1]
 length = 0.001
@@ -1683,6 +1689,73 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id=44]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.768627, 0.768627, 0.768627, 1 ), Color( 1, 1, 1, 1 ), Color( 0.768627, 0.768627, 0.768627, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 425, 60 ), Vector2( 435, 70 ), Vector2( 425, 60 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:rect_position")
+tracks/2/interp = 2
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -5, -5 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=75]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:rect_size")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 425, 60 ) ]
+}
+
+[sub_resource type="Animation" id=76]
 resource_name = "idle"
 loop = true
 tracks/0/type = "value"
@@ -3939,20 +4012,19 @@ anims/RESET = SubResource( 33 )
 anims/idle = SubResource( 34 )
 
 [node name="Shadow" type="TextureRect" parent="BackButton"]
-modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -39.5
-margin_top = -35.5
-margin_right = 39.5
-margin_bottom = 45.5
+margin_left = -50.0
+margin_top = -50.0
+margin_right = 50.0
+margin_bottom = 50.0
 mouse_filter = 2
-texture = ExtResource( 12 )
+texture = ExtResource( 39 )
 
-[node name="YourLevels" type="TextureButton" parent="." groups=["Button"]]
+[node name="YourLevels" type="TextureButton" parent="." groups=["Button", "IgnoreSelection"]]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -4039,7 +4111,7 @@ custom_fonts/font = SubResource( 37 )
 text = "Tus niveles"
 align = 1
 
-[node name="DownloadedLevels" type="TextureButton" parent="." groups=["Button"]]
+[node name="DownloadedLevels" type="TextureButton" parent="." groups=["Button", "IgnoreSelection"]]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -4165,13 +4237,14 @@ texture = ExtResource( 15 )
 [node name="CloseButton" type="TextureButton" parent="LevelInfoContainer/LevelInfo" groups=["Button"]]
 anchor_left = 1.0
 anchor_right = 1.0
-margin_left = -59.0
-margin_right = 20.0
-margin_bottom = 81.0
+margin_left = -71.5
+margin_top = -8.0
+margin_right = 7.5
+margin_bottom = 73.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_scale = Vector2( 0.66, 0.66 )
-rect_pivot_offset = Vector2( -10, 15 )
+rect_pivot_offset = Vector2( 39, 40 )
 focus_neighbour_right = NodePath("../Base/Course10")
 texture_normal = ExtResource( 16 )
 expand = true
@@ -4236,22 +4309,21 @@ anims/RESET = SubResource( 40 )
 anims/idle = SubResource( 41 )
 
 [node name="Shadow" type="TextureRect" parent="LevelInfoContainer/LevelInfo/CloseButton"]
-modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -39.5
-margin_top = -35.5
-margin_right = 39.5
-margin_bottom = 45.5
+margin_left = -64.0
+margin_top = -62.4849
+margin_right = 64.0
+margin_bottom = 65.5151
 focus_neighbour_left = NodePath("..")
 focus_neighbour_top = NodePath("..")
 focus_neighbour_right = NodePath("..")
 focus_neighbour_bottom = NodePath("../../EditButton")
 mouse_filter = 2
-texture = ExtResource( 12 )
+texture = ExtResource( 40 )
 
 [node name="ThumbnailPreview" type="TextureRect" parent="LevelInfoContainer/LevelInfo"]
 margin_left = 17.0
@@ -4397,18 +4469,116 @@ text = "Editar"
 align = 1
 
 [node name="Shadow" type="TextureRect" parent="LevelInfoContainer/LevelInfo/EditButton"]
-modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -212.5
-margin_top = -25.0
-margin_right = 212.5
+margin_left = -280.0
+margin_top = -64.0
+margin_right = 280.0
+margin_bottom = 64.0
+mouse_filter = 2
+texture = ExtResource( 43 )
+
+[node name="PublishButton" type="TextureButton" parent="LevelInfoContainer/LevelInfo" groups=["Button"]]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 4.0
+margin_top = -98.0
+margin_right = 429.0
+margin_bottom = -38.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_pivot_offset = Vector2( -10, 15 )
+focus_neighbour_left = NodePath(".")
+focus_neighbour_top = NodePath("../CloseButton")
+focus_neighbour_right = NodePath(".")
+focus_neighbour_bottom = NodePath("../EditCourseName")
+texture_normal = ExtResource( 17 )
+
+[node name="Selection" type="Control" parent="LevelInfoContainer/LevelInfo/PublishButton" groups=["Selection"]]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+
+[node name="UpLeft" type="TextureRect" parent="LevelInfoContainer/LevelInfo/PublishButton/Selection"]
+margin_left = -5.0
+margin_top = -5.0
+margin_right = 35.0
 margin_bottom = 35.0
 mouse_filter = 2
-texture = ExtResource( 17 )
+texture = ExtResource( 5 )
+
+[node name="UpRight" type="TextureRect" parent="LevelInfoContainer/LevelInfo/PublishButton/Selection"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = 3.0
+margin_top = -5.0
+margin_right = 43.0
+margin_bottom = 35.0
+rect_rotation = 90.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="DownRight" type="TextureRect" parent="LevelInfoContainer/LevelInfo/PublishButton/Selection"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 3.0
+margin_top = 5.0
+margin_right = 43.0
+margin_bottom = 44.9999
+rect_rotation = 180.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="DownLeft" type="TextureRect" parent="LevelInfoContainer/LevelInfo/PublishButton/Selection"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = -5.0
+margin_top = 5.0
+margin_right = 35.0
+margin_bottom = 44.9999
+rect_rotation = 270.0
+mouse_filter = 2
+texture = ExtResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LevelInfoContainer/LevelInfo/PublishButton/Selection"]
+playback_speed = 1.25
+anims/RESET = SubResource( 75 )
+anims/idle = SubResource( 76 )
+
+[node name="Label" type="Label" parent="LevelInfoContainer/LevelInfo/PublishButton"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -83.5
+margin_top = -17.5
+margin_right = 83.5
+margin_bottom = 13.5
+custom_colors/font_color = Color( 0.254902, 0.254902, 0.254902, 1 )
+custom_fonts/font = SubResource( 37 )
+text = "Publicar"
+align = 1
+
+[node name="Shadow" type="TextureRect" parent="LevelInfoContainer/LevelInfo/PublishButton"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -280.0
+margin_top = -64.0
+margin_right = 280.0
+margin_bottom = 64.0
+mouse_filter = 2
+texture = ExtResource( 43 )
 
 [node name="EditCourseName" type="TextureButton" parent="LevelInfoContainer/LevelInfo" groups=["Button"]]
 anchor_left = 0.5
@@ -4416,9 +4586,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = 4.5
-margin_top = -99.0
+margin_top = -19.0
 margin_right = 175.5
-margin_bottom = -28.0
+margin_bottom = 52.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
@@ -4497,18 +4667,17 @@ text = "Nombre"
 align = 1
 
 [node name="Shadow" type="TextureRect" parent="LevelInfoContainer/LevelInfo/EditCourseName"]
-modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -85.5
-margin_top = -30.5
-margin_right = 85.5
-margin_bottom = 40.5
+margin_left = -112.5
+margin_top = -63.0
+margin_right = 112.5
+margin_bottom = 65.0
 mouse_filter = 2
-texture = ExtResource( 20 )
+texture = ExtResource( 42 )
 
 [node name="Icon" type="TextureRect" parent="LevelInfoContainer/LevelInfo/EditCourseName"]
 anchor_left = 0.5
@@ -4528,9 +4697,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = 187.5
-margin_top = -99.0
+margin_top = -19.0
 margin_right = 358.5
-margin_bottom = -28.0
+margin_bottom = 52.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
@@ -4609,18 +4778,17 @@ text = "Descripción"
 align = 1
 
 [node name="Shadow" type="TextureRect" parent="LevelInfoContainer/LevelInfo/EditCourseDescription"]
-modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -85.5
-margin_top = -30.5
-margin_right = 85.5
-margin_bottom = 40.5
+margin_left = -112.5
+margin_top = -63.0
+margin_right = 112.5
+margin_bottom = 65.0
 mouse_filter = 2
-texture = ExtResource( 20 )
+texture = ExtResource( 42 )
 
 [node name="Icon" type="TextureRect" parent="LevelInfoContainer/LevelInfo/EditCourseDescription"]
 anchor_left = 0.5
@@ -4640,9 +4808,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = 370.5
-margin_top = -99.0
+margin_top = -19.0
 margin_right = 439.5
-margin_bottom = -28.0
+margin_bottom = 52.0
 grow_horizontal = 2
 grow_vertical = 2
 rect_pivot_offset = Vector2( -10, 15 )
@@ -4707,18 +4875,17 @@ anims/RESET = SubResource( 53 )
 anims/idle = SubResource( 54 )
 
 [node name="Shadow" type="TextureRect" parent="LevelInfoContainer/LevelInfo/EraseCourse"]
-modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -34.5
-margin_top = -30.5
-margin_right = 34.5
-margin_bottom = 40.5
+margin_left = -63.0
+margin_top = -63.0
+margin_right = 65.0
+margin_bottom = 65.0
 mouse_filter = 2
-texture = ExtResource( 22 )
+texture = ExtResource( 41 )
 
 [node name="Icon" type="TextureRect" parent="LevelInfoContainer/LevelInfo/EraseCourse"]
 anchor_left = 0.5
@@ -4819,18 +4986,17 @@ text = "Jugar"
 align = 1
 
 [node name="Shadow" type="TextureRect" parent="LevelInfoContainer/LevelInfo/PlayButton"]
-modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -212.5
-margin_top = -25.0
-margin_right = 212.5
-margin_bottom = 35.0
+margin_left = -280.0
+margin_top = -64.0
+margin_right = 280.0
+margin_bottom = 64.0
 mouse_filter = 2
-texture = ExtResource( 17 )
+texture = ExtResource( 43 )
 
 [node name="Icon" type="TextureRect" parent="LevelInfoContainer/LevelInfo/PlayButton"]
 anchor_top = 0.5
@@ -4924,13 +5090,17 @@ texture_normal = ExtResource( 35 )
 stretch_mode = 3
 
 [node name="Shadow" type="TextureRect" parent="StartButton"]
-modulate = Color( 0, 0, 0, 0.184314 )
 show_behind_parent = true
-margin_top = 5.0
-margin_right = 62.0
-margin_bottom = 67.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 64.0
+margin_bottom = 64.0
 mouse_filter = 2
-texture = ExtResource( 35 )
+texture = ExtResource( 38 )
 
 [node name="Icon" type="TextureRect" parent="StartButton"]
 anchor_left = 0.5
@@ -4945,6 +5115,7 @@ mouse_filter = 2
 texture = ExtResource( 36 )
 
 [node name="Guide" type="Sprite" parent="StartButton"]
+visible = false
 position = Vector2( 55, 54 )
 texture = ExtResource( 6 )
 
@@ -5062,6 +5233,9 @@ anims/idle = SubResource( 74 )
 [connection signal="mouse_entered" from="LevelInfoContainer/LevelInfo/EditButton" to="." method="_on_EditButton_mouse_entered"]
 [connection signal="mouse_exited" from="LevelInfoContainer/LevelInfo/EditButton" to="." method="_on_EditButton_mouse_exited"]
 [connection signal="pressed" from="LevelInfoContainer/LevelInfo/EditButton" to="." method="_on_EditButton_pressed"]
+[connection signal="mouse_entered" from="LevelInfoContainer/LevelInfo/PublishButton" to="." method="_on_PublishButton_mouse_entered"]
+[connection signal="mouse_exited" from="LevelInfoContainer/LevelInfo/PublishButton" to="." method="_on_PublishButton_mouse_exited"]
+[connection signal="pressed" from="LevelInfoContainer/LevelInfo/PublishButton" to="." method="_on_PublishButton_pressed"]
 [connection signal="mouse_entered" from="LevelInfoContainer/LevelInfo/EditCourseName" to="." method="_on_EditCourseName_mouse_entered"]
 [connection signal="mouse_exited" from="LevelInfoContainer/LevelInfo/EditCourseName" to="." method="_on_EditCourseName_mouse_exited"]
 [connection signal="pressed" from="LevelInfoContainer/LevelInfo/EditCourseName" to="." method="_on_EditCourseName_pressed"]

@@ -97,6 +97,24 @@ func updateFocusSprite():
 			node.get_node("Selection/AnimationPlayer").play("RESET");
 
 func _ready():
+	#Fix Selection Corners
+	for node in get_tree().get_nodes_in_group("Selection"):
+		node.get_node("UpRight").rect_rotation = 90.0
+		node.get_node("DownRight").rect_rotation = 180.0
+		node.get_node("DownLeft").rect_rotation = 270.0
+		
+		node.get_node("UpLeft").rect_scale = Vector2(0.5, 0.5)
+		node.get_node("UpRight").rect_scale = Vector2(0.5, 0.5)
+		node.get_node("DownRight").rect_scale = Vector2(0.5, 0.5)
+		node.get_node("DownLeft").rect_scale = Vector2(0.5, 0.5)
+		
+		node.get_node("UpLeft").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.get_node("UpRight").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.get_node("DownRight").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		node.get_node("DownLeft").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		
+		node.get_node("AnimationPlayer").playback_speed = 1.0
+	
 	Global.toLoad = false;
 	if (Global.DISCORD_PRESENCE):
 		Global.setDiscordState("coursebot")
@@ -117,8 +135,18 @@ func _ready():
 		setText("Elige un nivel");
 		$BackButton.hide();
 		
-	yield(get_tree().create_timer(1.0), "timeout");
+	yield(get_tree().create_timer(0.125), "timeout");
 	setCourseName();
+	
+	if (Global.toPublish):
+		Global.toPublish = false
+		var result = yield(Online.publish_level(Global.currentlevel), "completed")
+		if (result == "success"):
+			savedFocus = mouseFocus
+			Global.showMessage("Se ha publicado tu nivel en el Online de Wonder Maker.", self)
+		else:
+			savedFocus = mouseFocus
+			Global.showMessage("No se ha podido publicar tu nivel.", self)
 
 func updateCurrentLevelSprite():
 	if (currentLevelType == "mine"):
@@ -215,15 +243,37 @@ func setText(text):
 
 #General
 func button_mouse_entered():
-	$AudioSelectButton.play();
-	get_node(mouseFocus+"/Selection/AnimationPlayer").play("idle");
-	changeFocus();
+	#$AudioSelectButton.pitch_scale = randf_range(0.9, 1.1)
+	$AudioSelectButton.play()
+	get_node(mouseFocus+"/Selection/AnimationPlayer").play("idle")
+	changeFocus()
+	if (get_node(mouseFocus).is_in_group("LevelButton") ||
+	get_node(mouseFocus).is_in_group("IgnoreSelection")):
+		return
+	#Input.set_custom_mouse_cursor(load("res://sprites/ui/cursor.png"))
+	get_node(mouseFocus).rect_pivot_offset.x = get_node(mouseFocus).rect_size.x/2
+	get_node(mouseFocus).rect_pivot_offset.y = get_node(mouseFocus).rect_size.y/2
+	var scale: Vector2 = Vector2(0, 0)
+	if (get_node(mouseFocus).editor_description == ""):
+		scale = get_node(mouseFocus).rect_scale
+	else:
+		scale = str2var(get_node(mouseFocus).editor_description)
+	get_node(mouseFocus).editor_description = var2str(scale)
+	var tween = get_tree().create_tween()
+	tween.tween_property(get_node(mouseFocus), "rect_scale", Vector2(scale.x*1.1, scale.y*1.1), 0.0625)
 
 func button_mouse_exited():
 	$Base.grab_focus();
 	if (mouseFocus != ""):
-		get_node(mouseFocus+"/Selection/AnimationPlayer").play("RESET");
+		if (!get_node(mouseFocus).is_in_group("LevelButton") && !get_node(mouseFocus).is_in_group("IgnoreSelection")):
+			get_node(mouseFocus+"/Selection/AnimationPlayer").play("RESET");
+			get_node(mouseFocus).rect_pivot_offset.x = get_node(mouseFocus).rect_size.x/2;
+			get_node(mouseFocus).rect_pivot_offset.y = get_node(mouseFocus).rect_size.y/2;
+			var tween = get_tree().create_tween();
+			var scale: Vector2 = str2var(get_node(mouseFocus).editor_description);
+			tween.tween_property(get_node(mouseFocus), "rect_scale", scale, 0.0625);
 	changeFocus();
+	#Input.set_custom_mouse_cursor(load("res://sprites/ui/cursor_editor.png"));
 
 func course(node : Node):
 	if (!Global.loadingCourse):
@@ -257,12 +307,14 @@ func course(node : Node):
 			$LevelInfoContainer/LevelInfo/EditButton.hide();
 			$LevelInfoContainer/LevelInfo/EditCourseName.hide();
 			$LevelInfoContainer/LevelInfo/EditCourseDescription.hide();
+			$LevelInfoContainer/LevelInfo/PublishButton.hide()
 			$LevelInfoContainer/LevelInfo/EraseCourse.rect_position = Vector2(476.5, 81);
 		else:
 			$LevelInfoContainer/LevelInfo/EditButton.show();
 			$LevelInfoContainer/LevelInfo/EditCourseName.show();
 			$LevelInfoContainer/LevelInfo/EditCourseDescription.show();
-			$LevelInfoContainer/LevelInfo/EraseCourse.rect_position = Vector2(844, 157);
+			$LevelInfoContainer/LevelInfo/PublishButton.show()
+			$LevelInfoContainer/LevelInfo/EraseCourse.rect_position = Vector2(844, 237);
 		
 		if (Global.CurrentInput == "Gamepad"):
 			$LevelInfoContainer/LevelInfo/EditButton.grab_focus();
@@ -363,6 +415,19 @@ func _on_EditButton_mouse_entered():
 func _on_EditButton_mouse_exited():
 	button_mouse_exited(); mouseFocus = ""; changeFocus();
 
+func _on_PublishButton_pressed():
+	$AudioButton.play();
+	if (Online.logged):
+		savedFocus = mouseFocus
+		Global.showMessage("Para publicar un nivel debes demostrar que puedes superarlo.", self, null, "publish")
+	else:
+		Global.auth_interface(self, true)
+	Global.toLoad = true;
+func _on_PublishButton_mouse_entered():
+	mouseFocus = "LevelInfoContainer/LevelInfo/PublishButton"; button_mouse_entered(); changeFocus();
+func _on_PublishButton_mouse_exited():
+	button_mouse_exited(); mouseFocus = ""; changeFocus();
+
 func _on_EditCourseName_pressed():
 	$AudioButton.play();
 	savedFocus = getFocusNode();
@@ -430,3 +495,10 @@ func sidemenu():
 		$SideMenu.changeFocus();
 		changeFocus();
 		$MusicCoursebot.stream_paused = false;
+
+func messageBoxFinished(type: String):
+	if (type == "publish"):
+		Global.toPublish = true;
+		Global.coursePlaying = true
+		Global.changeScene("res://scenes/ui/playintro.tscn");
+		Global.toLoad = true;

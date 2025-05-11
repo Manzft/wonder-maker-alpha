@@ -326,30 +326,6 @@ func list_leaderboard_levels():
 		else:
 			break
 
-func test_publish():
-	var todir = Global.get_game_dir()+"/Courses";
-	var dir = Directory.new()
-	var dir_open = dir.open(todir)
-	var filecount = 0;
-	
-	if (dir_open == OK):
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if dir.current_is_dir():
-				pass
-				#print("Found directory: " + file_name)
-			else:
-				#print("Found file: " + file_name)
-				if (file_name.get_extension() == "wom"):
-					var file = Global.get_game_dir()+"/Courses/"+file_name
-					if (Global.courseGetVersion(file) != "1.3" && filecount == 0):
-						Online.publish_level(Global.courseGetData(file), file_name.trim_suffix(".wom"))
-						filecount += 1;
-					else:
-						break
-			file_name = dir.get_next()
-
 #General
 func button_mouse_entered():
 	#$AudioSelectButton.pitch_scale = randf_range(0.9, 1.1)

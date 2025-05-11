@@ -67,6 +67,13 @@ func _on_mouse_exited() -> void:
 
 func _on_download_button_pressed() -> void:
 	$"../../../../../AudioButton".play();
+	var f = File.new()
+	f.open_encrypted_with_pass(Global.get_game_dir()+"/Courses/"+find_node("LevelName").text+".wom", File.WRITE, Global.SECURITY_KEY);	
+	f.store_string(JSON.print(level_data.data));
+	f.close();
+	
+	tree.savedFocus = tree.mouseFocus
+	Global.showMessage("Nivel guardado correctamente, ahora esta en tu guardabot.", tree)
 func _on_download_button_mouse_entered() -> void:
 	tree.mouseFocus = str(download_button.get_path()); tree.button_mouse_entered(); tree.changeFocus();
 func _on_download_button_mouse_exited() -> void:
