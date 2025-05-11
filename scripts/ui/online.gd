@@ -137,6 +137,10 @@ func _ready():
 	
 	#test_publish()
 	#print("TEST PUBLISH")
+	
+	if (!Global.WELCOME_ONLINE):
+		savedFocus = mouseFocus
+		Global.showMessage("Bienvenido a Wonder Maker Online", self, null, "welcome0")
 
 func _process(delta: float):
 	if (selected_level_panel != null && $CoursesMenu/BackButton.texture_normal != back_button_texture):
@@ -511,3 +515,23 @@ func updateLevelsDictionary():
 			get_node(CurrentSubMenu+"Menu/FailedRequestLabel").show()
 	
 	$UIBlocker.hide()
+
+func messageBoxFinished(type: String):
+	if (type == "welcome0"):
+		savedFocus = mouseFocus
+		Global.showMessage("Aqui podras descargar y jugar niveles de todo el mundo", self, null, "welcome1")
+	if (type == "welcome1"):
+		savedFocus = mouseFocus
+		Global.showMessage("Tambien podras ver un top mundial donde estaran los mejores jugadores", self, null, "welcome2")
+	if (type == "welcome2"):
+		savedFocus = mouseFocus
+		Global.showMessage("Ten cuidado de no inflingir las normas sino tu cuenta sera baneada y perderas todo tu progreso", self, null, "welcome3")
+	if (type == "welcome3"):
+		savedFocus = mouseFocus
+		Global.showMessage("Puedes preguntar por las normas del Online en el servidor de discord del juego", self, null, "welcome4")
+	if (type == "welcome4"):
+		savedFocus = mouseFocus
+		Global.showMessage("Disfruta y diviertete :D", self, null, "welcome5")
+	if (type == "welcome5"):
+		Global.WELCOME_ONLINE = true
+		Global.saveSettings()

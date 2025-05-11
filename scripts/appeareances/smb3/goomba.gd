@@ -127,6 +127,10 @@ func _process(delta):
 	jump_h  = def_jump_h/(Global.ENTITY_PHYSICS_SPEED*0.01);
 	gravity = def_gravity/(Global.ENTITY_PHYSICS_SPEED*0.01);
 	max_fall = def_max_fall/(Global.ENTITY_PHYSICS_SPEED*0.01);
+	
+	if (currentSprite != get_node("SpriteGround")):
+		currentSprite.scale = $SpriteGround.scale;
+	
 	if (get_node("../Editor").playing):
 		if (dead):
 			z_index = 2;
@@ -438,6 +442,26 @@ func areaCollide(rc):
 
 func styleChanged():
 	match (Global.CurrentStyle):
+		"Snow":
+			currentSprite.hide();
+			currentSprite = get_node("SpriteSnow");
+			currentSprite.show();
+		"Ghosthouse":
+			currentSprite.hide();
+			currentSprite = get_node("SpriteGhosthouse");
+			currentSprite.show();
+		"Underground":
+			currentSprite.hide();
+			currentSprite = get_node("SpriteUnderground");
+			currentSprite.show();
+		"Ghostforest":
+			currentSprite.hide();
+			currentSprite = get_node("SpriteGhostforest");
+			currentSprite.show();
+		"Castle":
+			currentSprite.hide();
+			currentSprite = get_node("SpriteCastle");
+			currentSprite.show();
 		_:
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");

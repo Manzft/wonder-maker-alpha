@@ -100,6 +100,7 @@ var SPLASH_SCREEN_FINISHED = false;
 var WELCOME_SCREEN = false;
 var AUTO_SAVING = false;
 var SNOW_FALLING_PARTICLES = true;
+var WELCOME_ONLINE = false
 
 var CurrentInput = "Mouse";
 
@@ -515,11 +516,12 @@ func loadSettings():
 			if (ENTITY_PHYSICS_SPEED < min_entity_physics_speed): ENTITY_PHYSICS_SPEED = min_entity_physics_speed;
 			if (ENTITY_PHYSICS_SPEED > max_entity_physics_speed): ENTITY_PHYSICS_SPEED = max_entity_physics_speed;
 			PHYSICS_INTERPOLATION = config.get_value(section, "Physics Interpolation", false);
-			SHADOWS = config.get_value(section, "Shadows (Experimental)", true);
+			#SHADOWS = config.get_value(section, "Shadows (Experimental)", true);
 			SPLASH_SCREEN_FINISHED = config.get_value(section, "Splash Screen Finished", false);
 			WELCOME_SCREEN = config.get_value(section, "Welcome Screen Finished", false);
 			SNOW_FALLING_PARTICLES = config.get_value(section, "Snow Falling Particles", true);
 			AUTO_SAVING = config.get_value(section, "Auto-Saving", false);
+			WELCOME_ONLINE = config.get_value(section, "Welcome Online", false)
 		if (section == "User"):
 			USER_NAME = config.get_value(section, "Username", "");
 	
@@ -539,11 +541,12 @@ func saveSettings():
 	config.set_value("General", "Touch Buttons Transparency (%)", CONTROLS_TRANSPARENCY);
 	config.set_value("General", "Entity Physics Speed (%)", ENTITY_PHYSICS_SPEED);
 	config.set_value("General", "Physics Interpolation", PHYSICS_INTERPOLATION);
-	config.set_value("General", "Shadows (Experimental)", SHADOWS);
+	#config.set_value("General", "Shadows (Experimental)", SHADOWS);
 	config.set_value("General", "Splash Screen Finished", SPLASH_SCREEN_FINISHED);
 	config.set_value("General", "Welcome Screen Finished", WELCOME_SCREEN);
 	config.set_value("General", "Auto-Saving", AUTO_SAVING);
 	config.set_value("General", "Snow Falling Particles", SNOW_FALLING_PARTICLES);
+	config.set_value("General", "Welcome Online", WELCOME_ONLINE);
 	
 	config.set_value("User", "Username", USER_NAME);
 

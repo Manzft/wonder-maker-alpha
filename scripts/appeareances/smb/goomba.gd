@@ -442,6 +442,26 @@ func areaCollide(rc):
 
 func styleChanged():
 	match (Global.CurrentStyle):
+		"Snow":
+			currentSprite.hide();
+			currentSprite = get_node("SpriteSnow");
+			currentSprite.show();
+		"Ghosthouse":
+			currentSprite.hide();
+			currentSprite = get_node("SpriteGhosthouse");
+			currentSprite.show();
+		"Underground":
+			currentSprite.hide();
+			currentSprite = get_node("SpriteUnderground");
+			currentSprite.show();
+		"Ghostforest":
+			currentSprite.hide();
+			currentSprite = get_node("SpriteGhostforest");
+			currentSprite.show();
+		"Castle":
+			currentSprite.hide();
+			currentSprite = get_node("SpriteCastle");
+			currentSprite.show();
 		_:
 			currentSprite.hide();
 			currentSprite = get_node("SpriteGround");

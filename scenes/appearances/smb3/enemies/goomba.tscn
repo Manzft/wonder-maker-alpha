@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=55 format=2]
 
 [ext_resource path="res://scripts/appeareances/smb3/goomba.gd" type="Script" id=1]
 [ext_resource path="res://sprites/appeareances/smb3/enemies/goomba/dead.png" type="Texture" id=2]
@@ -6,6 +6,18 @@
 [ext_resource path="res://sprites/appeareances/smb3/enemies/goomba/idle.png" type="Texture" id=4]
 [ext_resource path="res://sprites/appeareances/smb3/enemies/goomba/walk.png" type="Texture" id=5]
 [ext_resource path="res://sprites/ui/editor/sweat_particle.png" type="Texture" id=6]
+[ext_resource path="res://sprites/appeareances/smb3/enemies/goomba/underground/fall_jump.png" type="Texture" id=7]
+[ext_resource path="res://sprites/appeareances/smb3/enemies/goomba/underground/dead.png" type="Texture" id=8]
+[ext_resource path="res://sprites/appeareances/smb3/enemies/goomba/underground/walk.png" type="Texture" id=9]
+[ext_resource path="res://sprites/appeareances/smb3/enemies/goomba/ghostforest/idle.png" type="Texture" id=10]
+[ext_resource path="res://sprites/appeareances/smb3/enemies/goomba/underground/idle.png" type="Texture" id=11]
+[ext_resource path="res://sprites/appeareances/smb3/enemies/goomba/snow/walk.png" type="Texture" id=12]
+[ext_resource path="res://sprites/appeareances/smb3/enemies/goomba/snow/dead.png" type="Texture" id=13]
+[ext_resource path="res://sprites/appeareances/smb3/enemies/goomba/snow/idle.png" type="Texture" id=14]
+[ext_resource path="res://sprites/appeareances/smb3/enemies/goomba/ghostforest/fall_jump.png" type="Texture" id=15]
+[ext_resource path="res://sprites/appeareances/smb3/enemies/goomba/ghostforest/walk.png" type="Texture" id=16]
+[ext_resource path="res://sprites/appeareances/smb3/enemies/goomba/ghostforest/dead.png" type="Texture" id=17]
+[ext_resource path="res://sprites/appeareances/smb3/enemies/goomba/snow/fall_jump.png" type="Texture" id=18]
 
 [sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 2 )
@@ -59,6 +71,162 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 8 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 16, 19 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 11 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 7 )
+region = Rect2( 16, 0, 16, 19 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 9 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=47]
+atlas = ExtResource( 9 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=38]
+animations = [ {
+"frames": [ SubResource( 42 ) ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 43 ) ],
+"loop": true,
+"name": "fall",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 44 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 45 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 46 ), SubResource( 47 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="AtlasTexture" id=48]
+atlas = ExtResource( 13 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=49]
+atlas = ExtResource( 18 )
+region = Rect2( 0, 0, 16, 19 )
+
+[sub_resource type="AtlasTexture" id=50]
+atlas = ExtResource( 14 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=51]
+atlas = ExtResource( 18 )
+region = Rect2( 16, 0, 16, 19 )
+
+[sub_resource type="AtlasTexture" id=52]
+atlas = ExtResource( 12 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=53]
+atlas = ExtResource( 12 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=39]
+animations = [ {
+"frames": [ SubResource( 48 ) ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 49 ) ],
+"loop": true,
+"name": "fall",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 50 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 51 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 52 ), SubResource( 53 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
+[sub_resource type="AtlasTexture" id=54]
+atlas = ExtResource( 17 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=55]
+atlas = ExtResource( 15 )
+region = Rect2( 0, 0, 16, 19 )
+
+[sub_resource type="AtlasTexture" id=56]
+atlas = ExtResource( 10 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=57]
+atlas = ExtResource( 15 )
+region = Rect2( 16, 0, 16, 19 )
+
+[sub_resource type="AtlasTexture" id=58]
+atlas = ExtResource( 16 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=59]
+atlas = ExtResource( 16 )
+region = Rect2( 16, 0, 16, 16 )
+
+[sub_resource type="SpriteFrames" id=40]
+animations = [ {
+"frames": [ SubResource( 54 ) ],
+"loop": true,
+"name": "dead",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 55 ) ],
+"loop": true,
+"name": "fall",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 56 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 57 ) ],
+"loop": true,
+"name": "jump",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 58 ), SubResource( 59 ) ],
+"loop": true,
+"name": "walk",
+"speed": 5.0
+} ]
+
 [sub_resource type="RectangleShape2D" id=9]
 extents = Vector2( 21.5, 22.5 )
 
@@ -68,7 +236,7 @@ extents = Vector2( 22.5, 12.5 )
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 22.5, 11.5 )
 
-[sub_resource type="Animation" id=19]
+[sub_resource type="Animation" id=41]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/path = NodePath("SpriteGround:scale")
@@ -161,6 +329,27 @@ frames = SubResource( 8 )
 animation = "idle"
 playing = true
 
+[node name="SpriteUnderground" type="AnimatedSprite" parent="."]
+visible = false
+scale = Vector2( 3.25, 3.25 )
+frames = SubResource( 38 )
+animation = "idle"
+playing = true
+
+[node name="SpriteSnow" type="AnimatedSprite" parent="."]
+visible = false
+scale = Vector2( 3.25, 3.25 )
+frames = SubResource( 39 )
+animation = "idle"
+playing = true
+
+[node name="SpriteGhostforest" type="AnimatedSprite" parent="."]
+visible = false
+scale = Vector2( 3.25, 3.25 )
+frames = SubResource( 40 )
+animation = "idle"
+playing = true
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0, 2.5 )
 shape = SubResource( 9 )
@@ -184,7 +373,7 @@ shape = SubResource( 10 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "start"
 playback_speed = 10.0
-anims/RESET = SubResource( 19 )
+anims/RESET = SubResource( 41 )
 anims/draging = SubResource( 20 )
 anims/start = SubResource( 21 )
 
