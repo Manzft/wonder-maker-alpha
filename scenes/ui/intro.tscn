@@ -1,9 +1,9 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=37 format=2]
 
 [ext_resource path="res://fonts/smm2_font.otf" type="DynamicFontData" id=1]
-[ext_resource path="res://sprites/appeareances/smb/manzft/small/idle.png" type="Texture" id=2]
-[ext_resource path="res://sprites/appeareances/smb/manzft/small/run_walk.png" type="Texture" id=3]
-[ext_resource path="res://sprites/appeareances/smb/manzft/small/jump.png" type="Texture" id=4]
+[ext_resource path="res://titlehd_vanilla.png" type="Texture" id=2]
+[ext_resource path="res://sprites/appeareances/smb3/manzft/small/run.png" type="Texture" id=3]
+[ext_resource path="res://sprites/appeareances/smb3/manzft/small/jump.png" type="Texture" id=4]
 [ext_resource path="res://sounds/appeareances/smb/block.wav" type="AudioStream" id=5]
 [ext_resource path="res://sounds/appeareances/smb/jump.wav" type="AudioStream" id=6]
 [ext_resource path="res://sounds/appeareances/smb/twomp_hit.wav" type="AudioStream" id=7]
@@ -24,6 +24,8 @@
 [ext_resource path="res://sounds/ui/big_button.wav" type="AudioStream" id=22]
 [ext_resource path="res://logodef_bg_fhd.png" type="Texture" id=23]
 [ext_resource path="res://scripts/ui/intro.gd" type="Script" id=24]
+[ext_resource path="res://sprites/appeareances/smb3/manzft/small/idle.png" type="Texture" id=25]
+[ext_resource path="res://sprites/appeareances/smb3/manzft/small/run_walk.png" type="Texture" id=26]
 
 [sub_resource type="Animation" id=3]
 length = 0.001
@@ -197,7 +199,7 @@ tracks/2/keys = {
 "times": PoolRealArray( 0, 2, 3.5, 3.9, 6.3 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
 "update": 1,
-"values": [ "walk", "idle", "jump", "idle", "walk" ]
+"values": [ "walk", "idle", "jump", "idle", "run" ]
 }
 tracks/3/type = "value"
 tracks/3/path = NodePath("Control/MakerTitle:rect_position")
@@ -302,31 +304,48 @@ outline_size = 5
 outline_color = Color( 0.12549, 0.12549, 0.12549, 1 )
 font_data = ExtResource( 1 )
 
-[sub_resource type="AtlasTexture" id=6]
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 25 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=12]
 atlas = ExtResource( 3 )
 region = Rect2( 0, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=7]
+[sub_resource type="AtlasTexture" id=13]
 atlas = ExtResource( 3 )
 region = Rect2( 16, 0, 16, 16 )
 
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 3 )
-region = Rect2( 32, 0, 16, 16 )
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 26 )
+region = Rect2( 0, 0, 16, 16 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 26 )
+region = Rect2( 16, 0, 16, 16 )
 
 [sub_resource type="SpriteFrames" id=9]
 animations = [ {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ SubResource( 10 ) ],
 "loop": true,
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ) ],
+"frames": [ SubResource( 11 ) ],
 "loop": true,
 "name": "jump",
 "speed": 5.0
 }, {
-"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"frames": [ SubResource( 12 ), SubResource( 13 ) ],
+"loop": true,
+"name": "run",
+"speed": 10.0
+}, {
+"frames": [ SubResource( 14 ), SubResource( 15 ) ],
 "loop": true,
 "name": "walk",
 "speed": 10.0
@@ -358,6 +377,7 @@ margin_right = 640.0
 margin_bottom = 360.0
 
 [node name="WonderTitle" type="Label" parent="Control"]
+self_modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -175.5
@@ -371,7 +391,8 @@ text = "WONDER"
 align = 1
 
 [node name="TitleBottom2" type="Label" parent="Control/WonderTitle"]
-modulate = Color( 1, 1, 1, 0.392157 )
+visible = false
+modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
 anchor_left = 0.5
 anchor_top = 0.5
@@ -387,14 +408,21 @@ custom_fonts/font = SubResource( 5 )
 text = "WONDER"
 align = 1
 
+[node name="Sprite" type="Sprite" parent="Control/WonderTitle"]
+position = Vector2( 167.5, 51 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 2 )
+vframes = 2
+
 [node name="MakerTitle" type="Label" parent="Control"]
+self_modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -140.0
 margin_top = -547.0
-margin_right = 140.002
+margin_right = 140.001
 margin_bottom = -445.0
 custom_colors/font_color = Color( 0.952941, 1, 0.168627, 1 )
 custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
@@ -403,6 +431,7 @@ text = "MAKER"
 align = 1
 
 [node name="TitleBottom2" type="Label" parent="Control/MakerTitle"]
+visible = false
 modulate = Color( 1, 1, 1, 0.392157 )
 show_behind_parent = true
 anchor_left = 0.5
@@ -418,6 +447,13 @@ custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 5 )
 text = "MAKER"
 align = 1
+
+[node name="Sprite" type="Sprite" parent="Control/MakerTitle"]
+position = Vector2( 132, 66 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 2 )
+vframes = 2
+frame = 1
 
 [node name="Manzft" type="Control" parent="."]
 anchor_left = 0.5
@@ -436,7 +472,7 @@ playing = true
 [node name="Shadow" type="AnimatedSprite" parent="Manzft/Manzft"]
 modulate = Color( 0, 0, 0, 0.294118 )
 show_behind_parent = true
-position = Vector2( 3, 3 )
+position = Vector2( 1, 1 )
 frames = SubResource( 9 )
 animation = "idle"
 playing = true
@@ -447,10 +483,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -640.0
-margin_top = -360.0
-margin_right = 640.0
-margin_bottom = 360.0
+margin_left = -638.0
+margin_top = -359.0
+margin_right = 642.0
+margin_bottom = 361.0
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Mario" type="TextureRect" parent="Sprites"]
 anchor_left = 0.5
@@ -589,10 +628,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -238.0
-margin_top = -485.0
-margin_right = -99.0
-margin_bottom = -281.0
+margin_left = -252.0
+margin_top = -476.0
+margin_right = -113.0
+margin_bottom = -272.0
 rect_scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 19 )
 
@@ -601,10 +640,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 190.0
-margin_top = -685.0
-margin_right = 352.0
-margin_bottom = -447.0
+margin_left = 233.0
+margin_top = -703.0
+margin_right = 395.0
+margin_bottom = -465.0
 rect_scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 18 )
 

@@ -2443,9 +2443,6 @@ func _on_Edit_pressed():
 			$AudioBigButton.play();
 		
 		if (Global.coursePlaying):
-			#if (Online.playing_online):
-			#	Online.add_death()
-			
 			yield(get_tree().create_timer(0.5), "timeout")
 			get_node("../CircleTransition/Transition/AnimationPlayer").play("in");
 			yield(get_tree().create_timer(1.125), "timeout")
@@ -2457,7 +2454,7 @@ func _on_Edit_pressed():
 			if (Online.playing_online):
 				var loading = get_tree().current_scene.find_node("GameUI").get_node("Loading")
 				loading.show()
-				yield(Online.add_death(), "completed")
+				var result = yield(Online, "request_add_death_answer")
 				loading.hide()
 			Global.changingToEditMode = false
 			#Delete Online Death Signals

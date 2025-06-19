@@ -351,7 +351,7 @@ margin_bottom = 68.0
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 custom_colors/font_outline_modulate = Color( 0.278431, 0.278431, 0.278431, 1 )
 custom_fonts/font = SubResource( 27 )
-text = "Conectarse al Online"
+text = "Wonder Maker Online"
 align = 1
 valign = 1
 autowrap = true
@@ -483,9 +483,9 @@ anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
 margin_left = -205.0
-margin_top = -195.0
+margin_top = -101.0
 margin_right = 205.0
-margin_bottom = -117.0
+margin_bottom = -23.0
 focus_neighbour_left = NodePath(".")
 focus_neighbour_top = NodePath(".")
 focus_neighbour_right = NodePath(".")
@@ -579,6 +579,7 @@ anims/RESET = SubResource( 4 )
 anims/idle = SubResource( 5 )
 
 [node name="RegisterButton" type="TextureButton" parent="." groups=["Button"]]
+visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
@@ -777,8 +778,8 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_top = 73.0
-margin_bottom = 73.0
+margin_top = 116.0
+margin_bottom = 116.0
 mouse_filter = 2
 
 [node name="Node2D" type="Node2D" parent="Loading"]
@@ -900,6 +901,10 @@ volume_db = 15.0
 [node name="AudioCloseMenu" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 15 )
 
+[node name="ConnectionOutTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="gui_input" from="UserBox" to="." method="_on_UserBox_gui_input"]
 [connection signal="gui_input" from="PasswordBox" to="." method="_on_PasswordBox_gui_input"]
 [connection signal="mouse_entered" from="LoginButton" to="." method="_on_LoginButton_mouse_entered"]
@@ -912,3 +917,4 @@ stream = ExtResource( 15 )
 [connection signal="mouse_exited" from="CloseButton" to="." method="_on_CloseButton_mouse_exited"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_CloseButton_pressed"]
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
+[connection signal="timeout" from="ConnectionOutTimer" to="." method="_on_ConnectionOutTimer_timeout"]

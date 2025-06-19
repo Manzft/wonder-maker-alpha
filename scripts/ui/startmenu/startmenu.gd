@@ -131,19 +131,19 @@ func getSplashText():
 	var text = "";
 	match (i):
 		"0":
-			text = "Prueba también SMBWF!";
+			text = "¡Online en tiempo real!"
 		"1":
-			text = "Hecho en Wonder Cave";
+			text = "Hecho en Wonder Cave"
 		"2":
-			text = "Hecho con Godot :)";
+			text = "Hecho en Godot 3"
 		"3":
-			text = "¡Haz niveles divertidos!"
+			text = "¡No hagas niveles troll!"
 		"4":
 			text = "La primera versión de WM salió el 29/9/2024"
 		"5":
-			text = "Wonder Maker lleva 7 meses de desarrollo."
+			text = "Wonder Maker lleva casi 9 meses de desarrollo."
 		"6":
-			text = "El juego es de código cerrado!"
+			text = "La etapa alpha ha terminado, y ahora qué?"
 	return text;
 
 #General

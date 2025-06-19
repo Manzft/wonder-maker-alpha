@@ -29,7 +29,8 @@ func _ready():
 	
 func _on_Timer_timeout():
 	#Global.changeScene("res://scenes/ui/MainMenu.tscn");
-	Global.changeScene("res://scenes/ui/intro.tscn");
+	#Global.changeScene("res://scenes/ui/intro.tscn");
+	Global.changeScene("res://scenes/ui/WelcomeScreen.tscn", self);
 
 func _input(event):
 	if (event is InputEventKey || event is InputEventScreenTouch):

@@ -1,0 +1,111 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://fonts/NINTENDOSWITCHUI.TTF" type="DynamicFontData" id=1]
+[ext_resource path="res://sprites/ui/general/messagebox.png" type="Texture" id=2]
+[ext_resource path="res://scripts/ui/general/panelbox.gd" type="Script" id=3]
+[ext_resource path="res://sounds/ui/button.wav" type="AudioStream" id=5]
+[ext_resource path="res://sounds/ui/select_button.wav" type="AudioStream" id=6]
+[ext_resource path="res://sprites/64x64.png" type="Texture" id=8]
+[ext_resource path="res://sprites/ui/general/messagebox_dropshadow.png" type="Texture" id=10]
+
+[sub_resource type="DynamicFont" id=6]
+size = 25
+font_data = ExtResource( 1 )
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "in"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="PanelBox" type="TextureRect" groups=["CurrentTree"]]
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -378.5
+margin_top = -149.0
+margin_right = 378.5
+margin_bottom = 149.0
+texture = ExtResource( 2 )
+script = ExtResource( 3 )
+
+[node name="Shadow" type="TextureRect" parent="."]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -450.0
+margin_top = -200.0
+margin_right = 450.0
+margin_bottom = 200.0
+mouse_filter = 2
+texture = ExtResource( 10 )
+
+[node name="Background" type="TextureRect" parent="."]
+modulate = Color( 0, 0, 0, 0.215686 )
+show_behind_parent = true
+margin_left = -4110.0
+margin_top = -2418.0
+margin_right = 5285.0
+margin_bottom = 3167.0
+texture = ExtResource( 8 )
+expand = true
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Text" type="Label" parent="."]
+margin_left = 21.0
+margin_top = 60.0
+margin_right = 740.0
+margin_bottom = 277.0
+custom_colors/font_color = Color( 0.176471, 0.176471, 0.176471, 1 )
+custom_fonts/font = SubResource( 6 )
+text = "Text"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 2.0
+anims/RESET = SubResource( 3 )
+anims/in = SubResource( 2 )
+
+[node name="AudioSelectButton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = 15.0
+
+[node name="AudioButton" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = 15.0
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

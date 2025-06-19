@@ -18,11 +18,17 @@ var selected_level_panel: Node = null
 var back_button_course_texture: Texture = load("res://sprites/ui/online/back_courseworld.png")
 var back_button_texture: Texture = load("res://sprites/ui/startmenu/back.png")
 
-var user_array = []
+var account_array: Array = []
 
-var levels_array = []
+var levels_array: Array = []
+var levels_data_dictionary: Dictionary = {}
+
+var levels_queue: Array = []
 
 var selected_tab: Node = null
+
+var connection_action: String = ""
+var connecting: bool = false
 
 func update_selected_level_panel(node: Node = null):
 	if (selected_level_panel != null):
@@ -33,6 +39,14 @@ func update_selected_level_panel(node: Node = null):
 	if (node != null):
 		selected_level_panel = node
 		selected_level_panel.get_node("AnimationPlayer").play("expand")
+		
+		#Center it
+		var scroll_container: ScrollContainer = get_node(CurrentSubMenu+"Menu/ScrollContainer")
+		var sep: float = 5
+		var base_height: float = 190
+		
+		var tween = get_tree().create_tween()
+		tween.tween_property(scroll_container, "scroll_vertical", ((base_height+sep)*(node.get_index())), 0.125)
 
 func _input(event):
 	if (Global.CurrentInput == "Gamepad"):
@@ -90,6 +104,14 @@ func updateFocusSprite():
 			node.get_node("Selection/AnimationPlayer").play("RESET");
 
 func _ready():
+	get_tree().paused = false
+	
+	Online.rpc("_request_players_count")
+	
+	Online.connect("request_accounts_answer", self, "_request_accounts_answer")
+	Online.connect("request_levels_answer", self, "_request_levels_answer")
+	Online.connect("request_levels_data_answer", self, "_request_levels_data_answer")
+	
 	#Fix Selection Corners
 	for node in get_tree().get_nodes_in_group("Selection"):
 		node.get_node("UpRight").rect_rotation = 90.0
@@ -129,24 +151,89 @@ func _ready():
 			$CoursesMenu/ScrollContainer.scroll_vertical = 0
 			CurrentSubMenu = "Courses"
 			setMe(find_node(Online.persistency_menu))
-			yield(updateLevelsDictionary(), "completed")
+			updateLevelsDictionary()
 		Online.persistency_menu = ""
-	#else:
-	#	yield(updateLevelsDictionary(), "completed")
-	#yield(updateUserDictionary(), "completed")
-	
-	#test_publish()
-	#print("TEST PUBLISH")
 	
 	if (!Global.WELCOME_ONLINE):
 		savedFocus = mouseFocus
-		Global.showMessage("Bienvenido a Wonder Maker Online", self, null, "welcome0")
+		Global.showMessage("Saludos "+Online.user_name, self, null, "welcome0")
 
 func _process(delta: float):
 	if (selected_level_panel != null && $CoursesMenu/BackButton.texture_normal != back_button_texture):
 		$CoursesMenu/BackButton.texture_normal = back_button_texture
 	elif (selected_level_panel == null && $CoursesMenu/BackButton.texture_normal != back_button_course_texture):
 		$CoursesMenu/BackButton.texture_normal = back_button_course_texture
+	$ConnectedPlayers/Title.text = "Jugadores: "+str(Online.players_count)
+	
+	if (!levels_queue.empty() && !levels_data_dictionary.empty() && CurrentSubMenu == "Courses"):
+		var level = levels_queue[levels_queue.size()-1]
+		var node = load("res://scenes/online/level_panel.tscn").instance();
+		#Name
+		var level_name_node = node.get_node("MarginContainer/VBoxContainer/HBoxContainer/LevelName")
+		level_name_node.text = level.name
+		
+		#Likes
+		var likes_node = node.find_node("LikeLabel")
+		likes_node.text = str(int(level.likes))
+		
+		#Dislikes
+		var dislikes_node = node.find_node("DislikeLabel")
+		dislikes_node.text = str(int(level.dislikes))
+		
+		#Played
+		var played_node = node.find_node("PlayedLabel")
+		played_node.text = str(int(level.played))
+		
+		#Clear
+		var clear_node = node.find_node("ClearLabel")
+		clear_node.text = str(int(level.clear))
+		
+		#Deaths
+		var deaths_node = node.find_node("DeathsLabel")
+		deaths_node.text = str(int(level.deaths))
+		
+		#Porcentage
+		var porcentage_node = node.find_node("PorcentageLabel")
+		if (int(level.played) != 0 && int(level.clear) != 0):
+			var porcentage: float = (level.clear/level.played)*100
+			porcentage_node.text = str("%0.2f" % porcentage, "%")
+		else:
+			porcentage_node.text = "0.00%"
+			
+		#Level Code
+		var level_id_node = node.find_node("IDLabel")
+		level_id_node.text = level.id
+		
+		var file = levels_data_dictionary[level.id]
+		#Level Data
+		node.level_data = file
+		node.level = level
+		node.author_id = level.author_id
+
+		#Appeareance Icon
+		var app = Global.courseGetAppeareance(file)
+		var icon_node = node.get_node("MarginContainer/VBoxContainer/HBoxContainer/LevelAppeareance")
+		match (app):
+			Global.APP_SMB: icon_node.texture = load("res://sprites/ui/editor/appeareances/card_smb.png")
+			Global.APP_SMB3: icon_node.texture = load("res://sprites/ui/editor/appeareances/card_smb3.png")
+
+		#Thumbnail
+		var thumbnail = Global.courseGetThumbnail(file)
+		var thumbnail_node = node.get_node("MarginContainer/VBoxContainer/HBoxContainer2/LevelThumbnail")
+		thumbnail_node.texture = thumbnail
+
+		#Description+
+		var description_node = node.get_node("MarginContainer/VBoxContainer/VBoxContainer/DescriptionPanel/DescriptionLabel")
+		var description = Global.courseGetDescription(file);
+		description_node.text = description
+		
+		#Creator Name
+		var creator_name_node = node.find_node("MakerName")
+		creator_name_node.text = level.author
+		
+		$CoursesMenu/ScrollContainer/MarginContainer/VBoxContainer.add_child(node)
+		
+		levels_queue.remove(levels_queue.size()-1)
 
 func getSplashText():
 	var i : String = "";
@@ -219,7 +306,6 @@ class MyCustomSorter:
 		return false
 
 func list_levels():
-	get_node(CurrentSubMenu+"Menu/FailedRequestLabel").hide()
 	clear_list()
 	
 	var organized_levels_array = levels_array.duplicate()
@@ -229,75 +315,17 @@ func list_levels():
 	elif (selected_tab.name == "PopularCourses"):
 		organized_levels_array.sort_custom(MyCustomSorter, "sort_ascending")
 	
+	levels_queue.clear()
+	
 	var count: int = 1
 	for level in organized_levels_array:
-		if (count <= 30):
-			var node = load("res://scenes/online/level_panel.tscn").instance();
-			#Name
-			var level_name_node = node.get_node("MarginContainer/VBoxContainer/HBoxContainer/LevelName")
-			level_name_node.text = level.name
-			
-			#Likes
-			var likes_node = node.find_node("LikeLabel")
-			likes_node.text = str(int(level.likes))
-			
-			#Dislikes
-			var dislikes_node = node.find_node("DislikeLabel")
-			dislikes_node.text = str(int(level.dislikes))
-			
-			#Played
-			var played_node = node.find_node("PlayedLabel")
-			played_node.text = str(int(level.played))
-			
-			#Clear
-			var clear_node = node.find_node("ClearLabel")
-			clear_node.text = str(int(level.clear))
-			
-			#Deaths
-			var deaths_node = node.find_node("DeathsLabel")
-			deaths_node.text = str(int(level.deaths))
-			
-			#Porcentage
-			var porcentage_node = node.find_node("PorcentageLabel")
-			if (int(level.played) != 0 && int(level.clear) != 0):
-				var porcentage: float = (level.clear/level.played)*100
-				porcentage_node.text = str("%0.2f" % porcentage, "%")
-			else:
-				porcentage_node.text = "0.00%"
-				
-			#Level Code
-			var level_id_node = node.find_node("IDLabel")
-			level_id_node.text = str(int(level.id))
-			
-			var file = level.data
-			#Level Data
-			node.level_data = level
-			
-			#Appeareance Icon
-			var app = Global.courseGetAppeareance(file)
-			var icon_node = node.get_node("MarginContainer/VBoxContainer/HBoxContainer/LevelAppeareance")
-			match (app):
-				Global.APP_SMB: icon_node.texture = load("res://sprites/ui/editor/appeareances/card_smb.png")
-				Global.APP_SMB3: icon_node.texture = load("res://sprites/ui/editor/appeareances/card_smb3.png")
-			
-			#Thumbnail
-			var thumbnail = Global.courseGetThumbnail(file)
-			var thumbnail_node = node.get_node("MarginContainer/VBoxContainer/HBoxContainer2/LevelThumbnail")
-			thumbnail_node.texture = thumbnail
-			
-			#Description
-			var description_node = node.get_node("MarginContainer/VBoxContainer/VBoxContainer/DescriptionPanel/DescriptionLabel")
-			var description = Global.courseGetDescription(file);
-			description_node.text = description
-			
-			#Creator Name
-			var creator_name_node = node.get_node("MarginContainer/VBoxContainer/HBoxContainer2/VBoxContainer/MakerName")
-			var creator_name = Global.courseGetUser(file);
-			creator_name_node.text = creator_name
-			
-			$CoursesMenu/ScrollContainer/MarginContainer/VBoxContainer.add_child(node);
+		if (count <= 10):
+			levels_queue.append(level)
 		else:
 			break
+		count += 1
+	
+	levels_queue.invert()
 
 func clear_leaderboard_list():
 	for node in $LeaderboardsMenu/ScrollContainer/MarginContainer/VBoxContainer.get_children():
@@ -307,7 +335,7 @@ func list_leaderboard_levels():
 	get_node(CurrentSubMenu+"Menu/FailedRequestLabel").hide()
 	clear_leaderboard_list()
 	
-	var organized_user_array = user_array.duplicate()
+	var organized_user_array = account_array.duplicate()
 	organized_user_array.sort_custom(MyCustomSorter, "sort_leaderboard")
 	
 	var count: int = 1
@@ -316,7 +344,7 @@ func list_leaderboard_levels():
 			var node = load("res://scenes/online/user_panel.tscn").instance()
 			
 			#User Name
-			node.find_node("UserName").text = user.nick
+			node.find_node("UserName").text = user.nickname
 			
 			#Score
 			node.find_node("ScoreCounter").text = str(int(user.finished_levels))
@@ -325,6 +353,8 @@ func list_leaderboard_levels():
 			node.find_node("TopCounter").text = str(count)
 			
 			$LeaderboardsMenu/ScrollContainer/MarginContainer/VBoxContainer.add_child(node)
+			
+			node._set_account_id(user.discord_id)
 			
 			count += 1
 		else:
@@ -394,13 +424,14 @@ func _on_leaderboards_button_pressed():
 	$LeaderboardsMenu/AnimationPlayer.play("in")
 	CurrentSubMenu = "Leaderboards"
 	$AudioBigButton.play();
-	updateUserDictionary()
+	update_account_array()
 	#list_leaderboard_levels()
 	$LeaderboardsMenu/ScrollContainer.scroll_vertical = 0
 func _on_leaderboards_button_mouse_entered():
 	mouseFocus = "LeaderboardsButton"; button_mouse_entered(); changeFocus();
 func _on_leaderboards_button_mouse_exited():
 	button_mouse_exited(); mouseFocus = ""; changeFocus();
+
 
 #Sub Menus
 func _on_back_button_pressed() -> void:
@@ -470,68 +501,128 @@ func _on_new_courses_gui_input(event: InputEvent) -> void:
 #Leaderboards
 func _on_completed_levels_gui_input(event: InputEvent) -> void:
 	if (checkClick(event)):
-		if (user_array.empty()):
+		if (account_array.empty()):
 			return
 		setMe(find_node("CompletedLevels"))
 		$AudioButton.play()
 
 #----------------
-func updateUserDictionary():
+func update_account_array() -> void:
 	clear_leaderboard_list()
-	print("Fetching users info...")
+	print("Fetching users...")
 	if (CurrentSubMenu != "Main"):
 		get_node(CurrentSubMenu+"Menu/FailedRequestLabel").hide()
 		get_node(CurrentSubMenu+"Menu/Loading").show()
 	$UIBlocker.show()
-	var data = yield(Online.receive_data("accounts"), "completed")
-	if (CurrentSubMenu != "Main"): get_node(CurrentSubMenu+"Menu/Loading").hide()
-	if (data != null):
-		print("Fetch completed, listing users")
-		user_array = data
-		list_leaderboard_levels()
-	else:
-		print("Fetch error, can't get users")
-		if (CurrentSubMenu != "Main"):
-			get_node(CurrentSubMenu+"Menu/FailedRequestLabel").show()
-	
-	$UIBlocker.hide()
+	connecting = true
+	connection_action = "update_account_array"
+	Online.rpc("_request_accounts")
+	$ConnectionOutTimer.start()
 
-func updateLevelsDictionary():
+func updateLevelsDictionary() -> void:
 	clear_list()
+	levels_data_dictionary.clear()
 	print("Fetching levels...")
 	if (CurrentSubMenu != "Main"):
 		get_node(CurrentSubMenu+"Menu/FailedRequestLabel").hide()
 		get_node(CurrentSubMenu+"Menu/Loading").show()
 	$UIBlocker.show()
-	var data = yield(Online.receive_data("levels"), "completed")
-	if (CurrentSubMenu != "Main"): get_node(CurrentSubMenu+"Menu/Loading").hide()
-	if (data != null):
-		print("Fetch completed, listing levels")
-		levels_array = data
-		list_levels()
-	else:
-		print("Fetch error, can't get levels")
-		if (CurrentSubMenu != "Main"):
-			get_node(CurrentSubMenu+"Menu/FailedRequestLabel").show()
-	
-	$UIBlocker.hide()
+	connecting = true
+	connection_action = "update_levels_array"
+	Online.rpc("_request_levels")
+	$ConnectionOutTimer.start()
 
-func messageBoxFinished(type: String):
+func messageBoxFinished(type: String) -> void:
 	if (type == "welcome0"):
 		savedFocus = mouseFocus
-		Global.showMessage("Aqui podras descargar y jugar niveles de todo el mundo", self, null, "welcome1")
+		Global.showMessage("Bienvenido a Wonder Maker Online", self, null, "welcome1")
 	if (type == "welcome1"):
 		savedFocus = mouseFocus
-		Global.showMessage("Tambien podras ver un top mundial donde estaran los mejores jugadores", self, null, "welcome2")
+		Global.showMessage("Ahora el sistema online es en tiempo real, dando mas vida y estabilidad a los niveles mundiales", self, null, "welcome2")
 	if (type == "welcome2"):
 		savedFocus = mouseFocus
-		Global.showMessage("Ten cuidado de no inflingir las normas sino tu cuenta sera baneada y perderas todo tu progreso", self, null, "welcome3")
+		Global.showMessage("Ahora podras ver los perfiles de todos rapidamente e incluso buscar uno usando la ID de discord", self, null, "welcome3")
 	if (type == "welcome3"):
 		savedFocus = mouseFocus
-		Global.showMessage("Puedes preguntar por las normas del Online en el servidor de discord del juego", self, null, "welcome4")
+		Global.showMessage("Ahora puedes buscar niveles por su ID, que de hecho, su formato fue cambiado", self, null, "welcome4")
 	if (type == "welcome4"):
 		savedFocus = mouseFocus
-		Global.showMessage("Disfruta y diviertete :D", self, null, "welcome5")
+		Global.showMessage('Tambien hay una nueva categoria de niveles llamada "Recomendados", ahi habran niveles seleccionados por el equipo de Wonder Maker', self, null, "welcome5")
 	if (type == "welcome5"):
+		savedFocus = mouseFocus
+		Global.showMessage("Y asi nos despedimos de la etapa Alpha de Wonder Maker, se vienen cosas interesantes a partir de ahora, disfruten :)", self, null, "welcome6")
+	if (type == "welcome6"):
 		Global.WELCOME_ONLINE = true
 		Global.saveSettings()
+
+
+func _request_accounts_answer(accounts: Dictionary) -> void:
+	$ConnectionOutTimer.stop()
+	$UIBlocker.hide()
+	if (CurrentSubMenu != "Main"): get_node(CurrentSubMenu+"Menu/Loading").hide()
+	match (connection_action):
+		"update_account_array":
+			#Convert dictionary to array
+			account_array.clear()
+			for account in accounts:
+				accounts[account]["discord_id"] = account
+				account_array.append(accounts[account])
+			list_leaderboard_levels()
+	print("Fetch completed successfully")
+	connecting = false
+	connection_action = ""
+
+
+func _request_levels_answer(levels: Dictionary) -> void:
+	$ConnectionOutTimer.stop()
+	$UIBlocker.hide()
+	if (CurrentSubMenu != "Main"): get_node(CurrentSubMenu+"Menu/Loading").hide()
+	match (connection_action):
+		"update_levels_array":
+			var send_array: Array = []
+			
+			#Convert dictionary to array
+			levels_array.clear()
+			for level in levels.keys():
+				var dict: Dictionary = levels[level]
+				dict["id"] = level
+				levels_array.append(dict)
+			list_levels()
+			
+			for level in levels_queue:
+				send_array.append(level.id)
+			
+			if (CurrentSubMenu != "Main"):
+				get_node(CurrentSubMenu+"Menu/FailedRequestLabel").hide()
+				get_node(CurrentSubMenu+"Menu/Loading").show()
+			$UIBlocker.show()
+			connecting = true
+			connection_action = "update_levels_data_dictionary"
+			Online.rpc("_request_levels_data", send_array)
+			$ConnectionOutTimer.start()
+
+
+func _request_levels_data_answer(levels_data: Dictionary) -> void:
+	$ConnectionOutTimer.stop()
+	$UIBlocker.hide()
+	if (CurrentSubMenu != "Main"): get_node(CurrentSubMenu+"Menu/Loading").hide()
+	match (connection_action):
+		"update_levels_data_dictionary":
+			levels_data_dictionary = levels_data
+	print("Fetch completed successfully")
+	connecting = false
+	connection_action = ""
+
+
+
+func _on_ConnectionOutTimer_timeout():
+	if (connecting):
+		$UIBlocker.hide()
+		if (CurrentSubMenu != "Main"): get_node(CurrentSubMenu+"Menu/Loading").hide()
+		#savedFocus = getFocusNode()
+		#Global.showMessage("No se pudo conectar.", self)
+		if (CurrentSubMenu != "Main"):
+			get_node(CurrentSubMenu+"Menu/FailedRequestLabel").show()
+		print("Fetch error, code: ", connection_action)
+		connection_action = ""
+		connecting = false

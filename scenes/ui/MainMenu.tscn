@@ -4,7 +4,8 @@
 [ext_resource path="res://scenes/ui/startmenu.tscn" type="PackedScene" id=2]
 
 [node name="MainMenu" type="Node2D"]
-
-[node name="Level" parent="." instance=ExtResource( 1 )]
+pause_mode = 2
 
 [node name="StartMenu" parent="." instance=ExtResource( 2 )]
+
+[node name="Level" parent="." instance=ExtResource( 1 )]

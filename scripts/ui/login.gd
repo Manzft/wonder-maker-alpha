@@ -17,6 +17,10 @@ var editingText: bool = false
 
 var savedFocus
 
+var connecting: bool = false
+
+var real_password: String = ""
+
 func _input(event):
 	if (Global.CurrentInput == "Gamepad"):
 		updateFocusSprite();
@@ -78,7 +82,7 @@ func _ready():
 		node.get_node("DownLeft").stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		
 		node.get_node("AnimationPlayer").playback_speed = 1.0
-	
+
 	if (get_parent().get_name() == "Editor"):
 		get_parent().editingText = true;
 	changeInput();
@@ -97,10 +101,31 @@ func _ready():
 	if ("CurrentMenu" in get_parent()):
 		if (get_parent().CurrentMenu == "SideMenu"):
 			rect_position.x += 610;
-			
+	
+	get_tree().connect("connected_to_server", self, "_connected_to_server")
+	get_tree().connect("server_disconnected", self, "_server_disconnected")
+	Online.connect("request_login_answer", self, "_request_login_answer")
+	
+	$UIBlocker.show()
+	$Loading.show()
+	connecting = true
+	Online._connect_to_server()
+	$ConnectionOutTimer.start()
+	
 	yield(get_tree().create_timer(0.125), "timeout");
 	$AnimationPlayer.play("in");
-	
+
+
+func _connected_to_server() -> void:
+	$UIBlocker.hide()
+	$Loading.hide()
+	connecting = false
+
+
+func _server_disconnected() -> void:
+	queue_free()
+
+
 func _process(delta):
 	if (!visible):
 		timer += delta;
@@ -142,38 +167,17 @@ func button_mouse_exited():
 
 func _on_LoginButton_pressed():
 	var username: String = $UserBox/Label.text
-	var password: String = $PasswordBox/Label.text
+	var password: String = real_password
 	$AudioButton.play()
 	changeFocus();
 	if (username != "" && !username.begins_with(" ") &&
 	password != "" && !password.begins_with(" ")):
 		$UIBlocker.show()
 		$Loading.show()
-		var result = yield(Online.login(username, password), "completed")
-		$UIBlocker.hide()
-		$Loading.hide()
-		match (result):
-			"incorrect_password":
-				savedFocus = getFocusNode()
-				Global.showMessage("Contraseña incorrecta.", self)
-			"user_not_found":
-				savedFocus = getFocusNode()
-				Global.showMessage("Este usuario no existe.", self)
-			"server_closed":
-				savedFocus = getFocusNode()
-				Global.showMessage("Se estan llevando a cabo labores de mantenimiento, vuelve mas tarde.", self)
-			"banned":
-				savedFocus = getFocusNode()
-				Global.showMessage("Has sido baneado de Wonder Maker Online, puedes apelar en el servidor de discord.", self)
-			"logged":
-				if (notstartmenu):
-					$AnimationPlayer.play_backwards("in");
-					Backwards = true;
-					changeFocus();
-				else:
-					Global.USER_NAME = Online.user_name
-					Global.saveSettings()
-					Global.changeScene("res://scenes/ui/online.tscn")
+		connecting = true
+		Online.user_name = username
+		Online.rpc("_request_login", username, password)
+		$ConnectionOutTimer.start()
 	else:
 		savedFocus = getFocusNode()
 		Global.showMessage("Debes rellenar todos los campos.", self)
@@ -241,9 +245,6 @@ func checkClick(event: InputEvent):
 		if (event.button_index == BUTTON_LEFT):
 			if (!event.pressed):
 				check = true
-	if (event is InputEventScreenTouch):
-		if (!event.pressed):
-			check = true
 	return check
 
 func enterTextFinished(text: String, type: String):
@@ -251,7 +252,11 @@ func enterTextFinished(text: String, type: String):
 		"user":
 			$UserBox/Label.text = text
 		"password":
-			$PasswordBox/Label.text = text
+			real_password = text
+			var chars = real_password.length()
+			$PasswordBox/Label.text = ""
+			for i in range(chars):
+				$PasswordBox/Label.text += "*"
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if (Backwards):
@@ -280,3 +285,34 @@ func _on_UserBox_gui_input(event):
 func _on_PasswordBox_gui_input(event):
 	if (checkClick(event)):
 		Global.enterText("Escribe tu contraseña:", "password", self)
+
+
+func _request_login_answer(code: String, account_id: String) -> void:
+	connecting = false
+	$UIBlocker.hide()
+	$Loading.hide()
+	savedFocus = getFocusNode()
+	#Global.showMessage(code, self)
+	match (code):
+		"logged":
+			print("Logged in Wonder Maker Online")
+			Online.logged = true
+			Online.account_id = account_id
+			Global.USER_NAME = Online.user_name
+			Global.saveSettings()
+			Global.changeScene("res://scenes/ui/online.tscn")
+			Online.notif._show("Conectado a Wonder Maker Online")
+		"already_logged":
+			Global.showMessage("No deberias poder ver esto, ya estas logeado.", self)
+		"incorrect_password":
+			Global.showMessage("Contraseña incorrecta.", self)
+		"not_exists":
+			Global.showMessage("Esta cuenta no existe.", self)
+		"banned":
+			Global.showMessage("Esta cuenta ha sido baneada, no puedes acceder a Wonder Maker Online.", self)
+
+
+func _on_ConnectionOutTimer_timeout():
+	if (connecting):
+		_on_CloseButton_pressed()
+		Global.showMessage("No se pudo conectar.", get_parent())

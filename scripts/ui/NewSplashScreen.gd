@@ -27,4 +27,4 @@ func _on_WonderMaker_AnimationPlayer_animation_finished(anim_name):
 		yield(get_tree().create_timer(1.0), "timeout");
 		Global.SPLASH_SCREEN_FINISHED = true;
 		Global.saveSettings();
-		Global.changeScene("res://scenes/ui/WelcomeScreen.tscn", self);
+		Global.changeScene("res://scenes/ui/OldSplashScreen.tscn", self);

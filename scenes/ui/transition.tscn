@@ -49,6 +49,7 @@ tracks/0/keys = {
 }
 
 [node name="Transition" type="CanvasLayer" groups=["Transition"]]
+pause_mode = 2
 layer = 10
 scale = Vector2( 50, 50 )
 transform = Transform2D( 50, 0, 0, 50, 0, 0 )

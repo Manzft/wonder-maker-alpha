@@ -1,4 +1,4 @@
-[gd_scene load_steps=73 format=2]
+[gd_scene load_steps=78 format=2]
 
 [ext_resource path="res://scripts/ui/online.gd" type="Script" id=1]
 [ext_resource path="res://fonts/NINTENDOSWITCHUI.TTF" type="DynamicFontData" id=2]
@@ -32,10 +32,12 @@
 [ext_resource path="res://sprites/ui/online/back_courseworld.png" type="Texture" id=30]
 [ext_resource path="res://sprites/ui/settings/nine_patch.png" type="Texture" id=31]
 [ext_resource path="res://scenes/online/level_panel.tscn" type="PackedScene" id=32]
+[ext_resource path="res://sprites/ui/editor/circle_little_Button.png" type="Texture" id=33]
 [ext_resource path="res://sprites/ui/online/scroll_bar.png" type="Texture" id=34]
 [ext_resource path="res://sprites/ui/coursebot/scroll.png" type="Texture" id=35]
 [ext_resource path="res://scenes/online/user_panel.tscn" type="PackedScene" id=36]
 [ext_resource path="res://sprites/ui/loading.png" type="Texture" id=37]
+[ext_resource path="res://sprites/ui/editor/circle_little_Button _dropshadow.png" type="Texture" id=38]
 
 [sub_resource type="DynamicFont" id=1]
 size = 30
@@ -629,6 +631,41 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 0.0, 360.0 ]
+}
+
+[sub_resource type="DynamicFont" id=77]
+size = 30
+font_data = ExtResource( 11 )
+
+[sub_resource type="Animation" id=78]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 0.219608, 0.870588, 0.27451, 1 ) ]
+}
+
+[sub_resource type="Animation" id=79]
+resource_name = "idle"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:self_modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 0.219608, 0.870588, 0.27451, 1 ), Color( 0.572549, 0.870588, 0.596078, 1 ), Color( 0.219608, 0.870588, 0.27451, 1 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -1885,6 +1922,58 @@ custom_fonts/font = SubResource( 74 )
 text = "Solicitud fallida"
 align = 1
 
+[node name="ConnectedPlayers" type="Control" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -156.0
+margin_top = 11.0
+margin_right = 156.0
+margin_bottom = 81.0
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="ConnectedPlayers"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -57.5
+margin_top = -17.5
+margin_right = 117.5
+margin_bottom = 17.5
+custom_fonts/font = SubResource( 77 )
+text = "Jugadores: 0"
+
+[node name="Icon" type="TextureRect" parent="ConnectedPlayers"]
+self_modulate = Color( 0.219608, 0.870588, 0.27451, 1 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -122.5
+margin_top = -31.5
+margin_right = -59.5
+margin_bottom = 31.5
+rect_scale = Vector2( 0.7, 0.7 )
+rect_pivot_offset = Vector2( 31, 31 )
+texture = ExtResource( 33 )
+
+[node name="DropShadow" type="TextureRect" parent="ConnectedPlayers/Icon"]
+show_behind_parent = true
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -64.0
+margin_top = -64.0
+margin_right = 64.0
+margin_bottom = 64.0
+texture = ExtResource( 38 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ConnectedPlayers/Icon"]
+autoplay = "idle"
+anims/RESET = SubResource( 78 )
+anims/idle = SubResource( 79 )
+
 [node name="UIBlocker" type="Control" parent="."]
 visible = false
 anchor_right = 1.0
@@ -1934,6 +2023,10 @@ stream = ExtResource( 28 )
 volume_db = -10.0
 autoplay = true
 
+[node name="ConnectionOutTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="mouse_entered" from="StartButton" to="." method="_on_start_button_mouse_entered"]
 [connection signal="mouse_exited" from="StartButton" to="." method="_on_start_button_mouse_exited"]
 [connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
@@ -1952,3 +2045,4 @@ autoplay = true
 [connection signal="mouse_entered" from="LeaderboardsMenu/BackButton" to="." method="_on_back_button_mouse_entered"]
 [connection signal="mouse_exited" from="LeaderboardsMenu/BackButton" to="." method="_on_back_button_mouse_exited"]
 [connection signal="pressed" from="LeaderboardsMenu/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="timeout" from="ConnectionOutTimer" to="." method="_on_ConnectionOutTimer_timeout"]

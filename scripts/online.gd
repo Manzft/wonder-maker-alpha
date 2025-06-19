@@ -1,31 +1,24 @@
 extends Node
 
+var connected: bool = false
+
 var logged: bool = false
 var playing_online: bool = false
 
 var to_publish: bool = false
-
-var request_data = null
 
 var persistency_menu: String = ""
 
 var user_name: String = ""
 
 var local_accounts_data = {}
-var local_loaded_level_data = {}
+var local_loaded_level_data: Dictionary = {}
+var local_loaded_level: Dictionary = {}
 
-var timer = 0.0
+var ipToConnect = "";
+var portToConnect = 0;
 
-func _ready() -> void:
-	yield(auth(), "completed")
-
-func auth():
-	var auth_result = yield(Supabase.auth.sign_in_anonymous(), "completed")
-	if auth_result.error:
-		print("Auth error:", auth_result.error)
-	else:
-		print("Logged sucessfully.")
-	return
+var players_count: int = 0
 
 func send_data(table: String, data: Dictionary):
 	var query = SupabaseQuery.new().from(table).insert([data])
@@ -35,12 +28,8 @@ func send_data(table: String, data: Dictionary):
 	
 	var task = Supabase.database.query(query)
 	
-	request_data = null
 	var var_to_send = yield(internal_check_request(), "completed")
 	return var_to_send
-
-func _on_send_data_finished(result):
-	request_data = result
 
 func send_data_condition(table: String, data: Dictionary, condition: Array):
 	var query = SupabaseQuery.new().from(table).update(data).eq(condition[0], condition[1])
@@ -49,12 +38,8 @@ func send_data_condition(table: String, data: Dictionary, condition: Array):
 	
 	var task = Supabase.database.query(query)
 	
-	request_data = null
 	var var_to_send = yield(internal_check_request(), "completed")
 	return var_to_send
-
-func _on_send_data_condition_finished(result):
-	request_data = result
 
 func receive_data(table: String):
 	var query = SupabaseQuery.new().from(table).select()
@@ -64,12 +49,8 @@ func receive_data(table: String):
 	
 	var task = Supabase.database.query(query)
 	
-	request_data = null
 	var var_to_send = yield(internal_check_request(), "completed")
 	return var_to_send
-
-func _on_receive_data_finished(result):
-	request_data = result
 
 func login(nickname: String, password: String):
 	print("Requesting login...")
@@ -619,51 +600,9 @@ func http_finished(data):
 
 func internal_check_request():
 	yield(get_tree().create_timer(1.0), "timeout")
-	if (check_request()):
-		var val_to_send = request_data; request_data = null; return val_to_send
-	else:
-		yield(get_tree().create_timer(1.0), "timeout")
-		if (check_request()):
-			var val_to_send = request_data; request_data = null; return val_to_send
-		else:
-			yield(get_tree().create_timer(1.0), "timeout")
-			if (check_request()):
-				var val_to_send = request_data; request_data = null; return val_to_send
-			else:
-				yield(get_tree().create_timer(1.0), "timeout")
-				if (check_request()):
-					var val_to_send = request_data; request_data = null; return val_to_send
-				else:
-					yield(get_tree().create_timer(1.0), "timeout")
-					if (check_request()):
-						var val_to_send = request_data; request_data = null; return val_to_send
-					else:
-						yield(get_tree().create_timer(1.0), "timeout")
-						if (check_request()):
-							var val_to_send = request_data; request_data = null; return val_to_send
-						else:
-							yield(get_tree().create_timer(1.0), "timeout")
-							if (check_request()):
-								var val_to_send = request_data; request_data = null; return val_to_send
-							else:
-								yield(get_tree().create_timer(1.0), "timeout")
-								if (check_request()):
-									var val_to_send = request_data; request_data = null; return val_to_send
-								else:
-									yield(get_tree().create_timer(1.0), "timeout")
-									if (check_request()):
-										var val_to_send = request_data; request_data = null; return val_to_send
-									else:
-										print("ERROR: The request didn't work")
-										return null
 
 func check_request():
-	if (request_data == null):
-		print("Waiting...")
-		return false
-	else:
-		print("Request successful")
-		return true
+	pass
 
 func find_for_str_in_array_dir(array: Array, name: String) -> int:
 	for i in range(array.size()):
@@ -672,3 +611,120 @@ func find_for_str_in_array_dir(array: Array, name: String) -> int:
 			if (element["nick"] == name):
 				return i
 	return -1
+
+#---------------------------------------------------------------------
+
+signal request_login_answer
+signal request_accounts_answer
+signal request_check_moderator_answer
+signal request_account_info_answer
+
+signal request_ban_account_answer
+signal request_pardon_account_answer
+
+signal request_levels_answer
+signal request_levels_data_answer
+
+signal request_set_played_answer
+signal request_add_death_answer
+
+var players_count_fetcher_timer: Timer
+var notif: CanvasLayer
+
+var account_id: String = ""
+
+func _ready():
+	notif = preload("res://scenes/ui/notification.tscn").instance()
+	add_child(notif)
+	
+	players_count_fetcher_timer = Timer.new()
+	add_child(players_count_fetcher_timer)
+	players_count_fetcher_timer.one_shot = false
+	players_count_fetcher_timer.wait_time = 5.0
+	players_count_fetcher_timer.connect("timeout", self, "_players_count_fetch")
+	players_count_fetcher_timer.start()
+	
+	get_tree().connect("connected_to_server", self, "_connected_to_server");
+	get_tree().connect("server_disconnected", self, "_server_disconnected");
+
+func _players_count_fetch() -> void:
+	if (logged):
+		rpc("_request_players_count")
+
+func _connected_to_server() -> void:
+	connected = true
+	print("Connected to the server");
+
+func _server_disconnected() -> void:
+	connected = false
+	logged = false
+	print("Disconnected from the server");
+	notif._show("Desconectado del servidor")
+	if (get_tree().current_scene.name != "MainMenu"):
+		Global.changeScene("res://scenes/ui/MainMenu.tscn", get_tree().current_scene)
+	
+
+func _connect_to_server() -> void:
+	var peer = NetworkedMultiplayerENet.new()
+	#var err = peer.create_client(ipToConnect, portToConnect);
+	var err = peer.create_client("127.0.0.1", 2710);
+	if (err != OK):
+		print("Can't connect to server: "+str(err))
+	get_tree().network_peer = peer;
+
+remote func _disconnect_server(code: String):
+	var tree: Node = null
+	for node in get_tree().get_nodes_in_group("CurrentTree"):
+		tree = node
+		break
+	if (tree == null):
+		tree = get_tree().current_scene
+	
+	connected = false
+	notif._show("Desconectado del servidor")
+	get_tree().network_peer = null
+	logged = false
+	
+	if (tree != null):
+		match (code):
+			"banned":
+				var inst: Node = Global.showMessage("Has sido baneado de Wonder Maker Online, no podras acceder de nuevo con esta cuenta.", tree)
+				yield(inst, "finished")
+				if (get_tree().current_scene.name != "MainMenu"): Global.changeScene("res://scenes/ui/MainMenu.tscn", get_tree().current_scene)
+			"full":
+				var inst: Node = Global.showMessage("Wonder Maker Online esta en su limite de usuarios, vuelve mas tarde.", tree)
+				yield(inst, "finished")
+
+remote func _request_login_answer(code: String, account_id: String) -> void:
+	emit_signal("request_login_answer", code, account_id)
+
+remote func _request_accounts_answer(accounts: Dictionary) -> void:
+	emit_signal("request_accounts_answer", accounts)
+
+remote func _request_players_count_answer(count: int) -> void:
+	players_count = count
+	#print("Wonder Maker Online Connected Players: ", players_count)
+	
+remote func _request_check_moderator_answer(is_moderator: bool) -> void:
+	emit_signal("request_check_moderator_answer", is_moderator)
+	
+remote func _request_account_info_answer(info: Dictionary):
+	emit_signal("request_account_info_answer", info)
+
+remote func _request_ban_account_answer(code: String):
+	emit_signal("request_ban_account_answer", code)
+
+remote func _request_pardon_account_answer(code: String):
+	emit_signal("request_pardon_account_answer", code)
+
+remote func _request_levels_answer(levels: Dictionary):
+	emit_signal("request_levels_answer", levels)
+
+remote func _request_levels_data_answer(levels_data: Dictionary):
+	emit_signal("request_levels_data_answer", levels_data)
+
+remote func _request_set_played_answer(code: String) -> void:
+	emit_signal("request_set_played_answer", code)
+
+remote func _request_add_death_answer(code: String) -> void:
+	emit_signal("request_add_death_answer", code)

@@ -22,7 +22,7 @@
 [ext_resource path="res://sprites/appeareances/nsmbu/mario/small/walk/tile017.png" type="Texture" id=20]
 [ext_resource path="res://sprites/appeareances/nsmbu/mario/small/walk/tile015.png" type="Texture" id=21]
 [ext_resource path="res://sprites/64x64.png" type="Texture" id=22]
-[ext_resource path="res://fonts/NINTENDOSWITCHUI.TTF" type="DynamicFontData" id=23]
+[ext_resource path="res://fonts/seguihis.ttf" type="DynamicFontData" id=23]
 [ext_resource path="res://scripts/ui/SplashScreen.gd" type="Script" id=24]
 [ext_resource path="res://sounds/appeareances/smb/coin.wav" type="AudioStream" id=25]
 [ext_resource path="res://sprites/appeareances/nsmbu/mario/small/walk/tile023.png" type="Texture" id=26]
@@ -805,7 +805,7 @@ visible = false
 position = Vector2( 16, 150 )
 scale = Vector2( 0.666, 0.666 )
 frames = SubResource( 1 )
-frame = 6
+frame = 8
 speed_scale = 1.25
 playing = true
 
@@ -814,7 +814,7 @@ visible = false
 position = Vector2( 16, 150 )
 scale = Vector2( 0.666, 0.666 )
 frames = SubResource( 6 )
-frame = 45
+frame = 55
 playing = true
 
 [node name="MarioRunNSMBU" type="AnimatedSprite" parent="Sprite"]
@@ -822,7 +822,7 @@ visible = false
 position = Vector2( 16, 150 )
 scale = Vector2( 0.666, 0.666 )
 frames = SubResource( 9 )
-frame = 6
+frame = 19
 speed_scale = 1.7
 playing = true
 
@@ -831,7 +831,7 @@ visible = false
 position = Vector2( 16, 150 )
 scale = Vector2( 0.8, 0.8 )
 frames = SubResource( 7 )
-frame = 18
+frame = 11
 playing = true
 
 [node name="MarioIdleNSMB2" type="AnimatedSprite" parent="Sprite"]
@@ -839,7 +839,7 @@ visible = false
 position = Vector2( 17, 154 )
 scale = Vector2( 2.65, 2.65 )
 frames = SubResource( 102 )
-frame = 67
+frame = 31
 playing = true
 
 [node name="Control" type="Control" parent="."]
@@ -861,14 +861,13 @@ margin_right = 579.0
 margin_bottom = 219.5
 custom_colors/font_outline_modulate = Color( 1, 1, 1, 1 )
 custom_fonts/font = SubResource( 2 )
-text = "Wonder Maker es un juego hecho sin
-ánimos de lucro.
+text = "Wonder Maker es un juego hecho exclusivamente con
+el objetivo de entretener de forma gratuita a
+fans de la franquicia.
 
-Es un FAN-GAME, hecho para fans
-de forma completamente
-gratuita.
+Es un Fan-Game, hecho por y para la comunidad.
 
-No está afiliado con Nintendo de ninguna forma."
+Todos los derechos de autor pertenecen a Nintendo."
 align = 1
 valign = 1
 

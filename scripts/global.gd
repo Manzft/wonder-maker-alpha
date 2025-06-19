@@ -366,7 +366,7 @@ func loadCourseData(ingame = true):
 		var json = JSON.parse(content)
 		level_data = json.result;
 	else:
-		level_data = Online.local_loaded_level_data.data
+		level_data = Online.local_loaded_level_data
 	
 	CurrentAppeareance = int(level_data.appeareance);
 	CurrentStyle = level_data.style;
@@ -521,7 +521,7 @@ func loadSettings():
 			WELCOME_SCREEN = config.get_value(section, "Welcome Screen Finished", false);
 			SNOW_FALLING_PARTICLES = config.get_value(section, "Snow Falling Particles", true);
 			AUTO_SAVING = config.get_value(section, "Auto-Saving", false);
-			WELCOME_ONLINE = config.get_value(section, "Welcome Online", false)
+			WELCOME_ONLINE = config.get_value(section, "Welcome Online Final", false)
 		if (section == "User"):
 			USER_NAME = config.get_value(section, "Username", "");
 	
@@ -546,7 +546,7 @@ func saveSettings():
 	config.set_value("General", "Welcome Screen Finished", WELCOME_SCREEN);
 	config.set_value("General", "Auto-Saving", AUTO_SAVING);
 	config.set_value("General", "Snow Falling Particles", SNOW_FALLING_PARTICLES);
-	config.set_value("General", "Welcome Online", WELCOME_ONLINE);
+	config.set_value("General", "Welcome Online Final", WELCOME_ONLINE);
 	
 	config.set_value("User", "Username", USER_NAME);
 
@@ -886,6 +886,22 @@ func showMessage(text, tree, realtree = null, type : String = ""):
 	inst.setText(text);
 	inst.realmenu = realtree;
 	inst.type = type;
+	return inst
+
+func showProfile(account_id: String, tree):
+	var scene = preload("res://scenes/ui/profile.tscn");
+	var inst = scene.instance();
+	tree.add_child(inst);
+	inst._set_account_id(account_id)
+	return inst
+
+func showPanel(text, tree, realtree = null):
+	var scene = preload("res://scenes/ui/panelbox.tscn");
+	var inst = scene.instance();
+	tree.add_child(inst);
+	inst.setText(text);
+	inst.realmenu = realtree;
+	return inst
 
 func auth_interface(tree: Node, notstartmenu: bool = false):
 	var scene = preload("res://scenes/ui/login.tscn");

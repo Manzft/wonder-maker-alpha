@@ -18,6 +18,8 @@ onready var tree = $"../../../../.."
 var selbox_interval: float = 0.25
 
 var level_data: Dictionary
+var level: Dictionary
+var author_id: String
 
 func _ready():
 	connect("pressed", self, "_on_pressed")
@@ -83,6 +85,7 @@ func _on_play_button_pressed() -> void:
 	$"../../../../../AudioButton".play();
 	
 	Online.local_loaded_level_data = level_data
+	Online.local_loaded_level = level
 	Global.currentCourseName = find_node("LevelName").text
 	
 	Online.persistency_menu = tree.selected_tab.name
@@ -94,4 +97,12 @@ func _on_play_button_pressed() -> void:
 func _on_play_button_mouse_entered() -> void:
 	tree.mouseFocus = str(play_button.get_path()); tree.button_mouse_entered(); tree.changeFocus();
 func _on_play_button_mouse_exited() -> void:
+	tree.button_mouse_exited(); tree.mouseFocus = ""; tree.changeFocus();
+
+func _on_profile_button_pressed() -> void:
+	$"../../../../../AudioButton".play();
+	Global.showProfile(author_id, tree)
+func _on_profile_button_mouse_entered() -> void:
+	tree.mouseFocus = str(find_node("ProfileButton").get_path()); tree.button_mouse_entered(); tree.changeFocus();
+func _on_profile_button_mouse_exited() -> void:
 	tree.button_mouse_exited(); tree.mouseFocus = ""; tree.changeFocus();

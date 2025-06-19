@@ -11,6 +11,8 @@ var realmenu = null;
 
 var type = "";
 
+signal finished
+
 func _input(event):
 	if (Global.CurrentInput == "Gamepad"):
 		updateFocusSprite();
@@ -144,6 +146,7 @@ func _on_OkButton_mouse_exited():
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if (Backwards):
 		hide();
+		emit_signal("finished")
 		if ("savedFocus" in get_parent()):
 			if (Global.CurrentInput == "Gamepad"):
 				if (realmenu == null):

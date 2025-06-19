@@ -82,7 +82,7 @@ func _ready():
 	
 	var user = ""
 	if (Online.playing_online):
-		user = Global.courseGetUser(Online.local_loaded_level_data.data)
+		user = Online.local_loaded_level.author
 		$Separator/Icon.hide()
 		$Separator/Label.hide()
 		$Separator/CourseWorldIcon.show()
@@ -92,15 +92,15 @@ func _ready():
 		
 		#Likes
 		var likes_node = find_node("LikeLabel")
-		likes_node.text = str(int(Online.local_loaded_level_data.likes))
+		likes_node.text = str(Online.local_loaded_level.likes)
 		
 		#Dislikes
 		var dislikes_node = find_node("DislikeLabel")
-		dislikes_node.text = str(int(Online.local_loaded_level_data.dislikes))
+		dislikes_node.text = str(Online.local_loaded_level.dislikes)
 		
 		#Played
 		var played_node = find_node("PlayedLabel")
-		played_node.text = str(int(Online.local_loaded_level_data.played))
+		played_node.text = str(Online.local_loaded_level.played)
 	else:
 		user = Global.courseGetUser(Global.currentlevel)
 	
