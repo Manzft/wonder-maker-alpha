@@ -136,7 +136,7 @@ var alternRender = true;
 var level_data = {}
 var object_data = []
 
-var SECURITY_KEY = "27102021"
+var SECURITY_KEY = "00000000"
 
 var DISCORD_PRESENCE = true;
 
